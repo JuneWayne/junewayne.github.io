@@ -5,6 +5,11 @@ const pageKey = (url) => new URL(url).pathname.replace(/\/$/, '/index.html');
 
 export function setupNavigation({ renderPage, updateNavigation }) {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!reducedMotion.matches) {
+    const hand = new Image();
+    hand.src = new URL('../images/motion/page-turn-hand.png', import.meta.url).href;
+    hand.decode().catch(() => {});
+  }
   const forcedColors = matchMedia('(forced-colors: active)');
   const cache = new Map();
   const allowedPaths = new Set([...supportedPages].map((name) => new URL(name, location.href).pathname));

@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 820 ms, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 1.15 seconds, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No package installation or build step is needed for production; GitHub Pages can serve the files directly.
 
@@ -78,7 +78,7 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
 - `assets/js/cv.js`: CV timeline, category filters, education, skills, and lazy PDF preview.
-- `assets/js/page-turn.js`: a compositor-animated DOM page with soft shading; no canvas or pixel effects.
+- `assets/js/page-turn.js`: a curved paper fold over live DOM, with a grain texture, soft shadows, and a hand following the paper edge.
 - `assets/js/transition.js`: cached page navigation and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
 - `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.
 - `assets/Python_notebook/`: downloadable COMM 4351 lecture notebooks. Saved execution logs are cleared; original notebook copies are backed up under `/tmp/ethan-lecture-notebook-originals`.
@@ -112,3 +112,5 @@ Select **Deploy from a branch**, your published branch, and **/(root)** in GitHu
 Blake’s album lives at `blake.html` and uses `site.blake` in the content file. Layla uses `site.cat`. The Cat pages link to both albums, each with its own lightbox.
 
 Research `labs` entries are linked names displayed below each project title. The favicon embeds the supplied `layla-head.jpg` in a square SVG viewport.
+
+The animated hand is a photorealistic transparent cutout generated with the built-in imagegen tool, saved at `assets/images/motion/page-turn-hand.png`. Its position, wrist rotation, and lift follow the page’s free edge. The generation prompt is recorded in `docs/design/page-turn-hand-prompt.txt`.

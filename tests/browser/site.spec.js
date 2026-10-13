@@ -229,18 +229,22 @@ test('page turns always move right to left regardless of tab order', async ({ pa
   for (const tab of ['cat', 'teaching', 'profile']) {
     await page.locator(`[data-nav=${tab}]`).click();
     await expect(page.locator('.book-turn')).toHaveAttribute('data-state', 'turning');
-    const positions = await page.evaluate(() => {
-      const sheet = document.querySelector('.book-sheet');
-      const animation = sheet.getAnimations()[0];
+    const positions = await page.evaluate(async () => {
+      const animation = document.querySelector('.book-sheet').getAnimations()[0];
       animation.pause();
       animation.currentTime = 0;
-      const before = sheet.getBoundingClientRect().right;
-      animation.currentTime = 410;
-      const after = sheet.getBoundingClientRect().right;
-      return { before, after };
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const before = document.querySelector('.book-paper').getBoundingClientRect().right;
+      animation.currentTime = 575;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const after = document.querySelector('.book-paper').getBoundingClientRect().right;
+      const hand = document.querySelector('.book-hand');
+      await hand.decode();
+      return { before, after, handWidth: hand.naturalWidth };
     });
     expect(positions.after).toBeLessThan(positions.before * .8);
     expect(positions.after).toBeGreaterThan(0);
+    expect(positions.handWidth).toBeGreaterThan(0);
     if (tab === 'teaching') await page.screenshot({ path: '/tmp/ethan-book-turn.png' });
     await page.evaluate(() => document.querySelector('.book-sheet').getAnimations()[0].play());
     await expect(page.locator('.book-turn')).toHaveCount(0);
@@ -445,5 +449,17 @@ test('Blake has a separate album and lightbox, accessible from the homepage and 
   await expect(page.locator('#teaching-list')).not.toContainText('University of Virginia');
   for (const role of await page.locator('.teaching-role').all()) {
     expect(await role.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(20);
+  }
+});
+
+test('Tencent and UVA teaching CV photos sit compactly to the right of their text', async ({ page }) => {
+  await page.goto('/cv.html');
+  for (const id of ['tencent', 'guest-lecture']) {
+    const card = page.locator(`#${id}`);
+    const image = await card.locator('.experience-photo').boundingBox();
+    const copy = await card.locator('.experience-copy').boundingBox();
+    expect(image.width).toBeLessThanOrEqual(180);
+    expect(image.x).toBeGreaterThan(copy.x + copy.width);
+    expect(Math.abs(image.y - copy.y)).toBeLessThan(1);
   }
 });

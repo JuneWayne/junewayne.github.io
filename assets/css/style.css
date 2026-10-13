@@ -39,13 +39,12 @@
 body { margin: 0; }
 main { padding-bottom: 3rem; }
 main:focus { outline: none; }
-.book-turn { position: fixed; inset: 0; z-index: 30; overflow: hidden; pointer-events: none; visibility: hidden; perspective: var(--book-perspective); perspective-origin: left center; }
+.book-turn { position: fixed; inset: 0; z-index: 30; overflow: hidden; pointer-events: none; visibility: hidden; }
 .book-turn[data-state='turning'] { visibility: visible; }
-.book-sheet { position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
-.book-front, .book-back { position: absolute; inset: 0; overflow: hidden; background: #fff; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.book-back { transform: rotateY(180deg); background: linear-gradient(90deg, #f2f3f5, #fff 12%); }
-.book-shade { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #263346 0%, transparent 35%, #263346 100%); backface-visibility: hidden; }
-.book-shadow { position: absolute; inset: 0; transform-origin: left center; opacity: 0; background: linear-gradient(90deg, #26334638, #2633460c 45%, transparent 85%); }
+.book-sheet, .book-front { position: absolute; inset: 0; }
+.book-front { overflow: hidden; background: #fff; will-change: clip-path; }
+.book-curl { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.book-hand { position: absolute; left: 0; top: 0; max-width: none; opacity: 0; transform-origin: 20% 24.5%; will-change: transform, opacity; filter: drop-shadow(0 9px 8px #382a2526); }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
@@ -170,6 +169,7 @@ nav a[aria-current='page']::after, nav a.book-current::after { transform: scaleX
 .experience-details li + li { margin-top: .5rem; }
 .experience-links { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin-top: .5rem; }
 .experience-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1rem; }
+.experience-photo { align-self: start; justify-self: end; }
 .experience-photo img { width: 100%; height: auto; }
 .experience-photo-wide { grid-column: 1 / -1; }
 .education-list { display: grid; gap: 1rem; }

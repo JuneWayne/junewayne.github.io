@@ -141,7 +141,7 @@ export const site = {
           "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
           "width": 1613,
           "height": 975,
-          "wide": true
+          "wide": false
         },
         "links": [
           {
@@ -231,7 +231,7 @@ export const site = {
           "alt": "Ethan beside a purple cartoon cat mascot during his Tencent internship.",
           "width": 1706,
           "height": 1279,
-          "wide": true
+          "wide": false
         },
         "location": "Shenzhen, China · HKG: 0700",
         "highlights": [

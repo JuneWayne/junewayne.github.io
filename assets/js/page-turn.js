@@ -1,22 +1,93 @@
-/** A crisp DOM page turns right-to-left over the already-rendered destination. */
-export const TURN_DURATION = 820;
+/** A rolling paper fold travels over live HTML, with a hand following its free edge. */
+export const TURN_DURATION = 1150;
 
 export function makePageTurn() {
   const layer = document.createElement('div');
   layer.className = 'book-turn';
   layer.setAttribute('aria-hidden', 'true');
   layer.inert = true;
-  layer.style.setProperty('--book-perspective', `${Math.max(innerWidth * 2.5, 1400)}px`);
-  const shadow = document.createElement('div');
-  shadow.className = 'book-shadow';
+  const width = document.documentElement.clientWidth;
+  const height = innerHeight;
   const sheet = document.createElement('div');
   sheet.className = 'book-sheet';
   const front = document.createElement('div');
   front.className = 'book-front';
-  const back = document.createElement('div');
-  back.className = 'book-back';
-  const shade = document.createElement('div');
-  shade.className = 'book-shade';
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const curl = document.createElementNS(svgNS, 'svg');
+  curl.classList.add('book-curl');
+  curl.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  // The noise is confined to the paper back; the actual page text stays crisp.
+  curl.innerHTML = `<defs>
+    <linearGradient id="paper-light" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eeede7"/><stop offset=".2" stop-color="#fffef9"/>
+      <stop offset=".66" stop-color="#faf9f4"/><stop offset=".9" stop-color="#e5e3db"/>
+      <stop offset="1" stop-color="#c6c4bb"/>
+    </linearGradient>
+    <filter id="paper-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".065"/></feComponentTransfer>
+      <feComposite in2="SourceGraphic" operator="in"/>
+      <feBlend in2="SourceGraphic" mode="multiply"/>
+    </filter>
+    <filter id="fold-shadow" x="-40%" y="-20%" width="180%" height="140%"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <path class="book-cast-shadow" fill="#292720" opacity=".16" filter="url(#fold-shadow)"/>
+  <path class="book-paper" fill="url(#paper-light)" filter="url(#paper-grain)"/>
+  <path class="book-edge" fill="none" stroke="#fffef9" stroke-width="1.2"/>`;
+  const paper = curl.querySelector('.book-paper');
+  const shadow = curl.querySelector('.book-cast-shadow');
+  const edge = curl.querySelector('.book-edge');
+  const light = curl.querySelector('#paper-light');
+  const hand = document.createElement('img');
+  hand.className = 'book-hand';
+  hand.src = new URL('../images/motion/page-turn-hand.png', import.meta.url).href;
+  hand.alt = '';
+  hand.decoding = 'async';
+  const handSize = Math.min(430, Math.max(300, width * .32));
+  hand.width = hand.height = handSize;
+  let frame = 0;
+  let clock;
+
+  function paint(raw) {
+    // Minimum-jerk timing: still at contact/release, gently accelerating in between.
+    const t = Math.max(0, Math.min(1, (raw - .07) / .86));
+    const p = t * t * t * (10 + t * (-15 + 6 * t));
+    const lift = Math.sin(Math.PI * p);
+    const fold = width * (1 - p);
+    const bend = Math.min(100, width * .09) * lift;
+    const radius = Math.min(85, width * .08) * lift;
+    const free = width * (1 - 2 * p);
+    const top = fold + bend * .55;
+    const bottom = fold - bend * .65;
+    const freeTop = free + bend * .9;
+    const freeBottom = free - bend * .9;
+    const inset = Math.min(32, height * .04) * lift;
+    const crease = `M ${top} 0 C ${top + radius} ${height * .28}, ${bottom + radius} ${height * .7}, ${bottom} ${height}`;
+    const shape = `${crease} Q ${(bottom + freeBottom) / 2} ${height - inset * 2}, ${freeBottom} ${height - inset}
+      C ${freeBottom - radius * .22} ${height * .7}, ${freeTop - radius * .22} ${height * .25}, ${freeTop} ${inset}
+      Q ${(top + freeTop) / 2} ${inset * 2}, ${top} 0 Z`;
+    front.style.clipPath = `path('M 0 0 L ${top} 0 C ${top + radius} ${height * .28}, ${bottom + radius} ${height * .7}, ${bottom} ${height} L 0 ${height} Z')`;
+    paper.setAttribute('d', shape);
+    shadow.setAttribute('d', shape);
+    shadow.setAttribute('transform', `translate(${10 * lift} ${7 * lift})`);
+    shadow.setAttribute('opacity', String(.19 * lift));
+    edge.setAttribute('d', `${crease} M ${freeBottom} ${height - inset} C ${freeBottom - radius * .22} ${height * .7}, ${freeTop - radius * .22} ${height * .25}, ${freeTop} ${inset}`);
+    light.setAttribute('x1', free);
+    light.setAttribute('x2', Math.max(free + 1, fold + radius * .6));
+    light.setAttribute('y1', height * .5);
+    light.setAttribute('y2', height * .5);
+    // Pinch remains on the free edge, while the wrist lifts and rotates through the arc.
+    const gripY = height * .84 - Math.min(35, height * .03) * lift;
+    const u = gripY / height;
+    const gripX = (1-u)**3 * freeTop + 3*(1-u)**2*u*(freeTop-radius*.22)
+      + 3*(1-u)*u*u*(freeBottom-radius*.22) + u**3*freeBottom;
+    const approach = (1 - Math.min(1, raw / .07)) * 24;
+    const angle = 7 - 23 * lift + 8 * p;
+    hand.style.transform = `translate3d(${gripX - handSize * .2 + approach}px, ${gripY - handSize * .245 + approach}px, 0) rotate(${angle}deg) scale(${1 + lift * .045})`;
+    hand.style.opacity = String(Math.min(1, raw / .045, (1 - raw) / .08));
+    layer.dataset.progress = p.toFixed(3);
+  }
   const root = front.attachShadow({ mode: 'open' });
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
@@ -64,10 +135,13 @@ export function makePageTurn() {
     stylesheet.addEventListener('error', () => complete(false), { once: true });
     timer = setTimeout(() => complete(false), 240);
   });
-  root.append(stylesheet, copy);
-  // The shade lives outside the shadow tree so its compositor animation stays simple.
-  sheet.append(front, back, shade);
-  layer.append(shadow, sheet);
+  const freezeStyles = document.createElement('style');
+  freezeStyles.textContent = '*, *::before, *::after { transition: none !important; animation: none !important; }';
+  root.append(stylesheet, freezeStyles, copy);
+  // Decorative paper and hand stay outside the cloned, inert document.
+  sheet.append(front);
+  layer.append(sheet, curl, hand);
+  paint(0);
   document.body.append(layer);
 
   return {
@@ -80,26 +154,23 @@ export function makePageTurn() {
     },
     play(done) {
       if (ended) return;
-      const options = { duration: TURN_DURATION, easing: 'cubic-bezier(.35, 0, .35, 1)', fill: 'forwards' };
-      const turn = sheet.animate([
-        { transform: 'rotateY(0deg)' },
-        { transform: 'rotateY(-108deg)' },
-      ], options);
-      animations.push(turn,
-        shade.animate([{ opacity: 0 }, { opacity: .24 }], options),
-        shadow.animate([
-          { opacity: 0, transform: 'scaleX(1)' },
-          { opacity: .8, transform: 'scaleX(.65)', offset: .45 },
-          { opacity: 0, transform: 'scaleX(0)' },
-        ], options),
-      );
-      turn.finished.then(done, () => {});
+      // A native animation supplies a pauseable clock; only the fold paths and hand move.
+      clock = sheet.animate([{ opacity: 1 }, { opacity: 1 }], { duration: TURN_DURATION, fill: 'forwards' });
+      animations.push(clock);
+      const tick = () => {
+        if (ended) return;
+        paint(Math.min(1, (clock.currentTime || 0) / TURN_DURATION));
+        frame = requestAnimationFrame(tick);
+      };
+      tick();
+      clock.finished.then(done, () => {});
     },
     finish() {
       if (ended) return;
       ended = true;
       resolveReady(false);
       clearTimeout(timer);
+      cancelAnimationFrame(frame);
       animations.forEach((animation) => animation.cancel());
       layer.remove();
       if (active) {
