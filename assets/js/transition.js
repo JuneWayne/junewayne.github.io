@@ -1,16 +1,8 @@
-/** Internal navigation uses a single, forward book-page turn. */
-import { makePageTurn, TURN_DURATION, HAND_SPRITE_URL } from './page-turn.js';
+/** Cached internal navigation with immediate page changes and no animation. */
 const supportedPages = new Set(['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']);
 const pageKey = (url) => new URL(url).pathname.replace(/\/$/, '/index.html');
 
 export function setupNavigation({ renderPage, updateNavigation }) {
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  if (!reducedMotion.matches) {
-    const hand = new Image();
-    hand.src = HAND_SPRITE_URL;
-    hand.decode().catch(() => {});
-  }
-  const forcedColors = matchMedia('(forced-colors: active)');
   const cache = new Map();
   const allowedPaths = new Set([...supportedPages].map((name) => new URL(name, location.href).pathname));
   let displayedURL = new URL(location.href);
@@ -23,7 +15,7 @@ export function setupNavigation({ renderPage, updateNavigation }) {
     if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return null;
     const url = new URL(anchor.href);
     if (url.origin !== location.origin || !allowedPaths.has(pageKey(url))) return null;
-    // Preserve document anchors and skip links; Profile and Research are page turns.
+    // Preserve native document anchors and skip links.
     if (pageKey(url) === pageKey(displayedURL) && url.hash && !anchor.matches('[data-nav]')) return null;
     return url;
   }
@@ -47,7 +39,6 @@ export function setupNavigation({ renderPage, updateNavigation }) {
     generation++;
     if (!pending) return;
     clearTimeout(pending.watchdog);
-    pending.turn?.finish();
     pending = null;
   }
 
@@ -82,12 +73,7 @@ export function setupNavigation({ renderPage, updateNavigation }) {
     stop();
     const token = generation;
     const differentPage = pageKey(url) !== pageKey(displayedURL);
-    let ready = !differentPage;
-    let parsed = null;
-    let swapped = false;
-    const animate = !historyNavigation && !reducedMotion.matches && !forcedColors.matches && !document.hidden && Element.prototype.animate;
-    const turn = animate ? makePageTurn() : null;
-    pending = { turn, watchdog: 0 };
+    pending = { watchdog: 0 };
 
     function fallback() {
       if (token !== generation) return;
@@ -98,7 +84,6 @@ export function setupNavigation({ renderPage, updateNavigation }) {
 
     function finish() {
       if (token !== generation || !pending) return;
-      turn?.finish();
       clearTimeout(pending.watchdog);
       pending = null;
       if (keyboard) {
@@ -108,26 +93,14 @@ export function setupNavigation({ renderPage, updateNavigation }) {
       }
     }
 
-    pending.settle = () => {
-      if (!ready) { fallback(); return; }
-      if (!swapped) swap(url, parsed, historyNavigation);
-      finish();
-      generation++;
-    };
     // Leave the current page readable while fetching; slow links retain native navigation.
     pending.watchdog = setTimeout(fallback, 500);
-    const page = differentPage ? load(url).then((result) => { parsed = result; ready = true; }) : Promise.resolve();
-    Promise.all([page, turn?.ready ?? false]).then(([, prepared]) => {
+    const page = differentPage ? load(url) : Promise.resolve(null);
+    page.then((parsed) => {
       if (token !== generation || !pending) return;
       clearTimeout(pending.watchdog);
-      if (prepared) turn.show();
-      else turn?.finish();
-      // Mount the destination underneath the old sheet before its first animation frame.
       swap(url, parsed, historyNavigation);
-      swapped = true;
-      if (!prepared) { finish(); return; }
-      turn.play(finish);
-      pending.watchdog = setTimeout(finish, TURN_DURATION + 200);
+      finish();
     }).catch(fallback);
   }
 
@@ -154,12 +127,4 @@ export function setupNavigation({ renderPage, updateNavigation }) {
       history.replaceState({ ...history.state, y: scrollY }, '', location.href);
     });
   }, { passive: true });
-  for (const eventName of ['resize', 'visibilitychange']) window.addEventListener(eventName, () => {
-    if (!pending) return;
-    pending.settle();
-  });
-  reducedMotion.addEventListener('change', () => {
-    if (!reducedMotion.matches || !pending) return;
-    pending.settle();
-  });
 }

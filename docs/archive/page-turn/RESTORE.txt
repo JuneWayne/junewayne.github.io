@@ -1,0 +1,19 @@
+Archived page-flip animation
+
+Disabled at the owner’s request. These files are retained for a future experiment;
+the live site does not import the animation, preload its artwork, or load its CSS.
+The last deployed animated version was Git commit 91c42a5.
+
+To restore deliberately:
+1. Copy assets/js/page-turn.js and assets/images/motion/page-turn-left-hand-10.png
+   from this archive back to their matching paths at the repository root.
+2. Compare the archived assets/js/transition.js with the active navigation module
+   and restore its animation integration while retaining any newer navigation fixes.
+3. Append assets/css/page-turn.css from this archive to assets/css/style.css.
+4. Restore the archived tests/browser/page-turn.spec.js to the active test folder;
+   update the current no-animation tests to match the chosen behavior.
+5. Run npm run check and npm run test:browser before publishing.
+
+The paper is drawn procedurally in SVG. The ten-frame left-hand sprite, contact
+masks, initial 90 ms reach, and continuous offscreen exit are preserved together.
+The artwork prompt remains at docs/design/page-turn-left-hand-10-prompt.txt.

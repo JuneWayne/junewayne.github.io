@@ -89,5 +89,5 @@ for (const page of pages) {
 }
 const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
 for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));
-for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/cv.js', 'assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
+for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/cv.js', 'docs/archive/page-turn/assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
 console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length + site.blake.photos.length} photos, JavaScript syntax.`);

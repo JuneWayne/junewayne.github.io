@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 1.15 seconds, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes are immediate, with no transition animations. The former book-page animation is preserved in `docs/archive/page-turn/` and is not loaded by the site. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No package installation or build step is needed for production; GitHub Pages can serve the files directly.
 
@@ -78,15 +78,15 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
 - `assets/js/cv.js`: CV timeline, category filters, education, skills, and lazy PDF preview.
-- `assets/js/page-turn.js`: a curved paper fold over live DOM, with a grain texture, soft shadows, and a hand following the paper edge.
-- `assets/js/transition.js`: cached page navigation and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
+- `docs/archive/page-turn/`: archived page-turn code, hand artwork, CSS, and animation tests, with restoration instructions.
+- `assets/js/transition.js`: cached page navigation and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links if a page cannot be fetched promptly.
 - `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.
 - `assets/Python_notebook/`: downloadable COMM 4351 lecture notebooks. Saved execution logs are cleared; original notebook copies are backed up under `/tmp/ethan-lecture-notebook-originals`.
 - `assets/images/experience/`: Cisco, Align, Tencent, COMM 4351, SARC 5400, and CDL photos. CDL appears only in Teaching.
 - `assets/images/cats/`: Layla’s photos and six Blake photos with descriptive filenames.
 - `assets/fonts/`: local Lato Regular/Bold WOFF2 web fonts and their Open Font License. Original TTF files are backed up at `/tmp/ethan-site-original-fonts`.
 - `docs/design/baseline.png`: accepted design reference.
-- `docs/design/tornado-transition.png`: archived design exploration; the current transition is a book page turn.
+- `docs/design/tornado-transition.png`: archived design exploration; page transitions are currently disabled.
 - `scripts/`, `tests/browser/`: preview and verification.
 
 Old generated design drafts were moved to `/tmp/ethan-site-design-drafts-20261012`. The previous survey and remote GIF embeds were removed from the public page.
@@ -113,7 +113,7 @@ Blake’s album lives at `blake.html` and uses `site.blake` in the content file.
 
 Research `labs` entries are linked names displayed below each project title. The favicon embeds the supplied `layla-head.jpg` in a square SVG viewport.
 
-The left hand uses ten photorealistic gesture frames in `assets/images/motion/page-turn-left-hand-10.png` (five columns × two rows), generated with the built-in imagegen tool. The thumb rests above four supporting fingers. Adjacent poses blend through approach, grip, turn, release, and withdrawal; wrist movement follows the paper until release. The prompt is in `docs/design/page-turn-left-hand-10-prompt.txt`.
+The archived left hand uses ten photorealistic gesture frames in `docs/archive/page-turn/assets/images/motion/page-turn-left-hand-10.png` (five columns × two rows), generated with the built-in imagegen tool. The thumb rests above four supporting fingers. Adjacent poses blend through approach, grip, turn, release, and withdrawal; wrist movement follows the paper until release. The prompt is in `docs/design/page-turn-left-hand-10-prompt.txt`.
 
 During the grip, the full hand is behind the curved paper and a separate per-frame thumb mask is above it. The sheet occludes the supporting fingers and palm. The hand returns above the page only when the grip opens during release.
 
