@@ -82,7 +82,7 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/images/cats/`: all six original photos and seven newly supplied cat photos, preserved.
 - `assets/fonts/`: local Lato fonts and their Open Font License.
 - `docs/design/baseline.png`: accepted design reference.
-- `docs/design/tornado-transition.png`: a four-frame concept drawing of a future letter-tornado transition, generated with the built-in imagegen tool. The full prompt is in `docs/design/tornado-transition-prompt.txt`. This drawing is a concept; the public site uses instant page changes.
+- `docs/design/tornado-transition.png`: a four-frame concept drawing of a future letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. This drawing is a concept; the public site uses instant page changes.
 - `scripts/`, `tests/browser/`: preview and verification.
 
 Old generated design drafts were moved to `/tmp/ethan-site-design-drafts-20261012`. The previous survey and remote GIF embeds were removed from the public page.
