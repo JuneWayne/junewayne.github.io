@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-regular-admission';
-import { setupNavigation } from './transition.js?v=20261013-regular-admission';
-import { renderCV } from './cv.js?v=20261013-regular-admission';
-import { startLaylaAge } from './cat-age.js?v=20261013-regular-admission';
+import { site } from './content.js?v=20261013-profile-header';
+import { setupNavigation } from './transition.js?v=20261013-profile-header';
+import { renderCV } from './cv.js?v=20261013-profile-header';
+import { startLaylaAge } from './cat-age.js?v=20261013-profile-header';
 
 let stopCatAge;
 
@@ -307,6 +307,15 @@ function setupCatGallery() {
 
 function updateNavigation() {
   const active = document.body.dataset.page;
+  const headerName = document.querySelector('.profile-header-name');
+  if (active === 'profile' && !headerName) {
+    const name = element('h1', 'profile-header-name', site.name);
+    name.id = 'profile-name';
+    name.dataset.name = '';
+    document.querySelector('.site-header').prepend(name);
+  } else if (active !== 'profile') {
+    headerName?.remove();
+  }
   document.querySelectorAll('[data-nav]').forEach((anchor) => {
     if (anchor.dataset.nav === active) anchor.setAttribute('aria-current', 'page');
     else anchor.removeAttribute('aria-current');

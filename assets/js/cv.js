@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-regular-admission';
+import { site } from './content.js?v=20261013-profile-header';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

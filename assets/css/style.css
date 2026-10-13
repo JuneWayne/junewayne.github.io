@@ -60,6 +60,7 @@ h3 { font-weight: 400; font-size: 1.2rem; line-height: 1.4; letter-spacing: -.01
 .site-shell { max-width: 1160px; width: calc(100% - 6rem); margin-inline: auto; position: relative; }
 .site-shell main { position: relative; z-index: 1; }
 .site-header { display: flex; align-items: center; justify-content: flex-end; gap: 2rem; min-height: 102px; border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 10; background: var(--color-page); }
+.profile-header-name { margin-right: auto; font-size: clamp(2rem, 2.8vw, 2.5rem); white-space: nowrap; }
 html { scroll-padding-top: 120px; }
 section[id], h2[id], article[id] { scroll-margin-top: 18px; }
 nav { display: flex; align-items: center; gap: 2rem; }
@@ -73,7 +74,6 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 
 .profile { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 3rem; align-items: start; padding-block: 4.25rem 4rem; }
 .profile-portrait { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
-.profile h1 { font-size: clamp(2rem, 2.8vw, 2.5rem); margin-bottom: 1.35rem; }
 .profile-copy h2 { margin-bottom: 1.35rem; }
 .profile-bio { max-width: 660px; font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.75; }
 .profile-bio p + p { margin-top: .8rem; }
@@ -247,6 +247,8 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 60rem) {
   .site-shell { width: calc(100% - 4rem); }
+  body[data-page='profile'] .site-header { gap: 1rem; }
+  body[data-page='profile'] .site-header nav { gap: 1.2rem; }
   .profile { grid-template-columns: 260px minmax(0, 1fr); gap: 2.5rem; }
   .research-row { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
   .research-row:has(.research-thumbnail) { grid-template-columns: 145px minmax(0, 1fr); }
@@ -268,12 +270,15 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
   html { scroll-padding-top: 96px; }
   .site-shell { width: calc(100% - 2.5rem); }
   .site-header { min-height: 80px; justify-content: flex-end; padding-block: .5rem; }
+  body[data-page='profile'] .site-header { flex-wrap: wrap; gap: .4rem; padding-top: 1rem; }
+  body[data-page='profile'] .site-header nav { gap: .5rem; }
+  .profile-header-name { font-size: 2rem; }
+  html:has(body[data-page='profile']) { scroll-padding-top: 136px; }
   nav { width: 100%; gap: .5rem; justify-content: space-between; }
   nav a { font-size: 1rem; }
   .profile { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; padding-block: 2.2rem 2.7rem; }
   .profile-portrait { width: min(260px, 100%); }
   .profile-bio { font-size: 1.03rem; }
-  .profile h1 { margin-bottom: 1rem; }
   .section-heading { flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }
   .section-block { padding-top: 1.6rem; margin-bottom: 1.8rem; }
   .research-row, .research-row:has(.research-thumbnail) { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
