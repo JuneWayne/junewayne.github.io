@@ -74,6 +74,7 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 
 .profile { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 3rem; align-items: start; padding-block: 4.25rem 4rem; }
 .profile-portrait { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
+.profile-email { margin-top: .75rem; font-size: 1rem; }
 .profile-copy h2 { margin-bottom: 1.35rem; }
 .profile-bio { max-width: 660px; font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.75; }
 .profile-bio p + p { margin-top: .8rem; }
