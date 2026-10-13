@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-coursework';
-import { setupNavigation } from './transition.js?v=20261013-coursework';
-import { renderCV } from './cv.js?v=20261013-coursework';
-import { startLaylaAge } from './cat-age.js?v=20261013-coursework';
+import { site } from './content.js?v=20261013-card-links';
+import { setupNavigation } from './transition.js?v=20261013-card-links';
+import { renderCV } from './cv.js?v=20261013-card-links';
+import { startLaylaAge } from './cat-age.js?v=20261013-card-links';
 
 let stopCatAge;
 

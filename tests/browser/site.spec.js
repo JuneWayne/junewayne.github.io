@@ -323,10 +323,31 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   const downloadEvent = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Download resume' }).click();
   expect((await downloadEvent).suggestedFilename()).toBe('Ethan Cao Resume.pdf');
-  await page.locator('#cisco').getByRole('link', { name: /Related research/ }).click();
+  await page.locator('#cisco').getByRole('link', { name: 'Cisco Systems', exact: true }).click();
   await expect(page).toHaveURL(/research.html#prompt-injection$/);
   await expect(page.locator('#prompt-injection')).toBeInViewport();
   expect((await page.locator('#prompt-injection').boundingBox()).y).toBeGreaterThanOrEqual((await page.locator('.site-header').boundingBox()).height);
+});
+
+test('CV card backgrounds and keyboard links navigate while embedded controls remain independent', async ({ page }) => {
+  await page.goto('/cv.html');
+  await expect(page.locator('#cv-coursework .coursework-status')).toHaveCount(0);
+  await expect(page.locator('#align .experience-title-link, #tencent .experience-title-link')).toHaveCount(0);
+  await page.locator('#cisco summary').click();
+  await expect(page.locator('#cisco details')).toHaveAttribute('open', '');
+  await expect(page).toHaveURL(/cv.html$/);
+  await page.locator('#cisco').click({ position: { x: 12, y: 12 } });
+  await expect(page).toHaveURL(/research.html#prompt-injection$/);
+  await page.locator('[data-nav=cv]').click();
+  await page.locator('#experience-filters').getByRole('button', { name: 'Teaching', exact: true }).click();
+  await expect(page.locator('#experience-list')).not.toContainText('Teaching details');
+  await page.locator('#msba-grader .experience-title-link').focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/teaching.html#msba-grader$/);
+  await expect(page.locator('#msba-grader')).toBeInViewport();
+  await page.locator('[data-nav=cv]').click();
+  await page.locator('#experience-filters').getByRole('button', { name: 'Research', exact: true }).click();
+  await expect(page.locator('#visual-intelligence').getByRole('link', { name: 'PARCtorch code' })).toHaveAttribute('href', 'https://github.com/JuneWayne/PARCtorch/');
 });
 
 test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied photos', async ({ page }) => {

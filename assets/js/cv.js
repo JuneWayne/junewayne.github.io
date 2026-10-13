@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-coursework';
+import { site } from './content.js?v=20261013-card-links';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
@@ -29,6 +29,12 @@ function experienceCard(experience) {
   if (experience.dates) meta.append(node('p', 'experience-dates', experience.dates));
   const heading = node('h3', '', experience.organization);
   heading.id = `${experience.id}-title`;
+  const destination = experience.links?.find(link => !link.download);
+  if (destination) {
+    const anchor = resource({ ...destination, label: experience.organization });
+    anchor.className = 'experience-title-link';
+    heading.replaceChildren(anchor);
+  }
   copy.append(meta, heading, node('p', 'experience-role', experience.role));
   if (experience.summary) copy.append(node('p', 'experience-summary', experience.summary));
   if (experience.highlights?.length) {
@@ -39,9 +45,10 @@ function experienceCard(experience) {
     details.append(list);
     copy.append(details);
   }
-  if (experience.links?.length) {
+  const extraLinks = experience.links?.filter(link => link !== destination);
+  if (extraLinks?.length) {
     const links = node('div', 'experience-links');
-    experience.links.forEach((link) => links.append(resource(link)));
+    extraLinks.forEach((link) => links.append(resource(link)));
     copy.append(links);
   }
   card.append(copy);
@@ -119,7 +126,6 @@ export function renderCV() {
         const title = node('div', 'coursework-title');
         title.append(node('strong', 'coursework-code', course.code), ' · ', node('span', '', course.title));
         item.append(title);
-        if (course.status) item.append(node('p', 'coursework-status', course.status));
         if (course.description) item.append(node('p', 'coursework-description', course.description));
         list.append(item);
       });

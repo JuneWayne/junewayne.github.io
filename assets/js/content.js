@@ -365,7 +365,7 @@ export const site = {
         "links": [
           {
             "label": "Lecture notebooks and teaching materials",
-            "url": "./teaching.html"
+            "url": "./teaching.html#comm-4351"
           }
         ]
       },
