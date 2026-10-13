@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-profile-header';
+import { site } from './content.js?v=20261013-teaching-titles';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

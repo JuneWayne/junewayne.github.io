@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-profile-header';
-import { setupNavigation } from './transition.js?v=20261013-profile-header';
-import { renderCV } from './cv.js?v=20261013-profile-header';
-import { startLaylaAge } from './cat-age.js?v=20261013-profile-header';
+import { site } from './content.js?v=20261013-teaching-titles';
+import { setupNavigation } from './transition.js?v=20261013-teaching-titles';
+import { renderCV } from './cv.js?v=20261013-teaching-titles';
+import { startLaylaAge } from './cat-age.js?v=20261013-teaching-titles';
 
 let stopCatAge;
 
@@ -121,8 +121,9 @@ function courseRow(course, full = false) {
     row.append(anchor);
   }
   const title = element('div');
-  if (course.code) title.append(element('span', 'teaching-code', course.code));
-  title.append(element(full ? 'h2' : 'h3', '', course.title));
+  if (!full && course.code) title.append(element('span', 'teaching-code', course.code));
+  const heading = full && course.code ? `${course.code} · ${course.title}` : course.title;
+  title.append(element(full ? 'h2' : 'h3', '', heading));
   if (full && course.links?.length) title.append(links(course.links));
   const role = element('div', 'teaching-role', course.role || 'Teaching Assistant');
   row.append(title, role);

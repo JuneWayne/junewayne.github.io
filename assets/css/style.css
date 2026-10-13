@@ -104,7 +104,7 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .teaching-row { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: .75rem 3rem; border-top: 1px solid var(--color-border); padding-block: 1.4rem; align-items: start; }
 .teaching-row > :first-child, .teaching-row > .teaching-role { grid-column: 1; }
 .teaching-row > .teaching-term { grid-column: 2; grid-row: 1 / span 2; }
-.teaching-row h2 { margin-bottom: 0; font-size: 1.5rem; line-height: 1.4; letter-spacing: -.015em; }
+.teaching-row h2 { margin-bottom: 0; }
 .teaching-code { display: block; color: var(--color-text-muted); font-size: 1rem; font-weight: 700; margin-bottom: .35rem; }
 .teaching-role { color: var(--color-text); font-size: 1.25rem; font-weight: 700; line-height: 1.4; }
 .teaching-term { color: var(--color-text-secondary); font-size: 1rem; }
