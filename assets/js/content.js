@@ -365,7 +365,7 @@ export const site = {
     {
       "title": "Charlottesville Debate League",
       "institution": "Charlottesville, Virginia",
-      "role": "Tournament Chair",
+      "role": "Debate Coach & Tournament Chair",
       "description": "Organizing, planning, and managing speech and debate tournaments for Charlottesville middle school students.",
       "photo": {
         "src": "./assets/images/experience/cdl-team.jpg",
@@ -382,7 +382,72 @@ export const site = {
   animals: [
     { title: "Layla", src: "./assets/images/cats/layla-sofa.jpg", width: 1280, height: 1669,
       alt: "Layla looking over her shoulder while resting on a cream sofa.", url: "./cat.html", position: "50% 0%" },
+    { title: "Blake", src: "./assets/images/cats/blake-loaf.jpg", width: 1279, height: 1706, alt: "Blake looking up with his paws tucked beneath him.", url: "./blake.html", position: "50% 60%" },
   ],
+  blake: {
+    "name": "Blake",
+    "bio": "I met Blake in North Carolina during my internship.",
+    "description": "",
+    "loves": [],
+    "hero": "./assets/images/cats/blake-loaf.jpg",
+    "heroAlt": "Blake looking up with his paws tucked beneath him.",
+    "photos": [
+        {
+            "id": "blake-selfie",
+            "src": "./assets/images/cats/blake-selfie.jpg",
+            "width": 1706,
+            "height": 1279,
+            "alt": "Ethan beside Blake, who is stretched across the back of a chair.",
+            "title": "Together",
+            "category": "Blake"
+        },
+        {
+            "id": "blake-counter",
+            "src": "./assets/images/cats/blake-counter.jpg",
+            "width": 960,
+            "height": 1282,
+            "alt": "Blake stretched out on a kitchen counter while being petted.",
+            "title": "Kitchen company",
+            "category": "Blake"
+        },
+        {
+            "id": "blake-bottle",
+            "src": "./assets/images/cats/blake-bottle.jpg",
+            "width": 1279,
+            "height": 1706,
+            "alt": "Blake holding a water bottle between his paws.",
+            "title": "Finders keepers",
+            "category": "Blake"
+        },
+        {
+            "id": "blake-sofa",
+            "src": "./assets/images/cats/blake-sofa.jpg",
+            "width": 960,
+            "height": 1282,
+            "alt": "Blake curled up beside Ethan on the sofa.",
+            "title": "On the sofa",
+            "category": "Blake"
+        },
+        {
+            "id": "blake-loaf",
+            "src": "./assets/images/cats/blake-loaf.jpg",
+            "width": 1279,
+            "height": 1706,
+            "alt": "Blake looking up with his paws tucked beneath him.",
+            "title": "Paws tucked",
+            "category": "Blake"
+        },
+        {
+            "id": "blake-glasses",
+            "src": "./assets/images/cats/blake-glasses.jpg",
+            "width": 932,
+            "height": 1658,
+            "alt": "Blake wearing glasses while resting on a cardboard scratcher.",
+            "title": "Borrowed glasses",
+            "category": "Blake"
+        }
+    ]
+},
   cat: {
     name: "Layla",
     bio: "Born in Shanghai, home with me since she was four months old.",

@@ -110,7 +110,6 @@ function courseRow(course, full = false) {
   title.append(element(full ? 'h2' : 'h3', '', course.title));
   if (full && course.links?.length) title.append(links(course.links));
   const role = element('div', 'teaching-role', course.role || 'Teaching Assistant');
-  if (full && course.institution) role.append(element('p', 'teaching-description', course.institution));
   row.append(title, role);
   if (course.term) row.append(element('p', 'teaching-term', course.term));
   if (full && course.description) row.append(element('p', 'teaching-description lecture-description', course.description));
@@ -168,15 +167,18 @@ function renderAnimals() {
 function setupCatGallery() {
   const gallery = document.querySelector('#cat-gallery');
   if (!gallery) return;
-  document.querySelector('#cat-title').replaceChildren(`Meet ${site.cat.name}`, element('span', 'soft-period', '.'));
-  document.querySelector('#cat-bio').textContent = site.cat.bio;
-  document.querySelector('#cat-description').textContent = site.cat.description;
+  const cat = document.querySelector('main').dataset.cat === 'blake' ? site.blake : site.cat;
+  document.querySelector('#cat-title').replaceChildren(`Meet ${cat.name}`, element('span', 'soft-period', '.'));
+  document.querySelector('#cat-bio').textContent = cat.bio;
+  document.querySelector('#cat-description').textContent = cat.description;
   const loves = document.querySelector('#cat-loves');
-  loves.setAttribute('aria-label', `Things ${site.cat.name} loves`);
-  loves.replaceChildren(...site.cat.loves.map((item) => element('li', '', item)));
+  loves.setAttribute('aria-label', `Things ${cat.name} loves`);
+  loves.hidden = !cat.loves.length;
+  document.querySelector('#cat-description').hidden = !cat.description;
+  loves.replaceChildren(...cat.loves.map((item) => element('li', '', item)));
   const hero = document.querySelector('.cat-hero-photo img');
-  hero.src = site.cat.hero;
-  hero.alt = site.cat.heroAlt;
+  hero.src = cat.hero;
+  hero.alt = cat.heroAlt;
 
   const dialog = document.querySelector('#photo-dialog');
   const image = document.querySelector('#lightbox-image');
@@ -187,7 +189,7 @@ function setupCatGallery() {
   const next = document.querySelector('#lightbox-next');
   const status = document.querySelector('#lightbox-status');
   const galleryStatus = document.querySelector('#gallery-status');
-  let selected = site.cat.photos;
+  let selected = cat.photos;
   let currentIndex = 0;
   let trigger = null;
 
@@ -212,7 +214,7 @@ function setupCatGallery() {
   }
 
   function render(category = 'All photos', announce = false) {
-    selected = category === 'All photos' ? site.cat.photos : site.cat.photos.filter((photo) => photo.category === category);
+    selected = category === 'All photos' ? cat.photos : cat.photos.filter((photo) => photo.category === category);
     gallery.replaceChildren(...selected.map((photo, index) => {
       const figure = element('figure', photo.width > photo.height ? 'cat-photo is-landscape' : 'cat-photo');
       const button = element('button', 'photo-open');
@@ -239,7 +241,7 @@ function setupCatGallery() {
     if (announce) galleryStatus.textContent = `${selected.length} ${selected.length === 1 ? 'photo' : 'photos'} shown.`;
   }
 
-  const categories = ['All photos', ...new Set(site.cat.photos.map((photo) => photo.category))];
+  const categories = ['All photos', ...new Set(cat.photos.map((photo) => photo.category))];
   const filters = document.querySelector('#cat-filters');
   filters.hidden = categories.length < 3;
   filters.replaceChildren(...categories.map((category, index) => {

@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes use a subtle one-second fade with a concentric water ripple spreading outward from the viewport center. The snapshot includes the navigation, content, photos, and background. Nearby tiles shift smoothly by at most four pixels; a light mosaic blends into the ripple crest. Open `?transition=spiral` to compare a smoother 1.1-second spiral. Reduced-motion preferences skip both animations. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 820 ms, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No package installation or build step is needed for production; GitHub Pages can serve the files directly.
 
@@ -73,21 +73,20 @@ The homepage also contains a static biography for search engines and visitors wi
 
 ## Files
 
-- `index.html`, `teaching.html`, `cv.html`, `cat.html`: public pages.
+- `index.html`, `teaching.html`, `cv.html`, `cat.html`, `blake.html`: public pages.
 - `assets/css/style.css`: layout, colors, fonts, motion, and mobile styles.
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
 - `assets/js/cv.js`: CV timeline, category filters, education, skills, and lazy PDF preview.
-- `assets/js/pixels.js`: full-viewport snapshots, including pinned navigation, split into tiles and animated with a smooth radial displacement field and a uniform fade. Sampling is bounded; if it fails or takes over 300 ms, navigation proceeds without an effect.
-- `assets/js/vendor/`: pinned html2canvas 1.4.1 and its MIT license, served locally without a CDN.
-- `assets/js/transition.js`: pixel wave, optional canvas letter vortex, cached page navigation, and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
+- `assets/js/page-turn.js`: a compositor-animated DOM page with soft shading; no canvas or pixel effects.
+- `assets/js/transition.js`: cached page navigation and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
 - `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.
 - `assets/Python_notebook/`: downloadable COMM 4351 lecture notebooks. Saved execution logs are cleared; original notebook copies are backed up under `/tmp/ethan-lecture-notebook-originals`.
 - `assets/images/experience/`: Cisco, Align, Tencent, COMM 4351, SARC 5400, and CDL photos. CDL appears only in Teaching.
-- `assets/images/cats/`: all six original photos and seven newly supplied cat photos, preserved.
+- `assets/images/cats/`: Layla’s photos and six Blake photos with descriptive filenames.
 - `assets/fonts/`: local Lato Regular/Bold WOFF2 web fonts and their Open Font License. Original TTF files are backed up at `/tmp/ethan-site-original-fonts`.
 - `docs/design/baseline.png`: accepted design reference.
-- `docs/design/tornado-transition.png`: the accepted four-frame reference for the letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. The optional spiral implements this movement in 1.1 seconds, with a lighter particle budget on phones. The default is the gentler pixel wave.
+- `docs/design/tornado-transition.png`: archived design exploration; the current transition is a book page turn.
 - `scripts/`, `tests/browser/`: preview and verification.
 
 Old generated design drafts were moved to `/tmp/ethan-site-design-drafts-20261012`. The previous survey and remote GIF embeds were removed from the public page.
@@ -109,3 +108,5 @@ Tests cover mobile and desktop layouts, navigation, keyboard photo controls and 
 ## GitHub Pages
 
 Select **Deploy from a branch**, your published branch, and **/(root)** in GitHub Pages settings. `.nojekyll` preserves the static files. Internal paths are relative, so the site also works below a project URL. No compilation is required.
+
+Blake’s album lives at `blake.html` and uses `site.blake` in the content file. Layla uses `site.cat`. The Cat pages link to both albums, each with its own lightbox.

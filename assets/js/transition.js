@@ -1,131 +1,9 @@
-/** Pixel-wave navigation, with an optional spiral comparison. */
-import { makePixels } from './pixels.js';
-const TURN = Math.PI * 2 * 1.05;
-const supportedPages = new Set(['index.html', 'teaching.html', 'cv.html', 'cat.html']);
+/** Internal navigation uses a single, forward book-page turn. */
+import { makePageTurn, TURN_DURATION } from './page-turn.js';
+const supportedPages = new Set(['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']);
 const pageKey = (url) => new URL(url).pathname.replace(/\/$/, '/index.html');
 
-function capture(main) {
-  const particles = [];
-  const limit = innerWidth < 700 ? 650 : 1200;
-  const visible = (rect) => rect.width && rect.height && rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
-  const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
-  const range = document.createRange();
-  while (walker.nextNode()) {
-    const node = walker.currentNode;
-    const parent = node.parentElement;
-    if (!node.textContent.trim() || parent.closest('.sr-only, [aria-hidden="true"], noscript, script, style')) continue;
-    if (!visible(parent.getBoundingClientRect())) continue;
-    const style = getComputedStyle(parent);
-    if (style.visibility === 'hidden' || style.display === 'none') continue;
-    const font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-    for (let i = 0; i < node.length; i++) {
-      if (/\s/.test(node.textContent[i])) continue;
-      range.setStart(node, i);
-      range.setEnd(node, i + 1);
-      const rect = range.getBoundingClientRect();
-      if (!visible(rect)) continue;
-      particles.push({ text: node.textContent[i], font, color: style.color, x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 });
-    }
-  }
-  // Sample evenly, keeping long research pages within a predictable frame budget.
-  const sampled = particles.length > limit ? Array.from({ length: limit }, (_, i) => particles[Math.floor(i * particles.length / limit)]) : particles;
-  for (const image of main.querySelectorAll('img')) {
-    const rect = image.getBoundingClientRect();
-    if (!visible(rect) || !image.complete || !image.naturalWidth) continue;
-    // Small photo tiles join the letters, rather than spinning a large rectangle.
-    const style = getComputedStyle(image);
-    const cover = style.objectFit === 'cover';
-    const ratio = cover ? Math.max(rect.width / image.naturalWidth, rect.height / image.naturalHeight) : Math.min(rect.width / image.naturalWidth, rect.height / image.naturalHeight);
-    const [px, py] = style.objectPosition.split(' ').map((value) => parseFloat(value) / 100);
-    const sourceWidth = rect.width / ratio;
-    const sourceHeight = rect.height / ratio;
-    const offsetX = Math.max(0, (image.naturalWidth - sourceWidth) * (px || 0));
-    const offsetY = Math.max(0, (image.naturalHeight - sourceHeight) * (py || 0));
-    for (let row = 0; row < 4; row++) for (let col = 0; col < 4; col++) {
-      sampled.push({ image, sx: offsetX + col * sourceWidth / 4, sy: offsetY + row * sourceHeight / 4, sw: sourceWidth / 4, sh: sourceHeight / 4,
-        width: rect.width / 4, height: rect.height / 4, x: rect.left + (col + .5) * rect.width / 4, y: rect.top + (row + .5) * rect.height / 4 });
-    }
-  }
-  return sampled.map((particle, index) => ({ ...particle, seed: (index * .61803398875) % 1 }));
-}
-
-function makeVortex(main) {
-  const canvas = document.createElement('canvas');
-  canvas.className = 'page-vortex';
-  canvas.setAttribute('aria-hidden', 'true');
-  const context = canvas.getContext('2d');
-  if (!context) return null;
-  const width = innerWidth;
-  const height = innerHeight;
-  const density = Math.min(devicePixelRatio || 1, 2);
-  canvas.width = width * density;
-  canvas.height = height * density;
-  context.scale(density, density);
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
-  const cx = width / 2;
-  const cy = height / 2;
-  let particles = capture(main);
-  let hiddenMain = main;
-  main.classList.add('vortex-hidden');
-  main.setAttribute('aria-busy', 'true');
-  document.body.append(canvas);
-
-  function draw(progress, incoming = false) {
-    context.clearRect(0, 0, width, height);
-    const t = Math.max(0, Math.min(1, progress));
-    const travel = t * t * (3 - 2 * t);
-    for (const particle of particles) {
-      const dx = particle.x - cx;
-      const dy = particle.y - cy;
-      const sourceRadius = Math.hypot(dx, dy);
-      const shrink = (incoming ? travel : 1 - travel) ** (1 + particle.seed * .35);
-      const radius = sourceRadius * shrink;
-      const sourceAngle = Math.atan2(dy, dx);
-      // Two curved arms pull each letter independently into a flat whirlpool.
-      // The warp vanishes at both ends, restoring the exact text baselines.
-      const warp = Math.sin(Math.PI * travel) * .9;
-      const armAngle = Math.log1p(sourceRadius / 35) * 2.2 + (particle.seed > .5 ? Math.PI : 0);
-      const armDifference = Math.atan2(Math.sin(armAngle - sourceAngle), Math.cos(armAngle - sourceAngle));
-      const angle = sourceAngle + armDifference * warp + (incoming ? -TURN * (1 - travel) : TURN * travel);
-      const scale = .08 + .92 * shrink;
-      context.save();
-      context.translate(cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius);
-      context.rotate(incoming ? -TURN * .35 * (1 - travel) : TURN * .35 * travel);
-      context.scale(scale, scale);
-      context.globalAlpha = .25 + .75 * shrink;
-      if (particle.image) {
-        context.drawImage(particle.image, particle.sx, particle.sy, particle.sw, particle.sh, -particle.width / 2, -particle.height / 2, particle.width, particle.height);
-      } else {
-        context.font = particle.font;
-        context.fillStyle = particle.color;
-        context.fillText(particle.text, 0, 0);
-      }
-      context.restore();
-    }
-  }
-  return {
-    draw,
-    reassemble(nextMain) {
-      hiddenMain.classList.remove('vortex-hidden');
-      hiddenMain.removeAttribute('aria-busy');
-      hiddenMain = nextMain;
-      particles = capture(nextMain);
-      nextMain.classList.add('vortex-hidden');
-      nextMain.setAttribute('aria-busy', 'true');
-    },
-    finish() {
-      hiddenMain.classList.remove('vortex-hidden');
-      hiddenMain.removeAttribute('aria-busy');
-      canvas.remove();
-    },
-  };
-}
-
 export function setupNavigation({ renderPage, updateNavigation }) {
-  const spiral = new URL(location.href).searchParams.get('transition') === 'spiral';
-  const duration = spiral ? 1100 : 1000;
-  const midpoint = spiral ? 500 : 440;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const forcedColors = matchMedia('(forced-colors: active)');
   const cache = new Map();
@@ -140,9 +18,8 @@ export function setupNavigation({ renderPage, updateNavigation }) {
     if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return null;
     const url = new URL(anchor.href);
     if (url.origin !== location.origin || !allowedPaths.has(pageKey(url))) return null;
-    // Preserve skip links and same-page anchors; only the two homepage tabs spiral.
+    // Preserve document anchors and skip links; Profile and Research are page turns.
     if (pageKey(url) === pageKey(displayedURL) && url.hash && !anchor.matches('[data-nav]')) return null;
-    if (spiral) url.searchParams.set('transition', 'spiral');
     return url;
   }
 
@@ -164,9 +41,8 @@ export function setupNavigation({ renderPage, updateNavigation }) {
   function stop() {
     generation++;
     if (!pending) return;
-    cancelAnimationFrame(pending.frame);
     clearTimeout(pending.watchdog);
-    pending.vortex?.finish();
+    pending.turn?.finish();
     pending = null;
   }
 
@@ -203,78 +79,51 @@ export function setupNavigation({ renderPage, updateNavigation }) {
     const differentPage = pageKey(url) !== pageKey(displayedURL);
     let ready = !differentPage;
     let parsed = null;
-    let failed = false;
-    if (differentPage) load(url).then((page) => { parsed = page; ready = true; }, () => { failed = true; });
-    const animate = !historyNavigation && !reducedMotion.matches && !forcedColors.matches && !document.hidden;
-    let vortex = animate ? (spiral ? makeVortex : makePixels)(document.querySelector('main')) : null;
-    let start = performance.now();
-    let prepared = !vortex?.ready;
     let swapped = false;
-    pending = { frame: 0, vortex, watchdog: 0 };
-    vortex?.ready?.then((available) => {
-      if (token !== generation || prepared || !pending) return;
-      prepared = true;
-      if (available) { vortex.activate(); start = performance.now(); }
-      else { vortex.finish(); vortex = null; }
-    });
+    const animate = !historyNavigation && !reducedMotion.matches && !forcedColors.matches && !document.hidden && Element.prototype.animate;
+    const turn = animate ? makePageTurn() : null;
+    pending = { turn, watchdog: 0 };
 
     function fallback() {
+      if (token !== generation) return;
       stop();
       if (historyNavigation) location.reload();
       else location.assign(url.href);
     }
 
     function finish() {
-      vortex?.finish();
+      if (token !== generation || !pending) return;
+      turn?.finish();
       clearTimeout(pending.watchdog);
       pending = null;
       if (keyboard) {
-        const target = document.querySelector(url.hash === '#research' ? '#research' : 'main');
+        const target = (url.hash && document.getElementById(decodeURIComponent(url.hash.slice(1)))) || document.querySelector('main');
         target.setAttribute('tabindex', '-1');
         target.focus({ preventScroll: true });
       }
     }
 
-    function settle() {
-      if (!ready || failed) { fallback(); return; }
+    pending.settle = () => {
+      if (!ready) { fallback(); return; }
       if (!swapped) swap(url, parsed, historyNavigation);
       finish();
       generation++;
-    }
-    pending.settle = settle;
-
-    function frame(now) {
-      if (token !== generation) return;
-      if (!prepared) {
-        // Keep the current page readable while sampling; never wait on a renderer.
-        if (failed) { fallback(); return; }
-        if (now - start < 300) { pending.frame = requestAnimationFrame(frame); return; }
-        prepared = true;
-        vortex.finish();
-        vortex = null;
-      }
-      const elapsed = now - start;
-      if (failed || (!ready && elapsed >= (vortex ? midpoint : 250))) { fallback(); return; }
-      if (!swapped && ready && (!vortex || elapsed >= midpoint)) {
-        swap(url, parsed, historyNavigation);
-        swapped = true;
-        if (!vortex) { finish(); return; }
-        vortex.reassemble(document.querySelector('main'));
-      }
-      if (vortex) {
-        if (swapped) vortex.draw((elapsed - midpoint) / (duration - midpoint), true);
-        else vortex.draw(elapsed / midpoint);
-        if (swapped && elapsed >= duration) { finish(); return; }
-      }
-      pending.frame = requestAnimationFrame(frame);
-    }
-    pending.frame = requestAnimationFrame(frame);
-    // A backgrounded tab or interrupted frame must never leave content invisible.
-    pending.watchdog = setTimeout(() => {
-      if (token !== generation) return;
-      if (!swapped) fallback();
-      else finish();
-    }, duration + 550);
+    };
+    // Leave the current page readable while fetching; slow links retain native navigation.
+    pending.watchdog = setTimeout(fallback, 500);
+    const page = differentPage ? load(url).then((result) => { parsed = result; ready = true; }) : Promise.resolve();
+    Promise.all([page, turn?.ready ?? false]).then(([, prepared]) => {
+      if (token !== generation || !pending) return;
+      clearTimeout(pending.watchdog);
+      if (prepared) turn.show();
+      else turn?.finish();
+      // Mount the destination underneath the old sheet before its first animation frame.
+      swap(url, parsed, historyNavigation);
+      swapped = true;
+      if (!prepared) { finish(); return; }
+      turn.play(finish);
+      pending.watchdog = setTimeout(finish, TURN_DURATION + 200);
+    }).catch(fallback);
   }
 
   document.addEventListener('click', (event) => {
@@ -302,12 +151,10 @@ export function setupNavigation({ renderPage, updateNavigation }) {
   }, { passive: true });
   for (const eventName of ['resize', 'visibilitychange']) window.addEventListener(eventName, () => {
     if (!pending) return;
-    cancelAnimationFrame(pending.frame);
     pending.settle();
   });
   reducedMotion.addEventListener('change', () => {
     if (!reducedMotion.matches || !pending) return;
-    cancelAnimationFrame(pending.frame);
     pending.settle();
   });
 }

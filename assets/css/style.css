@@ -38,10 +38,14 @@
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; }
 main { padding-bottom: 3rem; }
-/* The original semantic content stays in the DOM beneath the decorative canvas. */
-main.vortex-hidden { opacity: 0; pointer-events: none; }
 main:focus { outline: none; }
-.page-vortex, .page-pixels { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.book-turn { position: fixed; inset: 0; z-index: 30; overflow: hidden; pointer-events: none; visibility: hidden; perspective: var(--book-perspective); perspective-origin: left center; }
+.book-turn[data-state='turning'] { visibility: visible; }
+.book-sheet { position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
+.book-front, .book-back { position: absolute; inset: 0; overflow: hidden; background: #fff; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.book-back { transform: rotateY(180deg); background: linear-gradient(90deg, #f2f3f5, #fff 12%); }
+.book-shade { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #263346 0%, transparent 35%, #263346 100%); backface-visibility: hidden; }
+.book-shadow { position: absolute; inset: 0; transform-origin: left center; opacity: 0; background: linear-gradient(90deg, #26334638, #2633460c 45%, transparent 85%); }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
@@ -67,9 +71,9 @@ html { scroll-padding-top: 120px; }
 section[id], h2[id], article[id] { scroll-margin-top: 18px; }
 nav { display: flex; align-items: center; gap: 2rem; }
 nav a { position: relative; display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; color: var(--color-text-secondary); text-decoration: none; font-size: 1rem; }
-nav a[aria-current='page'] { color: var(--color-text); }
+nav a[aria-current='page'], nav a.book-current { color: var(--color-text); }
 nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--color-link); transform: scaleX(0); transform-origin: left; }
-nav a[aria-current='page']::after { transform: scaleX(1); }
+nav a[aria-current='page']::after, nav a.book-current::after { transform: scaleX(1); }
 .cat-nav svg { width: 19px; height: 19px; margin-left: 2px; }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 40; padding: .6rem 1rem; background: var(--color-page); border: 1px solid var(--color-focus); }
 .skip-link:focus { top: 1rem; }
@@ -106,7 +110,11 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .teaching-row:not(:has(.teaching-term)) { grid-template-columns: minmax(0, 1fr) auto; }
 .teaching-row h2 { font-size: 1.5rem; line-height: 1.4; letter-spacing: -.015em; }
 .teaching-code { display: block; color: var(--color-text-muted); font-size: 1rem; font-weight: 700; margin-bottom: .35rem; }
-.teaching-role, .teaching-term { color: var(--color-text-secondary); font-size: 1rem; }
+.teaching-role { color: var(--color-text); font-size: 1.25rem; font-weight: 700; line-height: 1.4; }
+.teaching-term { color: var(--color-text-secondary); font-size: 1rem; }
+.album-links { display: flex; gap: 1.5rem; margin-bottom: 2rem; }
+.album-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.125rem; }
+.album-links [aria-current="true"] { color: var(--color-text); font-weight: 700; text-decoration: underline; text-underline-offset: .35em; }
 .teaching-term { text-align: right; }
 .teaching-description { margin-top: .45rem; color: var(--color-text-muted); font-size: 1rem; }
 .teaching-full .teaching-row { padding-block: 1.7rem; }
@@ -183,8 +191,6 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .teaching-card .teaching-term { text-align: left; }
 .teaching-photo { display: block; overflow: hidden; aspect-ratio: 16 / 10; margin-bottom: .5rem; }
 .teaching-photo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
-body.page-rippling .site-shell, body.page-rippling .ambient-field { opacity: var(--ripple-opacity, 0); }
-.page-pixels { z-index: 30; }
 
 body[data-page='cat'] .ambient-field { opacity: .35; }
 .cat-intro { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 5rem; align-items: center; padding-block: 3.8rem 3.5rem; }

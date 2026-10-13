@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { site } from '../assets/js/content.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const pages = ['index.html', 'teaching.html', 'cv.html', 'cat.html'];
+const pages = ['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html'];
 let checked = 0;
 async function reference(url, from = root) {
   assert.equal(typeof url, 'string', 'URLs must be strings');
@@ -68,15 +68,17 @@ for (const animal of site.animals) {
   await reference(animal.src);
   await reference(animal.url);
 }
-await reference(site.cat.hero);
-assert.ok(site.cat.heroAlt?.trim(), 'The cat portrait needs alternative text');
-const ids = new Set();
-for (const photo of site.cat.photos) {
-  assert.ok(photo.id && !ids.has(photo.id), 'Photo IDs must be unique');
-  ids.add(photo.id);
-  assert.ok(photo.alt?.trim() && photo.title?.trim() && photo.category?.trim(), 'Photos need alt text, a title, and category');
-  assert.ok(photo.width > 0 && photo.height > 0, 'Photos need dimensions');
-  await reference(photo.src);
+for (const cat of [site.cat, site.blake]) {
+  await reference(cat.hero);
+  assert.ok(cat.heroAlt?.trim(), 'The cat portrait needs alternative text');
+  const ids = new Set();
+  for (const photo of cat.photos) {
+    assert.ok(photo.id && !ids.has(photo.id), 'Photo IDs must be unique');
+    ids.add(photo.id);
+    assert.ok(photo.alt?.trim() && photo.title?.trim() && photo.category?.trim(), 'Photos need alt text, a title, and category');
+    assert.ok(photo.width > 0 && photo.height > 0, 'Photos need dimensions');
+    await reference(photo.src);
+  }
 }
 for (const page of pages) {
   const html = await readFile(resolve(root, page), 'utf8');
@@ -86,5 +88,5 @@ for (const page of pages) {
 }
 const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
 for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));
-for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/cv.js', 'assets/js/pixels.js', 'assets/js/transition.js', 'assets/js/vendor/html2canvas.esm.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
-console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length} photos, JavaScript syntax.`);
+for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/cv.js', 'assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
+console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length + site.blake.photos.length} photos, JavaScript syntax.`);
