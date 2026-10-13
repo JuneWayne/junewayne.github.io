@@ -51,25 +51,52 @@ export function makePageTurn() {
   atlas.alt = '';
   atlas.src = HAND_SPRITE_URL;
   atlas.decoding = 'async';
-  const poses = [0, 1].map(() => {
+  const overlay = document.createElement('div');
+  overlay.className = 'book-hand-top';
+  const makePoses = (className = '') => [0, 1].map(() => {
     const pose = document.createElement('div');
-    pose.className = 'book-hand-frame';
+    pose.className = `book-hand-frame ${className}`.trim();
     pose.style.backgroundImage = `url("${HAND_SPRITE_URL}")`;
     return pose;
   });
+  const poses = makePoses();
+  const thumbs = makePoses('book-thumb');
+  const released = makePoses('book-released-hand');
   hand.append(atlas, ...poses);
+  overlay.append(...thumbs, ...released);
   const handSize = Math.min(400, Math.max(285, width * .30));
-  hand.style.width = hand.style.height = `${handSize}px`;
+  for (const part of [hand, overlay]) part.style.width = part.style.height = `${handSize}px`;
+  // Each mask follows only the thumb in that sprite cell. The rest of the hand
+  // is drawn behind the paper, so the sheet genuinely occludes the supporting fingers.
+  const thumbContours = [
+    [[39,2],[49,2],[62,12],[74,26],[77,42],[64,44],[53,29],[43,18],[39,8]],
+    [[35,4],[46,6],[58,15],[70,26],[77,44],[61,46],[52,30],[42,22],[35,10]],
+    [[22,16],[35,13],[50,17],[63,25],[70,41],[54,43],[43,32],[29,30],[23,24]],
+    [[14,21],[23,16],[40,15],[54,20],[64,29],[69,42],[55,44],[43,32],[23,32],[15,29]],
+    [[17,23],[27,20],[40,20],[55,22],[66,30],[73,43],[58,46],[44,35],[25,35],[18,31]],
+    [[17,16],[28,12],[42,12],[57,18],[68,28],[74,41],[59,43],[44,28],[26,27],[18,23]],
+    [[17,17],[30,13],[45,14],[58,20],[68,28],[74,42],[59,44],[45,30],[26,29],[18,25]],
+    [[32,4],[44,7],[59,18],[69,30],[74,44],[58,43],[48,29],[38,21],[32,11]],
+    [[34,5],[46,8],[61,20],[71,32],[76,46],[60,45],[49,30],[39,21],[34,12]],
+    [[39,3],[50,5],[63,18],[74,30],[78,43],[64,45],[53,30],[42,18],[39,9]],
+  ];
   const poseTimes = [0, .09, .18, .25, .33, .43, .55, .68, .83, 1];
   const smooth = (t) => t * t * (3 - 2 * t);
   function showPose(raw) {
     let current = 0;
     while (current < HAND_FRAME_COUNT - 2 && raw >= poseTimes[current + 1]) current++;
     const blend = smooth(Math.max(0, Math.min(1, (raw - poseTimes[current]) / (poseTimes[current + 1] - poseTimes[current]))));
+    // Lift the entire hand back above the paper only as the grip opens to release.
+    const open = smooth(Math.max(0, Math.min(1, (raw - .60) / .15)));
     poses.forEach((pose, offset) => {
       const index = current + offset;
-      pose.style.backgroundPosition = `${(index % 5) * 25}% ${Math.floor(index / 5) * 100}%`;
-      pose.style.opacity = String(offset ? blend : 1 - blend);
+      const position = `${(index % 5) * 25}% ${Math.floor(index / 5) * 100}%`;
+      const weight = offset ? blend : 1 - blend;
+      for (const part of [pose, thumbs[offset], released[offset]]) part.style.backgroundPosition = position;
+      pose.style.opacity = String(weight);
+      thumbs[offset].style.clipPath = `polygon(${thumbContours[index].map(([x,y]) => `${x}% ${y}%`).join(',')})`;
+      thumbs[offset].style.opacity = String(weight * (1 - open));
+      released[offset].style.opacity = String(weight * open);
     });
     hand.dataset.frame = String(current + (blend >= .5 ? 2 : 1));
     hand.dataset.phase = raw < .22 ? 'approach' : raw < .34 ? 'grip' : raw < .58 ? 'turn' : raw < .84 ? 'release' : 'withdraw';
@@ -114,8 +141,10 @@ export function makePageTurn() {
     const release = smooth(Math.max(0, Math.min(1, (raw - .58) / .42)));
     const gripX = Math.max(width * .08, edgeX) - handSize * .3 * release;
     const angle = 5 - 17 * lift + 12 * release;
-    hand.style.transform = `translate3d(${gripX - handSize * .3 + approach * handSize * .35}px, ${gripY - handSize * .32 + approach * handSize * .16 + release * height * .38}px, 0) rotate(${angle}deg) scale(${1 + lift * .025})`;
+    hand.style.transform = `translate3d(${gripX - handSize * .3 + approach * handSize * .35}px, ${gripY - handSize * .32 + approach * handSize * .16 + release * height * .38}px, 0) rotate(${-angle}deg) scale(${-1 - lift * .025}, ${1 + lift * .025})`;
     hand.style.opacity = String(Math.min(1, raw / .07, (1 - raw) / .08));
+    overlay.style.transform = hand.style.transform;
+    overlay.style.opacity = hand.style.opacity;
     showPose(raw);
     layer.dataset.progress = p.toFixed(3);
   }
@@ -171,7 +200,7 @@ export function makePageTurn() {
   root.append(stylesheet, freezeStyles, copy);
   // Decorative paper and hand stay outside the cloned, inert document.
   sheet.append(front);
-  layer.append(sheet, curl, hand);
+  layer.append(sheet, hand, curl, overlay);
   paint(0);
   document.body.append(layer);
 

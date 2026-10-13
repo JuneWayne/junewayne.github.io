@@ -478,7 +478,7 @@ test('the page turn plays all ten hand poses through approach, grip, turn, and r
   });
   await page.locator('[data-nav=teaching]').click();
   await expect(page.locator('.book-hand')).toHaveAttribute('data-frame-count', '10');
-  await expect(page.locator('.book-hand-frame')).toHaveCount(2);
+  await expect(page.locator('.book-hand .book-hand-frame')).toHaveCount(2);
   await expect(page.locator('.book-turn')).toHaveCount(0);
   expect(await page.evaluate(() => [...window.handFrames].sort((a,b) => a-b))).toEqual([1,2,3,4,5,6,7,8,9,10]);
   expect(await page.evaluate(() => [...window.handPhases])).toEqual(['approach','grip','turn','release','withdraw']);
