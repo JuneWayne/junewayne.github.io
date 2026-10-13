@@ -7004,7 +7004,7 @@ var CanvasRenderer = /** @class */ (function (_super) {
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: 
+                    case 5:
                     // 3. For all its in-flow, non-positioned, block-level descendants in tree order:
                     return [4 /*yield*/, this.renderNodeContent(stack.element)];
                     case 6:
