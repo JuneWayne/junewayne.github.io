@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 1.3 seconds, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 1.15 seconds, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No package installation or build step is needed for production; GitHub Pages can serve the files directly.
 
@@ -118,3 +118,5 @@ The left hand uses ten photorealistic gesture frames in `assets/images/motion/pa
 During the grip, the full hand is behind the curved paper and a separate per-frame thumb mask is above it. The sheet occludes the supporting fingers and palm. The hand returns above the page only when the grip opens during release.
 
 The left-hand sequence is drawn in its final orientation and is not mirrored at runtime. The paper is procedural SVG geometry, with a continuously calculated fold and lighting rather than ten separately drawn sheets.
+
+The initial reach takes about 90 ms. The hand follows the page edge continuously past the left viewport boundary; there is no boundary clamp or downward withdrawal.

@@ -1,5 +1,5 @@
 /** A rolling paper fold travels over live HTML, with a hand following its free edge. */
-export const TURN_DURATION = 1300;
+export const TURN_DURATION = 1150;
 
 export const HAND_SPRITE_URL = new URL('../images/motion/page-turn-left-hand-10.png', import.meta.url).href;
 export const HAND_FRAME_COUNT = 10;
@@ -80,14 +80,14 @@ export function makePageTurn() {
     [[85,23],[93,23],[97,31],[91,43],[81,55],[67,62],[58,54],[74,41]],
     [[87,27],[95,27],[99,34],[93,46],[82,59],[68,65],[59,56],[75,44]],
   ];
-  const poseTimes = [0, .09, .18, .25, .33, .43, .55, .68, .83, 1];
+  const poseTimes = [0, .035, .07, .10, .16, .26, .40, .54, .72, 1];
   const smooth = (t) => t * t * (3 - 2 * t);
   function showPose(raw) {
     let current = 0;
     while (current < HAND_FRAME_COUNT - 2 && raw >= poseTimes[current + 1]) current++;
     const blend = smooth(Math.max(0, Math.min(1, (raw - poseTimes[current]) / (poseTimes[current + 1] - poseTimes[current]))));
     // Lift the entire hand back above the paper only as the grip opens to release.
-    const open = smooth(Math.max(0, Math.min(1, (raw - .60) / .15)));
+    const open = smooth(Math.max(0, Math.min(1, (raw - .48) / .12)));
     poses.forEach((pose, offset) => {
       const index = current + offset;
       const position = `${(index % 5) * 25}% ${Math.floor(index / 5) * 100}%`;
@@ -99,14 +99,14 @@ export function makePageTurn() {
       released[offset].style.opacity = String(weight * open);
     });
     hand.dataset.frame = String(current + (blend >= .5 ? 2 : 1));
-    hand.dataset.phase = raw < .22 ? 'approach' : raw < .34 ? 'grip' : raw < .58 ? 'turn' : raw < .84 ? 'release' : 'withdraw';
+    hand.dataset.phase = raw < .08 ? 'approach' : raw < .16 ? 'grip' : raw < .48 ? 'turn' : raw < .72 ? 'release' : 'withdraw';
   }
   let frame = 0;
   let clock;
 
   function paint(raw) {
     // Minimum-jerk timing: still at contact/release, gently accelerating in between.
-    const t = Math.max(0, Math.min(1, (raw - .22) / .73));
+    const t = Math.max(0, Math.min(1, (raw - .08) / .87));
     const p = t * t * t * (10 + t * (-15 + 6 * t));
     const lift = Math.sin(Math.PI * p);
     const fold = width * (1 - p);
@@ -132,17 +132,16 @@ export function makePageTurn() {
     light.setAttribute('x2', Math.max(free + 1, fold + radius * .6));
     light.setAttribute('y1', height * .5);
     light.setAttribute('y2', height * .5);
-    // Keep contact while holding; release near the left edge and let the paper settle.
+    // Follow the free edge continuously, including beyond the left of the viewport.
     const gripY = height * .84 - Math.min(35, height * .03) * lift;
     const u = gripY / height;
     const edgeX = (1-u)**3 * freeTop + 3*(1-u)**2*u*(freeTop-radius*.22)
       + 3*(1-u)*u*u*(freeBottom-radius*.22) + u**3*freeBottom;
-    const approach = 1 - smooth(Math.min(1, raw / .22));
-    const release = smooth(Math.max(0, Math.min(1, (raw - .58) / .42)));
-    const gripX = Math.max(width * .08, edgeX) - handSize * .3 * release;
-    const angle = 5 - 17 * lift + 12 * release;
-    hand.style.transform = `translate3d(${gripX - handSize * .78 + approach * handSize * .35}px, ${gripY - handSize * .30 + approach * handSize * .16 + release * height * .38}px, 0) rotate(${-angle}deg) scale(${1 + lift * .025})`;
-    hand.style.opacity = String(Math.min(1, raw / .07, (1 - raw) / .08));
+    const approach = 1 - smooth(Math.min(1, raw / .08));
+    const gripX = edgeX;
+    const angle = 5 - 17 * lift;
+    hand.style.transform = `translate3d(${gripX - handSize * .78 + approach * handSize * .35}px, ${gripY - handSize * .30 + approach * handSize * .16}px, 0) rotate(${-angle}deg) scale(${1 + lift * .025})`;
+    hand.style.opacity = String(Math.min(1, raw / .04, (1 - raw) / .08));
     overlay.style.transform = hand.style.transform;
     overlay.style.opacity = hand.style.opacity;
     showPose(raw);

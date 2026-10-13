@@ -484,3 +484,37 @@ test('the page turn plays all ten hand poses through approach, grip, turn, and r
   expect(await page.evaluate(() => [...window.handPhases])).toEqual(['approach','grip','turn','release','withdraw']);
   await expect(page.locator('body')).not.toHaveAttribute('aria-busy');
 });
+
+test('the hand grabs promptly and travels beyond the left edge without dropping', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    const result = await page.evaluate(async () => {
+      const { makePageTurn, TURN_DURATION } = await import('/assets/js/page-turn.js');
+      const preview = makePageTurn(); await preview.ready; preview.show(); preview.play(() => {});
+      const animation = document.querySelector('.book-sheet').getAnimations()[0];
+      animation.pause();
+      const seek = async (time) => {
+        animation.currentTime = time;
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      };
+      await seek(200);
+      const earlyProgress = Number(document.querySelector('.book-turn').dataset.progress);
+      const samples = [];
+      for (const progress of [.35, .40, .45, .50, .55, .60, .65, .70]) {
+        await seek(TURN_DURATION * progress);
+        const hand = document.querySelector('.book-hand');
+        const transform = new DOMMatrixReadOnly(getComputedStyle(hand).transform);
+        samples.push({ right: hand.getBoundingClientRect().right, y: transform.m42 });
+      }
+      preview.finish();
+      return { earlyProgress, samples };
+    });
+    expect(result.earlyProgress).toBeGreaterThanOrEqual(.01);
+    for (let i = 1; i < result.samples.length; i++) expect(result.samples[i].right).toBeLessThan(result.samples[i - 1].right);
+    expect(result.samples.at(-1).right).toBeLessThan(0);
+    const heights = result.samples.map(sample => sample.y);
+    expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(35);
+  }
+});
