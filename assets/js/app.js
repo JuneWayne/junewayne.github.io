@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-cat-bios';
-import { setupNavigation } from './transition.js?v=20261013-cat-bios';
-import { renderCV } from './cv.js?v=20261013-cat-bios';
-import { startLaylaAge } from './cat-age.js?v=20261013-cat-bios';
+import { site } from './content.js?v=20261013-coursework';
+import { setupNavigation } from './transition.js?v=20261013-coursework';
+import { renderCV } from './cv.js?v=20261013-coursework';
+import { startLaylaAge } from './cat-age.js?v=20261013-coursework';
 
 let stopCatAge;
 
@@ -70,7 +70,7 @@ function renderResearch() {
       row.append(image);
     }
     const copy = element('div', 'research-copy');
-    copy.append(element('h2', '', project.title), element('p', 'research-summary', project.summary));
+    copy.append(element(document.body.dataset.page === 'research' ? 'h2' : 'h3', '', project.title), element('p', 'research-summary', project.summary));
     if (project.labs?.length) {
       const context = element('p', 'research-context');
       project.labs.forEach((lab, index) => {

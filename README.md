@@ -14,7 +14,7 @@ Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, emai
 
 **Portrait:** your photo is at `assets/images/portrait.jpg`. To replace it, update `portrait`, `portraitAlt`, `portraitWidth`, and `portraitHeight` in the content file and the corresponding image in `index.html`.
 
-**Research and internships:** projects live on the independent `research.html` page. Add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Images are optional; entries without images use a clean text layout. Optional `organization`, `role`, `location`, `dates`, and `highlights` fields support research appointments and their contributions.
+**Research and internships:** projects appear on the homepage and on the independent `research.html` page. Add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Images are optional; entries without images use a clean text layout. Optional `organization`, `role`, `location`, `dates`, and `highlights` fields support research appointments and their contributions.
 
 ```js
 research: [
@@ -120,3 +120,5 @@ During the grip, the full hand is behind the curved paper and a separate per-fra
 The left-hand sequence is drawn in its final orientation and is not mirrored at runtime. The paper is procedural SVG geometry, with a continuously calculated fold and lighting rather than ten separately drawn sheets.
 
 The initial reach takes about 90 ms. The hand follows the page edge continuously past the left viewport boundary; there is no boundary clamp or downward withdrawal.
+
+Coursework is grouped in `cv.coursework` as `{ title, courses: [{ code, title, description?, status? }] }`. Fall 2026 courses are labeled in progress; repeated courses appear once. Test credits and the zero-credit international-study record are excluded. The transcript is a local reference, not a published download. Descriptions are concise summaries, informed by the transcript, the owner’s CS 3501 clarification, and [UVA course listings](https://hooslist.virginia.edu/CourseCatalog/Group/DataScience), the [DS 4021 syllabus](https://github.com/UVADS/DS-4021), and [CS teaching descriptions](https://www.cs.virginia.edu/~nn4pj/teaching).

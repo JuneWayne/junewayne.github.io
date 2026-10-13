@@ -37,10 +37,231 @@ export const site = {
       }
     ],
     "coursework": [
-      "Advanced Cloud Computing",
-      "Deep Learning",
-      "Mathematics for Machine Learning",
-      "Data Engineering"
+      {
+        "title": "Machine Learning",
+        "courses": [
+          {
+            "code": "CS 3501",
+            "title": "Foundations of Data Analysis",
+            "description": "Traditional machine learning and deep learning methods for analyzing data."
+          },
+          {
+            "code": "DS 3021",
+            "title": "Analytics I: Machine Learning I",
+            "description": "Data preparation, feature engineering, and evaluation of machine learning models."
+          },
+          {
+            "code": "DS 4021",
+            "title": "Analytics II: Machine Learning II",
+            "description": "Neural networks, kernel methods, and ensembles for more advanced prediction tasks."
+          },
+          {
+            "code": "DS 4024",
+            "title": "Value II: Explainable AI",
+            "description": "Methods for interpreting model behavior and communicating AI decisions."
+          },
+          {
+            "code": "DS 4125",
+            "title": "Introduction to Deep Learning",
+            "description": "Neural network architectures and training methods for learning from data."
+          },
+          {
+            "code": "CS 4771",
+            "title": "Reinforcement Learning",
+            "description": "Learning policies for sequential decisions through rewards and interaction.",
+            "status": "In progress · Fall 2026"
+          }
+        ]
+      },
+      {
+        "title": "Statistics",
+        "courses": [
+          {
+            "code": "DS 2026",
+            "title": "Computational Probability",
+            "description": "Probability concepts and computational methods for reasoning about uncertainty."
+          },
+          {
+            "code": "DS 3026",
+            "title": "Inference and Prediction",
+            "description": "Statistical inference and predictive modeling for drawing conclusions from data."
+          },
+          {
+            "code": "PHS 3102",
+            "title": "Introduction to Public Health Research: Population Data Analysis",
+            "description": "Analyzing population health data to formulate and evaluate research questions."
+          }
+        ]
+      },
+      {
+        "title": "Math",
+        "courses": [
+          {
+            "code": "MATH 1320",
+            "title": "Calculus II",
+            "description": "Integration techniques, infinite series, and applications of single-variable calculus."
+          },
+          {
+            "code": "MATH 2310",
+            "title": "Calculus III",
+            "description": "Multivariable calculus, partial derivatives, and integration in higher dimensions."
+          },
+          {
+            "code": "CS 2120",
+            "title": "Discrete Mathematics and Theory I",
+            "description": "Logic, proofs, sets, and discrete structures used in computer science."
+          },
+          {
+            "code": "PHIL 2420",
+            "title": "Introduction to Symbolic Logic",
+            "description": "Formal reasoning through symbolic representations of arguments and logical validity."
+          },
+          {
+            "code": "DS 3025",
+            "title": "Mathematics for Data Science",
+            "description": "Mathematical foundations for understanding data science models and algorithms."
+          },
+          {
+            "code": "MATH 3350",
+            "title": "Applied Linear Algebra",
+            "description": "Matrices, vector spaces, and linear transformations with applied problem solving.",
+            "status": "In progress · Fall 2026"
+          }
+        ]
+      },
+      {
+        "title": "CS & Software",
+        "courses": [
+          {
+            "code": "CS 1110",
+            "title": "Introduction to Programming",
+            "description": "Programming fundamentals, control flow, and computational problem solving."
+          },
+          {
+            "code": "DS 1001",
+            "title": "Foundations of Data Science",
+            "description": "An introduction to the value, design, analytics, and systems of data science."
+          },
+          {
+            "code": "DS 2022",
+            "title": "Systems I: Introduction to Computing",
+            "description": "Computing foundations and tools for working with data systems."
+          },
+          {
+            "code": "SARC 5400",
+            "title": "Data Visualization",
+            "description": "Visual methods for exploring data and communicating patterns and insights."
+          },
+          {
+            "code": "DS 2023",
+            "title": "Design I: Communicating with Data",
+            "description": "Designing clear visualizations and narratives to communicate data effectively."
+          },
+          {
+            "code": "CS 2100",
+            "title": "Data Structures and Algorithms I",
+            "description": "Data structures and algorithms for organizing and processing information efficiently."
+          },
+          {
+            "code": "CS 2501",
+            "title": "Preparing for Research",
+            "description": "An introduction to the practices and skills involved in computer science research."
+          },
+          {
+            "code": "DS 2024",
+            "title": "Value I: Ethics and Policy in Data Science",
+            "description": "Ethical and policy questions surrounding the collection and use of data."
+          },
+          {
+            "code": "DS 3022",
+            "title": "Data Engineering",
+            "description": "Building reliable pipelines for collecting, processing, storing, and managing data."
+          },
+          {
+            "code": "DS 4320",
+            "title": "Data by Design",
+            "description": "Designing data representations and workflows around the questions they need to answer."
+          },
+          {
+            "code": "DS 5220",
+            "title": "Advanced Cloud Computing",
+            "description": "Cloud infrastructure and services for deploying and operating data applications."
+          },
+          {
+            "code": "CS 3140",
+            "title": "Software Development Essentials",
+            "description": "Software design, testing, and construction of maintainable applications.",
+            "status": "In progress · Fall 2026"
+          },
+          {
+            "code": "DS 4221",
+            "title": "Advanced Databases",
+            "description": "Advanced database concepts for organizing, querying, and managing data.",
+            "status": "In progress · Fall 2026"
+          },
+          {
+            "code": "MAE 4270",
+            "title": "Experimental Robotics",
+            "description": "Building and programming robots with sensors, actuators, and ROS.",
+            "status": "In progress · Fall 2026"
+          }
+        ]
+      },
+      {
+        "title": "Hobbies",
+        "courses": [
+          {
+            "code": "EGMT 1510",
+            "title": "Engaging Aesthetics: Punching Up — American Satire"
+          },
+          {
+            "code": "EGMT 1540",
+            "title": "Ethical Engagement: Political Myths — Then and Now"
+          },
+          {
+            "code": "ENWR 1510",
+            "title": "Writing and Critical Inquiry: Writing about Culture and Society"
+          },
+          {
+            "code": "COMM 1800",
+            "title": "Foundations of Commerce"
+          },
+          {
+            "code": "EGMT 1520",
+            "title": "Empirical Engagement: In-Consciousness"
+          },
+          {
+            "code": "EGMT 1530",
+            "title": "Engaging Differences: Solidarity Beyond the Hashtag"
+          },
+          {
+            "code": "HIEA 2031",
+            "title": "Modern China"
+          },
+          {
+            "code": "PSYC 2600",
+            "title": "Introduction to Social Psychology"
+          },
+          {
+            "code": "UNST 3910",
+            "title": "Self and Organizations"
+          },
+          {
+            "code": "COMM 4569",
+            "title": "Management Consulting Practicum in Costa Rica"
+          },
+          {
+            "code": "SLAV 2360",
+            "title": "Dracula",
+            "status": "In progress · Fall 2026"
+          },
+          {
+            "code": "UNST 3920",
+            "title": "Teams, Leadership, and Organizations",
+            "status": "In progress · Fall 2026"
+          }
+        ]
+      }
     ],
     "skills": [
       {
@@ -150,7 +371,7 @@ export const site = {
       },
       {
         "id": "sarc-5400",
-        "organization": "SARC 5400",
+        "organization": "SARC 5400 · School of Architecture",
         "role": "Teaching Assistant",
         "category": "Teaching",
         "dates": "January – April 2024",

@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-cat-bios';
+import { site } from './content.js?v=20261013-coursework';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
@@ -104,7 +104,29 @@ export function renderCV() {
   }));
   const coursework = document.querySelector('#cv-coursework');
   coursework.replaceChildren();
-  if (data.coursework?.length) coursework.append(node('h3', '', 'Relevant coursework'), node('p', '', data.coursework.join(' · ')));
+  if (data.coursework?.length) {
+    const heading = node('h2', '', 'Coursework');
+    heading.id = 'coursework-heading';
+    coursework.append(heading);
+    data.coursework.forEach((group, index) => {
+      const section = node('details', 'coursework-group');
+      section.open = index === 0;
+      section.dataset.category = group.title;
+      section.append(node('summary', '', group.title));
+      const list = node('ul', 'coursework-list');
+      group.courses.forEach((course) => {
+        const item = node('li', 'coursework-item');
+        const title = node('div', 'coursework-title');
+        title.append(node('strong', 'coursework-code', course.code), ' · ', node('span', '', course.title));
+        item.append(title);
+        if (course.status) item.append(node('p', 'coursework-status', course.status));
+        if (course.description) item.append(node('p', 'coursework-description', course.description));
+        list.append(item);
+      });
+      section.append(list);
+      coursework.append(section);
+    });
+  }
   document.querySelector('#skills-list').replaceChildren(...(data.skills || []).map((group) => {
     const block = node('div', 'skill-group');
     const list = node('ul');

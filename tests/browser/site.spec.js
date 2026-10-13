@@ -102,6 +102,7 @@ test('Profile and Research share navigation; photos load and reduced-motion navi
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
   await expect(page.locator('#profile-bio')).toContainText('actively seeking graduate opportunities and internships');
+  await expect(page.locator('#research-list article')).toHaveCount(4);
   await expect(page.locator('#profile-role, .section-note, .site-footer, .motion-toggle')).toHaveCount(0);
   expect(await page.locator('.ambient-field').evaluate((node) => getComputedStyle(node).animationName)).toBe('none');
   await page.locator('#animals').scrollIntoViewIfNeeded();
@@ -301,6 +302,7 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#guest-lecture h3')).toHaveText('COMM 4351 · McIntire School of Commerce');
   await expect(page.locator('#guest-lecture .experience-role')).toHaveText('Guest Lecturer');
   await expect(page.locator('#sarc-5400')).toContainText('Teaching Assistant');
+  await expect(page.locator('#sarc-5400 h3')).toHaveText('SARC 5400 · School of Architecture');
   await expect(page.locator('#sarc-5400')).toContainText('January – April 2024');
   await expect(page.locator('#cdl')).toContainText('Debate Coach & Tournament Chair');
   await expect(page.locator('#cdl')).toContainText('January 2024 – Present');
