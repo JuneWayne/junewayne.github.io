@@ -1,0 +1,19 @@
+Generated with the built-in imagegen tool. Ten-frame sprite sheet: five columns, two rows. Frames are read left to right, top row then bottom row.
+
+Create a photorealistic animation SPRITE SHEET: exactly 10 equally sized square cells, 5 columns x 2 rows, true transparent background. One identical RIGHT hand in each cell, wrist entering lower right and reaching upper left. High detail, consistent skin, light, scale, wrist position and camera between all frames. No labels, borders, watermark, book, or actual paper.
+
+The pose is HOLDING a thin sheet like a small flat PLATE supported from underneath: camera sees the PALM SIDE and side of the hand, NOT the back of the hand. The FOUR fingers are curled gently upward together beneath the imagined sheet, four finger pads visible in a row under its edge. The THUMB is clearly visible ABOVE the row of fingers, its broad pad resting downward on the imagined sheet. Thumb and fingers separated by a narrow space where paper will be composited. The thumb is the uppermost digit and NEVER hidden behind the fingers. NOT a fingertip pinch, NOT an OK sign, NOT a fist, NOT a flat dorsal hand covering the sheet. The THUMB rests near 40% across and 35% down the cell; the four fingers support at approximately 22–48% across and 42–55% down. Palm/wrist extends lower right. Natural gentle gripping pose, just like casually holding the right edge of a book page with four fingers underneath and thumb on top.
+
+Frames left to right:
+1 relaxed palm-side hand approaching, thumb lifted, four fingers loosely open.
+2 four fingers sliding under the imagined page together, thumb still up.
+3 four fingers begin cupping, thumb lowers.
+4 clearly visible broad thumb pad settles on top, all four fingers curled underneath.
+5 settled page-holding pose, visible thumb on top and four supporting finger pads below.
+6 same grip with tiny wrist roll to lift paper.
+7 same grip wrist rolls slightly more, fingers remain together supporting paper.
+8 thumb begins lifting, fingers relax.
+9 thumb above, fingers extend to release.
+10 relaxed palm-side hand withdrawing.
+
+Adjacent poses change subtly. All fingers belong to one coherent hand, exactly five digits, same anatomy and proportions in every cell. Soft natural studio lighting and realistic skin. Transparent alpha everywhere outside hand, no floor or cast background shadow. Landscape sprite sheet 5:2 aspect ratio.

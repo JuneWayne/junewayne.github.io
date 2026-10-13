@@ -1,5 +1,8 @@
 /** A rolling paper fold travels over live HTML, with a hand following its free edge. */
-export const TURN_DURATION = 1150;
+export const TURN_DURATION = 1300;
+
+export const HAND_SPRITE_URL = new URL('../images/motion/page-turn-grip-10.png', import.meta.url).href;
+export const HAND_FRAME_COUNT = 10;
 
 export function makePageTurn() {
   const layer = document.createElement('div');
@@ -39,19 +42,44 @@ export function makePageTurn() {
   const shadow = curl.querySelector('.book-cast-shadow');
   const edge = curl.querySelector('.book-edge');
   const light = curl.querySelector('#paper-light');
-  const hand = document.createElement('img');
+  const hand = document.createElement('div');
   hand.className = 'book-hand';
-  hand.src = new URL('../images/motion/page-turn-hand.png', import.meta.url).href;
-  hand.alt = '';
-  hand.decoding = 'async';
-  const handSize = Math.min(430, Math.max(300, width * .32));
-  hand.width = hand.height = handSize;
+  hand.dataset.frameCount = HAND_FRAME_COUNT;
+  const atlas = document.createElement('img');
+  atlas.className = 'book-hand-atlas';
+  atlas.hidden = true;
+  atlas.alt = '';
+  atlas.src = HAND_SPRITE_URL;
+  atlas.decoding = 'async';
+  const poses = [0, 1].map(() => {
+    const pose = document.createElement('div');
+    pose.className = 'book-hand-frame';
+    pose.style.backgroundImage = `url("${HAND_SPRITE_URL}")`;
+    return pose;
+  });
+  hand.append(atlas, ...poses);
+  const handSize = Math.min(400, Math.max(285, width * .30));
+  hand.style.width = hand.style.height = `${handSize}px`;
+  const poseTimes = [0, .09, .18, .25, .33, .43, .55, .68, .83, 1];
+  const smooth = (t) => t * t * (3 - 2 * t);
+  function showPose(raw) {
+    let current = 0;
+    while (current < HAND_FRAME_COUNT - 2 && raw >= poseTimes[current + 1]) current++;
+    const blend = smooth(Math.max(0, Math.min(1, (raw - poseTimes[current]) / (poseTimes[current + 1] - poseTimes[current]))));
+    poses.forEach((pose, offset) => {
+      const index = current + offset;
+      pose.style.backgroundPosition = `${(index % 5) * 25}% ${Math.floor(index / 5) * 100}%`;
+      pose.style.opacity = String(offset ? blend : 1 - blend);
+    });
+    hand.dataset.frame = String(current + (blend >= .5 ? 2 : 1));
+    hand.dataset.phase = raw < .22 ? 'approach' : raw < .34 ? 'grip' : raw < .58 ? 'turn' : raw < .84 ? 'release' : 'withdraw';
+  }
   let frame = 0;
   let clock;
 
   function paint(raw) {
     // Minimum-jerk timing: still at contact/release, gently accelerating in between.
-    const t = Math.max(0, Math.min(1, (raw - .07) / .86));
+    const t = Math.max(0, Math.min(1, (raw - .22) / .73));
     const p = t * t * t * (10 + t * (-15 + 6 * t));
     const lift = Math.sin(Math.PI * p);
     const fold = width * (1 - p);
@@ -77,15 +105,18 @@ export function makePageTurn() {
     light.setAttribute('x2', Math.max(free + 1, fold + radius * .6));
     light.setAttribute('y1', height * .5);
     light.setAttribute('y2', height * .5);
-    // Pinch remains on the free edge, while the wrist lifts and rotates through the arc.
+    // Keep contact while holding; release near the left edge and let the paper settle.
     const gripY = height * .84 - Math.min(35, height * .03) * lift;
     const u = gripY / height;
-    const gripX = (1-u)**3 * freeTop + 3*(1-u)**2*u*(freeTop-radius*.22)
+    const edgeX = (1-u)**3 * freeTop + 3*(1-u)**2*u*(freeTop-radius*.22)
       + 3*(1-u)*u*u*(freeBottom-radius*.22) + u**3*freeBottom;
-    const approach = (1 - Math.min(1, raw / .07)) * 24;
-    const angle = 7 - 23 * lift + 8 * p;
-    hand.style.transform = `translate3d(${gripX - handSize * .2 + approach}px, ${gripY - handSize * .245 + approach}px, 0) rotate(${angle}deg) scale(${1 + lift * .045})`;
-    hand.style.opacity = String(Math.min(1, raw / .045, (1 - raw) / .08));
+    const approach = 1 - smooth(Math.min(1, raw / .22));
+    const release = smooth(Math.max(0, Math.min(1, (raw - .58) / .42)));
+    const gripX = Math.max(width * .08, edgeX) - handSize * .3 * release;
+    const angle = 5 - 17 * lift + 12 * release;
+    hand.style.transform = `translate3d(${gripX - handSize * .3 + approach * handSize * .35}px, ${gripY - handSize * .32 + approach * handSize * .16 + release * height * .38}px, 0) rotate(${angle}deg) scale(${1 + lift * .025})`;
+    hand.style.opacity = String(Math.min(1, raw / .07, (1 - raw) / .08));
+    showPose(raw);
     layer.dataset.progress = p.toFixed(3);
   }
   const root = front.attachShadow({ mode: 'open' });

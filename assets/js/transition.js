@@ -1,5 +1,5 @@
 /** Internal navigation uses a single, forward book-page turn. */
-import { makePageTurn, TURN_DURATION } from './page-turn.js';
+import { makePageTurn, TURN_DURATION, HAND_SPRITE_URL } from './page-turn.js';
 const supportedPages = new Set(['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']);
 const pageKey = (url) => new URL(url).pathname.replace(/\/$/, '/index.html');
 
@@ -7,7 +7,7 @@ export function setupNavigation({ renderPage, updateNavigation }) {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   if (!reducedMotion.matches) {
     const hand = new Image();
-    hand.src = new URL('../images/motion/page-turn-hand.png', import.meta.url).href;
+    hand.src = HAND_SPRITE_URL;
     hand.decode().catch(() => {});
   }
   const forcedColors = matchMedia('(forced-colors: active)');

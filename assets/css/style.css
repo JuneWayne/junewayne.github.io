@@ -44,7 +44,9 @@ main:focus { outline: none; }
 .book-sheet, .book-front { position: absolute; inset: 0; }
 .book-front { overflow: hidden; background: #fff; will-change: clip-path; }
 .book-curl { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.book-hand { position: absolute; left: 0; top: 0; max-width: none; opacity: 0; transform-origin: 20% 24.5%; will-change: transform, opacity; filter: drop-shadow(0 9px 8px #382a2526); }
+.book-hand { isolation: isolate; position: absolute; left: 0; top: 0; max-width: none; opacity: 0; transform-origin: 30% 32%; will-change: transform, opacity; filter: drop-shadow(0 9px 8px #382a2526); }
+.book-hand-atlas { display: none; }
+.book-hand-frame { position: absolute; inset: 0; background-repeat: no-repeat; background-size: 500% 200%; mix-blend-mode: plus-lighter; clip-path: inset(1.5%); will-change: opacity; }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }

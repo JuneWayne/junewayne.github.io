@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 1.15 seconds, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and separate photo albums for Layla and Blake. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes turn the whole viewport right to left like a book in 1.3 seconds, with the destination already underneath. Reduced-motion preferences skip the animation. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No package installation or build step is needed for production; GitHub Pages can serve the files directly.
 
@@ -113,4 +113,4 @@ Blake’s album lives at `blake.html` and uses `site.blake` in the content file.
 
 Research `labs` entries are linked names displayed below each project title. The favicon embeds the supplied `layla-head.jpg` in a square SVG viewport.
 
-The animated hand is a photorealistic transparent cutout generated with the built-in imagegen tool, saved at `assets/images/motion/page-turn-hand.png`. Its position, wrist rotation, and lift follow the page’s free edge. The generation prompt is recorded in `docs/design/page-turn-hand-prompt.txt`.
+The hand uses ten photorealistic gesture frames in `assets/images/motion/page-turn-grip-10.png` (five columns × two rows), generated with the built-in imagegen tool. The thumb rests above four supporting fingers. Adjacent poses blend through approach, grip, turn, release, and withdrawal; wrist movement follows the paper until release. The prompt is in `docs/design/page-turn-grip-10-prompt.txt`.

@@ -235,10 +235,10 @@ test('page turns always move right to left regardless of tab order', async ({ pa
       animation.currentTime = 0;
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       const before = document.querySelector('.book-paper').getBoundingClientRect().right;
-      animation.currentTime = 575;
+      animation.currentTime = 715;
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       const after = document.querySelector('.book-paper').getBoundingClientRect().right;
-      const hand = document.querySelector('.book-hand');
+      const hand = document.querySelector('.book-hand-atlas');
       await hand.decode();
       return { before, after, handWidth: hand.naturalWidth };
     });
@@ -462,4 +462,25 @@ test('Tencent and UVA teaching CV photos sit compactly to the right of their tex
     expect(image.x).toBeGreaterThan(copy.x + copy.width);
     expect(Math.abs(image.y - copy.y)).toBeLessThan(1);
   }
+});
+
+test('the page turn plays all ten hand poses through approach, grip, turn, and release', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await page.evaluate(async () => {
+    const { HAND_SPRITE_URL } = await import('/assets/js/page-turn.js');
+    const image = new Image(); image.src = HAND_SPRITE_URL; await image.decode();
+    window.handFrames = new Set(); window.handPhases = new Set();
+    new MutationObserver(() => {
+      const hand = document.querySelector('.book-hand');
+      if (hand) { window.handFrames.add(Number(hand.dataset.frame)); window.handPhases.add(hand.dataset.phase); }
+    }).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['data-frame', 'data-phase'] });
+  });
+  await page.locator('[data-nav=teaching]').click();
+  await expect(page.locator('.book-hand')).toHaveAttribute('data-frame-count', '10');
+  await expect(page.locator('.book-hand-frame')).toHaveCount(2);
+  await expect(page.locator('.book-turn')).toHaveCount(0);
+  expect(await page.evaluate(() => [...window.handFrames].sort((a,b) => a-b))).toEqual([1,2,3,4,5,6,7,8,9,10]);
+  expect(await page.evaluate(() => [...window.handPhases])).toEqual(['approach','grip','turn','release','withdraw']);
+  await expect(page.locator('body')).not.toHaveAttribute('aria-busy');
 });
