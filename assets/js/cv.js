@@ -1,4 +1,4 @@
-import { site } from './content.js';
+import { site } from './content.js?v=20261013-cat-bios';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

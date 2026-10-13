@@ -135,7 +135,7 @@ test('supplied content renders a portrait, research story, teaching details, and
   content.research = [{ title: 'Test research project', summary: 'A summary supplied through the content file.', year: '2026', kind: 'Research', image: './assets/images/cats/layla3.jpg', imageAlt: 'Test project image', details: ['A longer explanation of the research question and findings.'], links: [{ label: 'Code', url: 'https://github.com/JuneWayne' }] }];
   content.teaching = [{ title: 'Test course', code: 'TEST 101', institution: 'University of Virginia', role: 'Teaching Assistant', term: 'Fall 2026', description: 'Helped students understand course material.' }];
   content.cv = { url: './assets/documents/test-cv.pdf', updated: 'October 2026' };
-  await page.route('**/assets/js/content.js', (route) => route.fulfill({ contentType: 'text/javascript', body: `export const site = ${JSON.stringify(content)};` }));
+  await page.route(/\/assets\/js\/content\.js(?:\?.*)?$/, (route) => route.fulfill({ contentType: 'text/javascript', body: `export const site = ${JSON.stringify(content)};` }));
   await page.route('**/assets/documents/test-cv.pdf', (route) => route.fulfill({ contentType: 'application/pdf', body: '%PDF-1.4\n%%EOF' }));
   await page.goto('/');
   await expect(page.getByRole('img', { name: 'Test portrait' })).toBeVisible();

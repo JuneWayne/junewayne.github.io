@@ -1,7 +1,7 @@
-import { site } from './content.js';
-import { setupNavigation } from './transition.js';
-import { renderCV } from './cv.js';
-import { startLaylaAge } from './cat-age.js';
+import { site } from './content.js?v=20261013-cat-bios';
+import { setupNavigation } from './transition.js?v=20261013-cat-bios';
+import { renderCV } from './cv.js?v=20261013-cat-bios';
+import { startLaylaAge } from './cat-age.js?v=20261013-cat-bios';
 
 let stopCatAge;
 
