@@ -68,13 +68,25 @@ function renderResearch() {
     }
     const copy = element('div', 'research-copy');
     copy.append(element('h3', '', project.title), element('p', 'research-summary', project.summary));
-    if (project.organization) {
+    if (project.labs?.length) {
+      const context = element('p', 'research-context');
+      project.labs.forEach((lab, index) => {
+        if (index) context.append(' · ');
+        const anchor = element('a', '', lab.label);
+        Object.assign(anchor, { href: lab.url, target: '_blank', rel: 'noopener noreferrer' });
+        context.append(anchor);
+      });
+      copy.insertBefore(context, copy.querySelector('.research-summary'));
+    } else if (project.organization) {
       const context = [project.organization, project.location, project.role, project.dates].filter(Boolean).join(' · ');
       copy.insertBefore(element('p', 'research-context', context), copy.querySelector('.research-summary'));
     }
     if (project.details?.length || project.highlights?.length) {
       const details = element('details', 'research-details');
       details.append(element('summary', '', 'Details'));
+      if (project.labs?.length && project.role) {
+        details.append(element('p', '', [project.role, project.location, project.dates].filter(Boolean).join(' · ')));
+      }
       project.details?.forEach((paragraph) => details.append(element('p', '', paragraph)));
       if (project.highlights?.length) {
         const list = element('ul');

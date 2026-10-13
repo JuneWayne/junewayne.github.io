@@ -45,6 +45,7 @@ for (const project of site.research) {
   assert.ok(project.title?.trim() && project.summary?.trim(), 'Research entries need a title and summary');
   if (project.image) { await reference(project.image); assert.ok(project.imageAlt?.trim(), 'Research images need alternative text'); }
   await links(project.links);
+  await links(project.labs);
 }
 for (const course of site.teaching) {
   assert.ok(course.title?.trim() && course.role?.trim(), 'Courses need a title and role');

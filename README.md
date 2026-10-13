@@ -110,3 +110,5 @@ Tests cover mobile and desktop layouts, navigation, keyboard photo controls and 
 Select **Deploy from a branch**, your published branch, and **/(root)** in GitHub Pages settings. `.nojekyll` preserves the static files. Internal paths are relative, so the site also works below a project URL. No compilation is required.
 
 Blake’s album lives at `blake.html` and uses `site.blake` in the content file. Layla uses `site.cat`. The Cat pages link to both albums, each with its own lightbox.
+
+Research `labs` entries are linked names displayed below each project title. The favicon embeds the supplied `layla-head.jpg` in a square SVG viewport.

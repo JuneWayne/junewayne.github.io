@@ -53,11 +53,11 @@ test('the trimmed Cat gallery, keyboard photo navigation, and focus restoration 
   await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.locator('#lightbox-close')).toBeFocused();
-  await expect(page.locator('#lightbox-count')).toHaveText('1 / 8');
+  await expect(page.locator('#lightbox-count')).toHaveText('1 / 9');
   await page.keyboard.press('ArrowLeft');
-  await expect(page.locator('#lightbox-count')).toHaveText('8 / 8');
+  await expect(page.locator('#lightbox-count')).toHaveText('9 / 9');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#lightbox-count')).toHaveText('1 / 8');
+  await expect(page.locator('#lightbox-count')).toHaveText('1 / 9');
   await expect(page.locator('#lightbox-image')).toHaveJSProperty('naturalWidth', 1280);
   await page.keyboard.press('Shift+Tab');
   expect(await page.evaluate(() => document.querySelector('#photo-dialog').contains(document.activeElement))).toBe(true);
@@ -145,7 +145,7 @@ test('a full-page book turn reveals the destination underneath and preserves his
   await page.locator('[data-nav=cat]').click();
   await expect(page).toHaveURL(/cat.html$/);
   await expect(page.locator('.book-turn')).toHaveCount(0);
-  await expect(page.locator('.photo-open')).toHaveCount(8);
+  await expect(page.locator('.photo-open')).toHaveCount(9);
   await page.goBack();
   await expect(page.locator('body')).toHaveAttribute('data-page', 'teaching');
   await expect(page.locator('.book-turn')).toHaveCount(0);
@@ -315,8 +315,8 @@ test('the homepage shows all three teaching photos with closer crops and the flu
   await expect(page.locator('.research-thumbnail-placeholder, .experience-category')).toHaveCount(0);
   const fluid = page.locator('#fluid-dynamics');
   await expect(fluid).toContainText('Visual Intelligence Lab');
-  await expect(fluid).toContainText('Research Assistant');
   await fluid.locator('summary').click();
+  await expect(fluid).toContainText('Research Assistant');
   await expect(fluid.locator('details')).toContainText('67%+');
   await expect(fluid.locator('details')).toContainText('8+ hours to 6+ minutes');
   await expect(fluid.locator('details')).toContainText('81%+');
@@ -438,7 +438,7 @@ test('Blake has a separate album and lightbox, accessible from the homepage and 
   await expect(page.locator('#lightbox-image')).toHaveAttribute('src', /blake-glasses/);
   await page.keyboard.press('Escape');
   await page.getByRole('navigation', { name: 'Cat albums' }).getByRole('link', { name: 'Layla' }).click();
-  await expect(page.locator('.photo-open')).toHaveCount(8);
+  await expect(page.locator('.photo-open')).toHaveCount(9);
   await page.getByRole('navigation', { name: 'Cat albums' }).getByRole('link', { name: 'Blake' }).click();
   await expect(page.locator('.photo-open')).toHaveCount(6);
   await page.locator('[data-nav=teaching]').click();

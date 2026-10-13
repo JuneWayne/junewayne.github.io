@@ -245,6 +245,7 @@ export const site = {
   research: [
     {
       "id": "prompt-injection",
+      "labs": [{"label": "Cisco Foundation AI", "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/foundation-ai/index.html"}, {"label": "Virginia AI Safety Initiative", "url": "https://www.vaisi.org/"}],
       "title": "Robust Prompt-Injection Defenses for Agentic Systems",
       "summary": "Investigating prompt-injection defenses for agentic systems. The current demo supports visual auditing of how language models respond to prompt-injection inputs.",
       "kind": "Ongoing research",
@@ -257,6 +258,7 @@ export const site = {
     },
     {
       "id": "mesh-transformers",
+      "labs": [{"label": "Spatial AI Lab", "url": "https://craigleili.github.io/"}],
       "title": "Interpreting 3D Autoregressive Transformers",
       "summary": "Studying how attention heads in autoregressive mesh transformers relate to the geometric properties of triangles, with comparisons across four 3D generation model families.",
       "kind": "Work in progress",
@@ -277,6 +279,7 @@ export const site = {
     },
     {
       "id": "semantic-shifts",
+      "labs": [{"label": "Active Learning Lab", "url": "https://dsactivelearninglab.com/"}],
       "title": "Tracking Semantic Evolution of Data Science Roles",
       "summary": "Studying how early-career data science roles change over time through sentence embeddings, unsupervised clustering, and temporal analysis of job descriptions.",
       "kind": "Draft manuscript",
@@ -293,6 +296,7 @@ export const site = {
     },
     {
       "id": "fluid-dynamics",
+      "labs": [{"label": "Visual Intelligence Lab", "url": "https://stephenbaek.github.io/lab/"}],
       "title": "Physics-Aware Neural Networks for Fluid Dynamics",
       "organization": "Visual Intelligence Lab",
       "role": "Research Assistant",
@@ -480,6 +484,9 @@ export const site = {
       { id: "belly-up", src: "./assets/images/cats/layla.jpg", width: 3024, height: 4032,
         alt: "Layla lying on her back on the wooden floor, looking up at the camera.",
         title: "The upside-down approach", category: "Layla" },
+      { id: "head", src: "./assets/images/cats/layla-head.jpg", width: 1279, height: 1706,
+        alt: "The top of Layla’s head, ears, and whiskers as she looks up.",
+        title: "Looking up", category: "Layla" },
     ],
   },
 };
