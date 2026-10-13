@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-teaching-titles';
-import { setupNavigation } from './transition.js?v=20261013-teaching-titles';
-import { renderCV } from './cv.js?v=20261013-teaching-titles';
-import { startLaylaAge } from './cat-age.js?v=20261013-teaching-titles';
+import { site } from './content.js?v=20261013-clickable-cards';
+import { setupNavigation } from './transition.js?v=20261013-clickable-cards';
+import { renderCV } from './cv.js?v=20261013-clickable-cards';
+import { startLaylaAge } from './cat-age.js?v=20261013-clickable-cards';
 
 let stopCatAge;
 
@@ -31,6 +31,18 @@ function links(items, extraClass = '') {
   const group = element('div', `text-links ${extraClass}`.trim());
   items.forEach((item) => group.append(link(item)));
   return group;
+}
+
+function cardHeading(row, tag, text, destination) {
+  const heading = element(tag, '', text);
+  if (destination) {
+    const anchor = link({ ...destination, label: text });
+    anchor.className = 'card-title-link';
+    anchor.textContent = text;
+    heading.replaceChildren(anchor);
+    row.classList.add('clickable-card');
+  }
+  return heading;
 }
 
 function renderProfile() {
@@ -70,7 +82,11 @@ function renderResearch() {
       row.append(image);
     }
     const copy = element('div', 'research-copy');
-    copy.append(element(document.body.dataset.page === 'research' ? 'h2' : 'h3', '', project.title), element('p', 'research-summary', project.summary));
+    const isResearchPage = document.body.dataset.page === 'research';
+    const destination = !isResearchPage && project.id
+      ? { url: `./research.html#${project.id}` }
+      : project.links?.find(resource => !resource.download);
+    copy.append(cardHeading(row, isResearchPage ? 'h2' : 'h3', project.title, destination), element('p', 'research-summary', project.summary));
     if (project.labs?.length) {
       const context = element('p', 'research-context');
       project.labs.forEach((lab, index) => {
@@ -123,7 +139,10 @@ function courseRow(course, full = false) {
   const title = element('div');
   if (!full && course.code) title.append(element('span', 'teaching-code', course.code));
   const heading = full && course.code ? `${course.code} · ${course.title}` : course.title;
-  title.append(element(full ? 'h2' : 'h3', '', heading));
+  const destination = full
+    ? course.links?.find(resource => !resource.download)
+    : { url: `./teaching.html${course.id ? `#${course.id}` : ''}` };
+  title.append(cardHeading(row, full ? 'h2' : 'h3', heading, destination));
   if (full && course.links?.length) title.append(links(course.links));
   const role = element('div', 'teaching-role', course.role || 'Teaching Assistant');
   row.append(title, role);

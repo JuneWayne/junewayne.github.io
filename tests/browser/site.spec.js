@@ -333,6 +333,16 @@ test('CV card backgrounds and keyboard links navigate while embedded controls re
   await page.goto('/cv.html');
   await expect(page.locator('#cv-coursework .coursework-status')).toHaveCount(0);
   await expect(page.locator('#align .experience-title-link, #tencent .experience-title-link')).toHaveCount(0);
+  for (const id of ['align', 'tencent']) {
+    const card = page.locator(`#${id}`);
+    await card.click({ position: { x: 12, y: 12 } });
+    await expect(card.locator('details')).toHaveAttribute('open', '');
+    await expect(card.locator('.card-title-button')).toHaveAttribute('aria-expanded', 'true');
+    await card.locator('.card-title-button').focus();
+    await page.keyboard.press('Enter');
+    await expect(card.locator('details')).not.toHaveAttribute('open', '');
+    await expect(page).toHaveURL(/cv.html$/);
+  }
   await page.locator('#cisco summary').click();
   await expect(page.locator('#cisco details')).toHaveAttribute('open', '');
   await expect(page).toHaveURL(/cv.html$/);
@@ -348,6 +358,34 @@ test('CV card backgrounds and keyboard links navigate while embedded controls re
   await page.locator('[data-nav=cv]').click();
   await page.locator('#experience-filters').getByRole('button', { name: 'Research', exact: true }).click();
   await expect(page.locator('#visual-intelligence').getByRole('link', { name: 'PARCtorch code' })).toHaveAttribute('href', 'https://github.com/JuneWayne/PARCtorch/');
+});
+
+test('research and teaching card backgrounds navigate and preserve independent resources', async ({ page, context }) => {
+  for (const project of site.research) {
+    await page.goto('/');
+    await page.locator(`#${project.id}`).click({ position: { x: 8, y: 8 } });
+    await expect(page).toHaveURL(new RegExp(`research.html#${project.id}$`));
+    await expect(page.locator(`#${project.id} .card-title-link`)).toHaveAttribute('href', project.links.find(link => !link.download).url);
+  }
+  for (const course of site.teaching.slice(0, 3)) {
+    await page.goto('/');
+    const card = page.locator(`#${course.id}-preview`);
+    const bounds = await card.boundingBox();
+    await card.click({ position: { x: 3, y: bounds.height - 3 } });
+    await expect(page).toHaveURL(new RegExp(`teaching.html#${course.id}$`));
+  }
+  await page.goto('/research.html');
+  await page.locator('#mesh-transformers summary').click();
+  await expect(page.locator('#mesh-transformers details')).toHaveAttribute('open', '');
+  await expect(page).toHaveURL(/research.html$/);
+  const demo = site.research[0].links[0].url;
+  await context.route(demo, route => route.fulfill({ contentType: 'text/html', body: 'Demo destination' }));
+  const opened = context.waitForEvent('page');
+  await page.locator('#prompt-injection').click({ position: { x: 8, y: 8 } });
+  const popup = await opened;
+  await expect(popup).toHaveURL(demo);
+  await popup.close();
+  await expect(page.locator('#mesh-transformers .research-links a[download]')).toHaveAttribute('href', './assets/PowerPoints/Collaboration%20Request.pptx');
 });
 
 test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied photos', async ({ page }) => {

@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-teaching-titles';
+import { site } from './content.js?v=20261013-clickable-cards';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
@@ -32,8 +32,9 @@ function experienceCard(experience) {
   const destination = experience.links?.find(link => !link.download);
   if (destination) {
     const anchor = resource({ ...destination, label: experience.organization });
-    anchor.className = 'experience-title-link';
+    anchor.className = 'experience-title-link card-title-link';
     heading.replaceChildren(anchor);
+    card.classList.add('clickable-card');
   }
   copy.append(meta, heading, node('p', 'experience-role', experience.role));
   if (experience.summary) copy.append(node('p', 'experience-summary', experience.summary));
@@ -44,6 +45,17 @@ function experienceCard(experience) {
     experience.highlights.forEach((text) => list.append(node('li', '', text)));
     details.append(list);
     copy.append(details);
+    if (!destination) {
+      const toggle = node('button', 'card-title-button', experience.organization);
+      toggle.type = 'button';
+      details.id = `${experience.id}-contributions`;
+      toggle.setAttribute('aria-controls', details.id);
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.addEventListener('click', () => { details.open = !details.open; });
+      details.addEventListener('toggle', () => toggle.setAttribute('aria-expanded', String(details.open)));
+      heading.replaceChildren(toggle);
+      card.classList.add('clickable-card');
+    }
   }
   const extraLinks = experience.links?.filter(link => link !== destination);
   if (extraLinks?.length) {
