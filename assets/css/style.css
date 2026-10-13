@@ -45,6 +45,11 @@
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; }
 main { padding-bottom: 3rem; }
+/* The original semantic content stays in the DOM beneath the decorative canvas. */
+main.vortex-hidden { opacity: 0; pointer-events: none; }
+main:focus { outline: none; }
+.page-vortex { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.site-header { z-index: 6; position: relative; }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
@@ -75,8 +80,8 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 20; padding: .6rem 1rem; background: var(--color-page); border: 1px solid var(--color-focus); }
 .skip-link:focus { top: 1rem; }
 
-.profile { display: grid; grid-template-columns: 248px minmax(0, 1fr); gap: 3.75rem; align-items: center; padding-block: 4.25rem 4rem; }
-.profile-portrait { width: 100%; height: 290px; object-fit: cover; object-position: center; }
+.profile { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 3rem; align-items: center; padding-block: 4.25rem 4rem; }
+.profile-portrait { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
 .profile h1 { margin-bottom: 1.35rem; }
 .profile-bio { max-width: 660px; font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.75; }
 .profile-bio p + p { margin-top: .8rem; }
@@ -142,6 +147,7 @@ body[data-page='cat'] .ambient-field { opacity: .35; }
 .cat-hero-photo { transform: rotate(2deg); padding: 9px; border: 1px solid #e9e6e1; background: white; box-shadow: 0 5px 20px #26334608; }
 .cat-hero-photo img { width: 100%; height: 332px; object-fit: cover; object-position: 50% 0%; }
 .gallery-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.8rem; }
+.gallery-filters[hidden] { display: none; }
 .gallery-filters button { min-height: 44px; padding: .35rem 1rem; border: 1px solid var(--color-border); border-radius: 3px; color: var(--color-text-secondary); background: var(--color-page); font-size: .85rem; }
 .gallery-filters button[aria-pressed='true'] { color: var(--color-text); border-color: #a4b3c3; background: var(--color-surface); text-decoration: underline; text-underline-offset: .25em; }
 .cat-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.8rem 2.2rem; }
@@ -152,7 +158,6 @@ body[data-page='cat'] .ambient-field { opacity: .35; }
 .photo-open .photo-zoom { position: absolute; right: .8rem; bottom: .8rem; width: 35px; height: 35px; display: grid; place-items: center; color: #263346; background: #ffffffed; border-radius: 50%; font-size: 1rem; }
 .cat-photo figcaption { padding-top: 1rem; }
 .cat-photo h3 { font-size: 1.1rem; margin-bottom: .35rem; }
-.cat-photo figcaption p { font-size: .91rem; color: var(--color-text-secondary); }
 .photo-dialog { width: min(1060px, calc(100% - 3rem)); max-height: calc(100dvh - 3rem); padding: 1rem 1.5rem 1.3rem; color: var(--color-text); background: white; border: 1px solid var(--color-border); border-radius: 4px; overscroll-behavior: contain; }
 .photo-dialog::backdrop { background: #172231c4; }
 body:has(.photo-dialog[open]) { overflow: hidden; }
@@ -163,7 +168,6 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 .lightbox-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; padding-top: 1.2rem; }
 .lightbox-caption { flex: 1; text-align: center; }
 .lightbox-caption h2 { font-size: 1.5rem; margin-bottom: .4rem; }
-.lightbox-caption p { color: var(--color-text-secondary); font-size: .9rem; }
 
 .ambient-field { position: fixed; top: -80px; right: -60px; width: min(700px, 70vw); height: 670px; z-index: 0; pointer-events: none; background-image: radial-gradient(#245e9520 .8px, transparent .8px); background-size: 25px 25px; mask-image: radial-gradient(ellipse at 65% 32%, #000 5%, transparent 64%); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -187,8 +191,7 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 60rem) {
   .site-shell { width: calc(100% - 4rem); }
-  .profile { grid-template-columns: 210px minmax(0, 1fr); gap: 2.5rem; }
-  .profile-portrait { min-height: 250px; height: 250px; }
+  .profile { grid-template-columns: 260px minmax(0, 1fr); gap: 2.5rem; }
   .research-row { grid-template-columns: 145px minmax(0, 1fr); gap: 1.3rem; }
   .research-thumbnail { width: 145px; }
   .research-meta { grid-column: 2; text-align: left; margin-top: -.7rem; }
@@ -202,7 +205,7 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
   nav { width: 100%; gap: .75rem; justify-content: space-between; }
   nav a { font-size: .88rem; }
   .profile { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; padding-block: 2.2rem 2.7rem; }
-  .profile-portrait { width: 180px; min-height: 205px; height: 205px; }
+  .profile-portrait { width: min(260px, 100%); }
   .profile-bio { font-size: 1.03rem; }
   .profile h1 { margin-bottom: 1rem; }
   .section-heading { flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }
@@ -232,7 +235,6 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
   #lightbox-image { height: 57dvh; }
   .lightbox-bottom { gap: .6rem; }
   .lightbox-caption h2 { font-size: 1.1rem; }
-  .lightbox-caption p { font-size: .8rem; }
 }
 @media (forced-colors: active) {
   a:focus-visible, button:focus-visible, summary:focus-visible { outline-color: Highlight; }

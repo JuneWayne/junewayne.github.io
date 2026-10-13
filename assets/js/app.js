@@ -1,4 +1,5 @@
 import { site } from './content.js';
+import { setupNavigation } from './transition.js';
 
 /** Small DOM helpers keep all editable content as text, never executable HTML. */
 function element(tag, className = '', text = '') {
@@ -161,7 +162,6 @@ function setupCatGallery() {
   const dialog = document.querySelector('#photo-dialog');
   const image = document.querySelector('#lightbox-image');
   const title = document.querySelector('#lightbox-title');
-  const description = document.querySelector('#lightbox-description');
   const count = document.querySelector('#lightbox-count');
   const close = document.querySelector('#lightbox-close');
   const previous = document.querySelector('#lightbox-prev');
@@ -180,7 +180,6 @@ function setupCatGallery() {
     image.width = photo.width;
     image.height = photo.height;
     title.textContent = photo.title;
-    description.textContent = photo.description;
     count.textContent = `${currentIndex + 1} / ${selected.length}`;
     status.textContent = `${photo.title}. Photo ${currentIndex + 1} of ${selected.length}.`;
     previous.disabled = next.disabled = selected.length < 2;
@@ -213,7 +212,7 @@ function setupCatGallery() {
       button.append(thumbnail, zoom);
       button.addEventListener('click', () => openPhoto(index, button));
       const caption = element('figcaption');
-      caption.append(element('h3', '', photo.title), element('p', '', photo.description));
+      caption.append(element('h3', '', photo.title));
       figure.append(button, caption);
       return figure;
     }));
@@ -223,6 +222,7 @@ function setupCatGallery() {
 
   const categories = ['All photos', ...new Set(site.cat.photos.map((photo) => photo.category))];
   const filters = document.querySelector('#cat-filters');
+  filters.hidden = categories.length < 3;
   filters.replaceChildren(...categories.map((category, index) => {
     const button = element('button', '', category);
     button.type = 'button';
@@ -275,11 +275,16 @@ function updateNavigation() {
     else anchor.removeAttribute('aria-current');
   });
 }
-updateNavigation();
+function renderPage() {
+  updateNavigation();
+  renderProfile();
+  renderResearch();
+  renderTeaching();
+  renderCV();
+  setupCatGallery();
+  renderAnimals();
+}
+
+renderPage();
 window.addEventListener('hashchange', updateNavigation);
-renderProfile();
-renderResearch();
-renderTeaching();
-renderCV();
-setupCatGallery();
-renderAnimals();
+setupNavigation({ renderPage, updateNavigation });

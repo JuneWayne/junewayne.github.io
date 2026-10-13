@@ -41,24 +41,22 @@ test('navigation exposes the real profile and empty sections', async ({ page }) 
   await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
 });
 
-test('Cat filtering, keyboard photo navigation, and focus restoration work', async ({ page }) => {
+test('the trimmed Cat gallery, keyboard photo navigation, and focus restoration work', async ({ page }) => {
   await page.goto('/cat.html');
   await expect(page.locator('.photo-open')).toHaveCount(site.cat.photos.length);
-  await page.getByRole('button', { name: 'Her world', exact: true }).click();
-  await expect(page.locator('.photo-open')).toHaveCount(2);
-  await expect(page.locator('#gallery-status')).toHaveText('2 photos shown.');
-  await page.getByRole('button', { name: 'Layla', exact: true }).click();
-  await expect(page.locator('.photo-open')).toHaveCount(site.cat.photos.filter((photo) => photo.category === 'Layla').length);
+  await expect(page.locator('#cat-filters')).toBeHidden();
+  await expect(page.locator('.cat-photo figcaption p, #lightbox-description')).toHaveCount(0);
+  await expect(page.locator('#cat-gallery img[src*="duck"], #cat-gallery img[src$="layla2.jpg"], #cat-gallery img[src$="layla3.jpg"], #cat-gallery img[src$="laylaandmaomi.jpg"]')).toHaveCount(0);
   const first = page.locator('.photo-open').first();
   await first.focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.locator('#lightbox-close')).toBeFocused();
-  await expect(page.locator('#lightbox-count')).toHaveText('1 / 11');
+  await expect(page.locator('#lightbox-count')).toHaveText('1 / 8');
   await page.keyboard.press('ArrowLeft');
-  await expect(page.locator('#lightbox-count')).toHaveText('11 / 11');
+  await expect(page.locator('#lightbox-count')).toHaveText('8 / 8');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#lightbox-count')).toHaveText('1 / 11');
+  await expect(page.locator('#lightbox-count')).toHaveText('1 / 8');
   await expect(page.locator('#lightbox-image')).toHaveJSProperty('naturalWidth', 1280);
   await page.keyboard.press('Shift+Tab');
   expect(await page.evaluate(() => document.querySelector('#photo-dialog').contains(document.activeElement))).toBe(true);
@@ -68,7 +66,7 @@ test('Cat filtering, keyboard photo navigation, and focus restoration work', asy
   await expect(first).toBeFocused();
 });
 
-test('Profile and Research share navigation; photos load and page changes are instant', async ({ page }) => {
+test('Profile and Research share navigation; photos load and reduced-motion navigation is instant', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
@@ -77,7 +75,7 @@ test('Profile and Research share navigation; photos load and page changes are in
   expect(await page.locator('.ambient-field').evaluate((node) => getComputedStyle(node).animationName)).toBe('none');
   await page.locator('#animals').scrollIntoViewIfNeeded();
   await expect(page.getByRole('heading', { name: 'Animals', exact: true })).toBeVisible();
-  await expect(page.locator('#animals-list img')).toHaveCount(2);
+  await expect(page.locator('#animals-list img')).toHaveCount(1);
   await expect(page.locator('#animals-list img').first()).toHaveJSProperty('naturalWidth', 1280);
   expect(await page.evaluate(() => document.querySelector('#animals').compareDocumentPosition(document.querySelector('.home-teaching')) & Node.DOCUMENT_POSITION_PRECEDING)).toBeTruthy();
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -86,7 +84,7 @@ test('Profile and Research share navigation; photos load and page changes are in
   await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('nav [data-nav=cv]')).toHaveText('CV');
   await expect(page.locator('nav [data-nav=cv] span')).toHaveCount(0);
-  await expect(page.locator('#profile-portrait')).toHaveJSProperty('naturalWidth', 1279);
+  await expect(page.locator('#profile-portrait')).toHaveJSProperty('naturalWidth', 1276);
   await page.getByRole('navigation').getByRole('link', { name: 'Research' }).click();
   await expect(page.locator('nav [data-nav=research]')).toHaveAttribute('aria-current', 'page');
   await page.getByRole('navigation').getByRole('link', { name: 'Profile' }).click();
@@ -129,4 +127,71 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await page.getByRole('navigation').getByRole('link', { name: 'Cat' }).click();
   await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
   await context.close();
+});
+
+test('letters spiral briefly, then navigation settles and browser history works', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => {
+    document.addEventListener('click', () => { window.navigationStart = performance.now(); }, { once: true });
+    new MutationObserver(() => {
+      if (window.navigationStart && !document.querySelector('.page-vortex')) window.navigationElapsed = performance.now() - window.navigationStart;
+    }).observe(document.body, { childList: true });
+  });
+  await page.getByRole('navigation').getByRole('link', { name: 'Teaching' }).click();
+  await expect(page.locator('.page-vortex')).toHaveCount(1);
+  await expect(page.locator('.page-vortex')).toHaveAttribute('aria-hidden', 'true');
+  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  expect(await page.evaluate(() => window.navigationElapsed)).toBeLessThan(700);
+  await expect(page).toHaveURL(/teaching.html$/);
+  await expect(page).toHaveTitle(/Teaching/);
+  await expect(page.locator('main')).toHaveCSS('opacity', '1');
+  await page.getByRole('navigation').getByRole('link', { name: 'Cat' }).click();
+  await expect(page).toHaveURL(/cat.html$/);
+  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await expect(page.locator('.photo-open')).toHaveCount(8);
+  await page.goBack();
+  await expect(page.locator('body')).toHaveAttribute('data-page', 'teaching');
+  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await page.goForward();
+  await expect(page.locator('body')).toHaveAttribute('data-page', 'cat');
+  await page.locator('.photo-open').first().click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.keyboard.press('Escape');
+});
+
+test('quick repeated tab clicks resolve to the last destination on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await page.locator('[data-nav=cat]').click();
+  await expect(page.locator('.page-vortex')).toHaveCount(1);
+  await page.locator('[data-nav=teaching]').click();
+  await page.locator('[data-nav=cv]').click();
+  await expect(page).toHaveURL(/cv.html$/);
+  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await expect(page.locator('main')).toHaveCSS('opacity', '1');
+  await expect(page.locator('nav [aria-current=page]')).toHaveText('CV');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('reduced motion skips the canvas and failed page fetches use native navigation', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.evaluate(() => {
+    window.canvasesAdded = 0;
+    new MutationObserver((changes) => {
+      for (const change of changes) for (const node of change.addedNodes) if (node.nodeName === 'CANVAS') window.canvasesAdded++;
+    }).observe(document.body, { childList: true });
+  });
+  await page.locator('[data-nav=teaching]').click();
+  await expect(page).toHaveURL(/teaching.html$/);
+  expect(await page.evaluate(() => window.canvasesAdded)).toBe(0);
+  await page.route('**/cat.html', (route) => route.request().resourceType() === 'fetch' ? route.abort() : route.continue());
+  await page.locator('[data-nav=cat]').click();
+  await expect(page).toHaveURL(/cat.html$/);
+  await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
+  await expect(page.locator('main')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.page-vortex')).toHaveCount(0);
 });

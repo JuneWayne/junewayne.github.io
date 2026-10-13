@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a photo-and-bio introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Page changes are instant; the background dots are static.
+A white research portfolio with Lato typography, a photo-and-bio introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Page changes use a 480 ms top-down letter spiral; reduced-motion preferences skip the animation. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No production dependencies or build step; GitHub Pages can serve the files directly.
 
@@ -64,12 +64,11 @@ teaching: [
   height: 1600,
   alt: "Describe what Layla is doing.",
   title: "A short caption",
-  description: "The story behind this moment.",
   category: "Layla",
 },
 ```
 
-Use displayed pixel dimensions, accounting for camera rotation. Categories become filters automatically. Arrow keys browse the photo viewer; Escape closes it. Update `cat.hero`, `cat.heroAlt`, `cat.bio`, and `cat.loves` to change the introduction.
+Use displayed pixel dimensions, accounting for camera rotation. Captions display titles only. Categories become filters automatically when there is more than one category. Arrow keys browse the photo viewer; Escape closes it. Update `cat.hero`, `cat.heroAlt`, `cat.bio`, and `cat.loves` to change the introduction.
 
 The homepage also contains a static biography for search engines and visitors without JavaScript. If you change your introduction, update the matching text and contact links in `index.html`. Page titles and descriptions live in the HTML files.
 
@@ -78,11 +77,12 @@ The homepage also contains a static biography for search engines and visitors wi
 - `index.html`, `teaching.html`, `cv.html`, `cat.html`: public pages.
 - `assets/css/style.css`: layout, colors, fonts, motion, and mobile styles.
 - `assets/js/content.js`: editable content.
-- `assets/js/app.js`: rendering, navigation, animal previews, and gallery behavior.
+- `assets/js/app.js`: rendering, animal previews, and gallery behavior.
+- `assets/js/transition.js`: short canvas letter vortex, cached page navigation, and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
 - `assets/images/cats/`: all six original photos and seven newly supplied cat photos, preserved.
 - `assets/fonts/`: local Lato fonts and their Open Font License.
 - `docs/design/baseline.png`: accepted design reference.
-- `docs/design/tornado-transition.png`: a four-frame concept drawing of a future letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. This drawing is a concept; the public site uses instant page changes.
+- `docs/design/tornado-transition.png`: the accepted four-frame reference for the letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. The public site implements this movement in 480 ms, with a lighter particle budget on phones.
 - `scripts/`, `tests/browser/`: preview and verification.
 
 Old generated design drafts were moved to `/tmp/ethan-site-design-drafts-20261012`. The previous survey and remote GIF embeds were removed from the public page.
