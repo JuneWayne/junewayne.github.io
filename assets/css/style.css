@@ -65,8 +65,7 @@ h3 { font-weight: 400; font-size: 1.2rem; line-height: 1.4; letter-spacing: -.01
 section[id], h2[id] { scroll-margin-top: 2rem; }
 
 .site-shell { max-width: 1160px; width: calc(100% - 6rem); margin-inline: auto; position: relative; z-index: 1; }
-.site-header { display: flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 102px; border-bottom: 1px solid var(--color-border); }
-.wordmark { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: 1.2rem; font-weight: 400; text-decoration: none; color: var(--color-text); white-space: nowrap; }
+.site-header { display: flex; align-items: center; justify-content: flex-end; gap: 2rem; min-height: 102px; border-bottom: 1px solid var(--color-border); }
 nav { display: flex; align-items: center; gap: 2rem; }
 nav a { position: relative; display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; color: var(--color-text-secondary); text-decoration: none; font-size: .95rem; }
 nav a[aria-current='page'] { color: var(--color-text); }
@@ -77,8 +76,6 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .skip-link:focus { top: 1rem; }
 
 .profile { display: grid; grid-template-columns: 248px minmax(0, 1fr); gap: 3.75rem; align-items: center; padding-block: 4.25rem 4rem; }
-.portrait-placeholder { min-height: 290px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; background: var(--color-surface); border: 1px solid #edf0f4; color: var(--color-text-muted); font-size: .83rem; }
-.portrait-mark { width: 66px; height: 82px; opacity: .65; }
 .profile-portrait { width: 100%; height: 290px; object-fit: cover; object-position: center; }
 .profile h1 { margin-bottom: 1.35rem; }
 .profile-bio { max-width: 660px; font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.75; }
@@ -116,7 +113,7 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 
 .animals-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; max-width: 700px; }
 .animal-photo a { display: block; text-decoration: none; }
-.animal-photo img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 74%; background: var(--color-surface); }
+.animal-photo img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 0%; background: var(--color-surface); }
 .animal-photo span { display: inline-flex; align-items: center; min-height: 44px; margin-top: .5rem; }
 
 .page-intro { padding-block: 4.5rem 3.25rem; max-width: 800px; }
@@ -143,7 +140,7 @@ body[data-page='cat'] .ambient-field { opacity: .35; }
 .cat-loves { display: flex; flex-wrap: wrap; gap: .5rem .9rem; padding: 0; margin: 1.6rem 0 0; list-style: none; }
 .cat-loves li { font-size: .78rem; color: var(--color-cat-accent); background: var(--color-cat-surface); padding: .3rem .75rem; border: 1px solid #e6e0d6; border-radius: 3px; }
 .cat-hero-photo { transform: rotate(2deg); padding: 9px; border: 1px solid #e9e6e1; background: white; box-shadow: 0 5px 20px #26334608; }
-.cat-hero-photo img { width: 100%; height: 332px; object-fit: cover; object-position: 50% 74%; }
+.cat-hero-photo img { width: 100%; height: 332px; object-fit: cover; object-position: 50% 0%; }
 .gallery-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.8rem; }
 .gallery-filters button { min-height: 44px; padding: .35rem 1rem; border: 1px solid var(--color-border); border-radius: 3px; color: var(--color-text-secondary); background: var(--color-page); font-size: .85rem; }
 .gallery-filters button[aria-pressed='true'] { color: var(--color-text); border-color: #a4b3c3; background: var(--color-surface); text-decoration: underline; text-underline-offset: .25em; }
@@ -151,7 +148,7 @@ body[data-page='cat'] .ambient-field { opacity: .35; }
 .cat-photo { min-width: 0; }
 .photo-open { display: block; width: 100%; position: relative; padding: 0; border: 0; background: var(--color-surface); overflow: hidden; }
 .photo-open img { width: 100%; aspect-ratio: 4 / 4.5; object-fit: cover; }
-.cat-photo:nth-child(3n) .photo-open img { aspect-ratio: 4 / 3; }
+.cat-photo.is-landscape .photo-open img { aspect-ratio: 4 / 3; }
 .photo-open .photo-zoom { position: absolute; right: .8rem; bottom: .8rem; width: 35px; height: 35px; display: grid; place-items: center; color: #263346; background: #ffffffed; border-radius: 50%; font-size: 1rem; }
 .cat-photo figcaption { padding-top: 1rem; }
 .cat-photo h3 { font-size: 1.1rem; margin-bottom: .35rem; }
@@ -181,11 +178,8 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
   nav a::after, a, .gallery-filters button, .icon-button { transition: color .2s ease, background .2s ease, transform .2s ease; }
   .photo-open img { transition: transform .45s ease; }
-  .reveal.will-reveal { opacity: 0; transform: translateY(12px); }
-  .reveal.is-visible { opacity: 1; transform: translateY(0); transition: opacity .65s ease, transform .65s ease; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cat-hero-photo { transform: none; }
@@ -194,7 +188,7 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 @media (max-width: 60rem) {
   .site-shell { width: calc(100% - 4rem); }
   .profile { grid-template-columns: 210px minmax(0, 1fr); gap: 2.5rem; }
-  .portrait-placeholder, .profile-portrait { min-height: 250px; height: 250px; }
+  .profile-portrait { min-height: 250px; height: 250px; }
   .research-row { grid-template-columns: 145px minmax(0, 1fr); gap: 1.3rem; }
   .research-thumbnail { width: 145px; }
   .research-meta { grid-column: 2; text-align: left; margin-top: -.7rem; }
@@ -204,12 +198,11 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 42rem) {
   .site-shell { width: calc(100% - 2.5rem); }
-  .site-header { min-height: 116px; flex-wrap: wrap; justify-content: flex-start; row-gap: 0; padding-block: 1rem .5rem; }
-  .wordmark { font-size: 1.1rem; }
-  nav { width: 100%; gap: 1.65rem; justify-content: space-between; }
+  .site-header { min-height: 80px; justify-content: flex-end; padding-block: .5rem; }
+  nav { width: 100%; gap: .75rem; justify-content: space-between; }
   nav a { font-size: .88rem; }
   .profile { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; padding-block: 2.2rem 2.7rem; }
-  .portrait-placeholder, .profile-portrait { width: 180px; min-height: 205px; height: 205px; }
+  .profile-portrait { width: 180px; min-height: 205px; height: 205px; }
   .profile-bio { font-size: 1.03rem; }
   .profile h1 { margin-bottom: 1rem; }
   .section-heading { flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }

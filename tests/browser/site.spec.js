@@ -43,23 +43,23 @@ test('navigation exposes the real profile and empty sections', async ({ page }) 
 
 test('Cat filtering, keyboard photo navigation, and focus restoration work', async ({ page }) => {
   await page.goto('/cat.html');
-  await expect(page.locator('.photo-open')).toHaveCount(6);
+  await expect(page.locator('.photo-open')).toHaveCount(site.cat.photos.length);
   await page.getByRole('button', { name: 'Her world', exact: true }).click();
   await expect(page.locator('.photo-open')).toHaveCount(2);
   await expect(page.locator('#gallery-status')).toHaveText('2 photos shown.');
   await page.getByRole('button', { name: 'Layla', exact: true }).click();
-  await expect(page.locator('.photo-open')).toHaveCount(4);
+  await expect(page.locator('.photo-open')).toHaveCount(site.cat.photos.filter((photo) => photo.category === 'Layla').length);
   const first = page.locator('.photo-open').first();
   await first.focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.locator('#lightbox-close')).toBeFocused();
-  await expect(page.locator('#lightbox-count')).toHaveText('1 / 4');
+  await expect(page.locator('#lightbox-count')).toHaveText('1 / 11');
   await page.keyboard.press('ArrowLeft');
-  await expect(page.locator('#lightbox-count')).toHaveText('4 / 4');
+  await expect(page.locator('#lightbox-count')).toHaveText('11 / 11');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#lightbox-count')).toHaveText('1 / 4');
-  await expect(page.locator('#lightbox-image')).toHaveJSProperty('naturalWidth', 3024);
+  await expect(page.locator('#lightbox-count')).toHaveText('1 / 11');
+  await expect(page.locator('#lightbox-image')).toHaveJSProperty('naturalWidth', 1280);
   await page.keyboard.press('Shift+Tab');
   expect(await page.evaluate(() => document.querySelector('#photo-dialog').contains(document.activeElement))).toBe(true);
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
@@ -68,7 +68,7 @@ test('Cat filtering, keyboard photo navigation, and focus restoration work', asy
   await expect(first).toBeFocused();
 });
 
-test('the clean homepage shows Animals without motion controls or background drift', async ({ page }) => {
+test('Profile and Research share navigation; photos load and page changes are instant', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
@@ -78,10 +78,19 @@ test('the clean homepage shows Animals without motion controls or background dri
   await page.locator('#animals').scrollIntoViewIfNeeded();
   await expect(page.getByRole('heading', { name: 'Animals', exact: true })).toBeVisible();
   await expect(page.locator('#animals-list img')).toHaveCount(2);
-  await expect(page.locator('#animals-list img').first()).toHaveJSProperty('naturalWidth', 3024);
+  await expect(page.locator('#animals-list img').first()).toHaveJSProperty('naturalWidth', 1280);
   expect(await page.evaluate(() => document.querySelector('#animals').compareDocumentPosition(document.querySelector('.home-teaching')) & Node.DOCUMENT_POSITION_PRECEDING)).toBeTruthy();
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(page.locator('.will-reveal')).toHaveCount(0);
+  await expect(page.locator('.reveal, .will-reveal')).toHaveCount(0);
+  await expect(page.locator('nav [data-nav]')).toHaveText(['Profile', 'Research', 'Teaching', 'CV', 'Cat']);
+  await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
+  await expect(page.locator('nav [data-nav=cv]')).toHaveText('CV');
+  await expect(page.locator('nav [data-nav=cv] span')).toHaveCount(0);
+  await expect(page.locator('#profile-portrait')).toHaveJSProperty('naturalWidth', 1279);
+  await page.getByRole('navigation').getByRole('link', { name: 'Research' }).click();
+  await expect(page.locator('nav [data-nav=research]')).toHaveAttribute('aria-current', 'page');
+  await page.getByRole('navigation').getByRole('link', { name: 'Profile' }).click();
+  await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
   await page.locator('#animals-list').getByRole('link', { name: 'Layla' }).click();
   await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
 });

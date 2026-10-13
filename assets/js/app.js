@@ -37,8 +37,9 @@ function renderProfile() {
     const image = element('img', 'profile-portrait');
     image.src = site.portrait;
     image.alt = site.portraitAlt;
-    image.width = 496;
-    image.height = 580;
+    image.id = "profile-portrait";
+    image.width = site.portraitWidth;
+    image.height = site.portraitHeight;
     image.fetchPriority = 'high';
     portrait.replaceWith(image);
   } else {
@@ -137,32 +138,11 @@ function renderAnimals() {
     image.height = animal.height;
     image.loading = 'lazy';
     image.decoding = 'async';
+    if (animal.position) image.style.objectPosition = animal.position;
     anchor.append(image, element('span', '', animal.title));
     figure.append(anchor);
     return figure;
   }));
-}
-
-function setupReveals() {
-  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const sections = document.querySelectorAll('.reveal');
-  if (preference.matches || !('IntersectionObserver' in window)) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.06 });
-  sections.forEach((section) => {
-    section.classList.add('will-reveal');
-    observer.observe(section);
-  });
-  preference.addEventListener('change', () => {
-    if (!preference.matches) return;
-    observer.disconnect();
-    sections.forEach((section) => section.classList.remove('will-reveal'));
-  });
 }
 
 function setupCatGallery() {
@@ -216,7 +196,7 @@ function setupCatGallery() {
   function render(category = 'All photos', announce = false) {
     selected = category === 'All photos' ? site.cat.photos : site.cat.photos.filter((photo) => photo.category === category);
     gallery.replaceChildren(...selected.map((photo, index) => {
-      const figure = element('figure', 'cat-photo');
+      const figure = element('figure', photo.width > photo.height ? 'cat-photo is-landscape' : 'cat-photo');
       const button = element('button', 'photo-open');
       button.type = 'button';
       button.setAttribute('aria-label', `View photo: ${photo.title}`);
@@ -227,6 +207,7 @@ function setupCatGallery() {
       thumbnail.height = photo.height;
       thumbnail.loading = 'lazy';
       thumbnail.decoding = 'async';
+      if (photo.position) thumbnail.style.objectPosition = photo.position;
       const zoom = element('span', 'photo-zoom', '↗');
       zoom.setAttribute('aria-hidden', 'true');
       button.append(thumbnail, zoom);
@@ -286,12 +267,19 @@ function setupCatGallery() {
   render();
 }
 
-const activePage = document.body.dataset.page;
-document.querySelector(`[data-nav="${activePage}"]`)?.setAttribute('aria-current', 'page');
+function updateNavigation() {
+  const page = document.body.dataset.page;
+  const active = page === 'profile' && location.hash === '#research' ? 'research' : page;
+  document.querySelectorAll('[data-nav]').forEach((anchor) => {
+    if (anchor.dataset.nav === active) anchor.setAttribute('aria-current', 'page');
+    else anchor.removeAttribute('aria-current');
+  });
+}
+updateNavigation();
+window.addEventListener('hashchange', updateNavigation);
 renderProfile();
 renderResearch();
 renderTeaching();
 renderCV();
 setupCatGallery();
 renderAnimals();
-setupReveals();

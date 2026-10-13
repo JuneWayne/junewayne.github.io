@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a photo-and-bio introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Background dots are static; short section transitions honor reduced-motion preferences.
+A white research portfolio with Lato typography, a photo-and-bio introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Page changes are instant; the background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No production dependencies or build step; GitHub Pages can serve the files directly.
 
@@ -10,9 +10,9 @@ With Node.js 20 or newer, run `npm run dev` and open <http://127.0.0.1:5173>. To
 
 ## Add your content
 
-Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction and email addresses are included. Research, TA courses, your portrait, and your CV await your real content.
+Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. Research, TA courses, and your CV await your real content.
 
-**Portrait:** add `assets/images/portrait.jpg` and set `portrait: "./assets/images/portrait.jpg"`.
+**Portrait:** your photo is at `assets/images/portrait.jpg`. To replace it, update `portrait`, `portraitAlt`, `portraitWidth`, and `portraitHeight` in the content file and the corresponding image in `index.html`.
 
 **Research and internships:** add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Without an image, a numbered thumbnail appears.
 
@@ -78,10 +78,11 @@ The homepage also contains a static biography for search engines and visitors wi
 - `index.html`, `teaching.html`, `cv.html`, `cat.html`: public pages.
 - `assets/css/style.css`: layout, colors, fonts, motion, and mobile styles.
 - `assets/js/content.js`: editable content.
-- `assets/js/app.js`: rendering, section transitions, animal previews, and gallery behavior.
-- `assets/images/cats/`: all six original photos, preserved.
+- `assets/js/app.js`: rendering, navigation, animal previews, and gallery behavior.
+- `assets/images/cats/`: all six original photos and seven newly supplied cat photos, preserved.
 - `assets/fonts/`: local Lato fonts and their Open Font License.
 - `docs/design/baseline.png`: accepted design reference.
+- `docs/design/tornado-transition.png`: a four-frame concept drawing of a future letter-tornado transition, generated with the built-in imagegen tool. The full prompt is in `docs/design/tornado-transition-prompt.txt`. This drawing is a concept; the public site uses instant page changes.
 - `scripts/`, `tests/browser/`: preview and verification.
 
 Old generated design drafts were moved to `/tmp/ethan-site-design-drafts-20261012`. The previous survey and remote GIF embeds were removed from the public page.
