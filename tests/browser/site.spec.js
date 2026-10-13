@@ -28,13 +28,14 @@ test('pages load without errors, fit every viewport, and pass accessibility chec
   expect(errors).toEqual([]);
 });
 
-test('navigation exposes the real profile and empty sections', async ({ page }) => {
+test('navigation exposes the profile, research, and guest lecture', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#profile-bio')).toContainText('fourth-year undergraduate');
   await expect(page.getByRole('link', { name: 'ethan128@me.com' })).toHaveAttribute('href', 'mailto:ethan128@me.com');
   await expect(page.getByRole('link', { name: 'wkt7ne@virginia.edu' })).toHaveAttribute('href', 'mailto:wkt7ne@virginia.edu');
   await page.getByRole('navigation').getByRole('link', { name: 'Teaching' }).click();
-  await expect(page.getByRole('heading', { name: 'The course list is coming soon.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Marketing Analytics and Big Data' })).toBeVisible();
+  await expect(page.locator('.teaching-role')).toContainText('Guest Lecturer');
   await page.getByRole('navigation').getByRole('link', { name: 'CV' }).click();
   await expect(page.getByRole('heading', { name: 'The CV is on its way.' })).toBeVisible();
   await page.getByRole('navigation').getByRole('link', { name: 'Cat' }).click();
@@ -129,31 +130,35 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await context.close();
 });
 
-test('letters spiral briefly, then navigation settles and browser history works', async ({ page }) => {
+test('a subtle wave fades across the page, then navigation settles and browser history works', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
   await page.evaluate(() => {
     document.addEventListener('click', () => { window.navigationStart = performance.now(); }, { once: true });
     new MutationObserver(() => {
-      if (window.navigationStart && !document.querySelector('.page-vortex')) window.navigationElapsed = performance.now() - window.navigationStart;
+      if (window.navigationStart && !document.querySelector('.page-wave, .page-vortex')) window.navigationElapsed = performance.now() - window.navigationStart;
     }).observe(document.body, { childList: true });
   });
   await page.getByRole('navigation').getByRole('link', { name: 'Teaching' }).click();
-  await expect(page.locator('.page-vortex')).toHaveCount(1);
-  await expect(page.locator('.page-vortex')).toHaveAttribute('aria-hidden', 'true');
-  await expect(page.locator('.page-vortex')).toHaveCount(0);
-  expect(await page.evaluate(() => window.navigationElapsed)).toBeLessThan(700);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(1);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveAttribute('aria-hidden', 'true');
+  await expect(page.locator('main')).toHaveCSS('filter', /page-water-filter/);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(0);
+  expect(await page.evaluate(() => window.navigationElapsed)).toBeLessThan(1250);
+  expect(await page.evaluate(() => window.navigationElapsed)).toBeGreaterThan(800);
+  await expect(page.locator('main')).toHaveCSS('filter', 'none');
+  await expect(page.locator('main')).toHaveCSS('mask-image', 'none');
   await expect(page).toHaveURL(/teaching.html$/);
   await expect(page).toHaveTitle(/Teaching/);
   await expect(page.locator('main')).toHaveCSS('opacity', '1');
   await page.getByRole('navigation').getByRole('link', { name: 'Cat' }).click();
   await expect(page).toHaveURL(/cat.html$/);
-  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(0);
   await expect(page.locator('.photo-open')).toHaveCount(8);
   await page.goBack();
   await expect(page.locator('body')).toHaveAttribute('data-page', 'teaching');
-  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(0);
   await page.goForward();
   await expect(page.locator('body')).toHaveAttribute('data-page', 'cat');
   await page.locator('.photo-open').first().click();
@@ -166,11 +171,11 @@ test('quick repeated tab clicks resolve to the last destination on mobile', asyn
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   await page.locator('[data-nav=cat]').click();
-  await expect(page.locator('.page-vortex')).toHaveCount(1);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(1);
   await page.locator('[data-nav=teaching]').click();
   await page.locator('[data-nav=cv]').click();
   await expect(page).toHaveURL(/cv.html$/);
-  await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(0);
   await expect(page.locator('main')).toHaveCSS('opacity', '1');
   await expect(page.locator('nav [aria-current=page]')).toHaveText('CV');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -182,7 +187,7 @@ test('reduced motion skips the canvas and failed page fetches use native navigat
   await page.evaluate(() => {
     window.canvasesAdded = 0;
     new MutationObserver((changes) => {
-      for (const change of changes) for (const node of change.addedNodes) if (node.nodeName === 'CANVAS') window.canvasesAdded++;
+      for (const change of changes) for (const node of change.addedNodes) if (node.matches?.('.page-wave, .page-vortex')) window.canvasesAdded++;
     }).observe(document.body, { childList: true });
   });
   await page.locator('[data-nav=teaching]').click();
@@ -193,5 +198,49 @@ test('reduced motion skips the canvas and failed page fetches use native navigat
   await expect(page).toHaveURL(/cat.html$/);
   await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
   await expect(page.locator('main')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.page-wave, .page-vortex')).toHaveCount(0);
+});
+
+test('research resources and guest lecture notebooks are readable and downloadable', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#research-list h3')).toHaveText(site.research.map((project) => project.title));
+  await expect(page.getByRole('link', { name: 'Interactive demo' })).toHaveAttribute('href', 'https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b');
+  const name = await page.locator('#profile-name').boundingBox();
+  const portrait = await page.locator('#profile-portrait').boundingBox();
+  expect(name.y + name.height).toBeLessThan(portrait.y);
+  expect(Math.abs(name.x - portrait.x)).toBeLessThan(1);
+  await expect(page.getByRole('heading', { name: 'About me' })).toBeVisible();
+  for (const project of site.research) for (const resource of project.links) {
+    if (resource.url.startsWith('https:')) continue;
+    const response = await page.request.get(resource.url.replace('./', '/'));
+    expect(response.ok()).toBe(true);
+    const data = await response.body();
+    expect(data.subarray(0, resource.url.endsWith('.pdf') ? 4 : 2).toString()).toBe(resource.url.endsWith('.pdf') ? '%PDF' : 'PK');
+  }
+  await page.goto('/teaching.html');
+  await expect(page.locator('.lecture-materials li')).toHaveCount(3);
+  await expect(page.locator('.teaching-term')).toHaveCount(0);
+  for (const resource of site.teaching[0].materials) {
+    const response = await page.request.get(resource.url.replace('./', '/'));
+    expect(response.ok()).toBe(true);
+    const notebook = await response.json();
+    expect(notebook.nbformat).toBe(4);
+    expect(notebook.cells.some((cell) => cell.cell_type === 'code')).toBe(true);
+    expect(notebook.cells.every((cell) => !cell.outputs?.length)).toBe(true);
+  }
+  const downloadEvent = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'APIs and Chatbots (.ipynb)' }).click();
+  const download = await downloadEvent;
+  expect(download.suggestedFilename()).toBe('APIs_&_Chatbot.ipynb');
+});
+
+test('the slower spiral remains available for comparison', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/?transition=spiral');
+  await page.locator('[data-nav=teaching]').click();
+  await expect(page.locator('.page-vortex')).toHaveCount(1);
+  await expect(page.locator('.page-wave')).toHaveCount(0);
+  await expect(page).toHaveURL(/teaching.html\?transition=spiral$/);
   await expect(page.locator('.page-vortex')).toHaveCount(0);
+  await expect(page.locator('main')).toHaveCSS('opacity', '1');
 });

@@ -2,3 +2,7 @@ node_modules/
 test-results/
 playwright-report/
 .DS_Store
+
+# Windows download metadata and Office lock files are not site resources.
+*:Zone.Identifier
+~$*

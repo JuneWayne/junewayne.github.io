@@ -13,7 +13,7 @@ async function reference(url, from = root) {
   assert.ok(url.length > 0, 'URLs cannot be empty');
   if (/^(https:\/\/|mailto:|#)/.test(url)) return;
   assert.ok(!/^[a-z]+:|^\/\//i.test(url), `Unsupported URL: ${url}`);
-  const path = resolve(from, url.split(/[?#]/)[0]);
+  const path = resolve(from, decodeURIComponent(url.split(/[?#]/)[0]));
   assert.ok(path.startsWith(root + sep), `Path must stay inside the site: ${url}`);
   await access(path).catch(() => { throw new Error(`Missing file: ${url}`); });
   checked++;
@@ -36,8 +36,16 @@ for (const project of site.research) {
   await links(project.links);
 }
 for (const course of site.teaching) {
-  assert.ok(course.title?.trim() && course.term?.trim(), 'Courses need a title and term');
+  assert.ok(course.title?.trim() && course.role?.trim(), 'Courses need a title and role');
   await links(course.links);
+  for (const resource of course.materials || []) {
+    assert.ok(resource.title?.trim(), 'Lecture materials need a title');
+    await reference(resource.url);
+    if (resource.url.endsWith('.ipynb')) {
+      const notebook = JSON.parse(await readFile(resolve(root, decodeURIComponent(resource.url)), 'utf8'));
+      assert.ok(notebook.nbformat === 4 && notebook.cells.length, 'Lecture notebooks must have readable cells');
+    }
+  }
 }
 for (const animal of site.animals) {
   assert.ok(animal.title?.trim() && animal.alt?.trim(), 'Animals need a title and alternative text');
@@ -59,7 +67,7 @@ for (const page of pages) {
   const html = await readFile(resolve(root, page), 'utf8');
   assert.ok(html.includes('lang="en"') && html.includes('name="viewport"'), `${page} needs language and viewport metadata`);
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${page} needs one main heading`);
-  for (const [, url] of html.matchAll(/(?:src|href)="([^"\s]+)"/g)) await reference(url);
+  for (const [, url] of html.matchAll(/(?:src|href)="([^"\s]+)"/g)) await reference(url.replaceAll('&amp;', '&'));
 }
 const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
 for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));

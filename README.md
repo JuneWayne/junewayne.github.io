@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a photo-and-bio introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Page changes use a 480 ms top-down letter spiral; reduced-motion preferences skip the animation. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Page changes use a subtle 900 ms water wave and fade from left to right. Open `?transition=spiral` to compare a smoother 1.1-second spiral. Reduced-motion preferences skip both animations. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No production dependencies or build step; GitHub Pages can serve the files directly.
 
@@ -10,7 +10,7 @@ With Node.js 20 or newer, run `npm run dev` and open <http://127.0.0.1:5173>. To
 
 ## Add your content
 
-Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. Research, TA courses, and your CV await your real content.
+Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. Three preliminary research entries and the COMM 4351 guest lecture are included. Their summaries and resources can be expanded; your CV still awaits its PDF.
 
 **Portrait:** your photo is at `assets/images/portrait.jpg`. To replace it, update `portrait`, `portraitAlt`, `portraitWidth`, and `portraitHeight` in the content file and the corresponding image in `index.html`.
 
@@ -34,7 +34,7 @@ research: [
 ],
 ```
 
-**Teaching:** add entries to `teaching`. The homepage shows the first three; Teaching shows all entries, descriptions, and links.
+**Teaching:** add entries to `teaching`. The homepage shows the first three; Teaching shows all entries, descriptions, and links. `term` is optional until you have a date. Guest lectures can include `materials: [{ title, summary, url }]` for downloadable notebooks.
 
 ```js
 teaching: [
@@ -78,11 +78,13 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/css/style.css`: layout, colors, fonts, motion, and mobile styles.
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
-- `assets/js/transition.js`: short canvas letter vortex, cached page navigation, and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
+- `assets/js/transition.js`: DOM pixel wave and fade, optional canvas letter vortex, cached page navigation, and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
+- `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.
+- `assets/Python_notebook/`: downloadable COMM 4351 lecture notebooks. Saved execution logs are cleared; original notebook copies are backed up under `/tmp/ethan-lecture-notebook-originals`.
 - `assets/images/cats/`: all six original photos and seven newly supplied cat photos, preserved.
 - `assets/fonts/`: local Lato fonts and their Open Font License.
 - `docs/design/baseline.png`: accepted design reference.
-- `docs/design/tornado-transition.png`: the accepted four-frame reference for the letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. The public site implements this movement in 480 ms, with a lighter particle budget on phones.
+- `docs/design/tornado-transition.png`: the accepted four-frame reference for the letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. The optional spiral implements this movement in 1.1 seconds, with a lighter particle budget on phones. The default is the gentler water wave.
 - `scripts/`, `tests/browser/`: preview and verification.
 
 Old generated design drafts were moved to `/tmp/ethan-site-design-drafts-20261012`. The previous survey and remote GIF embeds were removed from the public page.

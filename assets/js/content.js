@@ -1,6 +1,6 @@
 /**
  * Edit this file to update the site. Paths are relative to the website root.
- * Research and teaching are intentionally empty until real entries are supplied.
+ * Research summaries and lecture resources can be expanded as the work develops.
  * See README.md for complete examples.
  */
 export const site = {
@@ -21,8 +21,79 @@ export const site = {
   ],
   // Set url to "./assets/documents/cv.pdf" after adding your PDF.
   cv: { url: null, updated: null },
-  research: [],
-  teaching: [],
+  research: [
+    {
+      "title": "Robust Prompt-Injection Defenses for Agentic Systems",
+      "summary": "Investigating prompt-injection defenses for agentic systems. The current demo supports visual auditing of how language models respond to prompt-injection inputs.",
+      "kind": "Ongoing research",
+      "links": [
+        {
+          "label": "Interactive demo",
+          "url": "https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b"
+        }
+      ]
+    },
+    {
+      "title": "Interpreting 3D Autoregressive Transformers",
+      "summary": "Studying how attention heads in autoregressive mesh transformers relate to the geometric properties of triangles, with comparisons across four 3D generation model families.",
+      "kind": "Work in progress",
+      "details": [
+        "The current analysis examines MeshGPT, MeshXL, DeepMesh, and MeshMosaic using 500 ShapeNet meshes across five object categories. It compares attention-head preferences for triangle area, aspect ratio, and orientation."
+      ],
+      "links": [
+        {
+          "label": "Research summary (PDF)",
+          "url": "./assets/PowerPoints/Collaboration%20Request.pdf"
+        },
+        {
+          "label": "Slides (PowerPoint)",
+          "url": "./assets/PowerPoints/Collaboration%20Request.pptx",
+          "download": true
+        }
+      ]
+    },
+    {
+      "title": "Tracking Semantic Evolution of Data Science Roles",
+      "summary": "Studying how early-career data science roles change over time through sentence embeddings, unsupervised clustering, and temporal analysis of job descriptions.",
+      "kind": "Draft manuscript",
+      "details": [
+        "The draft analyzes 10,603 early-career job postings using sentence embeddings, UMAP, HDBSCAN, and temporal stability measures to study specialized role groupings and their semantic shifts.",
+        "With Leah Kim, Brian Wright, and Ali Rivera at UVA’s Active Learning Lab."
+      ],
+      "links": [
+        {
+          "label": "Draft paper (PDF)",
+          "url": "./assets/PDFs/Tracking%20Semantic%20Evolution%20of%20DS%20roles%20%281%29.pdf"
+        }
+      ]
+    }
+  ],
+  teaching: [
+    {
+      "code": "COMM 4351",
+      "title": "Marketing Analytics and Big Data",
+      "institution": "University of Virginia",
+      "role": "Guest Lecturer",
+      "description": "A guest lecture on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
+      "materials": [
+        {
+          "title": "APIs and Chatbots",
+          "summary": "HTTP requests, API responses, conversational applications, and an introduction to multi-agent workflows.",
+          "url": "./assets/Python_notebook/APIs_%26_Chatbot.ipynb"
+        },
+        {
+          "title": "LangChain 101",
+          "summary": "Prompt templates, structured outputs, document retrieval, and a minimal tool-calling agent.",
+          "url": "./assets/Python_notebook/Langchain_101.ipynb"
+        },
+        {
+          "title": "Hierarchical Agents with CrewAI",
+          "summary": "A manager-and-analysts workflow combining web research, local vector stores, and retrieval-augmented generation.",
+          "url": "./assets/Python_notebook/CrewAI_Hierarchical_Web_RAG_LocalDB_Tutorial.ipynb"
+        }
+      ]
+    }
+  ],
   // Homepage previews; add other animals here as your collection grows.
   animals: [
     { title: "Layla", src: "./assets/images/cats/layla-sofa.jpg", width: 1280, height: 1669,

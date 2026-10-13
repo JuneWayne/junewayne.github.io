@@ -9,10 +9,11 @@ function element(tag, className = '', text = '') {
   return node;
 }
 
-function link({ label, url }) {
+function link({ label, url, download = false }) {
   const anchor = element('a', '', label);
   anchor.href = url;
-  if (/^https?:\/\//i.test(url)) {
+  if (download) anchor.download = '';
+  else if (/^https?:\/\//i.test(url) || /\.pdf(?:[?#]|$)/i.test(url)) {
     anchor.target = '_blank';
     anchor.rel = 'noopener noreferrer';
   }
@@ -89,11 +90,25 @@ function courseRow(course, full = false) {
   const title = element('div');
   if (course.code) title.append(element('span', 'teaching-code', course.code));
   title.append(element('h3', '', course.title));
-  if (full && course.description) title.append(element('p', 'teaching-description', course.description));
   if (full && course.links?.length) title.append(links(course.links));
   const role = element('div', 'teaching-role', course.role || 'Teaching Assistant');
   if (course.institution) role.append(element('p', 'teaching-description', course.institution));
-  row.append(title, role, element('p', 'teaching-term', course.term));
+  row.append(title, role);
+  if (course.term) row.append(element('p', 'teaching-term', course.term));
+  if (full && course.description) row.append(element('p', 'teaching-description lecture-description', course.description));
+  if (full && course.materials?.length) {
+    const materials = element('div', 'lecture-materials');
+    materials.append(element('h4', '', 'Lecture notebooks'));
+    const list = element('ol');
+    course.materials.forEach((resource) => {
+      const item = element('li');
+      item.append(link({ label: `${resource.title} (.ipynb)`, url: resource.url, download: true }));
+      if (resource.summary) item.append(element('p', '', resource.summary));
+      list.append(item);
+    });
+    materials.append(list);
+    row.append(materials);
+  }
   return row;
 }
 

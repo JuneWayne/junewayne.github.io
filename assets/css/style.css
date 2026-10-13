@@ -49,6 +49,7 @@ main { padding-bottom: 3rem; }
 main.vortex-hidden { opacity: 0; pointer-events: none; }
 main:focus { outline: none; }
 .page-vortex { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.page-wave { position: absolute; width: 0; height: 0; pointer-events: none; }
 .site-header { z-index: 6; position: relative; }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -80,9 +81,10 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 20; padding: .6rem 1rem; background: var(--color-page); border: 1px solid var(--color-focus); }
 .skip-link:focus { top: 1rem; }
 
-.profile { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 3rem; align-items: center; padding-block: 4.25rem 4rem; }
+.profile { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 3rem; align-items: start; padding-block: 4.25rem 4rem; }
 .profile-portrait { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
-.profile h1 { margin-bottom: 1.35rem; }
+.profile h1 { font-size: clamp(2rem, 2.8vw, 2.5rem); margin-bottom: 1.35rem; }
+.profile-copy h2 { margin-bottom: 1.35rem; }
 .profile-bio { max-width: 660px; font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.75; }
 .profile-bio p + p { margin-top: .8rem; }
 .text-links { display: flex; flex-wrap: wrap; gap: .3rem 1.6rem; margin-top: 1.35rem; }
@@ -109,12 +111,20 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .research-details summary { width: fit-content; min-height: 40px; cursor: pointer; color: var(--color-link); padding-block: .4rem; }
 .research-details p { margin-block: .45rem; }
 .teaching-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; gap: 1.4rem; border-top: 1px solid var(--color-border); padding-block: 1.3rem; align-items: baseline; }
+.teaching-row:not(:has(.teaching-term)) { grid-template-columns: minmax(0, 1fr) auto; }
 .teaching-row h3 { font-size: 1.05rem; }
 .teaching-code { display: block; color: var(--color-text-muted); font-size: .79rem; letter-spacing: .04em; margin-bottom: .15rem; }
 .teaching-role, .teaching-term { color: var(--color-text-secondary); font-size: .92rem; }
 .teaching-term { text-align: right; }
 .teaching-description { margin-top: .45rem; color: var(--color-text-muted); font-size: .92rem; }
 .teaching-full .teaching-row { padding-block: 1.7rem; }
+.lecture-description, .lecture-materials { grid-column: 1 / -1; }
+.lecture-materials { padding-top: .5rem; }
+.lecture-materials h4 { margin: 0 0 1rem; font-size: 1rem; font-weight: 400; }
+.lecture-materials ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; list-style: none; padding: 0; margin: 0; }
+.lecture-materials li { border-top: 1px solid var(--color-border); padding-top: .75rem; min-width: 0; }
+.lecture-materials a { display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; text-decoration: none; }
+.lecture-materials p { color: var(--color-text-secondary); font-size: .93rem; margin-top: .3rem; }
 
 .animals-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; max-width: 700px; }
 .animal-photo a { display: block; text-decoration: none; }
@@ -220,6 +230,7 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
   .teaching-row { grid-template-columns: minmax(0, 1fr) auto; gap: .4rem 1rem; }
   .teaching-row > :first-child { grid-column: 1 / -1; }
   .teaching-term { font-size: .85rem; }
+  .lecture-materials ol { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
   .page-intro { padding-block: 2.8rem 2.5rem; }
   .page-description { font-size: 1.05rem; }
   .cv-placeholder { padding: 2.7rem 1.2rem; }
