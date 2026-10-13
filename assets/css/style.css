@@ -164,7 +164,6 @@ nav a[aria-current='page']::after, nav a.book-current::after { transform: scaleX
 .experience-meta { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; margin-bottom: .8rem; font-size: 1rem; color: var(--color-text-secondary); }
 .experience-card h3 { font-size: 1.35rem; }
 .experience-role { margin-top: .35rem; font-size: 1rem; }
-.experience-location { font-size: 1rem; color: var(--color-text-secondary); margin-top: .2rem; }
 .experience-summary { color: var(--color-text-secondary); font-size: 1rem; margin-top: 1rem; }
 .experience-details { font-size: 1rem; color: var(--color-text-secondary); margin-top: .7rem; }
 .experience-details summary { cursor: pointer; min-height: 44px; padding-block: .6rem; color: var(--color-link); width: fit-content; }

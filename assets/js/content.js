@@ -88,7 +88,6 @@ export const site = {
         "role": "Data Scientist Intern",
         "category": "Industry",
         "dates": "May – August 2026",
-        "location": "Durham–Raleigh, North Carolina",
         "summary": "Worked on LLM auditing for prompt-injection defenses, semantic search, and a full-stack escalation tracking platform.",
         "highlights": [
           "Developed a lightweight LLM audit workflow using Jacobian-lens techniques with Qwen and Cisco Antares/Foundation-Sec models.",
@@ -114,7 +113,6 @@ export const site = {
         "role": "Undergraduate Researcher",
         "category": "Research",
         "dates": "January 2026 – Present",
-        "location": "Charlottesville, Virginia",
         "summary": "Investigating the mechanisms of autoregressive 3D mesh transformers and how their attention heads represent geometry.",
         "highlights": [
           "Studied attention sinks and active/dormant attention-head behavior in MeshXL.",
@@ -130,11 +128,10 @@ export const site = {
       },
       {
         "id": "guest-lecture",
-        "organization": "University of Virginia · McIntire School of Commerce",
-        "role": "Guest Lecturer · COMM 4351",
+        "organization": "COMM 4351 · McIntire School of Commerce",
+        "role": "Guest Lecturer",
         "category": "Teaching",
         "dates": "September – December 2025",
-        "location": "Charlottesville, Virginia",
         "summary": "Guest lecture on AI agents in Professor Natasha Foutz’s Marketing Analytics and Big Data class, with hands-on examples in APIs, LangChain, retrieval, and hierarchical multi-agent systems.",
         "photo": {
           "src": "./assets/images/experience/guest-lecture.jpg",
@@ -151,12 +148,41 @@ export const site = {
         ]
       },
       {
+        "id": "sarc-5400",
+        "organization": "SARC 5400",
+        "role": "Teaching Assistant",
+        "category": "Teaching",
+        "dates": "January – April 2025",
+        "summary": "Teaching assistant for Data Visualization.",
+        "photo": {
+          "src": "./assets/images/experience/sarc-5400.jpeg",
+          "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
+          "width": 865,
+          "height": 1085
+        },
+        "links": [{ "label": "Teaching details", "url": "./teaching.html#sarc-5400" }]
+      },
+      {
+        "id": "cdl",
+        "organization": "Charlottesville Debate League",
+        "role": "Debate Coach & Tournament Chair",
+        "category": "Teaching",
+        "dates": "January 2024 – Present",
+        "summary": "Organizing, planning, and managing speech and debate tournaments for Charlottesville middle school students.",
+        "photo": {
+          "src": "./assets/images/experience/cdl-team.jpg",
+          "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
+          "width": 1706,
+          "height": 1279
+        },
+        "links": [{ "label": "Teaching details", "url": "./teaching.html#cdl" }]
+      },
+      {
         "id": "align",
         "organization": "Align Technology",
         "role": "AI & Automation Intern",
         "category": "Industry",
         "dates": "May – August 2025",
-        "location": "San Jose, California",
         "summary": "Built and shipped a multi-agent RAG chatbot for market research, used by 20,000+ Align employees.",
         "highlights": [
           "Developed the chatbot using Azure AI Foundry, Copilot Studio, Teams SDK, and LangChain.",
@@ -176,7 +202,6 @@ export const site = {
         "role": "Research Assistant",
         "category": "Research",
         "dates": "April – September 2025",
-        "location": "Charlottesville, Virginia",
         "summary": "Trained physics-aware recurrent convolutional networks to model advection and diffusion in 2D shear-flow systems.",
         "highlights": [
           "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
@@ -201,7 +226,6 @@ export const site = {
         "role": "Undergraduate Researcher",
         "category": "Research",
         "dates": "December 2024 – May 2026",
-        "location": "Charlottesville, Virginia",
         "summary": "Studied how early-career data science roles evolve through an unsupervised NLP pipeline built from LinkedIn job descriptions.",
         "highlights": [
           "Collected hourly job data and embedded more than 10,000 early-career postings.",
@@ -233,7 +257,6 @@ export const site = {
           "height": 1279,
           "wide": false
         },
-        "location": "Shenzhen, China · HKG: 0700",
         "highlights": [
           "Analyzed Greater Asia gaming market trends using data from 10,000+ survey respondents and 1,000+ web-scraped Twitch/YouTube datasets in Python, and built automated interactive Power BI dashboards for presentations.",
           "Researched strategic solutions for Age of Empires and Meta Star that improved user retention by 14% and user satisfaction by 21%, through UI, in-game GPT, and gameplay optimization feedback surveys.",

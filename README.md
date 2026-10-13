@@ -49,7 +49,7 @@ teaching: [
 ],
 ```
 
-**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `location`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent IEG is listed as a Data Analyst Internship in Shenzhen, May–August 2024, with the supplied gaming-market analysis contributions. Filters work with the categories in the data. Resume viewing and download links are always available; the embedded preview loads only when opened.
+**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent IEG is listed as a Data Analyst Internship in Shenzhen, May–August 2024, with the supplied gaming-market analysis contributions. Filters show Industry by default, with Research and Teaching alongside it. Teaching includes COMM 4351, SARC 5400, and Charlottesville Debate League. Resume viewing and download links are always available; the embedded preview loads only when opened.
 
 **Animals section:** update `animals` in the content file to change the homepage previews. Each entry takes `title`, `src`, `width`, `height`, `alt`, and a destination `url`. Add entries for other animals as your collection grows. The introductory previews are also in `index.html` for visitors without JavaScript.
 

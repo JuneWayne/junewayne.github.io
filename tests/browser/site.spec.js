@@ -282,11 +282,14 @@ test('page turns always move right to left regardless of tab order', async ({ pa
 test('CV experiences filter, expand, link to research, and offer the supplied resume', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/cv.html');
-  await expect(page.locator('.experience-item')).toHaveCount(7);
-  await expect(page.getByText('Charlottesville Debate League')).toHaveCount(0);
+  await expect(page.locator('.experience-item')).toHaveCount(9);
+  await expect(page.locator('.experience-item:visible')).toHaveCount(3);
+  await expect(page.locator('.experience-item:visible:not([data-category="Industry"])')).toHaveCount(0);
+  await expect(page.locator('#experience-filters button[aria-pressed="true"]')).toHaveText('Industry');
+  await expect(page.getByRole('button', { name: 'All experience' })).toHaveCount(0);
+  await expect(page.locator('.experience-location')).toHaveCount(0);
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
   await expect(page.locator('#tencent')).toContainText('Data Analyst Intern');
-  await expect(page.locator('#tencent')).toContainText('Shenzhen, China');
   await page.locator('#tencent summary').click();
   await expect(page.locator('#tencent details')).toContainText('10,000+ survey respondents');
   await expect(page.locator('#tencent details')).toContainText('retention by 14%');
@@ -294,12 +297,19 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#tencent details')).toContainText('Riot Games');
   await expect(page.locator('#tencent img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
   const filters = page.getByRole('group', { name: 'Filter experience' });
-  for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 1], ['All experience', 7]]) {
+  for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 3]]) {
     await filters.getByRole('button', { name: category, exact: true }).click();
     await expect(page.locator('.experience-item:visible')).toHaveCount(count);
     await expect(filters.getByRole('button', { name: category, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('#experience-status')).toContainText(`${count} ${count === 1 ? 'experience' : 'experiences'} shown`);
   }
+  await expect(page.locator('#guest-lecture h3')).toHaveText('COMM 4351 · McIntire School of Commerce');
+  await expect(page.locator('#guest-lecture .experience-role')).toHaveText('Guest Lecturer');
+  await expect(page.locator('#sarc-5400')).toContainText('Teaching Assistant');
+  await expect(page.locator('#sarc-5400')).toContainText('January – April 2025');
+  await expect(page.locator('#cdl')).toContainText('Debate Coach & Tournament Chair');
+  await expect(page.locator('#cdl')).toContainText('January 2024 – Present');
+  await filters.getByRole('button', { name: 'Industry', exact: true }).click();
   await page.locator('#cisco summary').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('#cisco details')).toHaveAttribute('open', '');
@@ -422,8 +432,8 @@ test('CV and Teaching remain complete without JavaScript', async ({ browser }) =
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:5173/cv.html');
-  await expect(page.locator('.experience-item')).toHaveCount(7);
-  await expect(page.getByText('Charlottesville Debate League')).toHaveCount(0);
+  await expect(page.locator('.experience-item')).toHaveCount(9);
+  await expect(page.getByText('Charlottesville Debate League')).toBeVisible();
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
   await expect(page.locator('#experience-filters')).toBeHidden();
   await page.locator('#cisco summary').click();
@@ -483,6 +493,7 @@ test('Blake has a separate album and lightbox, accessible from the homepage and 
 test('Tencent and UVA teaching CV photos sit compactly to the right of their text', async ({ page }) => {
   await page.goto('/cv.html');
   for (const id of ['tencent', 'guest-lecture']) {
+    await page.locator('#experience-filters').getByRole('button', { name: id === 'tencent' ? 'Industry' : 'Teaching', exact: true }).click();
     const card = page.locator(`#${id}`);
     const image = await card.locator('.experience-photo').boundingBox();
     const copy = await card.locator('.experience-copy').boundingBox();

@@ -30,7 +30,6 @@ function experienceCard(experience) {
   const heading = node('h3', '', experience.organization);
   heading.id = `${experience.id}-title`;
   copy.append(meta, heading, node('p', 'experience-role', experience.role));
-  if (experience.location) copy.append(node('p', 'experience-location', experience.location));
   if (experience.summary) copy.append(node('p', 'experience-summary', experience.summary));
   if (experience.highlights?.length) {
     const details = node('details', 'experience-details');
@@ -78,23 +77,25 @@ export function renderCV() {
   list.replaceChildren(...(data.experiences || []).map(experienceCard));
   const filters = document.querySelector('#experience-filters');
   const status = document.querySelector('#experience-status');
-  const categories = ['All experience', ...new Set((data.experiences || []).map((item) => item.category))];
-  filters.hidden = categories.length < 3;
-  filters.replaceChildren(...categories.map((category, index) => {
+  const categories = [...new Set((data.experiences || []).map((item) => item.category))];
+  const defaultCategory = categories.includes('Industry') ? 'Industry' : categories[0];
+  function selectCategory(category, announce = false) {
+    filters.querySelectorAll('button').forEach((control) => control.setAttribute('aria-pressed', String(control.textContent === category)));
+    let count = 0;
+    list.querySelectorAll('.experience-item').forEach((item) => {
+      item.hidden = item.dataset.category !== category;
+      if (!item.hidden) count++;
+    });
+    if (announce) status.textContent = `${count} ${count === 1 ? 'experience' : 'experiences'} shown.`;
+  }
+  filters.hidden = categories.length < 2;
+  filters.replaceChildren(...categories.map((category) => {
     const button = node('button', '', category);
     button.type = 'button';
-    button.setAttribute('aria-pressed', String(index === 0));
-    button.addEventListener('click', () => {
-      filters.querySelectorAll('button').forEach((control) => control.setAttribute('aria-pressed', String(control === button)));
-      let count = 0;
-      list.querySelectorAll('.experience-item').forEach((item) => {
-        item.hidden = category !== 'All experience' && item.dataset.category !== category;
-        if (!item.hidden) count++;
-      });
-      status.textContent = `${count} ${count === 1 ? 'experience' : 'experiences'} shown.`;
-    });
+    button.addEventListener('click', () => selectCategory(category, true));
     return button;
   }));
+  selectCategory(defaultCategory);
 
   document.querySelector('#education-list').replaceChildren(...(data.education || []).map((entry) => {
     const card = node('article', 'education-card');
