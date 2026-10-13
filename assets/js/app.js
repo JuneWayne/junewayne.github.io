@@ -1,6 +1,9 @@
 import { site } from './content.js';
 import { setupNavigation } from './transition.js';
 import { renderCV } from './cv.js';
+import { startLaylaAge } from './cat-age.js';
+
+let stopCatAge;
 
 /** Small DOM helpers keep all editable content as text, never executable HTML. */
 function element(tag, className = '', text = '') {
@@ -182,6 +185,7 @@ function setupCatGallery() {
   const cat = document.querySelector('main').dataset.cat === 'blake' ? site.blake : site.cat;
   document.querySelector('#cat-title').replaceChildren(`Meet ${cat.name}`, element('span', 'soft-period', '.'));
   document.querySelector('#cat-bio').textContent = cat.bio;
+  if (cat === site.cat) stopCatAge = startLaylaAge(document.querySelector('#cat-bio'));
   document.querySelector('#cat-description').textContent = cat.description;
   const loves = document.querySelector('#cat-loves');
   loves.setAttribute('aria-label', `Things ${cat.name} loves`);
@@ -309,6 +313,8 @@ function updateNavigation() {
   });
 }
 function renderPage() {
+  stopCatAge?.();
+  stopCatAge = null;
   updateNavigation();
   renderProfile();
   renderResearch();

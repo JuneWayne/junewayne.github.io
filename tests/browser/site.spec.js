@@ -1,6 +1,34 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { site } from '../../assets/js/content.js';
+import { laylaAge } from '../../assets/js/cat-age.js';
+
+test('Layla’s calendar age handles birthdays, leap days, and month boundaries', () => {
+  expect(laylaAge(new Date('2022-04-19T04:00:00Z'))).toBe('0 years, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds');
+  expect(laylaAge(new Date('2026-04-19T03:59:59Z'))).toBe('3 years, 11 months, 30 days, 23 hours, 59 minutes, and 59 seconds');
+  expect(laylaAge(new Date('2026-04-19T04:00:00Z'))).toBe('4 years, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds');
+  expect(laylaAge(new Date('2024-03-01T06:01:01Z'))).toBe('1 year, 10 months, 11 days, 1 hour, 1 minute, and 1 second');
+});
+
+test('Layla’s live age ticks and survives album navigation without affecting Blake', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.clock.install({ time: new Date('2026-04-19T03:59:59Z') });
+  await page.goto('/cat.html');
+  await expect(page.locator('#cat-bio')).toHaveText('Layla was adopted back in 2022; she’s now 3 years, 11 months, 30 days, 23 hours, 59 minutes, and 59 seconds old.');
+  await expect(page.locator('#cat-description')).toBeHidden();
+  await expect(page.locator('#cat-loves')).toBeHidden();
+  await page.clock.runFor(1000);
+  await expect(page.locator('.cat-age')).toHaveText('4 years, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds');
+  const albums = page.getByRole('navigation', { name: 'Cat albums' });
+  await albums.getByRole('link', { name: 'Blake' }).click();
+  await expect(page.locator('#cat-bio')).toHaveText('I met Blake in North Carolina during my internship.');
+  await page.clock.runFor(1000);
+  await albums.getByRole('link', { name: 'Layla' }).click();
+  await expect(page.locator('.cat-age')).toHaveCount(1);
+  await expect(page.locator('.cat-age')).toContainText('1 second');
+  await page.clock.runFor(1000);
+  await expect(page.locator('.cat-age')).toContainText('2 seconds');
+});
 
 test('pages load without errors, fit every viewport, and pass accessibility checks', async ({ page }) => {
   const errors = [];

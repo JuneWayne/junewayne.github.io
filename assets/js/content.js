@@ -454,9 +454,9 @@ export const site = {
 },
   cat: {
     name: "Layla",
-    bio: "Born in Shanghai, home with me since she was four months old.",
-    description: "A collection of her little moments, big stretches, and very important naps.",
-    loves: ["Catnip", "Mouse toys", "Hide-and-seek", "Ducks"],
+    bio: "Layla was adopted back in 2022. She was born on April 19, 2022.",
+    description: "",
+    loves: [],
     hero: "./assets/images/cats/layla-sofa.jpg",
     heroAlt: "Layla looking over her shoulder while resting on a cream sofa.",
     photos: [
