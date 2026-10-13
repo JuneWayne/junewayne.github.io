@@ -33,7 +33,7 @@ export const site = {
         "degree": "M.S. in Data Science",
         "institution": "University of Virginia · School of Data Science",
         "detail": "Concentration in Artificial Intelligence",
-        "status": "Admitted · Expected August 2028"
+        "status": "Qualified for Early Admission"
       }
     ],
     "coursework": [

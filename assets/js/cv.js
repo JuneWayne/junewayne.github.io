@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-card-links';
+import { site } from './content.js?v=20261013-regular-admission';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

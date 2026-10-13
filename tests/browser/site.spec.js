@@ -314,7 +314,7 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await page.keyboard.press('Enter');
   await expect(page.locator('#cisco details')).toHaveAttribute('open', '');
   await expect(page.locator('#cisco details')).toContainText('Jacobian-lens');
-  await expect(page.locator('#education-list')).toContainText('Admitted · Expected August 2028');
+  await expect(page.locator('#education-list')).toContainText('Qualified for Early Admission');
   await expect(page.locator('iframe')).toHaveCount(0);
   await page.locator('#resume-preview summary').click();
   await expect(page.locator('iframe')).toHaveAttribute('src', site.cv.url);
