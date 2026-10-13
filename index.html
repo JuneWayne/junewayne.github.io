@@ -1,113 +1,57 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Layla's App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Ethan (Yisong) Cao is a Data Science undergraduate at the University of Virginia studying the mechanisms and alignment of language models and multimodal transformers.">
+    <title>Ethan (Yisong) Cao — Research</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="./assets/fonts/lato-regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="./assets/css/style.css">
   </head>
-  <body>
-    <main>
-      <h1>Welcome to Layla's webpage!</h1>
-      <h2>Layla was born 3 years ago in Shanghai, she was brought to Ethan's home at the age of 4 months old!</h2>
-      <img src="https://i.pinimg.com/originals/f7/77/e4/f777e4a7cfc03602de87d3866463ced3.gif" alt="A cat chasing its tails" style="width: 300px; height: 200px; border-radius: 10px;">
-
-      <h3>This website is dedicated to Layla, lets all join hands and enjoy her cute faces all over the web!</h3>
-      <section>
-        <h2>Layla's photos</h2>
-        <!-- TODO: Add link to cat photos -->
-        <p>See more <a target="_blank" href="https://catoftheday.com/">cat photos</a> in this daily cat photo posting webpage.</p>
-        <figure>
-          <a href="https://github.com/JuneWayne/junewayne.github.io/blob/main/layla.jpg"><img src="layla.jpg" alt="A cute Layla lying on its back." width="500" height="600"></a>
-          <figcaption>Layla acting <em>cute</em> on the floor, she's <em>expecting</em> you to reward her for her <strong>cuteness</strong> </figcaption>
-        </figure>
-        
-      </section>
-      <section>
-        <h2>Layla's List</h2>
-        <h3>Things Layla love:</h3>
-        <ul>
-          <li>cat nip</li>
-          <li>laser pointers</li>
-          <li>ducks</li>
-          <li>hide and seek</li>
-          <li><strong>Playing with dangling mouse toys</strong></li>
-        </ul>
-        <img src="https://i.pinimg.com/originals/bc/f6/9c/bcf69ce48398ccca320d8544fb69cd31.gif" alt="A cat playing a toy in a weird manner" style="width: 300px; height: 329px; border-radius: 10px;">
-        <figure>
-          <a href="https://github.com/JuneWayne/junewayne.github.io/blob/main/duck1.jpg"><img src="duck1.jpg" alt="A few ducks standing around." width="500" height="600"></a>
-          <figcaption>Layla <em>loves</em> ducks.</figcaption>  
-        </figure>
-        <h3>Things Layla hate:</h3>
-        <ol>
-          <li>going to the pet clinic</li>
-          <li>no food in the cat bowl</li>
-          <li>Ethan not being around with her</li>
-          <li>meeting other cats </li>
-        </ol>
-        <figure>
-          <img src="laylaandmaomi.jpg" alt="cute layla." width="500" height="500">
-          <figcaption>Layla is always <strong>fighting</strong> with other cats in the house.</figcaption>  
-        </figure>
-        
-        <figure>
-          <img src="layla3.jpg" alt="cute layla." width="700" height="500">
-          <figcaption>Layla <strong>loves</strong> to roll on the floor with her belly <em>pointing</em> to the ceiling.</figcaption>  
-        </figure>
-        <img src="https://i.pinimg.com/originals/e0/f9/c8/e0f9c8621e3325316c4f3d933ae25b45.gif" alt="A cat acting cute on the floor" style="width: 300px; height: 273px; border-radius: 10px;">
-      </section>
-      <section>
-        <h2>Cat Survey</h2>
-        <form action="https://formspree.io/f/xnnqnroq" method="POST">
-          <fieldset>
-            <legend>Do you think Layla is an indoor or outdoor cat?</legend>
-            <label><input id="indoor" type="radio" name="indoor-outdoor" value="indoor" checked style="transform: scale(1.5); margin-right: 8px;"> Indoor</label>
-            <label><input id="outdoor" type="radio" name="indoor-outdoor" value="outdoor" style="transform: scale(1.5); margin-right: 8px;"> Outdoor</label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Do you think Layla likes Ethan the most or the least?</legend>
-            <label><input id="most" type="radio" name="most-least" value="most" checked style="transform: scale(1.5); margin-right: 8px;"> The most</label>
-            <label><input id="least" type="radio" name="most-least" value="least" style="transform: scale(1.5); margin-right: 8px;"> The least</label>
-          </fieldset>
-          
-          <fieldset>
-            <legend>Guess Layla's personality!</legend>
-            <input id="loving" type="checkbox" name="personality" value="loving" checked style="transform: scale(1.5); margin-right: 8px;">
-            <label for="loving">Loving</label>
-  
-            <input id="lazy" type="checkbox" name="personality" value="lazy" style="transform: scale(1.5); margin-right: 8px;">
-            <label for="lazy">Lazy</label>
-  
-            <input id="energetic" type="checkbox" name="personality" value="energetic" style="transform: scale(1.5); margin-right: 8px;">
-            <label for="energetic">Energetic</label>
-
-            <input id="naughty" type="checkbox" name="personality" value="naughty" style="transform: scale(1.5); margin-right: 8px;">
-            <label for="naughty">Naughty</label>
-
-            <input id="sleepy" type="checkbox" name="personality" value="sleepy" style="transform: scale(1.5); margin-right: 8px;">
-            <label for="sleepy">sleepy</label>
-          </fieldset>
-          
-          <h2>Feedbacks for Layla:</h2>
-          
-          <input type="text" name="cat_comment" placeholder="Tell us about what you think of Layla!" required style="width: 100%; height: 2em; font-size: 1.2em; margin-top: 10px;">
-          
-          <h2>Feedbacks for this website:</h2>
-
-          <input type="text" name="web_comment" placeholder="How do you think about this website! Any recommendations as to how we should make it better? " required style="width: 100%; height: 2em; font-size: 1.2em; margin-top: 10px;">
-
-          <button type="submit" style="font-size: 1.2em; padding: 10px 20px; margin-top: 10px;">Submit</button>
-        </form>
-        <!-- modify this form HTML and place wherever you want your form -->
-      </section>
-    </main>
-    <footer>
-      <p>
-        No Copyright - JuneWayne@github
-      </p>
-      <p>
-        <strong>Author - Ethan Cao</strong>
-      </p>
-    </footer>
+  <body data-page="research">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="ambient-field" aria-hidden="true"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href="./index.html">Profile</a>
+        <nav aria-label="Main navigation">
+          <a data-nav="research" href="./index.html#research">Research</a>
+          <a data-nav="teaching" href="./teaching.html">Teaching</a>
+          <a data-nav="cv" href="./cv.html">CV <span aria-hidden="true">↗</span></a>
+          <a data-nav="cat" class="cat-nav" href="./cat.html">Cat <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 8 3 3l5 3h4l5-3-1 5a6 6 0 1 1-12 0Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 10h.01M13 10h.01M9 13l1 1 1-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </nav>
+      </header>
+      <main id="main">
+        <section class="profile reveal" aria-labelledby="profile-name">
+          <div id="profile-portrait" class="portrait-placeholder" role="img" aria-label="Portrait placeholder for Ethan (Yisong) Cao">
+            <svg class="portrait-mark" aria-hidden="true" viewBox="0 0 80 100" fill="none"><circle cx="40" cy="32" r="14" stroke="currentColor" stroke-width="1"/><path d="M14 81c0-17 12-29 26-29s26 12 26 29" stroke="currentColor" stroke-width="1"/></svg>
+            <span>Photo coming soon</span>
+          </div>
+          <div class="profile-copy">
+            <h1 id="profile-name" data-name>Ethan (Yisong) Cao</h1>
+            <div id="profile-bio" class="profile-bio"><p>I’m a fourth-year undergraduate at the University of Virginia, majoring in Data Science with a concentration in Machine Learning and Data Engineering, and minoring in Computer Science.</p><p>I’m fascinated by the mechanisms underlying deep neural networks, especially transformers. This has led me to investigate the mechanisms and alignment of large language models and multimodal transformers.</p><p>I believe in research for impact. I measure my work by whether it addresses persistent challenges or uncovers insights that have not yet surfaced in the field. I’m open to inquiries and opportunities, not to mention I am actively seeking graduate opportunities and internships myself.</p></div>
+            <div id="profile-links" class="text-links"><a href="mailto:ethan128@me.com">ethan128@me.com <span aria-hidden="true">↗</span></a><a href="mailto:wkt7ne@virginia.edu">wkt7ne@virginia.edu <span aria-hidden="true">↗</span></a><a href="https://github.com/JuneWayne" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </section>
+        <section id="research" class="section-block reveal" aria-labelledby="research-heading">
+          <div class="section-heading"><h2 id="research-heading">Research</h2></div>
+          <div id="research-list" class="research-list"><div class="empty-state"><div class="empty-mark" aria-hidden="true">↗</div><div><h3>Research is in progress.</h3><p>Project write-ups, papers, and code will appear here.</p></div></div></div>
+        </section>
+        <section class="section-block home-teaching reveal" aria-labelledby="home-teaching-heading">
+          <div class="section-heading"><h2 id="home-teaching-heading">Teaching</h2><a class="section-link" href="./teaching.html">All teaching <span aria-hidden="true">↗</span></a></div>
+          <div id="teaching-preview"><p class="quiet-empty">The course list is coming soon.</p></div>
+        </section>
+        <section id="animals" class="section-block home-animals reveal" aria-labelledby="animals-heading">
+          <div class="section-heading"><h2 id="animals-heading">Animals</h2></div>
+          <div id="animals-list" class="animals-list">
+            <figure class="animal-photo"><a href="./cat.html"><img src="./assets/images/cats/layla2.jpg" alt="Layla peeking around a wooden chair while lying on her back." width="3024" height="4032" loading="lazy"><span>Layla</span></a></figure>
+            <figure class="animal-photo"><a href="./cat.html#photos"><img src="./assets/images/cats/duck2.jpg" alt="A white bird reaching toward pellets in an outstretched hand." width="1276" height="1702" loading="lazy"><span>Ducks</span></a></figure>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./assets/js/app.js"></script>
   </body>
 </html>

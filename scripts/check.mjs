@@ -1,0 +1,67 @@
+import assert from 'node:assert/strict';
+import { access, readFile } from 'node:fs/promises';
+import { dirname, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+import { site } from '../assets/js/content.js';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const pages = ['index.html', 'teaching.html', 'cv.html', 'cat.html'];
+let checked = 0;
+async function reference(url, from = root) {
+  assert.equal(typeof url, 'string', 'URLs must be strings');
+  assert.ok(url.length > 0, 'URLs cannot be empty');
+  if (/^(https:\/\/|mailto:|#)/.test(url)) return;
+  assert.ok(!/^[a-z]+:|^\/\//i.test(url), `Unsupported URL: ${url}`);
+  const path = resolve(from, url.split(/[?#]/)[0]);
+  assert.ok(path.startsWith(root + sep), `Path must stay inside the site: ${url}`);
+  await access(path).catch(() => { throw new Error(`Missing file: ${url}`); });
+  checked++;
+}
+async function links(items = []) {
+  for (const item of items) {
+    assert.ok(item.label?.trim(), 'Links need a visible label');
+    await reference(item.url);
+  }
+}
+
+assert.ok(site.name?.trim(), 'The profile needs a name');
+assert.ok(site.bio.length && site.bio.every((text) => typeof text === 'string' && text.trim()), 'The biography needs text');
+await links(site.links);
+if (site.portrait) { await reference(site.portrait); assert.ok(site.portraitAlt?.trim()); }
+if (site.cv.url) await reference(site.cv.url);
+for (const project of site.research) {
+  assert.ok(project.title?.trim() && project.summary?.trim(), 'Research entries need a title and summary');
+  if (project.image) { await reference(project.image); assert.ok(project.imageAlt?.trim(), 'Research images need alternative text'); }
+  await links(project.links);
+}
+for (const course of site.teaching) {
+  assert.ok(course.title?.trim() && course.term?.trim(), 'Courses need a title and term');
+  await links(course.links);
+}
+for (const animal of site.animals) {
+  assert.ok(animal.title?.trim() && animal.alt?.trim(), 'Animals need a title and alternative text');
+  assert.ok(animal.width > 0 && animal.height > 0, 'Animal photos need dimensions');
+  await reference(animal.src);
+  await reference(animal.url);
+}
+await reference(site.cat.hero);
+assert.ok(site.cat.heroAlt?.trim(), 'The cat portrait needs alternative text');
+const ids = new Set();
+for (const photo of site.cat.photos) {
+  assert.ok(photo.id && !ids.has(photo.id), 'Photo IDs must be unique');
+  ids.add(photo.id);
+  assert.ok(photo.alt?.trim() && photo.title?.trim() && photo.category?.trim(), 'Photos need alt text, a title, and category');
+  assert.ok(photo.width > 0 && photo.height > 0, 'Photos need dimensions');
+  await reference(photo.src);
+}
+for (const page of pages) {
+  const html = await readFile(resolve(root, page), 'utf8');
+  assert.ok(html.includes('lang="en"') && html.includes('name="viewport"'), `${page} needs language and viewport metadata`);
+  assert.equal((html.match(/<h1\b/g) || []).length, 1, `${page} needs one main heading`);
+  for (const [, url] of html.matchAll(/(?:src|href)="([^"\s]+)"/g)) await reference(url);
+}
+const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
+for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));
+for (const script of ['assets/js/app.js', 'assets/js/content.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
+console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length} photos, JavaScript syntax.`);

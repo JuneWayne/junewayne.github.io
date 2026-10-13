@@ -1,0 +1,20 @@
+{
+  "name": "ethan-cao-personal-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A buildless research portfolio and a home for Layla's photos.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "npm run check",
+    "test:browser": "playwright test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.64.0"
+  }
+}
