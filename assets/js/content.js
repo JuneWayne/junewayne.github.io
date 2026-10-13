@@ -133,7 +133,7 @@ export const site = {
         "organization": "University of Virginia · McIntire School of Commerce",
         "role": "Guest Lecturer · COMM 4351",
         "category": "Teaching",
-        "dates": "October 2025",
+        "dates": "September – December 2025",
         "location": "Charlottesville, Virginia",
         "summary": "Guest lecture on AI agents in Professor Natasha Foutz’s Marketing Analytics and Big Data class, with hands-on examples in APIs, LangChain, retrieval, and hierarchical multi-agent systems.",
         "photo": {
@@ -173,17 +173,22 @@ export const site = {
       {
         "id": "visual-intelligence",
         "organization": "Visual Intelligence Lab",
-        "role": "Research Intern",
+        "role": "Research Assistant",
         "category": "Research",
         "dates": "April – September 2025",
         "location": "Charlottesville, Virginia",
         "summary": "Trained physics-aware recurrent convolutional networks to model advection and diffusion in 2D shear-flow systems.",
         "highlights": [
-          "Designed and trained PARCv2 neural networks in PyTorch.",
-          "Accelerated training through spatial downsampling and timestep skipping.",
-          "Compared Euler and RK4 integrators and selected checkpoints to improve rollout stability."
+          "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
+          "Accelerated overall training time by 67%+ with one-third spatial downsampling and timestep skipping, reducing per-epoch training from 8+ hours to 6+ minutes.",
+          "Reduced inference MSE by 81%+ by comparing Euler and RK4 integrators under the same model configurations and selecting checkpoint weights with the lowest validation loss.",
+          "Designed differentiator and integrator components that keep constant variables at zero time derivatives while evolving velocity fields in the model state, enabling PARC to learn 2D shear-flow advection and diffusion."
         ],
         "links": [
+          {
+            "label": "Related research: fluid dynamics",
+            "url": "./index.html#fluid-dynamics"
+          },
           {
             "label": "PARCtorch code",
             "url": "https://github.com/JuneWayne/PARCtorch/"
@@ -216,10 +221,10 @@ export const site = {
       },
       {
         "id": "tencent",
-        "organization": "Tencent",
-        "role": "Internship",
+        "organization": "Tencent IEG",
+        "role": "Data Analyst Intern",
         "category": "Industry",
-        "summary": "Internship experience at Tencent.",
+        "summary": "Gaming market research, data analysis, and interactive Power BI dashboards for the Greater Asia market.",
         "dates": "May – August 2024",
         "photo": {
           "src": "./assets/images/experience/tencent-internship.jpg",
@@ -227,7 +232,13 @@ export const site = {
           "width": 1706,
           "height": 1279,
           "wide": true
-        }
+        },
+        "location": "Shenzhen, China · HKG: 0700",
+        "highlights": [
+          "Analyzed Greater Asia gaming market trends using data from 10,000+ survey respondents and 1,000+ web-scraped Twitch/YouTube datasets in Python, and built automated interactive Power BI dashboards for presentations.",
+          "Researched strategic solutions for Age of Empires and Meta Star that improved user retention by 14% and user satisfaction by 21%, through UI, in-game GPT, and gameplay optimization feedback surveys.",
+          "Conducted business case studies of Apex Legends and Valorant in Korea and Japan, covering advertising strategies, KOL partnerships, and revenue outlook through 10+ interviews with Riot Games industry specialists."
+        ]
       }
     ]
   },
@@ -279,6 +290,27 @@ export const site = {
           "url": "./assets/PDFs/Tracking%20Semantic%20Evolution%20of%20DS%20roles%20%281%29.pdf"
         }
       ]
+    },
+    {
+      "id": "fluid-dynamics",
+      "title": "Physics-Aware Neural Networks for Fluid Dynamics",
+      "organization": "Visual Intelligence Lab",
+      "role": "Research Assistant",
+      "location": "Charlottesville, Virginia",
+      "dates": "April – September 2025",
+      "summary": "Trained physics-aware recurrent convolutional networks to model advection and diffusion in 2D shear-flow systems.",
+      "highlights": [
+        "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
+        "Accelerated overall training time by 67%+ with one-third spatial downsampling and timestep skipping, reducing per-epoch training from 8+ hours to 6+ minutes.",
+        "Reduced inference MSE by 81%+ by comparing Euler and RK4 integrators under the same model configurations and selecting checkpoint weights with the lowest validation loss.",
+        "Designed differentiator and integrator components that keep constant variables at zero time derivatives while evolving velocity fields in the model state, enabling PARC to learn 2D shear-flow advection and diffusion."
+      ],
+      "links": [
+        {
+          "label": "Code",
+          "url": "https://github.com/JuneWayne/PARCtorch/"
+        }
+      ]
     }
   ],
   teaching: [
@@ -287,12 +319,13 @@ export const site = {
       "title": "Marketing Analytics and Big Data",
       "institution": "University of Virginia",
       "role": "Guest Lecturer",
-      "term": "October 2025",
+      "term": "September – December 2025",
       "photo": {
         "src": "./assets/images/experience/guest-lecture.jpg",
         "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
         "width": 1613,
-        "height": 975
+        "height": 975,
+        "position": "50% 55%"
       },
       "description": "A guest lecture in Professor Natasha Foutz’s class on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
       "materials": [
@@ -311,14 +344,23 @@ export const site = {
           "summary": "A manager-and-analysts workflow combining web research, local vector stores, and retrieval-augmented generation.",
           "url": "./assets/Python_notebook/CrewAI_Hierarchical_Web_RAG_LocalDB_Tutorial.ipynb"
         }
-      ]
+      ],
+      "id": "comm-4351"
     },
     {
       "code": "SARC 5400",
       "title": "Data Visualization",
       "institution": "University of Virginia",
       "role": "Teaching Assistant",
-      "description": "Teaching assistant for SARC 5400: Data Visualization."
+      "id": "sarc-5400",
+      "term": "January – April 2025",
+      "photo": {
+        "src": "./assets/images/experience/sarc-5400.jpeg",
+        "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
+        "width": 865,
+        "height": 1085,
+        "position": "50% 75%"
+      }
     },
     {
       "title": "Charlottesville Debate League",
@@ -329,8 +371,11 @@ export const site = {
         "src": "./assets/images/experience/cdl-team.jpg",
         "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
         "width": 1706,
-        "height": 1279
-      }
+        "height": 1279,
+        "position": "50% 60%"
+      },
+      "id": "cdl",
+      "term": "January 2024 – Present"
     }
   ],
   // Homepage previews; add other animals here as your collection grows.

@@ -53,7 +53,7 @@ function renderProfile() {
 function renderResearch() {
   const list = document.querySelector('#research-list');
   if (!list || !site.research.length) return;
-  list.replaceChildren(...site.research.map((project, index) => {
+  list.replaceChildren(...site.research.map((project) => {
     const row = element('article', 'research-row');
     if (project.id) row.id = project.id;
     if (project.image) {
@@ -65,22 +65,26 @@ function renderResearch() {
       image.loading = 'lazy';
       image.decoding = 'async';
       row.append(image);
-    } else {
-      const placeholder = element('div', 'research-thumbnail research-thumbnail-placeholder', String(index + 1).padStart(2, '0'));
-      placeholder.setAttribute('aria-hidden', 'true');
-      row.append(placeholder);
     }
     const copy = element('div', 'research-copy');
     copy.append(element('h3', '', project.title), element('p', 'research-summary', project.summary));
-    if (project.details?.length) {
+    if (project.organization) {
+      const context = [project.organization, project.location, project.role, project.dates].filter(Boolean).join(' · ');
+      copy.insertBefore(element('p', 'research-context', context), copy.querySelector('.research-summary'));
+    }
+    if (project.details?.length || project.highlights?.length) {
       const details = element('details', 'research-details');
-      details.append(element('summary', '', 'The story behind the work'));
-      project.details.forEach((paragraph) => details.append(element('p', '', paragraph)));
+      details.append(element('summary', '', 'Details'));
+      project.details?.forEach((paragraph) => details.append(element('p', '', paragraph)));
+      if (project.highlights?.length) {
+        const list = element('ul');
+        project.highlights.forEach((text) => list.append(element('li', '', text)));
+        details.append(list);
+      }
       copy.append(details);
     }
     const meta = element('div', 'research-meta');
-    const metadata = [project.year, project.kind].filter(Boolean).join(' · ');
-    if (metadata) meta.append(element('p', '', metadata));
+    if (project.year) meta.append(element('p', '', project.year));
     if (project.links?.length) meta.append(links(project.links, 'research-links'));
     row.append(copy, meta);
     return row;
@@ -88,24 +92,34 @@ function renderResearch() {
 }
 
 function courseRow(course, full = false) {
-  const row = element('article', 'teaching-row');
+  const row = element('article', full ? 'teaching-row' : 'teaching-card');
+  if (course.id) row.id = full ? course.id : `${course.id}-preview`;
+  if (!full && course.photo) {
+    const anchor = element('a', 'teaching-photo');
+    anchor.href = `./teaching.html${course.id ? `#${course.id}` : ''}`;
+    anchor.setAttribute('aria-label', `View ${course.code || course.title} teaching details`);
+    const image = element('img');
+    const { src, alt, width, height, position } = course.photo;
+    Object.assign(image, { src, alt, width, height, loading: 'lazy', decoding: 'async' });
+    if (position) image.style.objectPosition = position;
+    anchor.append(image);
+    row.append(anchor);
+  }
   const title = element('div');
   if (course.code) title.append(element('span', 'teaching-code', course.code));
-  title.append(element('h3', '', course.title));
+  title.append(element(full ? 'h2' : 'h3', '', course.title));
   if (full && course.links?.length) title.append(links(course.links));
   const role = element('div', 'teaching-role', course.role || 'Teaching Assistant');
-  if (course.institution) role.append(element('p', 'teaching-description', course.institution));
+  if (full && course.institution) role.append(element('p', 'teaching-description', course.institution));
   row.append(title, role);
   if (course.term) row.append(element('p', 'teaching-term', course.term));
   if (full && course.description) row.append(element('p', 'teaching-description lecture-description', course.description));
   if (full && course.materials?.length) {
     const materials = element('div', 'lecture-materials');
-    materials.append(element('h4', '', 'Lecture notebooks'));
     const list = element('ol');
     course.materials.forEach((resource) => {
       const item = element('li');
       item.append(link({ label: `${resource.title} (.ipynb)`, url: resource.url, download: true }));
-      if (resource.summary) item.append(element('p', '', resource.summary));
       list.append(item);
     });
     materials.append(list);
@@ -113,7 +127,8 @@ function courseRow(course, full = false) {
   }
   if (full && course.photo) {
     const image = element('img', 'lecture-photo');
-    Object.assign(image, course.photo, { loading: 'lazy', decoding: 'async' });
+    const { src, alt, width, height } = course.photo;
+    Object.assign(image, { src, alt, width, height, loading: 'lazy', decoding: 'async' });
     row.append(image);
   }
   return row;

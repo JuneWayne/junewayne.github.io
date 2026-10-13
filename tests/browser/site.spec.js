@@ -106,7 +106,7 @@ test('supplied content renders a portrait, research story, teaching details, and
   await page.goto('/');
   await expect(page.getByRole('img', { name: 'Test portrait' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Test research project' })).toBeVisible();
-  await page.getByText('The story behind the work').click();
+  await page.getByText('Details', { exact: true }).click();
   await expect(page.getByText('A longer explanation of the research question and findings.')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Test course' })).toBeVisible();
   await page.goto('/teaching.html');
@@ -131,7 +131,7 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await context.close();
 });
 
-test('actual pixel tiles lift and fade across the page, then navigation settles and browser history works', async ({ page }) => {
+test('a full-page radial ripple fades the navigation and content, then browser history works', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
@@ -145,7 +145,9 @@ test('actual pixel tiles lift and fade across the page, then navigation settles 
   await expect(page.locator('.page-pixels, .page-vortex')).toHaveCount(1);
   await expect(page.locator('.page-pixels, .page-vortex')).toHaveAttribute('aria-hidden', 'true');
   expect(Number(await page.locator('.page-pixels').getAttribute('data-tiles'))).toBeGreaterThan(100);
-  await expect(page.locator('main')).toHaveCSS('opacity', '0');
+  await expect(page.locator('.site-shell')).toHaveCSS('opacity', '0');
+  await expect(page.locator('.page-pixels')).toHaveAttribute('data-pattern', 'radial');
+  await expect(page.locator('.page-pixels')).toHaveAttribute('data-scope', 'viewport');
   await expect(page.locator('.page-pixels, .page-vortex')).toHaveCount(0);
   expect(await page.evaluate(() => window.navigationElapsed)).toBeLessThan(1500);
   expect(await page.evaluate(() => window.navigationElapsed)).toBeGreaterThan(800);
@@ -221,7 +223,7 @@ test('research resources and guest lecture notebooks are readable and downloadab
   }
   await page.goto('/teaching.html');
   await expect(page.locator('.lecture-materials li')).toHaveCount(3);
-  await expect(page.locator('.teaching-term')).toHaveCount(1);
+  await expect(page.locator('.teaching-term')).toHaveCount(3);
   for (const resource of site.teaching[0].materials) {
     const response = await page.request.get(resource.url.replace('./', '/'));
     expect(response.ok()).toBe(true);
@@ -253,6 +255,13 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('.experience-item')).toHaveCount(7);
   await expect(page.getByText('Charlottesville Debate League')).toHaveCount(0);
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
+  await expect(page.locator('#tencent')).toContainText('Data Analyst Intern');
+  await expect(page.locator('#tencent')).toContainText('Shenzhen, China');
+  await page.locator('#tencent summary').click();
+  await expect(page.locator('#tencent details')).toContainText('10,000+ survey respondents');
+  await expect(page.locator('#tencent details')).toContainText('retention by 14%');
+  await expect(page.locator('#tencent details')).toContainText('satisfaction by 21%');
+  await expect(page.locator('#tencent details')).toContainText('Riot Games');
   await expect(page.locator('#tencent img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
   const filters = page.getByRole('group', { name: 'Filter experience' });
   for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 1], ['All experience', 7]]) {
@@ -287,10 +296,81 @@ test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied phot
   const sarc = page.locator('.teaching-row').filter({ hasText: 'SARC 5400' });
   await expect(sarc).toContainText('Data Visualization');
   await expect(sarc).toContainText('Teaching Assistant');
+  await expect(sarc).toContainText('January – April 2025');
+  await expect(sarc.locator('img')).toHaveAttribute('src', './assets/images/experience/sarc-5400.jpeg');
+  await expect(page.locator('#comm-4351')).toContainText('September – December 2025');
   const cdl = page.locator('.teaching-row').filter({ hasText: 'Charlottesville Debate League' });
   await expect(cdl).toContainText('Tournament Chair');
   await expect(cdl).toContainText('middle school students');
+  await expect(cdl).toContainText('January 2024 – Present');
   await expect(cdl.locator('img')).toHaveAttribute('src', './assets/images/experience/cdl-team.jpg');
+});
+
+test('the homepage shows all three teaching photos with closer crops and the fluid-dynamics work', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#teaching-preview .teaching-photo img')).toHaveCount(3);
+  await page.locator('#teaching-preview img').evaluateAll((images) => Promise.all(images.map((image) => {
+    image.loading = 'eager';
+    return image.decode();
+  })));
+  await expect(page.locator('#teaching-preview .teaching-term')).toHaveText(site.teaching.map((course) => course.term));
+  await expect(page.locator('.research-thumbnail-placeholder, .experience-category')).toHaveCount(0);
+  const fluid = page.locator('#fluid-dynamics');
+  await expect(fluid).toContainText('Visual Intelligence Lab');
+  await expect(fluid).toContainText('Research Assistant');
+  await fluid.locator('summary').click();
+  await expect(fluid.locator('details')).toContainText('67%+');
+  await expect(fluid.locator('details')).toContainText('8+ hours to 6+ minutes');
+  await expect(fluid.locator('details')).toContainText('81%+');
+  await expect(fluid.locator('details')).toContainText('zero time derivatives');
+  await page.locator('#sarc-5400-preview .teaching-photo').click();
+  await expect(page).toHaveURL(/teaching.html#sarc-5400$/);
+  await expect(page.locator('#sarc-5400')).toBeInViewport();
+});
+
+test('the radial ripple captures the pinned navigation after scrolling and cleans up on a motion preference change', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await page.evaluate(() => { scrollTo(0, 600); return document.fonts.ready; });
+  await page.locator('[data-nav=teaching]').click();
+  await expect(page.locator('.page-pixels')).toHaveCount(1);
+  await expect(page.locator('.site-shell')).toHaveCSS('opacity', '0');
+  await expect(page.locator('.ambient-field')).toHaveCSS('opacity', '0');
+  await expect.poll(() => page.evaluate(() => {
+    const canvas = document.querySelector('.page-pixels');
+    if (!canvas) return 0;
+    const rect = document.querySelector('.site-header nav').getBoundingClientRect();
+    const scale = canvas.width / innerWidth;
+    const pixels = canvas.getContext('2d').getImageData(Math.floor(rect.x * scale), Math.floor(rect.y * scale), Math.floor(rect.width * scale), Math.floor(rect.height * scale)).data;
+    let ink = 0;
+    for (let i = 0; i < pixels.length; i += 4) if (pixels[i + 3] > 10 && Math.min(pixels[i], pixels[i + 1], pixels[i + 2]) < 220) ink++;
+    return ink;
+  }), { intervals: [20, 40, 50] }).toBeGreaterThan(20);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(page).toHaveURL(/teaching.html$/);
+  await expect(page.locator('.page-pixels')).toHaveCount(0);
+  await expect(page.locator('.site-shell')).toHaveCSS('opacity', '1');
+  await expect(page.locator('body')).not.toHaveAttribute('aria-busy');
+});
+
+test('visible text stays at readable sizes on every page, including small phones', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 320, height: 844 });
+  for (const path of ['index.html', 'teaching.html', 'cv.html', 'cat.html']) {
+    await page.goto('/' + path);
+    const smallText = await page.evaluate(() => {
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const results = [];
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const parent = node.parentElement;
+        if (!node.textContent.trim() || parent.closest('.sr-only, script, style, [aria-hidden="true"]') || !parent.getBoundingClientRect().width) continue;
+        if (parseFloat(getComputedStyle(parent).fontSize) < 16) results.push(node.textContent.trim());
+      }
+      return results;
+    });
+    expect(smallText, path).toEqual([]);
+  }
 });
 
 test('navigation stays pinned and research anchors clear it on desktop and phones', async ({ page }) => {
@@ -346,4 +426,6 @@ test('pixel sampling failure and mid-transition resize always leave a readable d
   await expect(page.locator('.page-pixels')).toHaveCount(0);
   await expect(page.locator('main')).toHaveCSS('opacity', '1');
   await expect(page.getByRole('heading', { name: 'Data Visualization' })).toBeVisible();
+  await expect(page.locator('body')).not.toHaveClass(/page-rippling/);
+  await expect(page.locator('.site-shell')).toHaveCSS('opacity', '1');
 });

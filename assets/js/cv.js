@@ -26,7 +26,6 @@ function experienceCard(experience) {
   card.setAttribute('aria-labelledby', `${experience.id}-title`);
   const copy = node('div', 'experience-copy');
   const meta = node('div', 'experience-meta');
-  meta.append(node('span', 'experience-category', experience.category));
   if (experience.dates) meta.append(node('p', 'experience-dates', experience.dates));
   const heading = node('h3', '', experience.organization);
   heading.id = `${experience.id}-title`;

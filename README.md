@@ -1,6 +1,6 @@
 # Ethan (Yisong) Cao’s personal website
 
-A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes use a subtle one-second pixel wave and fade from left to right. Small tiles sampled from the visible text and photos lift up to 32 pixels, then reform into the next page. Open `?transition=spiral` to compare a smoother 1.1-second spiral. Reduced-motion preferences skip both animations. The background dots are static.
+A white research portfolio with Lato typography, a portrait under your name, an About me introduction, research stories, Teaching and CV pages, and Layla’s photo album. The homepage includes an Animals section. Profile, Research, Teaching, CV, and Cat sit in one navigation row. Navigation stays pinned while scrolling. Page changes use a subtle one-second fade with a concentric water ripple spreading outward from the viewport center. The snapshot includes the navigation, content, photos, and background. Nearby tiles shift smoothly by at most four pixels; a light mosaic blends into the ripple crest. Open `?transition=spiral` to compare a smoother 1.1-second spiral. Reduced-motion preferences skip both animations. The background dots are static.
 
 Built with HTML, CSS, and JavaScript modules. No package installation or build step is needed for production; GitHub Pages can serve the files directly.
 
@@ -10,11 +10,11 @@ With Node.js 20 or newer, run `npm run dev` and open <http://127.0.0.1:5173>. To
 
 ## Add your content
 
-Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. Three preliminary research entries, the COMM 4351 guest lecture with Professor Natasha Foutz, SARC 5400 teaching assistance, and Charlottesville Debate League tournament leadership are included. The CV is populated from the supplied resume, with Cisco, Align, Tencent, research roles, education, and skills.
+Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. Four research entries, including PARCv2 fluid-dynamics work at the Visual Intelligence Lab, the COMM 4351 guest lecture with Professor Natasha Foutz, SARC 5400 teaching assistance, and Charlottesville Debate League tournament leadership are included. The CV is populated from the supplied resume, with Cisco, Align, Tencent, research roles, education, and skills.
 
 **Portrait:** your photo is at `assets/images/portrait.jpg`. To replace it, update `portrait`, `portraitAlt`, `portraitWidth`, and `portraitHeight` in the content file and the corresponding image in `index.html`.
 
-**Research and internships:** add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Without an image, a numbered thumbnail appears.
+**Research and internships:** add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Images are optional; entries without images use a clean text layout. Optional `organization`, `role`, `location`, `dates`, and `highlights` fields support research appointments and their contributions.
 
 ```js
 research: [
@@ -22,7 +22,6 @@ research: [
     title: "Your project title",
     summary: "The question, your contribution, and the main finding.",
     year: "2026",
-    kind: "Research project", // Or internship, paper, etc.
     image: "./assets/images/project-figure.png", // Optional; add file first.
     imageAlt: "Describe what the figure shows.",
     details: ["What motivated the work?", "What did you learn or contribute?"],
@@ -34,7 +33,7 @@ research: [
 ],
 ```
 
-**Teaching:** add entries to `teaching`. The homepage shows the first three; Teaching shows all entries, descriptions, and links. `term` is optional until you have a date. Guest lectures can include `materials: [{ title, summary, url }]` for downloadable notebooks. Add `photo: { src, alt, width, height }` for a teaching or community photo.
+**Teaching:** add entries to `teaching`. The homepage shows the first three as photo cards with closer crops; Teaching shows all entries, descriptions, and links. `term` is optional until you have a date. Guest lectures can include `materials: [{ title, summary, url }]` for downloadable notebooks. Add `photo: { src, alt, width, height, position }` for a teaching or community photo.
 
 ```js
 teaching: [
@@ -50,7 +49,7 @@ teaching: [
 ],
 ```
 
-**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `location`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent uses the confirmed May–August 2024 dates; its role remains a general internship until more detail is supplied. Filters work with the categories in the data. Resume viewing and download links are always available; the embedded preview loads only when opened.
+**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `location`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent IEG is listed as a Data Analyst Internship in Shenzhen, May–August 2024, with the supplied gaming-market analysis contributions. Filters work with the categories in the data. Resume viewing and download links are always available; the embedded preview loads only when opened.
 
 **Animals section:** update `animals` in the content file to change the homepage previews. Each entry takes `title`, `src`, `width`, `height`, `alt`, and a destination `url`. Add entries for other animals as your collection grows. The introductory previews are also in `index.html` for visitors without JavaScript.
 
@@ -79,14 +78,14 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
 - `assets/js/cv.js`: CV timeline, category filters, education, skills, and lazy PDF preview.
-- `assets/js/pixels.js`: viewport snapshots split into square tiles and animated in a left-to-right wave. Sampling is bounded; if it fails or takes over 300 ms, navigation proceeds without an effect.
+- `assets/js/pixels.js`: full-viewport snapshots, including pinned navigation, split into tiles and animated with a smooth radial displacement field and a uniform fade. Sampling is bounded; if it fails or takes over 300 ms, navigation proceeds without an effect.
 - `assets/js/vendor/`: pinned html2canvas 1.4.1 and its MIT license, served locally without a CDN.
 - `assets/js/transition.js`: pixel wave, optional canvas letter vortex, cached page navigation, and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links instead of extending the animation.
 - `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.
 - `assets/Python_notebook/`: downloadable COMM 4351 lecture notebooks. Saved execution logs are cleared; original notebook copies are backed up under `/tmp/ethan-lecture-notebook-originals`.
-- `assets/images/experience/`: Cisco, Align, Tencent, COMM 4351, and CDL photos. CDL appears only in Teaching.
+- `assets/images/experience/`: Cisco, Align, Tencent, COMM 4351, SARC 5400, and CDL photos. CDL appears only in Teaching.
 - `assets/images/cats/`: all six original photos and seven newly supplied cat photos, preserved.
-- `assets/fonts/`: local Lato fonts and their Open Font License.
+- `assets/fonts/`: local Lato Regular/Bold WOFF2 web fonts and their Open Font License. Original TTF files are backed up at `/tmp/ethan-site-original-fonts`.
 - `docs/design/baseline.png`: accepted design reference.
 - `docs/design/tornado-transition.png`: the accepted four-frame reference for the letter transition: a top-down, flat circular spiral pulls letters into the center of the screen, then releases them into the next page. Generated with the built-in imagegen tool; the full prompt is in `docs/design/tornado-transition-prompt.txt`. The optional spiral implements this movement in 1.1 seconds, with a lighter particle budget on phones. The default is the gentler pixel wave.
 - `scripts/`, `tests/browser/`: preview and verification.
