@@ -14,14 +14,14 @@ test('Layla’s live age ticks and survives album navigation without affecting B
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.clock.install({ time: new Date('2026-04-19T03:59:59Z') });
   await page.goto('/cat.html');
-  await expect(page.locator('#cat-bio')).toHaveText('Layla was adopted back in 2022; she’s now 3 years, 11 months, 30 days, 23 hours, 59 minutes, and 59 seconds old.');
+  await expect(page.locator('#cat-bio')).toHaveText('Layla was adopted back in 2022,she’s now 3 years, 11 months, 30 days, 23 hours, 59 minutes, and 59 seconds old.');
   await expect(page.locator('#cat-description')).toBeHidden();
   await expect(page.locator('#cat-loves')).toBeHidden();
   await page.clock.runFor(1000);
   await expect(page.locator('.cat-age')).toHaveText('4 years, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds');
   const albums = page.getByRole('navigation', { name: 'Cat albums' });
   await albums.getByRole('link', { name: 'Blake' }).click();
-  await expect(page.locator('#cat-bio')).toHaveText('I met Blake in North Carolina during my internship.');
+  await expect(page.locator('#cat-bio')).toHaveText(site.blake.bio.replace('\n', ''));
   await page.clock.runFor(1000);
   await albums.getByRole('link', { name: 'Layla' }).click();
   await expect(page.locator('.cat-age')).toHaveCount(1);
@@ -460,7 +460,7 @@ test('Blake has a separate album and lightbox, accessible from the homepage and 
   await page.locator('#animals-list').getByRole('link', { name: 'Blake' }).click();
   await expect(page).toHaveURL(/blake.html$/);
   await expect(page.getByRole('heading', { name: 'Meet Blake.' })).toBeVisible();
-  await expect(page.locator('#cat-bio')).toHaveText('I met Blake in North Carolina during my internship.');
+  await expect(page.locator('#cat-bio')).toHaveText(site.blake.bio.replace('\n', ''));
   await expect(page.locator('.photo-open')).toHaveCount(6);
   await expect(page.locator('#cat-gallery img[src*=layla]')).toHaveCount(0);
   await page.locator('.photo-open').first().click();

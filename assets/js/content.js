@@ -431,7 +431,7 @@ export const site = {
   ],
   blake: {
     "name": "Blake",
-    "bio": "I met Blake in North Carolina during my internship.",
+    "bio": "I met Blake in North Carolina during my internship.\nHe had a sister too (Sheriff) but she wasn't as affective as Blake.",
     "description": "",
     "loves": [],
     "hero": "./assets/images/cats/blake-loaf.jpg",
@@ -495,7 +495,7 @@ export const site = {
 },
   cat: {
     name: "Layla",
-    bio: "Layla was adopted back in 2022. She was born on April 19, 2022.",
+    bio: "Layla was adopted back in 2022,\nshe was born on April 19, 2022.",
     description: "",
     loves: [],
     hero: "./assets/images/cats/layla-sofa.jpg",

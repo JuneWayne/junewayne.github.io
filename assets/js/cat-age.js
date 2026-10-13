@@ -17,7 +17,7 @@ export function laylaAge(now = new Date()) {
 }
 
 export function startLaylaAge(node) {
-  node.replaceChildren("Layla was adopted back in 2022; she’s now ");
+  node.replaceChildren('Layla was adopted back in 2022,', document.createElement('br'), 'she’s now ');
   const ticker = document.createElement('span');
   ticker.className = 'cat-age';
   // Keep the text readable without making screen readers announce every second.

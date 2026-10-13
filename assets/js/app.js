@@ -184,7 +184,8 @@ function setupCatGallery() {
   if (!gallery) return;
   const cat = document.querySelector('main').dataset.cat === 'blake' ? site.blake : site.cat;
   document.querySelector('#cat-title').replaceChildren(`Meet ${cat.name}`, element('span', 'soft-period', '.'));
-  document.querySelector('#cat-bio').textContent = cat.bio;
+  document.querySelector('#cat-bio').replaceChildren(...cat.bio.split('\n')
+    .flatMap((line, index) => index ? [element('br'), line] : [line]));
   if (cat === site.cat) stopCatAge = startLaylaAge(document.querySelector('#cat-bio'));
   document.querySelector('#cat-description').textContent = cat.description;
   const loves = document.querySelector('#cat-loves');
