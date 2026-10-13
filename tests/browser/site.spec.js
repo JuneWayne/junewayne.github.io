@@ -21,7 +21,7 @@ test('Layla’s live age ticks and survives album navigation without affecting B
   await expect(page.locator('.cat-age')).toHaveText('4 years, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds');
   const albums = page.getByRole('navigation', { name: 'Cat albums' });
   await albums.getByRole('link', { name: 'Blake' }).click();
-  await expect(page.locator('#cat-bio')).toHaveText(site.blake.bio.replace('\n', ''));
+  await expect(page.locator('#cat-bio')).toHaveText(site.blake.bio.replaceAll('\n', ''));
   await page.clock.runFor(1000);
   await albums.getByRole('link', { name: 'Layla' }).click();
   await expect(page.locator('.cat-age')).toHaveCount(1);
@@ -69,7 +69,7 @@ test('navigation exposes the profile, research, and guest lecture', async ({ pag
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'CV' }).click();
   await expect(page.getByRole('heading', { name: 'Cisco Systems' })).toBeVisible();
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Cat' }).click();
-  await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
 });
 
 test('the trimmed Cat gallery, keyboard photo navigation, and focus restoration work', async ({ page }) => {
@@ -126,7 +126,7 @@ test('Profile and Research share navigation; photos load and reduced-motion navi
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Profile' }).click();
   await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
   await page.locator('#animals-list').getByRole('link', { name: 'Layla' }).click();
-  await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
 });
 
 test('supplied content renders a portrait, research story, teaching details, and PDF controls', async ({ page }) => {
@@ -163,7 +163,7 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
   await expect(page.locator('#profile-bio')).toContainText('University of Virginia');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Cat' }).click();
-  await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
   await context.close();
 });
 
@@ -235,7 +235,7 @@ test('navigation stays immediate with reduced motion and failed fetches use nati
   await page.route('**/cat.html', (route) => route.request().resourceType() === 'fetch' ? route.abort() : route.continue());
   await page.locator('[data-nav=cat]').click();
   await expect(page).toHaveURL(/cat.html$/);
-  await expect(page.getByRole('heading', { name: 'Meet Layla.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
   await expect(page.locator('main')).toHaveCSS('opacity', '1');
   await expect(page.locator('.book-turn')).toHaveCount(0);
 });
@@ -521,8 +521,8 @@ test('Blake has a separate album and lightbox, accessible from the homepage and 
   await page.goto('/');
   await page.locator('#animals-list').getByRole('link', { name: 'Blake' }).click();
   await expect(page).toHaveURL(/blake.html$/);
-  await expect(page.getByRole('heading', { name: 'Meet Blake.' })).toBeVisible();
-  await expect(page.locator('#cat-bio')).toHaveText(site.blake.bio.replace('\n', ''));
+  await expect(page.getByRole('heading', { name: 'Meet Blake' })).toBeVisible();
+  await expect(page.locator('#cat-bio')).toHaveText(site.blake.bio.replaceAll('\n', ''));
   await expect(page.locator('.photo-open')).toHaveCount(6);
   await expect(page.locator('#cat-gallery img[src*=layla]')).toHaveCount(0);
   await page.locator('.photo-open').first().click();

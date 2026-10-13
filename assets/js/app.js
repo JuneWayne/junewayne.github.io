@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-cisco-contributions';
-import { setupNavigation } from './transition.js?v=20261013-cisco-contributions';
-import { renderCV } from './cv.js?v=20261013-cisco-contributions';
-import { startLaylaAge } from './cat-age.js?v=20261013-cisco-contributions';
+import { site } from './content.js?v=20261013-teaching-bios';
+import { setupNavigation } from './transition.js?v=20261013-teaching-bios';
+import { renderCV } from './cv.js?v=20261013-teaching-bios';
+import { startLaylaAge } from './cat-age.js?v=20261013-teaching-bios';
 
 let stopCatAge;
 
@@ -147,7 +147,9 @@ function courseRow(course, full = false) {
   const role = element('div', 'teaching-role', course.role || 'Teaching Assistant');
   row.append(title, role);
   if (course.term) row.append(element('p', 'teaching-term', course.term));
-  if (full && course.description) row.append(element('p', 'teaching-description lecture-description', course.description));
+  if (full && course.description) {
+    course.description.split('\n\n').forEach(paragraph => row.append(element('p', 'teaching-description lecture-description', paragraph)));
+  }
   if (full && course.materials?.length) {
     const materials = element('div', 'lecture-materials');
     const list = element('ol');
@@ -203,7 +205,7 @@ function setupCatGallery() {
   const gallery = document.querySelector('#cat-gallery');
   if (!gallery) return;
   const cat = document.querySelector('main').dataset.cat === 'blake' ? site.blake : site.cat;
-  document.querySelector('#cat-title').replaceChildren(`Meet ${cat.name}`, element('span', 'soft-period', '.'));
+  document.querySelector('#cat-title').textContent = `Meet ${cat.name}`;
   document.querySelector('#cat-bio').replaceChildren(...cat.bio.split('\n')
     .flatMap((line, index) => index ? [element('br'), line] : [line]));
   if (cat === site.cat) stopCatAge = startLaylaAge(document.querySelector('#cat-bio'));

@@ -579,7 +579,7 @@ export const site = {
         "height": 975,
         "position": "50% 55%"
       },
-      "description": "A guest lecture in Professor Natasha Foutz’s class on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
+      "description": "I was a guest lecturer in Professor Natasha Foutz’s Marketing Analytics and Big Data class, where I led lectures on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
       "materials": [
         {
           "title": "APIs and Chatbots",
@@ -606,6 +606,7 @@ export const site = {
       "role": "Teaching Assistant",
       "id": "sarc-5400",
       "term": "January – April 2024",
+      "description": "I was a teaching assistant for Professor Eric Field’s Data Visualization class, where I reviewed students’ work and provided feedback on their visualization designs.\n\nI focused on whether each design told a story, conveyed a clear central message, and justified every pixel’s presence: every pixel needs to fight for its life.\n\nMinimalist design and storytelling are at the core of this course, and they shaped how I evaluated students’ work.",
       "photo": {
         "src": "./assets/images/experience/sarc-5400.jpeg",
         "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
@@ -618,7 +619,7 @@ export const site = {
       "title": "Charlottesville Debate League",
       "institution": "Charlottesville, Virginia",
       "role": "Debate Coach & Tournament Chair",
-      "description": "Organizing, planning, and managing speech and debate tournaments for Charlottesville middle school students.",
+      "description": "I joined the Charlottesville Debate League as a debate coach and taught for a year at several local middle schools before transitioning to tournament committee chair, where I organized, planned, and managed speech and debate tournaments for Charlottesville middle school students.",
       "photo": {
         "src": "./assets/images/experience/cdl-team.jpg",
         "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
@@ -646,7 +647,7 @@ export const site = {
   ],
   blake: {
     "name": "Blake",
-    "bio": "I met Blake in North Carolina during my internship.\nHe had a sister too (Sheriff) but she wasn't as affective as Blake.",
+    "bio": "I met Blake in North Carolina during my internship.\nHe had a sister too (Sheriff) but she wasn't as affective as Blake.\nI thank my landlord and the cat owner for their generosity in allowing me to take care of the two cats over the summer.",
     "description": "",
     "loves": [],
     "hero": "./assets/images/cats/blake-loaf.jpg",
