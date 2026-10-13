@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-clickable-cards';
+import { site } from './content.js?v=20261013-cisco-contributions';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

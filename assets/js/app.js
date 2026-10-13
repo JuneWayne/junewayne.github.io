@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-clickable-cards';
-import { setupNavigation } from './transition.js?v=20261013-clickable-cards';
-import { renderCV } from './cv.js?v=20261013-clickable-cards';
-import { startLaylaAge } from './cat-age.js?v=20261013-clickable-cards';
+import { site } from './content.js?v=20261013-cisco-contributions';
+import { setupNavigation } from './transition.js?v=20261013-cisco-contributions';
+import { renderCV } from './cv.js?v=20261013-cisco-contributions';
+import { startLaylaAge } from './cat-age.js?v=20261013-cisco-contributions';
 
 let stopCatAge;
 

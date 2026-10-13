@@ -321,13 +321,7 @@ export const site = {
           "alt": "Ethan standing beside a Cisco sign outside the campus.",
           "width": 1279,
           "height": 1706
-        },
-        "links": [
-          {
-            "label": "Related research: prompt-injection defenses",
-            "url": "./research.html#prompt-injection"
-          }
-        ]
+        }
       },
       {
         "id": "spatial-ai",
