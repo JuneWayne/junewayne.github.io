@@ -1,0 +1,21 @@
+Generated with the built-in imagegen tool. Native left hand, ten frames, five columns by two rows. Used without horizontal mirroring.
+
+Photorealistic animation sprite sheet, EXACTLY 10 square frames arranged FIVE columns by TWO rows, wide 5:2 canvas, true transparent alpha background. Same anatomically correct LEFT HAND in every frame, reaching from LOWER LEFT toward UPPER RIGHT, wrist extending out lower-left corner. Consistent camera, hand size, skin, light, wrist registration across all cells.
+
+CRITICAL ANATOMY AND VIEW: This is the person's LEFT hand holding the left edge of a thin upright book page. We look from the BACK / DORSAL side of this LEFT hand at a three-quarter angle, NOT straight at its palm. Show the back of the wrist and knuckles, not broad palm creases. The left THUMB arcs toward the upper right, its nail visible and its broad pad pressing down against the front of an imagined sheet at 68% across and 34% down each cell. The FOUR other fingers are together, curved around the page edge and supporting the page from BEHIND; their knuckles and curled sides can be visible near 65–80% across and 40–55% down, while fingertips tuck away behind the sheet. Natural left-handed page hold: thumb on front face, index/middle/ring/little fingers on rear face. Do NOT turn this into a right hand or a palm-facing hand. No fingertip pinch or OK gesture. Exactly five anatomically connected digits.
+
+The paper itself is NOT drawn: only hand and a short wrist, isolated on true transparency. The website will draw the paper between thumb and fingers. Keep the thumb contact location stable across frames, and preserve small gradual pose changes.
+
+Read frames left to right, top row then bottom row:
+1 left hand approaching, four fingers relaxed together and thumb slightly raised.
+2 fingers begin hooking under imagined left page edge.
+3 fingers cup behind it, thumb descends toward its front.
+4 thumb pad settles on front, four fingers support behind.
+5 settled broad whole-hand grip, no pinching.
+6 wrist lifts gently, grip remains stable.
+7 small wrist turn as hand pulls page left, same grip.
+8 thumb starts to lift as fingers relax.
+9 fingers open to release page, thumb lifted clear.
+10 relaxed left hand withdrawing toward lower left.
+
+Soft neutral studio lighting, natural medium warm skin, detailed skin creases and short clean nails. No jewelry, no labels, no borders, no grid lines, no text, no book, no paper, no background, no watermark. Maintain identical hand scale and registration, with transparent margins between frames.

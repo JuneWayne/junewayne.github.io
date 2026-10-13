@@ -1,7 +1,7 @@
 /** A rolling paper fold travels over live HTML, with a hand following its free edge. */
 export const TURN_DURATION = 1300;
 
-export const HAND_SPRITE_URL = new URL('../images/motion/page-turn-grip-10.png', import.meta.url).href;
+export const HAND_SPRITE_URL = new URL('../images/motion/page-turn-left-hand-10.png', import.meta.url).href;
 export const HAND_FRAME_COUNT = 10;
 
 export function makePageTurn() {
@@ -69,16 +69,16 @@ export function makePageTurn() {
   // Each mask follows only the thumb in that sprite cell. The rest of the hand
   // is drawn behind the paper, so the sheet genuinely occludes the supporting fingers.
   const thumbContours = [
-    [[39,2],[49,2],[62,12],[74,26],[77,42],[64,44],[53,29],[43,18],[39,8]],
-    [[35,4],[46,6],[58,15],[70,26],[77,44],[61,46],[52,30],[42,22],[35,10]],
-    [[22,16],[35,13],[50,17],[63,25],[70,41],[54,43],[43,32],[29,30],[23,24]],
-    [[14,21],[23,16],[40,15],[54,20],[64,29],[69,42],[55,44],[43,32],[23,32],[15,29]],
-    [[17,23],[27,20],[40,20],[55,22],[66,30],[73,43],[58,46],[44,35],[25,35],[18,31]],
-    [[17,16],[28,12],[42,12],[57,18],[68,28],[74,41],[59,43],[44,28],[26,27],[18,23]],
-    [[17,17],[30,13],[45,14],[58,20],[68,28],[74,42],[59,44],[45,30],[26,29],[18,25]],
-    [[32,4],[44,7],[59,18],[69,30],[74,44],[58,43],[48,29],[38,21],[32,11]],
-    [[34,5],[46,8],[61,20],[71,32],[76,46],[60,45],[49,30],[39,21],[34,12]],
-    [[39,3],[50,5],[63,18],[74,30],[78,43],[64,45],[53,30],[42,18],[39,9]],
+    [[84,22],[93,21],[98,27],[92,39],[82,53],[68,61],[58,52],[73,40]],
+    [[85,22],[94,23],[98,30],[92,40],[81,53],[67,60],[58,51],[74,39]],
+    [[78,11],[85,12],[88,19],[84,28],[78,40],[67,53],[57,51],[69,34],[75,21]],
+    [[77,11],[84,12],[87,19],[83,28],[77,40],[66,53],[56,51],[68,34],[74,21]],
+    [[77,11],[85,12],[88,19],[84,28],[78,40],[67,53],[57,51],[69,34],[75,21]],
+    [[73,7],[81,8],[85,16],[80,29],[75,40],[65,54],[55,51],[65,34],[71,20]],
+    [[74,12],[82,12],[86,20],[82,30],[76,42],[66,54],[56,52],[66,36],[72,23]],
+    [[78,12],[86,13],[90,20],[85,31],[78,44],[66,56],[56,53],[69,36],[75,24]],
+    [[85,23],[93,23],[97,31],[91,43],[81,55],[67,62],[58,54],[74,41]],
+    [[87,27],[95,27],[99,34],[93,46],[82,59],[68,65],[59,56],[75,44]],
   ];
   const poseTimes = [0, .09, .18, .25, .33, .43, .55, .68, .83, 1];
   const smooth = (t) => t * t * (3 - 2 * t);
@@ -141,7 +141,7 @@ export function makePageTurn() {
     const release = smooth(Math.max(0, Math.min(1, (raw - .58) / .42)));
     const gripX = Math.max(width * .08, edgeX) - handSize * .3 * release;
     const angle = 5 - 17 * lift + 12 * release;
-    hand.style.transform = `translate3d(${gripX - handSize * .3 + approach * handSize * .35}px, ${gripY - handSize * .32 + approach * handSize * .16 + release * height * .38}px, 0) rotate(${-angle}deg) scale(${-1 - lift * .025}, ${1 + lift * .025})`;
+    hand.style.transform = `translate3d(${gripX - handSize * .78 + approach * handSize * .35}px, ${gripY - handSize * .30 + approach * handSize * .16 + release * height * .38}px, 0) rotate(${-angle}deg) scale(${1 + lift * .025})`;
     hand.style.opacity = String(Math.min(1, raw / .07, (1 - raw) / .08));
     overlay.style.transform = hand.style.transform;
     overlay.style.opacity = hand.style.opacity;

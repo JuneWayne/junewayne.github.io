@@ -113,6 +113,8 @@ Blake’s album lives at `blake.html` and uses `site.blake` in the content file.
 
 Research `labs` entries are linked names displayed below each project title. The favicon embeds the supplied `layla-head.jpg` in a square SVG viewport.
 
-The hand uses ten photorealistic gesture frames in `assets/images/motion/page-turn-grip-10.png` (five columns × two rows), generated with the built-in imagegen tool. The thumb rests above four supporting fingers. Adjacent poses blend through approach, grip, turn, release, and withdrawal; wrist movement follows the paper until release. The prompt is in `docs/design/page-turn-grip-10-prompt.txt`.
+The left hand uses ten photorealistic gesture frames in `assets/images/motion/page-turn-left-hand-10.png` (five columns × two rows), generated with the built-in imagegen tool. The thumb rests above four supporting fingers. Adjacent poses blend through approach, grip, turn, release, and withdrawal; wrist movement follows the paper until release. The prompt is in `docs/design/page-turn-left-hand-10-prompt.txt`.
 
 During the grip, the full hand is behind the curved paper and a separate per-frame thumb mask is above it. The sheet occludes the supporting fingers and palm. The hand returns above the page only when the grip opens during release.
+
+The left-hand sequence is drawn in its final orientation and is not mirrored at runtime. The paper is procedural SVG geometry, with a continuously calculated fold and lighting rather than ten separately drawn sheets.
