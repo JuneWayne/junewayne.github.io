@@ -19,10 +19,221 @@ export const site = {
     { label: "wkt7ne@virginia.edu", url: "mailto:wkt7ne@virginia.edu" },
     { label: "GitHub", url: "https://github.com/JuneWayne" },
   ],
-  // Set url to "./assets/documents/cv.pdf" after adding your PDF.
-  cv: { url: null, updated: null },
+  cv: {
+    "url": "./assets/PDFs/Ethan%20Cao%20Resume.pdf",
+    "education": [
+      {
+        "degree": "B.S. in Data Science",
+        "institution": "University of Virginia · School of Data Science",
+        "detail": "Concentration in Machine Learning & Data Engineering",
+        "status": "Expected May 2027"
+      },
+      {
+        "degree": "M.S. in Data Science",
+        "institution": "University of Virginia · School of Data Science",
+        "detail": "Concentration in Artificial Intelligence",
+        "status": "Admitted · Expected August 2028"
+      }
+    ],
+    "coursework": [
+      "Advanced Cloud Computing",
+      "Deep Learning",
+      "Mathematics for Machine Learning",
+      "Data Engineering"
+    ],
+    "skills": [
+      {
+        "title": "Programming",
+        "items": [
+          "Python",
+          "SQL",
+          "Java",
+          "C++",
+          "HTML/CSS"
+        ]
+      },
+      {
+        "title": "Machine learning & AI",
+        "items": [
+          "PyTorch",
+          "scikit-learn",
+          "TensorFlow",
+          "CUDA",
+          "LangChain",
+          "LangGraph",
+          "CrewAI",
+          "OpenAI API",
+          "Generative AI"
+        ]
+      },
+      {
+        "title": "Data & systems",
+        "items": [
+          "Git/GitHub",
+          "Unix/Linux",
+          "Prefect",
+          "Relational & NoSQL databases",
+          "Hadoop",
+          "Spark",
+          "DuckDB",
+          "Kafka",
+          "Docker"
+        ]
+      }
+    ],
+    "experiences": [
+      {
+        "id": "cisco",
+        "organization": "Cisco Systems",
+        "role": "Data Scientist Intern",
+        "category": "Industry",
+        "dates": "May – August 2026",
+        "location": "Durham–Raleigh, North Carolina",
+        "summary": "Worked on LLM auditing for prompt-injection defenses, semantic search, and a full-stack escalation tracking platform.",
+        "highlights": [
+          "Developed a lightweight LLM audit workflow using Jacobian-lens techniques with Qwen and Cisco Antares/Foundation-Sec models.",
+          "Built semantic search using Sentence-Transformer embeddings, pgvector, and cosine-similarity ranking.",
+          "Built FastAPI and Next.js services backed by PostgreSQL, deployed through OpenShift and Jenkins CI/CD."
+        ],
+        "photo": {
+          "src": "./assets/images/experience/cisco-internship.jpg",
+          "alt": "Ethan standing beside a Cisco sign outside the campus.",
+          "width": 1279,
+          "height": 1706
+        },
+        "links": [
+          {
+            "label": "Related research: prompt-injection defenses",
+            "url": "./index.html#prompt-injection"
+          }
+        ]
+      },
+      {
+        "id": "spatial-ai",
+        "organization": "Spatial Artificial Intelligence Lab",
+        "role": "Undergraduate Researcher",
+        "category": "Research",
+        "dates": "January 2026 – Present",
+        "location": "Charlottesville, Virginia",
+        "summary": "Investigating the mechanisms of autoregressive 3D mesh transformers and how their attention heads represent geometry.",
+        "highlights": [
+          "Studied attention sinks and active/dormant attention-head behavior in MeshXL.",
+          "Built a PyTorch pipeline with forward hooks to extract attention matrices, weights, and hidden states.",
+          "Analyzed geometric feature preferences and hidden-state retrieval across layers to investigate mesh generation."
+        ],
+        "links": [
+          {
+            "label": "Related research: 3D transformers",
+            "url": "./index.html#mesh-transformers"
+          }
+        ]
+      },
+      {
+        "id": "guest-lecture",
+        "organization": "University of Virginia · McIntire School of Commerce",
+        "role": "Guest Lecturer · COMM 4351",
+        "category": "Teaching",
+        "dates": "October 2025",
+        "location": "Charlottesville, Virginia",
+        "summary": "Guest lecture on AI agents in Professor Natasha Foutz’s Marketing Analytics and Big Data class, with hands-on examples in APIs, LangChain, retrieval, and hierarchical multi-agent systems.",
+        "photo": {
+          "src": "./assets/images/experience/guest-lecture.jpg",
+          "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
+          "width": 1613,
+          "height": 975,
+          "wide": true
+        },
+        "links": [
+          {
+            "label": "Lecture notebooks and teaching materials",
+            "url": "./teaching.html"
+          }
+        ]
+      },
+      {
+        "id": "align",
+        "organization": "Align Technology",
+        "role": "AI & Automation Intern",
+        "category": "Industry",
+        "dates": "May – August 2025",
+        "location": "San Jose, California",
+        "summary": "Built and shipped a multi-agent RAG chatbot for market research, used by 20,000+ Align employees.",
+        "highlights": [
+          "Developed the chatbot using Azure AI Foundry, Copilot Studio, Teams SDK, and LangChain.",
+          "Combined multimodal embeddings and OCR to improve retrieval from charts, dashboards, and tables.",
+          "Fine-tuned o4-mini in Azure AI Foundry to improve response quality and document-specific retrieval relevance."
+        ],
+        "photo": {
+          "src": "./assets/images/experience/align-internship.jpg",
+          "alt": "Ethan outside an Align office building with its sign visible above.",
+          "width": 1279,
+          "height": 1706
+        }
+      },
+      {
+        "id": "visual-intelligence",
+        "organization": "Visual Intelligence Lab",
+        "role": "Research Intern",
+        "category": "Research",
+        "dates": "April – September 2025",
+        "location": "Charlottesville, Virginia",
+        "summary": "Trained physics-aware recurrent convolutional networks to model advection and diffusion in 2D shear-flow systems.",
+        "highlights": [
+          "Designed and trained PARCv2 neural networks in PyTorch.",
+          "Accelerated training through spatial downsampling and timestep skipping.",
+          "Compared Euler and RK4 integrators and selected checkpoints to improve rollout stability."
+        ],
+        "links": [
+          {
+            "label": "PARCtorch code",
+            "url": "https://github.com/JuneWayne/PARCtorch/"
+          }
+        ]
+      },
+      {
+        "id": "active-learning",
+        "organization": "Active Learning Lab",
+        "role": "Undergraduate Researcher",
+        "category": "Research",
+        "dates": "December 2024 – May 2026",
+        "location": "Charlottesville, Virginia",
+        "summary": "Studied how early-career data science roles evolve through an unsupervised NLP pipeline built from LinkedIn job descriptions.",
+        "highlights": [
+          "Collected hourly job data and embedded more than 10,000 early-career postings.",
+          "Used UMAP, HDBSCAN, class-based TF-IDF, and LLM labeling to identify 45 role groupings.",
+          "Measured month-to-month semantic shifts and within-cluster consistency to study emerging micro-professions."
+        ],
+        "links": [
+          {
+            "label": "Related research: semantic shifts",
+            "url": "./index.html#semantic-shifts"
+          },
+          {
+            "label": "Project code",
+            "url": "https://github.com/JuneWayne/Latent-Representation-Job-Market/tree/main"
+          }
+        ]
+      },
+      {
+        "id": "tencent",
+        "organization": "Tencent",
+        "role": "Internship",
+        "category": "Industry",
+        "summary": "Internship experience at Tencent.",
+        "dates": "May – August 2024",
+        "photo": {
+          "src": "./assets/images/experience/tencent-internship.jpg",
+          "alt": "Ethan beside a purple cartoon cat mascot during his Tencent internship.",
+          "width": 1706,
+          "height": 1279,
+          "wide": true
+        }
+      }
+    ]
+  },
   research: [
     {
+      "id": "prompt-injection",
       "title": "Robust Prompt-Injection Defenses for Agentic Systems",
       "summary": "Investigating prompt-injection defenses for agentic systems. The current demo supports visual auditing of how language models respond to prompt-injection inputs.",
       "kind": "Ongoing research",
@@ -34,6 +245,7 @@ export const site = {
       ]
     },
     {
+      "id": "mesh-transformers",
       "title": "Interpreting 3D Autoregressive Transformers",
       "summary": "Studying how attention heads in autoregressive mesh transformers relate to the geometric properties of triangles, with comparisons across four 3D generation model families.",
       "kind": "Work in progress",
@@ -53,6 +265,7 @@ export const site = {
       ]
     },
     {
+      "id": "semantic-shifts",
       "title": "Tracking Semantic Evolution of Data Science Roles",
       "summary": "Studying how early-career data science roles change over time through sentence embeddings, unsupervised clustering, and temporal analysis of job descriptions.",
       "kind": "Draft manuscript",
@@ -74,7 +287,14 @@ export const site = {
       "title": "Marketing Analytics and Big Data",
       "institution": "University of Virginia",
       "role": "Guest Lecturer",
-      "description": "A guest lecture on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
+      "term": "October 2025",
+      "photo": {
+        "src": "./assets/images/experience/guest-lecture.jpg",
+        "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
+        "width": 1613,
+        "height": 975
+      },
+      "description": "A guest lecture in Professor Natasha Foutz’s class on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
       "materials": [
         {
           "title": "APIs and Chatbots",
@@ -92,6 +312,25 @@ export const site = {
           "url": "./assets/Python_notebook/CrewAI_Hierarchical_Web_RAG_LocalDB_Tutorial.ipynb"
         }
       ]
+    },
+    {
+      "code": "SARC 5400",
+      "title": "Data Visualization",
+      "institution": "University of Virginia",
+      "role": "Teaching Assistant",
+      "description": "Teaching assistant for SARC 5400: Data Visualization."
+    },
+    {
+      "title": "Charlottesville Debate League",
+      "institution": "Charlottesville, Virginia",
+      "role": "Tournament Chair",
+      "description": "Organizing, planning, and managing speech and debate tournaments for Charlottesville middle school students.",
+      "photo": {
+        "src": "./assets/images/experience/cdl-team.jpg",
+        "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
+        "width": 1706,
+        "height": 1279
+      }
     }
   ],
   // Homepage previews; add other animals here as your collection grows.

@@ -30,6 +30,17 @@ assert.ok(site.bio.length && site.bio.every((text) => typeof text === 'string' &
 await links(site.links);
 if (site.portrait) { await reference(site.portrait); assert.ok(site.portraitAlt?.trim()); }
 if (site.cv.url) await reference(site.cv.url);
+const experienceIDs = new Set();
+for (const experience of site.cv.experiences || []) {
+  assert.ok(experience.id && !experienceIDs.has(experience.id), 'Experience IDs must be unique');
+  experienceIDs.add(experience.id);
+  assert.ok(experience.organization?.trim() && experience.role?.trim() && experience.category?.trim(), 'Experience needs an organization, role, and category');
+  if (experience.photo) {
+    await reference(experience.photo.src);
+    assert.ok(experience.photo.alt?.trim() && experience.photo.width > 0 && experience.photo.height > 0, 'Experience photos need alt text and dimensions');
+  }
+  await links(experience.links);
+}
 for (const project of site.research) {
   assert.ok(project.title?.trim() && project.summary?.trim(), 'Research entries need a title and summary');
   if (project.image) { await reference(project.image); assert.ok(project.imageAlt?.trim(), 'Research images need alternative text'); }
@@ -38,6 +49,10 @@ for (const project of site.research) {
 for (const course of site.teaching) {
   assert.ok(course.title?.trim() && course.role?.trim(), 'Courses need a title and role');
   await links(course.links);
+  if (course.photo) {
+    await reference(course.photo.src);
+    assert.ok(course.photo.alt?.trim() && course.photo.width > 0 && course.photo.height > 0, 'Teaching photos need alt text and dimensions');
+  }
   for (const resource of course.materials || []) {
     assert.ok(resource.title?.trim(), 'Lecture materials need a title');
     await reference(resource.url);
@@ -71,5 +86,5 @@ for (const page of pages) {
 }
 const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
 for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));
-for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
+for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/cv.js', 'assets/js/pixels.js', 'assets/js/transition.js', 'assets/js/vendor/html2canvas.esm.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
 console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length} photos, JavaScript syntax.`);

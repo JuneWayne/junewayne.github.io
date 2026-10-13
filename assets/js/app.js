@@ -1,5 +1,6 @@
 import { site } from './content.js';
 import { setupNavigation } from './transition.js';
+import { renderCV } from './cv.js';
 
 /** Small DOM helpers keep all editable content as text, never executable HTML. */
 function element(tag, className = '', text = '') {
@@ -54,6 +55,7 @@ function renderResearch() {
   if (!list || !site.research.length) return;
   list.replaceChildren(...site.research.map((project, index) => {
     const row = element('article', 'research-row');
+    if (project.id) row.id = project.id;
     if (project.image) {
       const image = element('img', 'research-thumbnail');
       image.src = project.image;
@@ -109,6 +111,11 @@ function courseRow(course, full = false) {
     materials.append(list);
     row.append(materials);
   }
+  if (full && course.photo) {
+    const image = element('img', 'lecture-photo');
+    Object.assign(image, course.photo, { loading: 'lazy', decoding: 'async' });
+    row.append(image);
+  }
   return row;
 }
 
@@ -120,24 +127,6 @@ function renderTeaching() {
     list.classList.add('teaching-full');
     list.replaceChildren(...site.teaching.map((course) => courseRow(course, true)));
   }
-}
-
-function renderCV() {
-  const content = document.querySelector('#cv-content');
-  if (!content || !site.cv.url) return;
-  const toolbar = element('div', 'cv-toolbar');
-  if (site.cv.updated) toolbar.append(element('p', '', `Updated ${site.cv.updated}`));
-  const download = link({ label: 'Open CV (PDF)', url: site.cv.url });
-  download.className = 'cv-download';
-  download.target = '_blank';
-  download.rel = 'noopener noreferrer';
-  toolbar.append(download);
-  const frame = element('iframe', 'cv-frame');
-  frame.title = `${site.name}’s curriculum vitae`;
-  frame.src = site.cv.url;
-  const fallback = element('p', 'cv-fallback', 'If the preview does not load, ');
-  fallback.append(link({ label: 'open the PDF', url: site.cv.url }), '.');
-  content.replaceChildren(toolbar, frame, fallback);
 }
 
 function renderAnimals() {

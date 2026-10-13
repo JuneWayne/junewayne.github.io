@@ -1,4 +1,5 @@
-/** Gentle water-wave navigation, with an optional spiral comparison. */
+/** Pixel-wave navigation, with an optional spiral comparison. */
+import { makePixels } from './pixels.js';
 const TURN = Math.PI * 2 * 1.05;
 const supportedPages = new Set(['index.html', 'teaching.html', 'cv.html', 'cat.html']);
 const pageKey = (url) => new URL(url).pathname.replace(/\/$/, '/index.html');
@@ -121,86 +122,10 @@ function makeVortex(main) {
   };
 }
 
-function makeWave(main) {
-  const namespace = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(namespace, 'svg');
-  svg.classList.add('page-wave');
-  svg.setAttribute('aria-hidden', 'true');
-  svg.setAttribute('width', '0');
-  svg.setAttribute('height', '0');
-  const filter = document.createElementNS(namespace, 'filter');
-  filter.id = 'page-water-filter';
-  filter.setAttribute('x', '-2%');
-  filter.setAttribute('y', '-2%');
-  filter.setAttribute('width', '104%');
-  filter.setAttribute('height', '104%');
-  filter.setAttribute('color-interpolation-filters', 'sRGB');
-  const map = document.createElementNS(namespace, 'feImage');
-  map.setAttribute('result', 'wave-map');
-  map.setAttribute('preserveAspectRatio', 'none');
-  const displacement = document.createElementNS(namespace, 'feDisplacementMap');
-  displacement.setAttribute('in', 'SourceGraphic');
-  displacement.setAttribute('in2', 'wave-map');
-  displacement.setAttribute('scale', '10');
-  displacement.setAttribute('xChannelSelector', 'R');
-  displacement.setAttribute('yChannelSelector', 'G');
-  filter.append(map, displacement);
-  svg.append(filter);
-  document.body.append(svg);
-  let current = main;
-  const original = new Map();
-
-  function remember(node) {
-    original.set(node, { filter: node.style.filter, maskImage: node.style.maskImage, webkitMaskImage: node.style.webkitMaskImage });
-    node.setAttribute('aria-busy', 'true');
-  }
-  function restore(node) {
-    Object.assign(node.style, original.get(node));
-    node.removeAttribute('aria-busy');
-  }
-  remember(main);
-
-  function draw(progress, incoming = false) {
-    const t = Math.max(0, Math.min(1, progress));
-    const stops = [];
-    const opacity = [];
-    for (let i = 0; i <= 24; i++) {
-      const x = i / 24;
-      // Each column lifts just three pixels as the wave travels left to right.
-      const local = Math.max(0, Math.min(1, (t - .23 * x) / .77));
-      const eased = local * local * (3 - 2 * local);
-      const lift = Math.sin(Math.PI * local) * 3;
-      const ripple = Math.sin(Math.PI * 2 * local) * .35;
-      const green = Math.round(127.5 + (lift + ripple) * 25.5);
-      stops.push(`<stop offset="${x}" stop-color="rgb(128,${green},128)"/>`);
-      opacity.push(`rgba(0,0,0,${incoming ? eased : 1 - eased}) ${x * 100}%`);
-    }
-    // Filter the actual DOM pixels, preserving typography, photographs and layout.
-    const texture = `<svg xmlns="${namespace}" width="96" height="1"><defs><linearGradient id="g">${stops.join('')}</linearGradient></defs><rect width="96" height="1" fill="url(#g)"/></svg>`;
-    map.setAttribute('href', `data:image/svg+xml;base64,${btoa(texture)}`);
-    current.style.filter = 'url(#page-water-filter)';
-    current.style.maskImage = current.style.webkitMaskImage = `linear-gradient(to right,${opacity.join(',')})`;
-  }
-
-  return {
-    draw,
-    reassemble(nextMain) {
-      restore(current);
-      current = nextMain;
-      remember(current);
-      draw(0, true);
-    },
-    finish() {
-      restore(current);
-      svg.remove();
-    },
-  };
-}
-
 export function setupNavigation({ renderPage, updateNavigation }) {
   const spiral = new URL(location.href).searchParams.get('transition') === 'spiral';
-  const duration = spiral ? 1100 : 900;
-  const midpoint = spiral ? 500 : 380;
+  const duration = spiral ? 1100 : 1000;
+  const midpoint = spiral ? 500 : 440;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const forcedColors = matchMedia('(forced-colors: active)');
   const cache = new Map();
@@ -281,10 +206,17 @@ export function setupNavigation({ renderPage, updateNavigation }) {
     let failed = false;
     if (differentPage) load(url).then((page) => { parsed = page; ready = true; }, () => { failed = true; });
     const animate = !historyNavigation && !reducedMotion.matches && !forcedColors.matches && !document.hidden;
-    const vortex = animate ? (spiral ? makeVortex : makeWave)(document.querySelector('main')) : null;
-    const start = performance.now();
+    let vortex = animate ? (spiral ? makeVortex : makePixels)(document.querySelector('main')) : null;
+    let start = performance.now();
+    let prepared = !vortex?.ready;
     let swapped = false;
     pending = { frame: 0, vortex, watchdog: 0 };
+    vortex?.ready?.then((available) => {
+      if (token !== generation || prepared || !pending) return;
+      prepared = true;
+      if (available) { vortex.activate(); start = performance.now(); }
+      else { vortex.finish(); vortex = null; }
+    });
 
     function fallback() {
       stop();
@@ -313,6 +245,14 @@ export function setupNavigation({ renderPage, updateNavigation }) {
 
     function frame(now) {
       if (token !== generation) return;
+      if (!prepared) {
+        // Keep the current page readable while sampling; never wait on a renderer.
+        if (failed) { fallback(); return; }
+        if (now - start < 300) { pending.frame = requestAnimationFrame(frame); return; }
+        prepared = true;
+        vortex.finish();
+        vortex = null;
+      }
       const elapsed = now - start;
       if (failed || (!ready && elapsed >= (vortex ? midpoint : 250))) { fallback(); return; }
       if (!swapped && ready && (!vortex || elapsed >= midpoint)) {
@@ -334,7 +274,7 @@ export function setupNavigation({ renderPage, updateNavigation }) {
       if (token !== generation) return;
       if (!swapped) fallback();
       else finish();
-    }, duration + 250);
+    }, duration + 550);
   }
 
   document.addEventListener('click', (event) => {
