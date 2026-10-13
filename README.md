@@ -14,7 +14,7 @@ Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, emai
 
 **Portrait:** your photo is at `assets/images/portrait.jpg`. To replace it, update `portrait`, `portraitAlt`, `portraitWidth`, and `portraitHeight` in the content file and the corresponding image in `index.html`.
 
-**Research and internships:** add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Images are optional; entries without images use a clean text layout. Optional `organization`, `role`, `location`, `dates`, and `highlights` fields support research appointments and their contributions.
+**Research and internships:** projects live on the independent `research.html` page. Add entries to `research` in display order. Replace the example values below; remove optional fields you do not need. Images are optional; entries without images use a clean text layout. Optional `organization`, `role`, `location`, `dates`, and `highlights` fields support research appointments and their contributions.
 
 ```js
 research: [
@@ -49,7 +49,7 @@ teaching: [
 ],
 ```
 
-**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent IEG is listed as a Data Analyst Internship in Shenzhen, May–August 2024, with the supplied gaming-market analysis contributions. Filters show Industry by default, with Research and Teaching alongside it. Teaching includes COMM 4351, SARC 5400, and Charlottesville Debate League. Resume viewing and download links are always available; the embedded preview loads only when opened.
+**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent IEG is listed as a Data Analyst Internship in Shenzhen, May–August 2024, with the supplied gaming-market analysis contributions. Filters show Industry by default, with Research and Teaching alongside it. Teaching includes COMM 4351, SARC 5400 (January–April 2024), MSBA grading for Professor Mousavi (GBAC 7209 and GBAC 7215, January–April 2025), and Charlottesville Debate League. Resume viewing and download links are always available; the embedded preview loads only when opened.
 
 **Animals section:** update `animals` in the content file to change the homepage previews. Each entry takes `title`, `src`, `width`, `height`, `alt`, and a destination `url`. Add entries for other animals as your collection grows. The introductory previews are also in `index.html` for visitors without JavaScript.
 
@@ -73,7 +73,7 @@ The homepage also contains a static biography for search engines and visitors wi
 
 ## Files
 
-- `index.html`, `teaching.html`, `cv.html`, `cat.html`, `blake.html`: public pages.
+- `index.html`, `research.html`, `teaching.html`, `cv.html`, `cat.html`, `blake.html`: public pages.
 - `assets/css/style.css`: layout, colors, fonts, motion, and mobile styles.
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
@@ -82,7 +82,7 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/js/transition.js`: cached page navigation and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links if a page cannot be fetched promptly.
 - `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.
 - `assets/Python_notebook/`: downloadable COMM 4351 lecture notebooks. Saved execution logs are cleared; original notebook copies are backed up under `/tmp/ethan-lecture-notebook-originals`.
-- `assets/images/experience/`: Cisco, Align, Tencent, COMM 4351, SARC 5400, and CDL photos. CDL appears only in Teaching.
+- `assets/images/experience/`: Cisco, Align, Tencent, COMM 4351, SARC 5400, and CDL photos.
 - `assets/images/cats/`: Layla’s photos and six Blake photos with descriptive filenames.
 - `assets/fonts/`: local Lato Regular/Bold WOFF2 web fonts and their Open Font License. Original TTF files are backed up at `/tmp/ethan-site-original-fonts`.
 - `docs/design/baseline.png`: accepted design reference.

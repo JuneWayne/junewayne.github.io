@@ -1,5 +1,5 @@
 /** Cached internal navigation with immediate page changes and no animation. */
-const supportedPages = new Set(['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']);
+const supportedPages = new Set(['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']);
 const pageKey = (url) => new URL(url).pathname.replace(/\/$/, '/index.html');
 
 export function setupNavigation({ renderPage, updateNavigation }) {

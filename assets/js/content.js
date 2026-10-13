@@ -15,9 +15,10 @@ export const site = {
   portraitWidth: 1276,
   portraitHeight: 1702,
   links: [
-    { label: "ethan128@me.com", url: "mailto:ethan128@me.com" },
-    { label: "wkt7ne@virginia.edu", url: "mailto:wkt7ne@virginia.edu" },
+    { label: "Personal Email", url: "mailto:ethan128@me.com" },
+    { label: "UVA outlook", url: "mailto:wkt7ne@virginia.edu" },
     { label: "GitHub", url: "https://github.com/JuneWayne" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/ethan-yisong-cao/" },
   ],
   cv: {
     "url": "./assets/PDFs/Ethan%20Cao%20Resume.pdf",
@@ -103,7 +104,7 @@ export const site = {
         "links": [
           {
             "label": "Related research: prompt-injection defenses",
-            "url": "./index.html#prompt-injection"
+            "url": "./research.html#prompt-injection"
           }
         ]
       },
@@ -122,7 +123,7 @@ export const site = {
         "links": [
           {
             "label": "Related research: 3D transformers",
-            "url": "./index.html#mesh-transformers"
+            "url": "./research.html#mesh-transformers"
           }
         ]
       },
@@ -152,7 +153,7 @@ export const site = {
         "organization": "SARC 5400",
         "role": "Teaching Assistant",
         "category": "Teaching",
-        "dates": "January – April 2025",
+        "dates": "January – April 2024",
         "summary": "Teaching assistant for Data Visualization.",
         "photo": {
           "src": "./assets/images/experience/sarc-5400.jpeg",
@@ -161,6 +162,15 @@ export const site = {
           "height": 1085
         },
         "links": [{ "label": "Teaching details", "url": "./teaching.html#sarc-5400" }]
+      },
+      {
+        "id": "msba-grader",
+        "organization": "MSBA Data Courses · GBAC 7209, GBAC 7215",
+        "role": "Grader",
+        "category": "Teaching",
+        "dates": "January – April 2025",
+        "summary": "Grader for Professor Mousavi’s MSBA Data Courses: GBAC 7209 and GBAC 7215.",
+        "links": [{ "label": "Teaching details", "url": "./teaching.html#msba-grader" }]
       },
       {
         "id": "cdl",
@@ -212,7 +222,7 @@ export const site = {
         "links": [
           {
             "label": "Related research: fluid dynamics",
-            "url": "./index.html#fluid-dynamics"
+            "url": "./research.html#fluid-dynamics"
           },
           {
             "label": "PARCtorch code",
@@ -235,7 +245,7 @@ export const site = {
         "links": [
           {
             "label": "Related research: semantic shifts",
-            "url": "./index.html#semantic-shifts"
+            "url": "./research.html#semantic-shifts"
           },
           {
             "label": "Project code",
@@ -380,7 +390,7 @@ export const site = {
       "institution": "University of Virginia",
       "role": "Teaching Assistant",
       "id": "sarc-5400",
-      "term": "January – April 2025",
+      "term": "January – April 2024",
       "photo": {
         "src": "./assets/images/experience/sarc-5400.jpeg",
         "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
@@ -403,6 +413,14 @@ export const site = {
       },
       "id": "cdl",
       "term": "January 2024 – Present"
+    },
+    {
+      "id": "msba-grader",
+      "code": "GBAC 7209 · GBAC 7215",
+      "title": "MSBA Data Courses",
+      "role": "Grader",
+      "term": "January – April 2025",
+      "description": "Grader for Professor Mousavi’s MSBA Data Courses: GBAC 7209 and GBAC 7215."
     }
   ],
   // Homepage previews; add other animals here as your collection grows.

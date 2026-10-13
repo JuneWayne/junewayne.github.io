@@ -37,7 +37,7 @@ test('pages load without errors, fit every viewport, and pass accessibility chec
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
-    for (const path of ['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']) {
+    for (const path of ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']) {
       await page.goto(`/${path}`);
       await expect(page.locator('nav [aria-current="page"]')).toHaveCount(1);
       await page.evaluate(() => document.fonts.ready);
@@ -59,8 +59,10 @@ test('pages load without errors, fit every viewport, and pass accessibility chec
 test('navigation exposes the profile, research, and guest lecture', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#profile-bio')).toContainText('fourth-year undergraduate');
-  await expect(page.getByRole('link', { name: 'ethan128@me.com' })).toHaveAttribute('href', 'mailto:ethan128@me.com');
-  await expect(page.getByRole('link', { name: 'wkt7ne@virginia.edu' })).toHaveAttribute('href', 'mailto:wkt7ne@virginia.edu');
+  await expect(page.getByRole('link', { name: 'Personal Email' })).toHaveAttribute('href', 'mailto:ethan128@me.com');
+  await expect(page.getByRole('link', { name: 'UVA outlook' })).toHaveAttribute('href', 'mailto:wkt7ne@virginia.edu');
+  await expect(page.locator('#profile-links a')).toHaveText(['Personal Email ↗', 'UVA outlook ↗', 'GitHub ↗', 'LinkedIn ↗']);
+  await expect(page.getByRole('link', { name: 'LinkedIn', exact: true })).toHaveAttribute('href', 'https://www.linkedin.com/in/ethan-yisong-cao/');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Teaching' }).click();
   await expect(page.getByRole('heading', { name: 'Marketing Analytics and Big Data' })).toBeVisible();
   await expect(page.locator('.teaching-role').first()).toContainText('Guest Lecturer');
@@ -115,6 +117,10 @@ test('Profile and Research share navigation; photos load and reduced-motion navi
   await expect(page.locator('nav [data-nav=cv] span')).toHaveCount(0);
   await expect(page.locator('#profile-portrait')).toHaveJSProperty('naturalWidth', 1276);
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Research' }).click();
+  await expect(page).toHaveURL(/research.html$/);
+  await expect(page.locator('body')).toHaveAttribute('data-page', 'research');
+  await expect(page.locator('#profile-bio')).toHaveCount(0);
+  await expect(page.locator('#research-list article')).toHaveCount(4);
   await expect(page.locator('nav [data-nav=research]')).toHaveAttribute('aria-current', 'page');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Profile' }).click();
   await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
@@ -133,10 +139,11 @@ test('supplied content renders a portrait, research story, teaching details, and
   await page.route('**/assets/documents/test-cv.pdf', (route) => route.fulfill({ contentType: 'application/pdf', body: '%PDF-1.4\n%%EOF' }));
   await page.goto('/');
   await expect(page.getByRole('img', { name: 'Test portrait' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Test course' })).toBeVisible();
+  await page.locator('[data-nav=research]').click();
   await expect(page.getByRole('heading', { name: 'Test research project' })).toBeVisible();
   await page.getByText('Details', { exact: true }).click();
   await expect(page.getByText('A longer explanation of the research question and findings.')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Test course' })).toBeVisible();
   await page.goto('/teaching.html');
   await expect(page.getByText('Helped students understand course material.')).toBeVisible();
   await page.goto('/cv.html');
@@ -234,13 +241,14 @@ test('navigation stays immediate with reduced motion and failed fetches use nati
 
 test('research resources and guest lecture notebooks are readable and downloadable', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('#research-list h3')).toHaveText(site.research.map((project) => project.title));
-  await expect(page.getByRole('link', { name: 'Interactive demo' })).toHaveAttribute('href', 'https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b');
   const name = await page.locator('#profile-name').boundingBox();
   const portrait = await page.locator('#profile-portrait').boundingBox();
   expect(name.y + name.height).toBeLessThan(portrait.y);
   expect(Math.abs(name.x - portrait.x)).toBeLessThan(1);
   await expect(page.getByRole('heading', { name: 'About me' })).toBeVisible();
+  await page.locator('[data-nav=research]').click();
+  await expect(page.locator('#research-list h2')).toHaveText(site.research.map((project) => project.title));
+  await expect(page.getByRole('link', { name: 'Interactive demo' })).toHaveAttribute('href', 'https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b');
   for (const project of site.research) for (const resource of project.links) {
     if (resource.url.startsWith('https:')) continue;
     const response = await page.request.get(resource.url.replace('./', '/'));
@@ -250,7 +258,7 @@ test('research resources and guest lecture notebooks are readable and downloadab
   }
   await page.goto('/teaching.html');
   await expect(page.locator('.lecture-materials li')).toHaveCount(3);
-  await expect(page.locator('.teaching-term')).toHaveCount(3);
+  await expect(page.locator('.teaching-term')).toHaveCount(4);
   for (const resource of site.teaching[0].materials) {
     const response = await page.request.get(resource.url.replace('./', '/'));
     expect(response.ok()).toBe(true);
@@ -269,7 +277,7 @@ test('research resources and guest lecture notebooks are readable and downloadab
 test('CV experiences filter, expand, link to research, and offer the supplied resume', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/cv.html');
-  await expect(page.locator('.experience-item')).toHaveCount(9);
+  await expect(page.locator('.experience-item')).toHaveCount(10);
   await expect(page.locator('.experience-item:visible')).toHaveCount(3);
   await expect(page.locator('.experience-item:visible:not([data-category="Industry"])')).toHaveCount(0);
   await expect(page.locator('#experience-filters button[aria-pressed="true"]')).toHaveText('Industry');
@@ -284,7 +292,7 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#tencent details')).toContainText('Riot Games');
   await expect(page.locator('#tencent img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
   const filters = page.getByRole('group', { name: 'Filter experience' });
-  for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 3]]) {
+  for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 4]]) {
     await filters.getByRole('button', { name: category, exact: true }).click();
     await expect(page.locator('.experience-item:visible')).toHaveCount(count);
     await expect(filters.getByRole('button', { name: category, exact: true })).toHaveAttribute('aria-pressed', 'true');
@@ -293,9 +301,12 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#guest-lecture h3')).toHaveText('COMM 4351 · McIntire School of Commerce');
   await expect(page.locator('#guest-lecture .experience-role')).toHaveText('Guest Lecturer');
   await expect(page.locator('#sarc-5400')).toContainText('Teaching Assistant');
-  await expect(page.locator('#sarc-5400')).toContainText('January – April 2025');
+  await expect(page.locator('#sarc-5400')).toContainText('January – April 2024');
   await expect(page.locator('#cdl')).toContainText('Debate Coach & Tournament Chair');
   await expect(page.locator('#cdl')).toContainText('January 2024 – Present');
+  await expect(page.locator('#msba-grader')).toContainText('GBAC 7209, GBAC 7215');
+  await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
+  await expect(page.locator('#msba-grader')).toContainText('January – April 2025');
   await filters.getByRole('button', { name: 'Industry', exact: true }).click();
   await page.locator('#cisco summary').focus();
   await page.keyboard.press('Enter');
@@ -311,19 +322,24 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await page.getByRole('link', { name: 'Download resume' }).click();
   expect((await downloadEvent).suggestedFilename()).toBe('Ethan Cao Resume.pdf');
   await page.locator('#cisco').getByRole('link', { name: /Related research/ }).click();
-  await expect(page).toHaveURL(/index.html#prompt-injection$/);
+  await expect(page).toHaveURL(/research.html#prompt-injection$/);
   await expect(page.locator('#prompt-injection')).toBeInViewport();
   expect((await page.locator('#prompt-injection').boundingBox()).y).toBeGreaterThanOrEqual((await page.locator('.site-header').boundingBox()).height);
 });
 
 test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied photos', async ({ page }) => {
   await page.goto('/teaching.html');
-  await expect(page.locator('#teaching-list .teaching-row')).toHaveCount(3);
+  await expect(page.locator('#teaching-list .teaching-row')).toHaveCount(4);
   await expect(page.locator('#teaching-list')).toContainText('Professor Natasha Foutz');
+  await expect(page.locator('#msba-grader')).toContainText('MSBA Data Courses');
+  await expect(page.locator('#msba-grader')).toContainText('GBAC 7209 · GBAC 7215');
+  await expect(page.locator('#msba-grader .teaching-role')).toHaveText('Grader');
+  await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
+  await expect(page.locator('#msba-grader')).toContainText('January – April 2025');
   const sarc = page.locator('.teaching-row').filter({ hasText: 'SARC 5400' });
   await expect(sarc).toContainText('Data Visualization');
   await expect(sarc).toContainText('Teaching Assistant');
-  await expect(sarc).toContainText('January – April 2025');
+  await expect(sarc).toContainText('January – April 2024');
   await expect(sarc.locator('img')).toHaveAttribute('src', './assets/images/experience/sarc-5400.jpeg');
   await expect(page.locator('#comm-4351')).toContainText('September – December 2025');
   const cdl = page.locator('.teaching-row').filter({ hasText: 'Charlottesville Debate League' });
@@ -340,8 +356,9 @@ test('the homepage shows all three teaching photos with closer crops and the flu
     image.loading = 'eager';
     return image.decode();
   })));
-  await expect(page.locator('#teaching-preview .teaching-term')).toHaveText(site.teaching.map((course) => course.term));
+  await expect(page.locator('#teaching-preview .teaching-term')).toHaveText(site.teaching.slice(0, 3).map((course) => course.term));
   await expect(page.locator('.research-thumbnail-placeholder, .experience-category')).toHaveCount(0);
+  await page.locator('[data-nav=research]').click();
   const fluid = page.locator('#fluid-dynamics');
   await expect(fluid).toContainText('Visual Intelligence Lab');
   await fluid.locator('summary').click();
@@ -350,6 +367,7 @@ test('the homepage shows all three teaching photos with closer crops and the flu
   await expect(fluid.locator('details')).toContainText('8+ hours to 6+ minutes');
   await expect(fluid.locator('details')).toContainText('81%+');
   await expect(fluid.locator('details')).toContainText('zero time derivatives');
+  await page.locator('[data-nav=profile]').click();
   await page.locator('#sarc-5400-preview .teaching-photo').click();
   await expect(page).toHaveURL(/teaching.html#sarc-5400$/);
   await expect(page.locator('#sarc-5400')).toBeInViewport();
@@ -359,7 +377,7 @@ test('the homepage shows all three teaching photos with closer crops and the flu
 test('visible text stays at readable sizes on every page, including small phones', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 320, height: 844 });
-  for (const path of ['index.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']) {
+  for (const path of ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html']) {
     await page.goto('/' + path);
     const smallText = await page.evaluate(() => {
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -388,7 +406,8 @@ test('navigation stays pinned and research anchors clear it on desktop and phone
     const top = (await page.locator('#research').boundingBox()).y;
     const header = await page.locator('.site-header').boundingBox();
     expect(top).toBeGreaterThanOrEqual(header.height);
-    expect(top).toBeLessThan(header.height + 80);
+    await expect(page).toHaveURL(/research.html$/);
+    await expect(page.getByRole('heading', { name: 'Research', exact: true })).toBeVisible();
     await page.locator('[data-nav=cv]').click();
     await page.getByRole('navigation', { name: 'CV sections' }).getByRole('link', { name: 'Education' }).click();
     expect((await page.locator('#education').boundingBox()).y).toBeGreaterThanOrEqual(header.height);
@@ -399,7 +418,7 @@ test('CV and Teaching remain complete without JavaScript', async ({ browser }) =
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:5173/cv.html');
-  await expect(page.locator('.experience-item')).toHaveCount(9);
+  await expect(page.locator('.experience-item')).toHaveCount(10);
   await expect(page.getByText('Charlottesville Debate League')).toBeVisible();
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
   await expect(page.locator('#experience-filters')).toBeHidden();
@@ -409,6 +428,10 @@ test('CV and Teaching remain complete without JavaScript', async ({ browser }) =
   await expect(page.locator('#teaching-list')).toContainText('Professor Natasha Foutz');
   await expect(page.locator('#teaching-list')).toContainText('SARC 5400');
   await expect(page.locator('#teaching-list')).toContainText('Tournament Chair');
+  await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
+  await page.locator('[data-nav=research]').click();
+  await expect(page).toHaveURL(/research.html$/);
+  await expect(page.locator('#research-list article')).toHaveCount(4);
   await context.close();
 });
 

@@ -70,7 +70,7 @@ function renderResearch() {
       row.append(image);
     }
     const copy = element('div', 'research-copy');
-    copy.append(element('h3', '', project.title), element('p', 'research-summary', project.summary));
+    copy.append(element('h2', '', project.title), element('p', 'research-summary', project.summary));
     if (project.labs?.length) {
       const context = element('p', 'research-context');
       project.labs.forEach((lab, index) => {
@@ -305,8 +305,7 @@ function setupCatGallery() {
 }
 
 function updateNavigation() {
-  const page = document.body.dataset.page;
-  const active = page === 'profile' && location.hash === '#research' ? 'research' : page;
+  const active = document.body.dataset.page;
   document.querySelectorAll('[data-nav]').forEach((anchor) => {
     if (anchor.dataset.nav === active) anchor.setAttribute('aria-current', 'page');
     else anchor.removeAttribute('aria-current');
