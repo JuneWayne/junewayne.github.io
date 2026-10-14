@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { site } from '../assets/js/content.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const pages = ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html', 'parc-slides.html'];
+const pages = ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html', 'parc-slides.html', 'mesh-slides.html'];
 let checked = 0;
 async function reference(url, from = root) {
   assert.equal(typeof url, 'string', 'URLs must be strings');

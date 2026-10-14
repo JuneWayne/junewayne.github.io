@@ -506,6 +506,7 @@ export const site = {
     },
     {
       "id": "mesh-transformers",
+      "linkToResource": true,
       "labs": [{"label": "Spatial AI Lab", "url": "https://craigleili.github.io/"}],
       "title": "Interpreting 3D Autoregressive Transformers",
       "summary": "Studying how attention heads in autoregressive mesh transformers relate to the geometric properties of triangles, with comparisons across four 3D generation model families.",
@@ -514,6 +515,10 @@ export const site = {
         "The current analysis examines MeshGPT, MeshXL, DeepMesh, and MeshMosaic using 500 ShapeNet meshes across five object categories. It compares attention-head preferences for triangle area, aspect ratio, and orientation."
       ],
       "links": [
+        {
+          "label": "View presentation",
+          "url": "./mesh-slides.html"
+        },
         {
           "label": "Research summary (PDF)",
           "url": "./assets/PowerPoints/Collaboration%20Request.pdf"

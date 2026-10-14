@@ -1,4 +1,4 @@
-const base = './assets/slides/parc/';
+const base = document.querySelector('#slide-viewer').dataset.slidesBase;
 const stage = document.querySelector('#slide-stage');
 const select = document.querySelector('#slide-select');
 const previous = document.querySelector('#slide-previous');

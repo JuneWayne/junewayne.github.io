@@ -1,0 +1,140 @@
+{
+  "aspectRatio": 1.7777777777777777,
+  "slides": [
+    {
+      "title": "Interpretation of 3D Autoregressive Transformers",
+      "background": "slide-01.webp",
+      "text": "Spatial AI Lab:\u000bInterpretation of 3D Autoregressive Transformers\n\nEthan Cao \n10/02/2026",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Research Proposal",
+      "background": "slide-02.webp",
+      "text": "Research Proposal\n\nContext: Substantial research have been made into the development of autoregressive 3D generative models, i.e. MeshGPT and followed by a series of variant and improved models.\n\nWhat\u2019s inside the black box?\n\nGIF: Demonstration of autoregressively generating triangular meshes  ",
+      "animations": [
+        {
+          "src": "image4.gif",
+          "x": 3.0901738845144355,
+          "y": 40.662058909303006,
+          "width": 93.93859908136483,
+          "height": 41.46701662292214,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "slide-02-foreground-7.webp",
+          "x": 15.198351377952758,
+          "y": 78.55721784776904,
+          "width": 67.42399934383202,
+          "height": 6.337299504228638,
+          "crop": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "title": "Research Proposal",
+      "background": "slide-03.webp",
+      "text": "Research Proposal\n\nThe Gap: \nThere is no published study of what individual attention head do in mesh generation transformers. Recent models are developed with assumptions of attention mechanisms rather than systematically and quantitatively measuring it. \nOpportunity: \nIn language models, measuring attention head behavior led directly to a design of faster decoding and memory caching features. DuoAttention (ICLR 2025). \nThe same approach and inspiration can be applied to enhance autoregressive mesh transformers. \n\nHow to interpret 3D Autoregressive Mesh Transformers?\n\nWe examine the question of what query triangles attend to in the early token sequence, and why?",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Experimental Method",
+      "background": "slide-04.webp",
+      "text": "Experimental Method\n\n\nChoose 500 ShapeNet shapes from 5 shape categories: chair, table, airplane, bottle, lamp\nChoose 4 model families to experiment with: \nMeshGPT: learned-codebook decoder only transformer \nMeshXL: raw coordinate prediction decoder only transformer\nDeepMesh: \u201cPoint-cloud to mesh\u201d generators with hourglass transformer structure\nMeshMosaic: \u201cPart by part\u201d mesh generators, generates in small patches and fuses together into one mesh object\n\nData Set & Model of Choice\n\n5 categories of shape examined",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Experimental Method",
+      "background": "slide-05.webp",
+      "text": "Experimental Method \n\nCompare: for each head, compare what category (cluster) of triangles do the attended triangles fall into.\nPotentially find generalizable patterns across the 4 models \n\nFeed: run inference by passing 500 ShapeNet meshes into each model in one forward pass\n\nRecord: at one query triangle, save the attention weight each head gives to every earlier triangle\n\nSelect:  select attended triangles that holds significant attention weight assigned by a head.\n\nGroup: group ShapeNet triangles into clusters by different their triangle properties\n\nModel Enhancements\uff1a\nHard code attention head with rules/policies\n Etc\u2026",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Experimental Method",
+      "background": "slide-06.webp",
+      "text": "Experimental Method\n\nActive-Dormant head classification: \nDormant heads attend largely to the \u201cbeginning of sequence\u201d token or to the very first few tokens of the token sequence. \nActive heads pay attention to nearby tokens, or any tokens that are not the BOS or initial tokens. \n\nExamining \u201cactive\u201d attention heads\n\nMeshGPT: most attention heads become \u2018active\u2019 at earlier layers and become \u2018dormant\u2019 at later layers.\n\nWe examine \u2018active\u2019 heads as they present more informative insights by attending to a variety of tokens / triangles",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Experimental Method",
+      "background": "slide-07.webp",
+      "text": "Experimental Method\n\nSelection of triangles for examination:\nCluster the 500 chosen shapes by their triangular mesh features: Aspect Ratio, Area, X-axis, Y-axis, and Z-axis normal vector orientation into 5 clusters for each property.\nCompare which of clusters do the attended triangles fall into.\n\n\nWhat \u2018kind\u2019 of triangles do the heads attend to?\n\nQuery triangle\n\nAll triangles in the token sequence\n\nArea Clusters\n\nAttended Triangles by the currently selected attention head\n\n5 Area clusters, from smallest area to largest area",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Current Findings (WIP)",
+      "background": "slide-08.webp",
+      "text": "Current Findings (WIP)\n\nTLDR\n\nAcross the four models, individual attention heads show tendencies to prefer specific shapes of triangles. (differing by the model, head, and transformer layer)\nI.e. certain heads strongly favor large area triangles and some other favor thin and elongated shaped triangles.\nThese shape preferences have been shown to be consistent at different query positions across the entire generated mesh token sequence. \nThese behaviors are inconsistent across different transformer layers (we classify into early, middle, and late layers) ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "MeshMosaic Findings (WIP)",
+      "background": "slide-09.webp",
+      "text": "Head 0 strongly favors Thin & Elongated Triangles at Layer 3\n\nMeshMosaic Findings (WIP)\n\nAttention Head Preferences\n\n>1 means favor\n\n1< means avoid\n\nHead 2 strongly favors Triangles facing the z-axis orientation at Layer 1",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "DeepMesh Findings (WIP)",
+      "background": "slide-10.webp",
+      "text": "DeepMesh Findings (WIP)\n\nAttention Head Preferences\n\n>1 means favor\n\n1< means avoid\n\nHead 0 strongly favors Thin & Elongated Triangles at Layer 3\n\nHead 1 strongly favors Thin & Elongated Triangles at Layer 19",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "MeshGPT Findings(WIP)",
+      "background": "slide-11.webp",
+      "text": "MeshGPT Findings(WIP)\n\nAttention Head Preferences\n\n>1 means favor\n\n1< means avoid\n\nHead 12 strongly favors Thin & Elongated Triangles at Layer 3",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "MeshXL Findings (WIP)",
+      "background": "slide-12.webp",
+      "text": "MeshXL Findings (WIP)\n\nAttention Head Preferences\n\n>1 means favor\n\n1< means avoid\n\nHead 13 Smaller Area Triangles at Layer 12\n\nHead 4, 8, 14 Larger Area Triangles at Layer 12\n\nVarying facing orientation tendencies ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Extending the work",
+      "background": "slide-13.webp",
+      "text": "Extending the work\n\nFine-tune 3D generators to generate artist quality mesh \nAmplify certain head behavior, injecting a prior/bias to certain heads to force them to produce consistent attention preference.\nHard-coding programmable rules on attention heads\nFor heads that demonstrate consistent preference, hard-code their behavior into rules/policies to reduce computational expensiveness or potentially leading to better generation quality.\nThe why question\nWhy does the model choose to attend to such features? \nChallenges\nRetraining/fine-tuning can be computationally expensive\nUncertainty about which methods would be beneficial\n\n\nWhat\u2019s next after this investigation? (Current Ideas)",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Contact Info & background",
+      "background": "slide-14.webp",
+      "text": "4th year UVA undergrad \n\nB.S. in Data Science Major (ML concentration)\n\nPursuing Grad School Opportunities\n\nEmail: wkt7ne@virginia.edu \n\nContact Info & background ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Thank you",
+      "background": "slide-15.webp",
+      "text": "Thank you",
+      "animations": [],
+      "foregrounds": []
+    }
+  ]
+}

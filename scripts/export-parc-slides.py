@@ -1,22 +1,30 @@
 """Export a rendered slide PDF plus PPTX animation placements for the static viewer.
-Usage: python export-parc-slides.py deck.pptx rendered.pdf
+Usage: python export-parc-slides.py deck.pptx rendered.pdf [--slug parc] [--title TITLE]
 Requires python-pptx, PyMuPDF and Pillow. Render the same deck with LibreOffice first.
 """
 import json
-import sys
+import argparse
+import re
 from pathlib import Path
 from zipfile import ZipFile
 import pymupdf as fitz
 from PIL import Image
 from pptx import Presentation
 
-pptx, pdf = map(Path, sys.argv[1:])
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('pptx', type=Path)
+parser.add_argument('pdf', type=Path)
+parser.add_argument('--slug', default='parc')
+parser.add_argument('--title')
+args = parser.parse_args()
+assert re.fullmatch(r'[a-z0-9-]+', args.slug), 'Use a lowercase directory slug'
+pptx, pdf = args.pptx, args.pdf
 root = Path(__file__).resolve().parents[1]
-out = root / 'assets/slides/parc'
+out = root / 'assets/slides' / args.slug
 out.mkdir(parents=True, exist_ok=True)
 presentation = Presentation(pptx)
 document = fitz.open(pdf)
-assert len(document) == len(presentation.slides) == 83
+assert len(document) == len(presentation.slides), "PDF and PowerPoint slide counts must match"
 slides = []
 media = set()
 with ZipFile(pptx) as archive:
@@ -29,7 +37,7 @@ with ZipFile(pptx) as archive:
         title_shape = slide.shapes.title
         title = title_shape.text.strip() if title_shape and title_shape.text.strip() else (paragraphs[0].split('\n')[0] if paragraphs else f'Slide {number}')
         if number == 1:
-            title = 'Shear Flow Modeling'
+            title = args.title or ('Shear Flow Modeling' if args.slug == 'parc' else title)
         page = document[index]
         bitmap = page.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False)
         background = f'slide-{number:02}.webp'
@@ -37,8 +45,19 @@ with ZipFile(pptx) as archive:
         animations = []
         foregrounds = []
         seen_animation = False
-        for shape in slide.shapes:
+        for shape_index, shape in enumerate(slide.shapes):
             if shape.shape_type != 13:
+                # Preserve text drawn above an animation, such as its caption.
+                if seen_animation and shape.has_text_frame and shape.text.strip():
+                    x, y = shape.left / presentation.slide_width, shape.top / presentation.slide_height
+                    width, height = shape.width / presentation.slide_width, shape.height / presentation.slide_height
+                    overlaps = any(x * 100 < a['x'] + a['width'] and (x + width) * 100 > a['x'] and y * 100 < a['y'] + a['height'] and (y + height) * 100 > a['y'] for a in animations)
+                    if overlaps:
+                        clip = fitz.Rect(x * page.rect.width, y * page.rect.height, (x + width) * page.rect.width, (y + height) * page.rect.height)
+                        patch = page.get_pixmap(matrix=fitz.Matrix(2, 2), clip=clip, alpha=False)
+                        filename = f'slide-{number:02}-foreground-{shape_index}.webp'
+                        Image.frombytes('RGB', [patch.width, patch.height], patch.samples).save(out / filename, lossless=True)
+                        foregrounds.append({'src': filename, 'x': x * 100, 'y': y * 100, 'width': width * 100, 'height': height * 100, 'crop': [0, 0, 0, 0], 'rotation': 0})
                 continue
             animated = shape.image.ext == 'gif'
             if animated:

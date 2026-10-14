@@ -625,3 +625,43 @@ test('PARC viewer provides all 83 rendered backgrounds and 134 animated figures'
   expect(animations.size).toBe(134);
   for (const animation of animations) expect((await request.head('/assets/slides/parc/' + animation)).ok()).toBe(true);
 });
+
+test('3D transformer cards open the complete web deck with the original mesh animation', async ({ page, request }) => {
+  for (const path of ['/', '/research.html']) {
+    await page.goto(path);
+    await page.locator('#mesh-transformers').click({ position: { x: 8, y: 8 } });
+    await expect(page).toHaveURL(/mesh-slides.html$/);
+    await expect(page.locator('#slide-select option')).toHaveCount(15);
+    await expect(page.locator('#slide-counter')).toHaveText('1 / 15');
+  }
+  await page.getByRole('button', { name: 'Next slide' }).click();
+  await expect(page).toHaveURL(/#slide-2$/);
+  await expect(page.locator('.slide-animation')).toHaveCount(1);
+  await expect(page.locator('.slide-foreground')).toHaveCount(1);
+  await expect.poll(() => page.locator('#slide-stage img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
+  const first = await page.locator('.slide-animation').screenshot();
+  await page.waitForTimeout(500);
+  expect(first.equals(await page.locator('.slide-animation').screenshot())).toBe(false);
+  await page.locator('#slide-stage').focus();
+  await page.keyboard.press('End');
+  await expect(page.locator('#slide-counter')).toHaveText('15 / 15');
+  await expect(page.getByRole('button', { name: 'Next slide' })).toBeDisabled();
+  await page.locator('#slide-select').selectOption('1');
+  await page.reload();
+  await expect(page.locator('#slide-counter')).toHaveText('2 / 15');
+  await expect(page.getByRole('link', { name: 'Download PowerPoint' })).toHaveAttribute('href', './assets/PowerPoints/Collaboration%20Request.pptx');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(page.locator('.slide-animation')).toHaveCount(0);
+  for (const width of [320, 768, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  const base = '/assets/slides/mesh-transformers/';
+  const manifest = await (await request.get(base + 'slides.json')).json();
+  expect(manifest.slides).toHaveLength(15);
+  for (const slide of manifest.slides) {
+    expect((await request.head(base + slide.background)).ok()).toBe(true);
+    for (const animation of slide.animations) expect((await request.head(base + animation.src)).ok()).toBe(true);
+  }
+});
