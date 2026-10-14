@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { site } from '../assets/js/content.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const pages = ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html'];
+const pages = ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html', 'parc-slides.html'];
 let checked = 0;
 async function reference(url, from = root) {
   assert.equal(typeof url, 'string', 'URLs must be strings');
@@ -89,5 +89,5 @@ for (const page of pages) {
 }
 const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
 for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));
-for (const script of ['assets/js/app.js', 'assets/js/content.js', 'assets/js/cv.js', 'docs/archive/page-turn/assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
+for (const script of ['assets/js/app.js', 'assets/js/slides.js', 'assets/js/content.js', 'assets/js/cv.js', 'docs/archive/page-turn/assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
 console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length + site.blake.photos.length} photos, JavaScript syntax.`);

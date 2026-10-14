@@ -570,8 +570,13 @@ export const site = {
       ],
       "links": [
         {
-          "label": "Presentation (PowerPoint)",
-          "url": "./assets/PowerPoints/ShearFlow-PARC-web.pptx"
+          "label": "View presentation",
+          "url": "./parc-slides.html"
+        },
+        {
+          "label": "Download PowerPoint",
+          "url": "./assets/PowerPoints/ShearFlow-PARC-web.pptx",
+          "download": true
         },
         {
           "label": "Code",

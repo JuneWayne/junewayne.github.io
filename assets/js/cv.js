@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261014-parc';
+import { site } from './content.js?v=20261014-viewer';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

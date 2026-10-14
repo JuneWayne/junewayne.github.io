@@ -1,0 +1,2780 @@
+{
+  "aspectRatio": 1.7777777777777777,
+  "slides": [
+    {
+      "title": "Shear Flow Modeling",
+      "background": "slide-01.webp",
+      "text": "08/19/2025\n\nEthan Cao\n\nShear Flow Modeling",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Agenda",
+      "background": "slide-02.webp",
+      "text": "Agenda \n\nMotivating Example\n\nModeling Objectives \n\nData Overview \n\nModel Architecture & Output\n\nFuture Steps\n\n\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Motivating Example",
+      "background": "slide-03.webp",
+      "text": "Motivating Example\n\nThe concept of shear flow and how it motivates the use of deep learning simulation",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "What is a Shear Flow?",
+      "background": "slide-04.webp",
+      "text": "What is a Shear Flow?\n\nDefinition: adjacent fluid layers\u00a0moving parallel to each other with different speeds. \n\n\nScenario on the right:\nFlow carrying tracer downstream through advection\nTracer spreads and blurs through diffusion\nThe two fluid layers at the side of the 'white stream' moves at different velocity,\u00a0hence stretches the tracer\n",
+      "animations": [
+        {
+          "src": "image5.gif",
+          "x": 57.62956036745407,
+          "y": 39.25247885680957,
+          "width": 40.371497703412075,
+          "height": 50.52792359288423,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 85.28966535433071,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "What is a Shear Flow?",
+      "background": "slide-05.webp",
+      "text": "What is a Shear Flow?\n\nViscosity:  measure of a fluid's internal resistance to a flow, can be thought of as thickness\n\u00a0\u00b5\nShear Rate:\u00a0The rate at which the fluid is deformed\u00a0(or difference in velocity) due to shear stress\ndu/dy\nShear Stress: force per unit area exerted (parallel) to a surface by a fluid, causing layers to slide past each other.\n\ud835\udfbd =\u00a0\u00b5 x du/dy\u00a0\n(Shear Stress for fluids)",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Couette Flow \u2013 Ideal Example",
+      "background": "slide-06.webp",
+      "text": "Couette Flow \u2013 Ideal Example\n\nUpper plate moves at velocity U\n\nBottom plate at fixed Motion\n\nV max\n\nV = 0\n\nShear Stress applied to cause deformation of\u00a0 fluid layers\n\nFaster layers pulls slower layers forward:\nviscosity creates resistance",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Real-World Shear Flow Fluid Dynamics",
+      "background": "slide-07.webp",
+      "text": "Real-World Shear Flow Fluid Dynamics\n\nCrude oil pipeline:\u00a0\u00a0\nScenario:  As a fluid moves through a pipe, friction at the pipeline\u2019s walls slows the flow and pressure steadily drops. Especially often with cold, high-viscosity fluids or rough pipes.\n\nApplication: Predicting velocity and pressure for different pipeline scenarios, evaluating effectiveness of Drag-Reducing Agents (DRAs)\n\nAdvantages: fast and data-driven forecasts\n\n\nHigh shear stress required due to friction -> more pump power needed to maintain flow\n\nPressure falls along the pipeline with accumulating friction   -> less throughput ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Real-World Shear Flow Fluid Dynamics (in General)",
+      "background": "slide-08.webp",
+      "text": "Real-World Shear Flow Fluid Dynamics (in General)\n\nScenarios of where Shear Flow occurs:\u00a0\u00a0\nIndustrial pipelines: Oil, gas, and water transportation through pipes\nBoundary Layers: Air flowing over airplane wings or car bodies\nNatural Environments: ocean currents,\u00a0river shear zones\nLubrication: Thin oil films in engines and machinery\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Modeling Objectives",
+      "background": "slide-09.webp",
+      "text": "Modeling Objectives\n\nTo predict tracer, pressure, and velocity fields in the shear flow system",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "How it motivates the project?",
+      "background": "slide-10.webp",
+      "text": "How it motivates the project?\n\nShear flows driven by pressure exhibit tightly linked advection, viscous diffusion, and pressure effects across fluid layers.\n\nThis project aims to utilize deep learning to:\nPredict complex fluid dynamics in a more time-efficient, data-driven way\nAnticipate transport and flow patterns in biological, environmental, and industrial shear flow systems\u00a0\nDesign better pipelines or industrial fluid systems with the knowledge of shear flow behavior",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "What are we predicting with PARC?",
+      "background": "slide-11.webp",
+      "text": "What are we predicting with PARC?\n\nVelocity fields:\n\u00a0u(x, y, t)\u00a0and v(x, y, t)\u00a0\u2013 a vector field consisting of horizontal velocity (carries shear layers), and vertical velocity (carries blob perturbations)\n\nTracer:\ns(x, y, t) \u2013 a scalar field carried by the flow, indicating the location and the speed of particle\u00a0diffusion\n\nPressure Field:\np(x, y, t) \u2013 a scalar field that enforces incompressibility\u00a0and governs the shear flow system",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Data Overview",
+      "background": "slide-12.webp",
+      "text": "Data Overview \n\nOverview of the fields and conditions in the dataset provided for shear flow",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Constants in the dataset",
+      "background": "slide-13.webp",
+      "text": "Constants in the dataset\n\nViscosity\u00a0\u00b5\u00a0= 1/Reynolds\nDiffusivity D =\u00a0 \u00b5 / Schmidt\n\n\"How does the combination of edge cases of Re & Sc affect shear flow?\"",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Edge Cases of Reynolds and Schmidt",
+      "background": "slide-14.webp",
+      "text": "Edge Cases of Reynolds and Schmidt\n\nHigh Reynolds &\nHigh Schmidt:\n\nStrong Advection, Weak diffusion\n\nLow Reynolds & High  Schmidt:\n\nWeak Advection, Weak diffusion\n\nHigh Reynolds &\nLow Schmidt:\n\nStrong Advection, Strong diffusion\n\nLow Reynolds &\nLow Schmidt:\n\nWeak Advection, Strong diffusion",
+      "animations": [
+        {
+          "src": "image10.gif",
+          "x": 51.36735564304462,
+          "y": 55.35545348498104,
+          "width": 17.890346128608925,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09247,
+            0.15955,
+            0.14482,
+            0.10265
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image11.gif",
+          "x": 51.68376804461943,
+          "y": 11.130402449693788,
+          "width": 17.57393372703412,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09247,
+            0.15965,
+            0.14482,
+            0.10254
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image12.gif",
+          "x": 11.256348425196851,
+          "y": 55.8674978127734,
+          "width": 18.30475721784777,
+          "height": 22.666666666666664,
+          "crop": [
+            0.0979,
+            0.15955,
+            0.1508,
+            0.14271
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image13.gif",
+          "x": 11.238106955380578,
+          "y": 10.546675415573054,
+          "width": 18.582874015748033,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09791,
+            0.15687,
+            0.13938,
+            0.14539
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image14.gif",
+          "x": 27.634760498687665,
+          "y": 10.741251093613299,
+          "width": 18.332176837270342,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09337,
+            0.15905,
+            0.14082,
+            0.13079
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image15.gif",
+          "x": 11.238106955380578,
+          "y": 31.975823855351415,
+          "width": 18.27892060367454,
+          "height": 22.666666666666664,
+          "crop": [
+            0.08768,
+            0.15443,
+            0.13834,
+            0.12574
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image16.gif",
+          "x": 28.059440616797897,
+          "y": 31.848935549722952,
+          "width": 17.854240485564304,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09402,
+            0.15088,
+            0.13834,
+            0.11821
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image17.gif",
+          "x": 67.59659612860892,
+          "y": 10.741251093613299,
+          "width": 18.332185039370078,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09327,
+            0.15905,
+            0.14092,
+            0.13079
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image18.gif",
+          "x": 51.45063976377953,
+          "y": 32.23808690580344,
+          "width": 18.278912401574804,
+          "height": 22.666666666666664,
+          "crop": [
+            0.08768,
+            0.15443,
+            0.13834,
+            0.12574
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image19.gif",
+          "x": 68.03927985564304,
+          "y": 32.533479148439774,
+          "width": 18.191838910761156,
+          "height": 22.666666666666664,
+          "crop": [
+            0.07949,
+            0.15088,
+            0.13835,
+            0.11821
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image20.gif",
+          "x": 27.35853838582677,
+          "y": 55.8674978127734,
+          "width": 18.332168635170603,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09337,
+            0.15993,
+            0.14082,
+            0.12991
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image21.gif",
+          "x": 11.232168635170604,
+          "y": 75.41620005832604,
+          "width": 17.418610564304462,
+          "height": 22.666666666666664,
+          "crop": [
+            0.1,
+            0.12123,
+            0.13834,
+            0.13541
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image22.gif",
+          "x": 27.355109908136484,
+          "y": 75.8674978127734,
+          "width": 18.611827427821524,
+          "height": 22.666666666666664,
+          "crop": [
+            0.07949,
+            0.15132,
+            0.13835,
+            0.13426
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image23.gif",
+          "x": 69.25770177165354,
+          "y": 54.837066200058324,
+          "width": 17.122777230971128,
+          "height": 22.666666666666664,
+          "crop": [
+            0.09327,
+            0.13089,
+            0.14092,
+            0.10879
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image24.gif",
+          "x": 51.64358595800525,
+          "y": 76.33390201224847,
+          "width": 18.278912401574804,
+          "height": 22.666666666666664,
+          "crop": [
+            0.08768,
+            0.14914,
+            0.13834,
+            0.13103
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image25.gif",
+          "x": 68.7231627296588,
+          "y": 75.56544181977253,
+          "width": 18.191838910761156,
+          "height": 22.666666666666664,
+          "crop": [
+            0.07949,
+            0.15132,
+            0.13835,
+            0.11777
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 85.28966535433071,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Initial Conditions",
+      "background": "slide-15.webp",
+      "text": "Initial Conditions \n\nBoundary Condition\n\nFrame structure of the simulation \u2013 boundaries with periodic flows moving to all sides of the frame\n\nParameter | Values | Description\n\nN_shear | 2, 4 | Number of parallel shear layers\n\nN_blobs | 2, 3, 4, 5 | Number of sinusoidal perturbations per layer, controls how many\u00a0wave-like 'blobs' appear.\n\nW | 0.25, 0.5, 1.0, 2.0, 4.0 | Width of the 'blobs'",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Initial Conditions",
+      "background": "slide-16.webp",
+      "text": "(n_shear=2, n_blob=2, w=0.25)\n\nBlob width (W)\n\nNum of Blobs (n_blob)\n\nNum of shears (n_shear)\n\n(n_shear=2, n_blob=2, w=4)\n\nInitial Conditions ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Spatial Down Sampling",
+      "background": "slide-17.webp",
+      "text": "Spatial Down Sampling \n\nReynolds = 2e-1, Schmidt = 1e4",
+      "animations": [
+        {
+          "src": "image28.gif",
+          "x": 0.0,
+          "y": 35.393934091571886,
+          "width": 100.0719160104987,
+          "height": 50.627748614756484,
+          "crop": [
+            0.09841,
+            0.20859,
+            0.07551,
+            0.22722
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 85.28966535433071,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Temporal Down Sampling",
+      "background": "slide-18.webp",
+      "text": "Temporal Down Sampling \n\nReynolds = 2e-1, Schmidt = 1e4",
+      "animations": [
+        {
+          "src": "image29.gif",
+          "x": 0.07388451443569553,
+          "y": 34.088786818314375,
+          "width": 99.8522309711286,
+          "height": 52.400000000000006,
+          "crop": [
+            0.09674,
+            0.20369,
+            0.07864,
+            0.21211
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 85.28966535433071,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Trajectory Overview",
+      "background": "slide-19.webp",
+      "text": "Trajectory Overview\u00a0\n\n33 data files in total\n\n10 files with 4 trajectories per file -> Original Test Samples\n23 files with 32 trajectories per file -> Original Train Samples\n\nThe 10 files are duplicates of the same initial/boundary conditions\u00a0and constants but with different trajectories\u00a0\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Train-Test Split Strategy",
+      "background": "slide-20.webp",
+      "text": "Train-Test Split Strategy\n\nRe-split dataset based off Schmidt numbers for better optimization\u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Re-splitting the dataset",
+      "background": "slide-21.webp",
+      "text": "Re-splitting the dataset based off Schmidt constant for interpolation and extrapolation \nWith the same number of trajectories + unique constant and initial conditions\n\n\n\n\n\nRe-splitting the dataset\u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Training Process",
+      "background": "slide-22.webp",
+      "text": "Training Process\n\nRe-designing differentiator and the data loader for better training\u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Model Building Changes",
+      "background": "slide-23.webp",
+      "text": "Model Building Changes\n\nAdjusted Differentiator to take in Reynolds and Schmidt constants fields and consider their time-derivatives as zeroes\u00a0\nEnsure model learns the real physical dynamics of shear flow\n\nExtracted Single Trajectories for faster training/validation purposes\n\nAdjusted Integrator to take in velocity fields as state variables to ensure model learns velocity evolving in time\n\n\n\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Model Building Changes",
+      "background": "slide-24.webp",
+      "text": "Model Building Changes\n\nComputed spatial reductions & temporal skips for faster and more time-efficient trainings\u00a0\nReduced spatial size of data to 1/3\u00a0\nSkips 10 \u2013 20 temporal steps\nDoes not undermine the training output\n\n\n\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Training Strategies #1",
+      "background": "slide-25.webp",
+      "text": "Training Strategies #1 \n\nExtract two files {Sc=0.5 & 2.0} for both training and validation\n\nTrain on full trajectories and validate on single trajectory samples\n\nCompute validation loss at each epoch, select the model with the lowest loss for final inference\n\nTrain two models with different integrators at the same time to evaluate performance",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Training Strategies #2 (Current)",
+      "background": "slide-26.webp",
+      "text": "Training Strategies #2 (Current) \n\nExtract two files {Sc=0.5 & 2.0} for validation and all files for training\n\nTrain and validate on single trajectory samples\n\nCompute validation loss at each epoch, select the model with the lowest loss for final inference\n\nTrain two models with different integrators at the same time to evaluate performance",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Model Output",
+      "background": "slide-27.webp",
+      "text": "Model Output\n\nOutputs of the model from initial rounds of training\u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Euler Model Inference",
+      "background": "slide-28.webp",
+      "text": "Euler Model Inference \n\nEvaluating model outputs on Train, Test, and Validation Samples",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 Euler ",
+      "background": "slide-29.webp",
+      "text": "Snapshot Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: train samples\n\nEpochs: 1000, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image31.gif",
+          "x": 9.414771981627297,
+          "y": 25.0,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image32.gif",
+          "x": 52.24379921259843,
+          "y": 25.504680664916883,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image33.gif",
+          "x": 9.414771981627297,
+          "y": 61.50468066491689,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image34.gif",
+          "x": 52.24379921259843,
+          "y": 61.0,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler ",
+      "background": "slide-30.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: train samples\n\nEpochs: 1000, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image35.gif",
+          "x": 5.26136811023622,
+          "y": 27.691134441528142,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image36.gif",
+          "x": 50.96591207349081,
+          "y": 26.385083114610673,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image37.gif",
+          "x": 5.26136811023622,
+          "y": 58.887532808398944,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image38.gif",
+          "x": 50.96591207349081,
+          "y": 58.887532808398944,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Snap Inference Output \u2013 Euler ",
+      "background": "slide-31.webp",
+      "text": "Snap Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: test samples\n\nEpochs: 1000, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image39.gif",
+          "x": 54.55848097112861,
+          "y": 62.17786526684165,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image40.gif",
+          "x": 8.336064632545932,
+          "y": 63.064902303878675,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image41.gif",
+          "x": 8.336064632545932,
+          "y": 25.802143482064743,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image42.gif",
+          "x": 54.55848097112861,
+          "y": 25.802143482064743,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler ",
+      "background": "slide-32.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: test samples\n\nEpochs: 1000, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image43.gif",
+          "x": 53.99646489501312,
+          "y": 62.009361329833766,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image44.gif",
+          "x": 8.055052493438321,
+          "y": 61.0,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image45.gif",
+          "x": 53.99646489501312,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image46.gif",
+          "x": 8.055052493438321,
+          "y": 26.093613298337708,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 Euler ",
+      "background": "slide-33.webp",
+      "text": "Snapshot Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: validation samples\n\nEpochs: 1000, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image47.gif",
+          "x": 53.131315616797906,
+          "y": 63.187226596675416,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image48.gif",
+          "x": 6.3686843832021,
+          "y": 63.187226596675416,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image49.gif",
+          "x": 53.131315616797906,
+          "y": 27.18722659667542,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image50.gif",
+          "x": 6.3687007874015755,
+          "y": 27.18722659667542,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler ",
+      "background": "slide-34.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: validation samples\n\nEpochs: 1000, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image51.gif",
+          "x": 53.551140091863516,
+          "y": 63.187226596675416,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image52.gif",
+          "x": 7.692470472440944,
+          "y": 63.187226596675416,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image53.gif",
+          "x": 53.551140091863516,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image54.gif",
+          "x": 7.692470472440944,
+          "y": 26.385083114610673,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Euler Loss Curve",
+      "background": "slide-35.webp",
+      "text": "Euler Loss Curve",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Euler Loss Curve",
+      "background": "slide-36.webp",
+      "text": "Euler Loss Curve",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "RK4 Model Inference",
+      "background": "slide-37.webp",
+      "text": "RK4 Model Inference \n\nEvaluating the model outputs on Train, Test, and Validation Samples",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 RK4 ",
+      "background": "slide-38.webp",
+      "text": "Snapshot Inference Output \u2013 RK4 \n\nIntegrator: RK4, inference: train samples\n\nEpochs: 1000, Batch Size: 40, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image57.gif",
+          "x": 50.860654527559056,
+          "y": 63.20183727034121,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image58.gif",
+          "x": 6.455273950131233,
+          "y": 63.20183727034121,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image59.gif",
+          "x": 51.46215551181103,
+          "y": 26.60559930008749,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image60.gif",
+          "x": 6.455273950131233,
+          "y": 27.201837270341205,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 RK4 ",
+      "background": "slide-39.webp",
+      "text": "Rollout Inference Output \u2013 RK4 \n\nIntegrator: RK4, inference: train samples\n\nEpochs: 1000, Batch Size: 40, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image61.gif",
+          "x": 51.583333333333336,
+          "y": 62.17786526684165,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image62.gif",
+          "x": 5.238640091863517,
+          "y": 62.17786526684165,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image63.gif",
+          "x": 51.583333333333336,
+          "y": 25.802143482064743,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image64.gif",
+          "x": 5.238640091863517,
+          "y": 25.802143482064743,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 RK4 ",
+      "background": "slide-40.webp",
+      "text": "Snapshot Inference Output \u2013 RK4 \n\nIntegrator: RK4, inference: test samples\n\nEpochs: 1000, Batch Size: 40, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image65.gif",
+          "x": 50.0,
+          "y": 62.38508311461067,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image66.gif",
+          "x": 6.575123031496063,
+          "y": 62.38508311461067,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image67.gif",
+          "x": 50.0,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image68.gif",
+          "x": 6.575123031496063,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 RK4 ",
+      "background": "slide-41.webp",
+      "text": "Rollout Inference Output \u2013 RK4 \n\nIntegrator: RK4, inference: test samples\n\nEpochs: 1000, Batch Size: 40, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image69.gif",
+          "x": 53.37718996062992,
+          "y": 62.818343540390785,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image70.gif",
+          "x": 6.781545275590552,
+          "y": 61.232866724992704,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image71.gif",
+          "x": 53.37718996062992,
+          "y": 26.385083114610673,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image72.gif",
+          "x": 5.990830052493439,
+          "y": 26.81834354039078,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 RK4 ",
+      "background": "slide-42.webp",
+      "text": "Snapshot Inference Output \u2013 RK4 \n\nIntegrator: RK4, inference: validation samples\n\nEpochs: 1000, Batch Size: 40, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image73.gif",
+          "x": 53.551140091863516,
+          "y": 64.0,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image74.gif",
+          "x": 6.712737860892388,
+          "y": 63.187226596675416,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image75.gif",
+          "x": 53.551140091863516,
+          "y": 26.385083114610673,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image76.gif",
+          "x": 6.712737860892388,
+          "y": 26.385083114610673,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 RK4 ",
+      "background": "slide-43.webp",
+      "text": "Rollout Inference Output \u2013 RK4 \n\nIntegrator: RK4, inference: validation samples\n\nEpochs: 1000, Batch Size: 40, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image77.gif",
+          "x": 52.72545111548557,
+          "y": 64.0,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image78.gif",
+          "x": 5.749434055118111,
+          "y": 63.53958880139983,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image79.gif",
+          "x": 52.72545111548557,
+          "y": 27.539588801399823,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image80.gif",
+          "x": 5.749434055118111,
+          "y": 27.539588801399823,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "RK4 Loss Curve",
+      "background": "slide-44.webp",
+      "text": "RK4 Loss Curve ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "RK4 Loss Curve",
+      "background": "slide-45.webp",
+      "text": "RK4 Loss Curve ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Observations",
+      "background": "slide-46.webp",
+      "text": "Observations\n\nEuler: Quicker training iterations, accurate snapshot predictions,  loss is unstable and with mediocre rollout predictions\nAppears to rollout better at 100-200 epochs\n\nRK4: slower training iterations, stabler loss, theoretically less error on rollout prediction, but performs poorly due to compounding errors -> different configuration needed\n\nBoth models generally predict well on snapshots + very first timestamp of rollout \n\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Euler Inference at 100 epochs",
+      "background": "slide-47.webp",
+      "text": "Euler Inference at 100 epochs\n\nInteresting Observation of better performance at earlier stages",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler ",
+      "background": "slide-48.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: train samples\n\nEpochs: 100, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image83.gif",
+          "x": 54.92728838582677,
+          "y": 63.664508603091285,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image84.gif",
+          "x": 8.157685367454068,
+          "y": 63.664508603091285,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image85.gif",
+          "x": 54.92728838582677,
+          "y": 25.30877806940799,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image86.gif",
+          "x": 8.157685367454068,
+          "y": 25.30877806940799,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler ",
+      "background": "slide-49.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: test samples\n\nEpochs: 100, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image87.gif",
+          "x": 56.02541830708662,
+          "y": 62.009361329833766,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image88.gif",
+          "x": 7.951263123359579,
+          "y": 62.009361329833766,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image89.gif",
+          "x": 56.02541830708662,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image90.gif",
+          "x": 7.951263123359579,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler ",
+      "background": "slide-50.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: validation samples\n\nEpochs: 100, Batch Size: 60, Temporal Skip: 50, Training: 11 files + single trajectories, Validation: 2 files + single trajectories , learning rate: 1e-4",
+      "animations": [
+        {
+          "src": "image91.gif",
+          "x": 53.3035187007874,
+          "y": 62.82213473315835,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image92.gif",
+          "x": 6.98796751968504,
+          "y": 62.82213473315835,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image93.gif",
+          "x": 53.3035187007874,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image94.gif",
+          "x": 6.98796751968504,
+          "y": 26.00936132983377,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": [
+        {
+          "src": "image4.png",
+          "x": 0.0,
+          "y": 90.24002624671917,
+          "width": 14.71033464566929,
+          "height": 9.75997375328084,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ]
+    },
+    {
+      "title": "Future Steps",
+      "background": "slide-51.webp",
+      "text": "Future Steps \n\nFurther steps to take to optimize the model and evaluate its outputs",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Optimization Results so far",
+      "background": "slide-52.webp",
+      "text": "Optimization Results so far\n\nTraining time accelerated from 8+ hours per training sample w/ full trajectory -> 6.75 minutes per training sample w/ full trajectory.\n\nReduced rollout inference MSE on training sample from ~0.12 to ~0.0228 (by ~81%) ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Optimizing Inference Quality",
+      "background": "slide-53.webp",
+      "text": "Optimizing Inference Quality\n\nExperiment with a range of parameters & configurations\nLearning rates, temporal skips, number of trajectories, number of training samples, integrators\n\nOnce optimized fully, check if test and validation results perform equally as good as training samples.\n\nEvaluate the inference quality with physics-based quantitative physics metrics in the ShearFlow equation. \n\n",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Thank You\u00a0",
+      "background": "slide-54.webp",
+      "text": "Thank You\u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Older Documentation Pages",
+      "background": "slide-55.webp",
+      "text": "Older Documentation Pages\n\nPrevious explorations or slides that reflected poor outputs ",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Trajectory Analysis",
+      "background": "slide-56.webp",
+      "text": "Trajectory Analysis\n\nBased on the information from the header file, we know that there are 4 trajectories for each file \u2013 we want to compare these to each other across 3 files (at random)\nMin/Max Absolute Difference: For each field, we take the trajectories and compute the min & max absolute difference \u2013 smallest and largest of those values are the min & max absolute differences\nWhy does this good? \u2013 Catches any change, anywhere, tells us how similar or not (min & max) the runs are to each other\nAt least 1 identical: min = 0\nEvery Pair Diff: min > 0 or max >0\nAll the Same: max = 0\nConclusion: \nWithin files: we have four independent starting points randomized by tracer blobs \u2013 same scenario slightly tweaked\nAmongst files: the files differ in terms of flow regime (different Re & Sc), but the way randomization of the blobs occur does not change",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "More recent trainings (broken model)",
+      "background": "slide-57.webp",
+      "text": "More recent trainings (broken model)",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 Euler",
+      "background": "slide-58.webp",
+      "text": "Snapshot Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: train samples\n\nEpochs: 100, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image95.gif",
+          "x": 51.81290190288714,
+          "y": 61.04667541557305,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image96.gif",
+          "x": 5.85378937007874,
+          "y": 62.093613298337715,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image97.gif",
+          "x": 51.81290190288714,
+          "y": 23.89246135899679,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image98.gif",
+          "x": 5.85378937007874,
+          "y": 23.89246135899679,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler",
+      "background": "slide-59.webp",
+      "text": "Rollout Inference Output \u2013 Euler\n\nIntegrator: Euler, inference: train samples\n\nEpochs: 100, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image99.gif",
+          "x": 54.034104330708665,
+          "y": 60.142519685039375,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image100.gif",
+          "x": 5.465912073490814,
+          "y": 60.142519685039375,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image101.gif",
+          "x": 54.034104330708665,
+          "y": 24.14251968503937,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image102.gif",
+          "x": 5.465912073490814,
+          "y": 24.14251968503937,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 Euler",
+      "background": "slide-60.webp",
+      "text": "Snapshot Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: test samples\n\nEpochs: 100, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image103.gif",
+          "x": 51.81290190288714,
+          "y": 61.07452610090406,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image104.gif",
+          "x": 5.997760826771654,
+          "y": 61.07452610090406,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image105.gif",
+          "x": 51.81290190288714,
+          "y": 23.906386701662292,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image106.gif",
+          "x": 5.997760826771654,
+          "y": 23.906386701662292,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler",
+      "background": "slide-61.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: test samples\n\nEpochs: 100, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image107.gif",
+          "x": 51.403813976377954,
+          "y": 60.76299212598425,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image108.gif",
+          "x": 6.747760826771653,
+          "y": 60.76299212598425,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image109.gif",
+          "x": 51.403813976377954,
+          "y": 23.669378827646543,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image110.gif",
+          "x": 6.747760826771653,
+          "y": 23.669378827646543,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 Euler  (recent)",
+      "background": "slide-62.webp",
+      "text": "Loss Curve \u2013 Euler  (recent) \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 Euler  (recent)",
+      "background": "slide-63.webp",
+      "text": "Loss Curve \u2013 Euler  (recent) \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Longer training outputs",
+      "background": "slide-64.webp",
+      "text": "Longer training outputs",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output \u2013 Euler",
+      "background": "slide-65.webp",
+      "text": "Snapshot Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: val samples\n\nEpochs: 1000, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image113.gif",
+          "x": 55.77350721784777,
+          "y": 61.22945465150189,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image114.gif",
+          "x": 7.332004593175853,
+          "y": 61.22945465150189,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image115.gif",
+          "x": 55.77350721784777,
+          "y": 25.229454651501896,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image116.gif",
+          "x": 7.332004593175853,
+          "y": 25.229454651501896,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output \u2013 Euler",
+      "background": "slide-66.webp",
+      "text": "Rollout Inference Output \u2013 Euler \n\nIntegrator: Euler, inference: val samples\n\nEpochs: 1000, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image117.gif",
+          "x": 54.261359908136484,
+          "y": 61.73413531641878,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image118.gif",
+          "x": 5.238640091863517,
+          "y": 62.893409157188685,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image119.gif",
+          "x": 54.26137631233596,
+          "y": 25.734135316418783,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image120.gif",
+          "x": 5.238640091863517,
+          "y": 25.734135316418783,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 Euler  (longer)",
+      "background": "slide-67.webp",
+      "text": "Loss Curve \u2013 Euler  (longer) \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 Euler  (longer)",
+      "background": "slide-68.webp",
+      "text": "Loss Curve \u2013 Euler  (longer) \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Snap Inference Output \u2013 RK4",
+      "background": "slide-69.webp",
+      "text": "Snap Inference Output \u2013 RK4\n\nIntegrator: RK4, inference: train samples\n\nEpochs: 100, Batch Size: 40, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image123.gif",
+          "x": 54.94888451443569,
+          "y": 62.83270632837562,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image124.gif",
+          "x": 6.068192257217848,
+          "y": 62.83270632837562,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image125.gif",
+          "x": 54.94888451443569,
+          "y": 24.785476815398074,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image126.gif",
+          "x": 4.551131889763779,
+          "y": 24.785476815398074,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output \u2013 RK4",
+      "background": "slide-70.webp",
+      "text": "Rollout Inference Output \u2013 RK4\n\nIntegrator: RK4, inference: train samples\n\nEpochs: 100, Batch Size: 40, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image127.gif",
+          "x": 53.30680774278215,
+          "y": 62.09771070282881,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image128.gif",
+          "x": 4.98863188976378,
+          "y": 62.64316127150773,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image129.gif",
+          "x": 53.30680774278215,
+          "y": 24.963429571303585,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image130.gif",
+          "x": 4.18181594488189,
+          "y": 24.010965296004667,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Snap Inference Output \u2013 RK4",
+      "background": "slide-71.webp",
+      "text": "Snap Inference Output \u2013 RK4\n\nIntegrator: RK4, inference: test samples\n\nEpochs: 100, Batch Size: 40, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image131.gif",
+          "x": 55.011359908136484,
+          "y": 61.739792942548846,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image132.gif",
+          "x": 5.914370078740157,
+          "y": 61.739792942548846,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image133.gif",
+          "x": 55.08562992125984,
+          "y": 24.314012831729368,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image134.gif",
+          "x": 5.914370078740157,
+          "y": 24.314012831729368,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output \u2013 RK4",
+      "background": "slide-72.webp",
+      "text": "Rollout Inference Output \u2013 RK4\n\nIntegrator: RK4, inference: test samples\n\nEpochs: 100, Batch Size: 40, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image135.gif",
+          "x": 53.79017388451444,
+          "y": 62.459959171770194,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image136.gif",
+          "x": 7.29321686351706,
+          "y": 62.459959171770194,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image137.gif",
+          "x": 53.79017388451444,
+          "y": 23.750612423447066,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image138.gif",
+          "x": 7.29321686351706,
+          "y": 23.750612423447066,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 RK4 (recent)",
+      "background": "slide-73.webp",
+      "text": "Loss Curve \u2013 RK4 (recent) \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 RK4 (recent)",
+      "background": "slide-74.webp",
+      "text": "Loss Curve \u2013 RK4 (recent) \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Older trainings (broken model)",
+      "background": "slide-75.webp",
+      "text": "Older trainings (broken model)",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output",
+      "background": "slide-76.webp",
+      "text": "Snapshot Inference Output\n\nIntegrator: Euler, Epochs: 1000, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , inference: test samples, learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image142.gif",
+          "x": 6.875000000000001,
+          "y": 19.251545640128317,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image143.gif",
+          "x": 55.25,
+          "y": 59.57575094779819,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image144.gif",
+          "x": 6.875000000000001,
+          "y": 59.57575094779819,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output",
+      "background": "slide-77.webp",
+      "text": "Rollout Inference Output\n\nIntegrator: Euler, Epochs: 1000, Batch Size: 70, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , inference: test samples, learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image145.gif",
+          "x": 4.801140091863517,
+          "y": 22.759434237386994,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image146.gif",
+          "x": 51.93182414698163,
+          "y": 22.759434237386994,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image147.gif",
+          "x": 51.93182414698163,
+          "y": 62.26732283464567,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image148.gif",
+          "x": 4.801140091863517,
+          "y": 62.26732283464567,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Snapshot Inference Output",
+      "background": "slide-78.webp",
+      "text": "Snapshot Inference Output\n\nIntegrator: RK4, Epochs: 1000, Batch Size: 20, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , inference: test samples, learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image149.gif",
+          "x": 5.238640091863517,
+          "y": 62.24969378827646,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image150.gif",
+          "x": 52.522736220472446,
+          "y": 62.24969378827646,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image151.gif",
+          "x": 52.522736220472446,
+          "y": 24.67578011081948,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image152.gif",
+          "x": 5.238640091863517,
+          "y": 24.67578011081948,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Rollout Inference Output",
+      "background": "slide-79.webp",
+      "text": "Rollout Inference Output\n\nIntegrator: RK4, Epochs: 1000, Batch Size: 20, Temporal Skip: 20, Training: 2 files + full trajectories, Validation: 2 files + single trajectories , inference: test samples, learning rate: 1e-5",
+      "animations": [
+        {
+          "src": "image153.gif",
+          "x": 5.238640091863517,
+          "y": 25.12121609798775,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image154.gif",
+          "x": 50.0,
+          "y": 24.96272965879265,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image155.gif",
+          "x": 5.238640091863517,
+          "y": 62.05634295713036,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        },
+        {
+          "src": "image156.gif",
+          "x": 50.0,
+          "y": 64.0,
+          "width": 40.5,
+          "height": 36.0,
+          "crop": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0
+        }
+      ],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 Euler",
+      "background": "slide-80.webp",
+      "text": "Loss Curve \u2013 Euler \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 Euler",
+      "background": "slide-81.webp",
+      "text": "Loss Curve \u2013 Euler \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 RK4",
+      "background": "slide-82.webp",
+      "text": "Loss Curve \u2013 RK4 \u00a0",
+      "animations": [],
+      "foregrounds": []
+    },
+    {
+      "title": "Loss Curve \u2013 RK4",
+      "background": "slide-83.webp",
+      "text": "Loss Curve \u2013 RK4 \u00a0",
+      "animations": [],
+      "foregrounds": []
+    }
+  ]
+}

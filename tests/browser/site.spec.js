@@ -251,7 +251,7 @@ test('research resources and guest lecture notebooks are readable and downloadab
   await expect(page.locator('#research-list h2')).toHaveText(site.research.map((project) => project.title));
   await expect(page.getByRole('link', { name: 'Interactive demo' })).toHaveAttribute('href', 'https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b');
   for (const project of site.research) for (const resource of project.links) {
-    if (resource.url.startsWith('https:')) continue;
+    if (resource.url.startsWith('https:') || resource.url.endsWith('.html')) continue;
     const response = await page.request.get(resource.url.replace('./', '/'));
     expect(response.ok()).toBe(true);
     const data = await response.body();
@@ -570,12 +570,58 @@ test('PARC has an original animated comparison, reduced-motion fallback, and pre
     await expect(image).toHaveAttribute('src', project.image);
     await expect(card.locator('button')).toHaveCount(0);
   }
-  const downloadEvent = page.waitForEvent('download');
   await page.locator('#fluid-dynamics').click({ position: { x: 8, y: 8 } });
-  const download = await downloadEvent;
-  expect(download.suggestedFilename()).toBe('ShearFlow-PARC-web.pptx');
-  expect(await download.failure()).toBeNull();
+  await expect(page).toHaveURL(/parc-slides.html$/);
+  await expect(page.locator('#slide-select option')).toHaveCount(83);
+  await page.goBack();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(() => page.locator('#fluid-dynamics img').evaluate(img => img.currentSrc)).toContain('parc-shearflow-tracer-still.png');
   await expect(page.locator('#fluid-dynamics button')).toHaveCount(0);
+});
+
+test('PARC viewer includes all slides, loads animations on demand, and supports navigation', async ({ page }) => {
+  await page.goto('/parc-slides.html');
+  await expect(page.locator('#slide-select option')).toHaveCount(83);
+  await expect(page.locator('#slide-counter')).toHaveText('1 / 83');
+  await expect(page.getByRole('button', { name: 'Previous slide' })).toBeDisabled();
+  await page.getByRole('button', { name: 'Next slide' }).click();
+  await expect(page).toHaveURL(/#slide-2$/);
+  await page.locator('#slide-select').selectOption('39');
+  await expect(page).toHaveURL(/#slide-40$/);
+  await expect(page.locator('.slide-animation')).toHaveCount(4);
+  await expect.poll(() => page.locator('#slide-stage img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
+  await page.locator('summary').click();
+  await expect(page.locator('#slide-transcript')).toContainText('test samples');
+  await page.locator('#slide-stage').focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(page).toHaveURL(/#slide-41$/);
+  await page.keyboard.press('End');
+  await expect(page.locator('#slide-counter')).toHaveText('83 / 83');
+  await expect(page.getByRole('button', { name: 'Next slide' })).toBeDisabled();
+  await page.goBack();
+  await expect(page.locator('#slide-counter')).toHaveText('41 / 83');
+  await page.reload();
+  await expect(page.locator('#slide-counter')).toHaveText('41 / 83');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(page.locator('.slide-animation')).toHaveCount(0);
+  await expect(page.locator('.slide-background')).toBeVisible();
+  for (const width of [320, 768, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await expect(page.getByRole('link', { name: 'Download PowerPoint' })).toHaveAttribute('download', '');
+});
+
+test('PARC viewer provides all 83 rendered backgrounds and 134 animated figures', async ({ request }) => {
+  const manifest = await (await request.get('/assets/slides/parc/slides.json')).json();
+  expect(manifest.slides).toHaveLength(83);
+  const animations = new Set();
+  for (const slide of manifest.slides) {
+    expect(slide.title.trim()).not.toBe('');
+    expect((await request.head('/assets/slides/parc/' + slide.background)).ok()).toBe(true);
+    for (const animation of slide.animations) animations.add(animation.src);
+  }
+  expect(animations.size).toBe(134);
+  for (const animation of animations) expect((await request.head('/assets/slides/parc/' + animation)).ok()).toBe(true);
 });
