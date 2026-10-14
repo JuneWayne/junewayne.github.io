@@ -665,3 +665,53 @@ test('3D transformer cards open the complete web deck with the original mesh ani
     for (const animation of slide.animations) expect((await request.head(base + animation.src)).ok()).toBe(true);
   }
 });
+
+test('slide navigation appears at the hovered edge and keeps keyboard focus in both decks', async ({ page }) => {
+  for (const deck of ['parc', 'mesh']) {
+    await page.goto(`/${deck}-slides.html#slide-2`);
+    await expect(page.locator('#slide-select')).toBeEnabled();
+    await expect(page.locator('.slide-toolbar #slide-previous, .slide-toolbar #slide-next')).toHaveCount(0);
+    const previous = page.locator('#slide-previous');
+    const next = page.locator('#slide-next');
+    await page.locator('#slide-stage').hover();
+    await expect(previous.locator('span')).toHaveCSS('opacity', '0');
+    await expect(next.locator('span')).toHaveCSS('opacity', '0');
+    await next.hover();
+    await expect(next.locator('span')).toHaveCSS('opacity', '1');
+    await expect(previous.locator('span')).toHaveCSS('opacity', '0');
+    await next.click();
+    await expect(page).toHaveURL(/#slide-3$/);
+    await expect(next).toBeFocused();
+    await page.locator('#slide-stage').focus();
+    await previous.hover();
+    await expect(previous.locator('span')).toHaveCSS('opacity', '1');
+    await previous.click();
+    await expect(page).toHaveURL(/#slide-2$/);
+    await page.locator('#slide-stage').hover();
+    await page.locator('#slide-stage').focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await expect(next.locator('span')).toHaveCSS('opacity', '1');
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/#slide-3$/);
+    await expect(next).toBeFocused();
+    await page.locator('#slide-select').selectOption('0');
+    await expect(previous).toBeDisabled();
+    await expect(previous.locator('span')).toHaveCSS('opacity', '0');
+  }
+});
+
+test('slide edge arrows stay visible and tappable on touch screens', async ({ browser }) => {
+  const context = await browser.newContext({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto('http://127.0.0.1:5173/mesh-slides.html#slide-2');
+  const next = page.locator('#slide-next');
+  await expect(next).toBeEnabled();
+  await expect(next.locator('span')).toHaveCSS('opacity', '1');
+  await expect(page.locator('#slide-previous span')).toHaveCSS('opacity', '1');
+  await next.tap();
+  await expect(page).toHaveURL(/#slide-3$/);
+  expect((await next.boundingBox()).width).toBeGreaterThanOrEqual(44);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await context.close();
+});

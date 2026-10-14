@@ -1,5 +1,6 @@
 const base = document.querySelector('#slide-viewer').dataset.slidesBase;
 const stage = document.querySelector('#slide-stage');
+const slideLayers = document.querySelector('#slide-layers');
 const select = document.querySelector('#slide-select');
 const previous = document.querySelector('#slide-previous');
 const next = document.querySelector('#slide-next');
@@ -56,7 +57,7 @@ function show(index) {
     frame.append(image);
     layers.push(frame);
   }
-  stage.replaceChildren(...layers);
+  slideLayers.replaceChildren(...layers);
 }
 
 function hashIndex() {

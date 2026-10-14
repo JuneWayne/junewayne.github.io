@@ -24,3 +24,20 @@
   #slide-viewer:fullscreen .slide-stage { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .slide-animation { display: none; } }
+
+/* Edge controls remain in place while slide imagery changes, preserving focus. */
+.slide-layers { position: absolute; inset: 0; }
+.slide-edge { position: absolute; inset-block: 0; z-index: 1; width: clamp(48px, 9%, 96px); padding: 0; border: 0; background: transparent; display: grid; place-items: center; color: var(--color-text); }
+.slide-edge-previous { left: 0; }
+.slide-edge-next { right: 0; }
+.slide-edge-arrow { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #c7d0d9; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px #0002; opacity: 0; transform: translateX(-6px); transition: opacity 140ms ease, transform 140ms ease; }
+.slide-edge-next .slide-edge-arrow { transform: translateX(6px); }
+.slide-edge-arrow svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.slide-edge:enabled:is(:hover, :focus-visible) .slide-edge-arrow { opacity: 1; transform: none; }
+.slide-edge:focus-visible { outline: none; }
+.slide-edge:focus-visible .slide-edge-arrow { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.slide-edge:disabled { pointer-events: none; cursor: default; }
+@media (hover: none), (pointer: coarse) {
+  .slide-edge:enabled .slide-edge-arrow { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .slide-edge-arrow { transition: none; } }

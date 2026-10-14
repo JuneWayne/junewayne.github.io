@@ -9,7 +9,7 @@
     <link rel="icon" href="./assets/favicon.svg?v=layla" type="image/svg+xml">
     <link rel="preload" href="./assets/fonts/lato-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./assets/css/style.css?v=20261014-gif">
-    <link rel="stylesheet" href="./assets/css/slides.css?v=20261014">
+    <link rel="stylesheet" href="./assets/css/slides.css?v=20261014-edges">
   </head>
   <body data-page="research">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -31,13 +31,19 @@
         </div>
         <section id="slide-viewer" data-slides-base="./assets/slides/parc/" aria-label="Presentation viewer">
           <div class="slide-toolbar">
-            <button id="slide-previous" type="button" disabled aria-label="Previous slide">← Previous</button>
             <span id="slide-counter" role="status">Loading slides…</span>
-            <button id="slide-next" type="button" disabled aria-label="Next slide">Next →</button>
             <select id="slide-select" aria-label="Choose a slide" disabled><option>Loading slides…</option></select>
             <button id="slide-fullscreen" type="button" hidden>Full screen</button>
           </div>
-          <div class="slide-stage" id="slide-stage" role="group" aria-label="Presentation slide" tabindex="0"></div>
+          <div class="slide-stage" id="slide-stage" role="group" aria-label="Presentation slide" tabindex="0">
+            <div id="slide-layers" class="slide-layers"></div>
+            <button id="slide-previous" class="slide-edge slide-edge-previous" type="button" disabled aria-label="Previous slide">
+              <span class="slide-edge-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m14 6-6 6 6 6"/></svg></span>
+            </button>
+            <button id="slide-next" class="slide-edge slide-edge-next" type="button" disabled aria-label="Next slide">
+              <span class="slide-edge-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m10 6 6 6-6 6"/></svg></span>
+            </button>
+          </div>
         </section>
         <div class="slide-footer">
           <h2 id="slide-title">Shear Flow Modeling</h2>
@@ -47,6 +53,6 @@
         <noscript><p>Enable JavaScript to view the slides here, or use the PowerPoint download above.</p></noscript>
       </main>
     </div>
-    <script type="module" src="./assets/js/slides.js?v=20261014-mesh"></script>
+    <script type="module" src="./assets/js/slides.js?v=20261014-edges"></script>
   </body>
 </html>
