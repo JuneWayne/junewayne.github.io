@@ -558,7 +558,7 @@ test('Tencent and UVA teaching CV photos sit compactly to the right of their tex
 
 
 
-test('PARC has an original animated comparison, motion controls, and presentation cards', async ({ page }) => {
+test('PARC has an original animated comparison, reduced-motion fallback, and presentation cards', async ({ page }) => {
   const project = site.research.find(project => project.id === 'fluid-dynamics');
   for (const path of ['/', '/research.html']) {
     await page.goto(path);
@@ -568,10 +568,7 @@ test('PARC has an original animated comparison, motion controls, and presentatio
     const image = card.locator('img');
     await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth)).toBe(720);
     await expect(image).toHaveAttribute('src', project.image);
-    await card.getByRole('button', { name: 'Pause GIF' }).click();
-    await expect(image).toHaveAttribute('src', project.animationStill);
-    await card.getByRole('button', { name: 'Play GIF' }).click();
-    await expect(image).toHaveAttribute('src', project.image);
+    await expect(card.locator('button')).toHaveCount(0);
   }
   const downloadEvent = page.waitForEvent('download');
   await page.locator('#fluid-dynamics').click({ position: { x: 8, y: 8 } });
@@ -580,5 +577,5 @@ test('PARC has an original animated comparison, motion controls, and presentatio
   expect(await download.failure()).toBeNull();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(() => page.locator('#fluid-dynamics img').evaluate(img => img.currentSrc)).toContain('parc-shearflow-tracer-still.png');
-  await expect(page.locator('.research-animation-toggle')).toBeHidden();
+  await expect(page.locator('#fluid-dynamics button')).toHaveCount(0);
 });

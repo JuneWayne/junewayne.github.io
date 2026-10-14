@@ -90,15 +90,7 @@ function renderResearch() {
         still.srcset = project.animationStill;
         picture.append(still, image);
         preview.append(picture);
-        const toggle = element('button', 'research-animation-toggle', 'Pause GIF');
-        toggle.type = 'button';
-        let playing = true;
-        toggle.addEventListener('click', () => {
-          playing = !playing;
-          image.src = playing ? project.image : project.animationStill;
-          toggle.textContent = playing ? 'Pause GIF' : 'Play GIF';
-        });
-        media.append(preview, toggle);
+        media.append(preview);
         row.append(media);
       } else row.append(image);
     }
