@@ -1,7 +1,7 @@
-import { site } from './content.js?v=20261013-teaching-bios';
-import { setupNavigation } from './transition.js?v=20261013-teaching-bios';
-import { renderCV } from './cv.js?v=20261013-teaching-bios';
-import { startLaylaAge } from './cat-age.js?v=20261013-teaching-bios';
+import { site } from './content.js?v=20261014-parc';
+import { setupNavigation } from './transition.js?v=20261014-parc';
+import { renderCV } from './cv.js?v=20261014-parc';
+import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
 
@@ -75,15 +75,36 @@ function renderResearch() {
       const image = element('img', 'research-thumbnail');
       image.src = project.image;
       image.alt = project.imageAlt || '';
-      image.width = 380;
-      image.height = 238;
+      image.width = project.imageWidth || 380;
+      image.height = project.imageHeight || 238;
       image.loading = 'lazy';
       image.decoding = 'async';
-      row.append(image);
+      if (project.animationStill) {
+        const media = element('div', 'research-media');
+        const preview = element('a');
+        Object.assign(preview, { href: project.image, target: '_blank', rel: 'noopener noreferrer' });
+        preview.setAttribute('aria-label', 'Open model versus ground truth animation at full size');
+        const picture = element('picture');
+        const still = element('source');
+        still.media = '(prefers-reduced-motion: reduce)';
+        still.srcset = project.animationStill;
+        picture.append(still, image);
+        preview.append(picture);
+        const toggle = element('button', 'research-animation-toggle', 'Pause GIF');
+        toggle.type = 'button';
+        let playing = true;
+        toggle.addEventListener('click', () => {
+          playing = !playing;
+          image.src = playing ? project.image : project.animationStill;
+          toggle.textContent = playing ? 'Pause GIF' : 'Play GIF';
+        });
+        media.append(preview, toggle);
+        row.append(media);
+      } else row.append(image);
     }
     const copy = element('div', 'research-copy');
     const isResearchPage = document.body.dataset.page === 'research';
-    const destination = !isResearchPage && project.id
+    const destination = !isResearchPage && project.id && !project.linkToResource
       ? { url: `./research.html#${project.id}` }
       : project.links?.find(resource => !resource.download);
     copy.append(cardHeading(row, isResearchPage ? 'h2' : 'h3', project.title, destination), element('p', 'research-summary', project.summary));

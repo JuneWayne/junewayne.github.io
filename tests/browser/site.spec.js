@@ -362,7 +362,7 @@ test('CV card backgrounds and keyboard links navigate while embedded controls re
 });
 
 test('research and teaching card backgrounds navigate and preserve independent resources', async ({ page, context }) => {
-  for (const project of site.research) {
+  for (const project of site.research.filter(project => !project.linkToResource)) {
     await page.goto('/');
     await page.locator(`#${project.id}`).click({ position: { x: 8, y: 8 } });
     await expect(page).toHaveURL(new RegExp(`research.html#${project.id}$`));
@@ -425,9 +425,9 @@ test('the homepage shows all three teaching photos with closer crops and the flu
   await expect(fluid).toContainText('Visual Intelligence Lab');
   await fluid.locator('summary').click();
   await expect(fluid).toContainText('Research Assistant');
-  await expect(fluid.locator('details')).toContainText('67%+');
-  await expect(fluid.locator('details')).toContainText('8+ hours to 6+ minutes');
-  await expect(fluid.locator('details')).toContainText('81%+');
+  await expect(fluid.locator('details')).toContainText('per full-trajectory training sample');
+  await expect(fluid.locator('details')).toContainText('over 8 hours to 6.75 minutes');
+  await expect(fluid.locator('details')).toContainText('0.12 to 0.0228 (about 81%)');
   await expect(fluid.locator('details')).toContainText('zero time derivatives');
   await page.locator('[data-nav=profile]').click();
   await page.locator('#sarc-5400-preview .teaching-photo').click();
@@ -556,3 +556,29 @@ test('Tencent and UVA teaching CV photos sit compactly to the right of their tex
 });
 
 
+
+
+test('PARC has an original animated comparison, motion controls, and presentation cards', async ({ page }) => {
+  const project = site.research.find(project => project.id === 'fluid-dynamics');
+  for (const path of ['/', '/research.html']) {
+    await page.goto(path);
+    const card = page.locator('#fluid-dynamics');
+    await card.scrollIntoViewIfNeeded();
+    await expect(card.locator('.card-title-link')).toHaveAttribute('href', project.links[0].url);
+    const image = card.locator('img');
+    await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth)).toBe(720);
+    await expect(image).toHaveAttribute('src', project.image);
+    await card.getByRole('button', { name: 'Pause GIF' }).click();
+    await expect(image).toHaveAttribute('src', project.animationStill);
+    await card.getByRole('button', { name: 'Play GIF' }).click();
+    await expect(image).toHaveAttribute('src', project.image);
+  }
+  const downloadEvent = page.waitForEvent('download');
+  await page.locator('#fluid-dynamics').click({ position: { x: 8, y: 8 } });
+  const download = await downloadEvent;
+  expect(download.suggestedFilename()).toBe('ShearFlow-PARC-web.pptx');
+  expect(await download.failure()).toBeNull();
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect.poll(() => page.locator('#fluid-dynamics img').evaluate(img => img.currentSrc)).toContain('parc-shearflow-tracer-still.png');
+  await expect(page.locator('.research-animation-toggle')).toBeHidden();
+});

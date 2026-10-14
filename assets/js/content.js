@@ -427,11 +427,11 @@ export const site = {
         "role": "Research Assistant",
         "category": "Research",
         "dates": "April – September 2025",
-        "summary": "Trained physics-aware recurrent convolutional networks to model advection and diffusion in 2D shear-flow systems.",
+        "summary": "Adapted PARCv2 to predict tracer, pressure, and velocity fields in 2D shear flow, comparing Euler and RK4 integration for snapshot accuracy and rollout stability.",
         "highlights": [
           "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
-          "Accelerated overall training time by 67%+ with one-third spatial downsampling and timestep skipping, reducing per-epoch training from 8+ hours to 6+ minutes.",
-          "Reduced inference MSE by 81%+ by comparing Euler and RK4 integrators under the same model configurations and selecting checkpoint weights with the lowest validation loss.",
+          "Reduced training time from over 8 hours to 6.75 minutes per full-trajectory training sample through spatial downsampling, temporal skipping, and training-pipeline changes, as reported in the shear-flow presentation.",
+          "Reduced rollout inference MSE on a training sample from approximately 0.12 to 0.0228 (about 81%); longer rollouts remained sensitive to compounding errors.",
           "Designed differentiator and integrator components that keep constant variables at zero time derivatives while evolving velocity fields in the model state, enabling PARC to learn 2D shear-flow advection and diffusion."
         ],
         "links": [
@@ -545,19 +545,34 @@ export const site = {
     {
       "id": "fluid-dynamics",
       "labs": [{"label": "Visual Intelligence Lab", "url": "https://stephenbaek.github.io/lab/"}],
-      "title": "Physics-Aware Neural Networks for Fluid Dynamics",
+      "title": "PARC: Physics-Aware Recurrent Convolutional Neural Network",
+      "image": "./assets/images/research/parc-shearflow-tracer.gif",
+      "imageAlt": "PARCv2 with RK4: animated snapshot predictions of tracer advection and diffusion on a test sample, beside ground truth. Extracted from slide 40 of the shear-flow presentation.",
+      "imageWidth": 720,
+      "imageHeight": 360,
+      "animationStill": "./assets/images/research/parc-shearflow-tracer-still.png",
+      "linkToResource": true,
       "organization": "Visual Intelligence Lab",
       "role": "Research Assistant",
       "location": "Charlottesville, Virginia",
       "dates": "April – September 2025",
-      "summary": "Trained physics-aware recurrent convolutional networks to model advection and diffusion in 2D shear-flow systems.",
+      "summary": "Adapted PARCv2 to model advection and diffusion in 2D shear flow, predicting tracer, pressure, and velocity fields. Experiments compared Euler and RK4 integration and reduced rollout MSE from approximately 0.12 to 0.0228 on a training sample.",
+      "details": [
+        "Kept Reynolds and Schmidt parameter fields constant in the differentiator while allowing the integrator to evolve velocity fields. Explored Schmidt-based data splits and compared snapshot predictions with autoregressive rollouts.",
+        "Snapshot predictions were stronger than longer rollouts. Euler trained faster, while RK4 produced steadier loss curves but still accumulated rollout errors. Broader test-set validation and physics-based evaluation were identified as next steps.",
+        "The animation shows RK4 snapshot predictions of the tracer field beside ground truth on a test sample (slide 40). The full presentation contains all 83 slides, including earlier experiments and their limitations."
+      ],
       "highlights": [
         "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
-        "Accelerated overall training time by 67%+ with one-third spatial downsampling and timestep skipping, reducing per-epoch training from 8+ hours to 6+ minutes.",
-        "Reduced inference MSE by 81%+ by comparing Euler and RK4 integrators under the same model configurations and selecting checkpoint weights with the lowest validation loss.",
+        "Reduced training time from over 8 hours to 6.75 minutes per full-trajectory training sample through spatial downsampling, temporal skipping, and training-pipeline changes, as reported in the presentation.",
+        "Reduced rollout inference MSE on a training sample from approximately 0.12 to 0.0228 (about 81%); longer rollouts remained sensitive to compounding errors.",
         "Designed differentiator and integrator components that keep constant variables at zero time derivatives while evolving velocity fields in the model state, enabling PARC to learn 2D shear-flow advection and diffusion."
       ],
       "links": [
+        {
+          "label": "Presentation (PowerPoint)",
+          "url": "./assets/PowerPoints/ShearFlow-PARC-web.pptx"
+        },
         {
           "label": "Code",
           "url": "https://github.com/JuneWayne/PARCtorch/"

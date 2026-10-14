@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261013-teaching-bios';
+import { site } from './content.js?v=20261014-parc';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
