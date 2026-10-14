@@ -307,6 +307,7 @@ export const site = {
       {
         "id": "cisco",
         "organization": "Cisco Systems",
+        "logo": "./assets/images/logos/cisco.svg",
         "role": "Data Scientist Intern",
         "category": "Industry",
         "dates": "May – August 2026",
@@ -405,6 +406,7 @@ export const site = {
       {
         "id": "align",
         "organization": "Align Technology",
+        "logo": "./assets/images/logos/align.png",
         "role": "AI & Automation Intern",
         "category": "Industry",
         "dates": "May – August 2025",
@@ -471,6 +473,7 @@ export const site = {
       {
         "id": "tencent",
         "organization": "Tencent IEG",
+        "logo": "./assets/images/logos/tencent.png",
         "role": "Data Analyst Intern",
         "category": "Industry",
         "summary": "Gaming market research, data analysis, and interactive Power BI dashboards for the Greater Asia market.",

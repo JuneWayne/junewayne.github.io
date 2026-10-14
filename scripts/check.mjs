@@ -35,6 +35,7 @@ for (const experience of site.cv.experiences || []) {
   assert.ok(experience.id && !experienceIDs.has(experience.id), 'Experience IDs must be unique');
   experienceIDs.add(experience.id);
   assert.ok(experience.organization?.trim() && experience.role?.trim() && experience.category?.trim(), 'Experience needs an organization, role, and category');
+  if (experience.logo) await reference(experience.logo);
   if (experience.photo) {
     await reference(experience.photo.src);
     assert.ok(experience.photo.alt?.trim() && experience.photo.width > 0 && experience.photo.height > 0, 'Experience photos need alt text and dimensions');

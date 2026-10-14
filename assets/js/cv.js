@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261014-mesh';
+import { site } from './content.js?v=20261014-logos';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
@@ -36,7 +36,14 @@ function experienceCard(experience) {
     heading.replaceChildren(anchor);
     card.classList.add('clickable-card');
   }
-  copy.append(meta, heading, node('p', 'experience-role', experience.role));
+  let title = heading;
+  if (experience.logo) {
+    title = node('div', 'experience-company');
+    const logo = node('img', 'experience-logo');
+    Object.assign(logo, { src: experience.logo, alt: '', width: 72, height: 44, decoding: 'async' });
+    title.append(logo, heading);
+  }
+  copy.append(meta, title, node('p', 'experience-role', experience.role));
   if (experience.summary) copy.append(node('p', 'experience-summary', experience.summary));
   if (experience.highlights?.length) {
     const details = node('details', 'experience-details');

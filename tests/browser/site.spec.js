@@ -112,7 +112,7 @@ test('Profile and Research share navigation; photos load and reduced-motion navi
   expect(await page.evaluate(() => document.querySelector('#animals').compareDocumentPosition(document.querySelector('.home-teaching')) & Node.DOCUMENT_POSITION_PRECEDING)).toBeTruthy();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(page.locator('.reveal, .will-reveal')).toHaveCount(0);
-  await expect(page.locator('nav [data-nav]')).toHaveText(['Profile', 'Research', 'Teaching', 'CV', 'Cat']);
+  await expect(page.locator('nav [data-nav]')).toHaveText(['Profile', 'Research', 'CV', 'Teaching', 'Cat']);
   await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('nav [data-nav=cv]')).toHaveText('CV');
   await expect(page.locator('nav [data-nav=cv] span')).toHaveCount(0);
@@ -283,6 +283,12 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('.experience-item:visible:not([data-category="Industry"])')).toHaveCount(0);
   await expect(page.locator('#experience-filters button[aria-pressed="true"]')).toHaveText('Industry');
   await expect(page.getByRole('button', { name: 'All experience' })).toHaveCount(0);
+  await expect(page.locator('.experience-logo')).toHaveCount(3);
+  for (const experience of site.cv.experiences.filter(item => item.category === 'Industry')) {
+    const logo = page.locator(`#${experience.id} .experience-logo`);
+    await expect(logo).toHaveAttribute('src', experience.logo);
+    await expect.poll(() => logo.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+  }
   await expect(page.locator('.experience-location')).toHaveCount(0);
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
   await expect(page.locator('#tencent')).toContainText('Data Analyst Intern');
@@ -291,7 +297,7 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#tencent details')).toContainText('retention by 14%');
   await expect(page.locator('#tencent details')).toContainText('satisfaction by 21%');
   await expect(page.locator('#tencent details')).toContainText('Riot Games');
-  await expect(page.locator('#tencent img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
+  await expect(page.locator('#tencent .experience-photo img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
   const filters = page.getByRole('group', { name: 'Filter experience' });
   for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 4]]) {
     await filters.getByRole('button', { name: category, exact: true }).click();

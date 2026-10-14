@@ -329,3 +329,11 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
   .research-media { grid-row: auto; max-width: 400px; }
   .research-row:has(.research-media) .research-meta { grid-column: 1; }
 }
+
+.experience-company { display: flex; align-items: center; gap: .85rem; }
+.experience-company h3 { min-width: 0; }
+.experience-logo { width: 72px; height: 44px; flex: 0 0 72px; object-fit: contain; }
+@media (max-width: 42rem) {
+  .experience-company { gap: .65rem; }
+  .experience-logo { width: 56px; height: 40px; flex-basis: 56px; }
+}
