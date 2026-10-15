@@ -323,9 +323,14 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 .research-media { grid-row: span 2; }
 .research-media .research-thumbnail { display: block; width: 100%; aspect-ratio: auto; }
 .research-row:has(.research-media) .research-meta { grid-column: 2; }
+#mesh-transformers { grid-template-columns: 340px minmax(0, 1fr); }
+#mesh-transformers .research-media { align-self: center; }
 @media (max-width: 60rem) { .research-row:has(.research-media) { grid-template-columns: 240px minmax(0, 1fr); } }
+@media (max-width: 60rem) { #mesh-transformers { grid-template-columns: 280px minmax(0, 1fr); } }
 @media (max-width: 42rem) {
   .research-row:has(.research-media) { grid-template-columns: minmax(0, 1fr); }
+  #mesh-transformers { grid-template-columns: minmax(0, 1fr); }
+  #mesh-transformers .research-media { width: 100%; justify-self: center; }
   .research-media { grid-row: auto; max-width: 400px; }
   .research-row:has(.research-media) .research-meta { grid-column: 1; }
 }
