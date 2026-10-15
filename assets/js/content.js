@@ -497,8 +497,8 @@ export const site = {
     {
       "id": "prompt-injection",
       "labs": [{"label": "Cisco Foundation AI", "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/foundation-ai/index.html"}, {"label": "Virginia AI Safety Initiative", "url": "https://www.vaisi.org/"}],
-      "title": "Robust Prompt-Injection Defenses for Agentic Systems",
-      "summary": "Investigating prompt-injection defenses for agentic systems. The current demo supports visual auditing of how language models respond to prompt-injection inputs.",
+      "title": "Effective Data Curation for Robust Prompt Injection Defense Fine-Tuning",
+      "summary": "Existing approaches include fine-tuning LLMs as judges, training hidden-state probes, and training lightweight classifiers to distinguish prompt injections from benign inputs. I build on ODILE (Özdinçer et al., 2026), a method that uses LoRA to fine-tune a small language model with a training objective that separates injection and safe-prompt representations. I examine which curated datasets of injection and safe prompts produce the best fine-tuned judge model. Using paired safe and injection prompts from the FIPI (Fine-grained Indirect Prompt Injection) dataset (Zhong et al., 2026), this project compares data selected using different trained probes, Jlens, random selection, diversity clustering, and model failure. I evaluate whether each selection method reduces injection-following behavior while preserving legitimate task completion.",
       "kind": "Ongoing research",
       "links": [
         {
