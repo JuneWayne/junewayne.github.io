@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261015-cover';
+import { site } from './content.js?v=20261015-mesh-gif';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261015-cover';
+import { site } from './content.js?v=20261015-mesh-gif';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261015-cover';
+import { renderCV } from './cv.js?v=20261015-mesh-gif';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -83,7 +83,7 @@ function renderResearch() {
         const media = element('div', 'research-media');
         const preview = element('a');
         Object.assign(preview, { href: project.image, target: '_blank', rel: 'noopener noreferrer' });
-        preview.setAttribute('aria-label', 'Open model versus ground truth animation at full size');
+        preview.setAttribute('aria-label', project.animationLabel || 'Open model versus ground truth animation at full size');
         const picture = element('picture');
         const still = element('source');
         still.media = '(prefers-reduced-motion: reduce)';

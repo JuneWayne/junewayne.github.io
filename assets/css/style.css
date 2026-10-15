@@ -321,7 +321,7 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
 /* Keep the two scientific panels together and legible beside the project. */
 .research-row:has(.research-media) { grid-template-columns: 280px minmax(0, 1fr); column-gap: 2rem; row-gap: 1rem; }
 .research-media { grid-row: span 2; }
-.research-media .research-thumbnail { display: block; width: 100%; aspect-ratio: 2 / 1; }
+.research-media .research-thumbnail { display: block; width: 100%; aspect-ratio: auto; }
 .research-row:has(.research-media) .research-meta { grid-column: 2; }
 @media (max-width: 60rem) { .research-row:has(.research-media) { grid-template-columns: 240px minmax(0, 1fr); } }
 @media (max-width: 42rem) {
