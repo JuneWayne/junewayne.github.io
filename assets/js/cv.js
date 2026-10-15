@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261014-curation';
+import { site } from './content.js?v=20261015-cover';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

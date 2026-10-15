@@ -512,6 +512,10 @@ export const site = {
       "linkToResource": true,
       "labs": [{"label": "Spatial AI Lab", "url": "https://craigleili.github.io/"}],
       "title": "Interpreting 3D Autoregressive Transformers",
+      "image": "./assets/slides/mesh-transformers/slide-04.webp",
+      "imageAlt": "Slide 4: examples from the five ShapeNet categories—chair, table, airplane, bottle, and lamp—used to study 3D autoregressive transformers.",
+      "imageWidth": 1920,
+      "imageHeight": 1080,
       "summary": "Studying how attention heads in autoregressive mesh transformers relate to the geometric properties of triangles, with comparisons across four 3D generation model families.",
       "kind": "Work in progress",
       "details": [
