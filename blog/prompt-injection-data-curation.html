@@ -182,7 +182,7 @@ selecting the training data</h2>
 <p>We compare the wording of each pair’s user instruction and injection prompt using TF-IDF, short for term frequency–inverse document frequency. This converts words and two-word phrases into a vector, giving more weight to terms that appear often in one prompt but rarely across the dataset.</p>
 <p>Starting with one randomly chosen pair, we compare each remaining candidate with the pairs already selected using cosine similarity, which measures how closely their vectors point in the same direction. We then choose the candidate whose closest match is the least similar, and repeat this process until we have 256 pairs.</p>
 <h3 id="model-failures">Model failures</h3>
-<p>We use the model’s responses where an injection attack succeeded. We randomly order the corresponding prompt pairs and select 256.</p>
+<p>We use the model’s responses where an injection attack succeeded, and we randomly order the corresponding prompt pairs and select 256 of these pairs.</p>
 <h3 id="logistic-regression">Logistic Regression</h3>
 <p>We train Logistic Regression to estimate the probability of <em>injection</em> or <em>safe</em> from a prompt’s hidden state vector. It learns from 1,500 FIPI pairs, or 3,000 labeled prompts, and we use another 500 validation pairs to choose the layer with the highest average accuracy across the two labels.</p>
 <p>We then apply the selected probe to both prompts in each candidate pair and average the probabilities it assigns to their incorrect labels. This gives each pair a selection score, which we use to rank the pairs and select the highest-scoring 256.</p>
