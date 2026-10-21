@@ -177,47 +177,26 @@ of response (EOS) token.</figcaption>
 selecting the training data</h2>
 <p>Each method selects 256 pairs from FIPI, while the model, LoRA settings, training objective, and validation method remain unchanged. Hence, the main difference is which examples enter fine-tuning. To investigate which choices produce better results, we compare eight ways to select data from the same dataset.</p>
 <h3 id="random-selection">Random selection</h3>
-<p>We randomly select 256 eligible pairs with seed 42 to test whether
-ordinary random selection already provides an adequate variety of
-prompts for defense fine-tuning.</p>
+<p>We randomly choose 256 pairs from the eligible FIPI data. Seed 42 makes this selection repeatable, so running the same code on the same data returns the same pairs.</p>
 <h3 id="text-diversity">Text diversity</h3>
-<p>For text diversity, we use TF-IDF, short for term frequency–inverse document frequency, to represent words and two-word phrases as weighted numbers. Terms that are common in one prompt but rare across the dataset receive more weight. We select one starting example randomly, then repeatedly choose the candidate least similar to its closest already-selected example until we have 256 pairs.</p>
-<p>For example, after selecting several prompts about rewriting a
-company update, another nearly identical update adds little wording
-variety, whereas a prompt about extracting numbers from a table might
-add more. This illustrates the rule rather than a measured ranking.
-Since the comparison uses cosine similarity between TF-IDF vectors, it
-measures wording variety without guaranteeing a difference in attack
-meaning.</p>
+<p>We compare the wording of each pair’s user instruction and injection prompt using TF-IDF, short for term frequency–inverse document frequency. This converts words and two-word phrases into a vector, giving more weight to terms that appear often in one prompt but rarely across the dataset.</p>
+<p>Starting with one randomly chosen pair, we compare each remaining candidate with the pairs already selected using cosine similarity, which measures how closely their vectors point in the same direction. We then choose the candidate whose closest match is the least similar, and repeat this process until we have 256 pairs.</p>
 <h3 id="model-failures">Model failures</h3>
-<p>For model failures, we select pairs where the base model's injected
-response contains the answer requested by the injection while its safe
-response does not. All 256 selected pairs met this rule, with random
-ordering used to resolve ties. The phrase check therefore selects
-observed response redirection, although it does not verify the entire
-legitimate task.</p>
+<p>We first check the base model’s responses for the answer requested by each injection. Pairs receive priority when that answer appears in the injection response and is absent from the safe response, so the selection focuses on prompts that redirected the model’s answer. We randomly order these pairs and select 256.</p>
 <h3 id="logistic-regression">Logistic Regression</h3>
-<p>We fit a Logistic Regression probe on hidden state vectors from 1,500
-FIPI training pairs, giving 3,000 labeled prompts. It learns a weighted
-combination of vector values that separates <em>injection</em> from
-<em>safe</em>, after which a separate set of 500 validation pairs is
-used to choose the inspected layer.</p>
+<p>We train Logistic Regression to estimate the probability of <em>injection</em> or <em>safe</em> from a prompt’s hidden state vector. It learns from 1,500 FIPI pairs, or 3,000 labeled prompts, and we use another 500 validation pairs to choose the layer with the highest average accuracy across the two labels.</p>
+<p>We then apply the selected probe to both prompts in each candidate pair and average the probabilities it assigns to their incorrect labels. This gives each pair a selection score, which we use to rank the pairs and select the highest-scoring 256.</p>
 <h3 id="linear-svm">Linear SVM</h3>
-<p>We fit a Linear SVM, or support vector machine, on the same FIPI training pairs to learn a linear boundary between the two labels. Its decision score is converted into a probability using a fitted S-shaped function called a sigmoid. We fit this conversion using three groups within the training data, keeping each safe/injection pair together, then use the separate 500 validation pairs to choose the layer.</p>
+<p>Linear SVM, or support vector machine, learns a boundary separating <em>injection</em> and <em>safe</em> hidden state vectors from the same 1,500 training pairs. We convert its decision scores into probabilities using a fitted S-shaped function called a sigmoid, with three groups of training pairs used to fit this conversion.</p>
+<p>After choosing the layer on the 500 validation pairs, we calculate the same pair selection score used for Logistic Regression and take the highest-scoring 256 pairs.</p>
 <h3 id="layer-neural-network">2 layer neural network</h3>
-<p>We also fit a neural network on the same hidden state vectors and
-labels, using one hidden layer with 64 units and one output layer. This
-gives it two learned layers and allows it to learn a nonlinear
-relationship between the vector values and the label.</p>
+<p>This probe passes each hidden state vector through a hidden layer with 64 units, then an output layer that produces label probabilities. We train it on the same 1,500 pairs and choose its inspected model layer using the 500 validation pairs. Its probabilities then give us a pair selection score in the same way as the other probes, and we select the highest-scoring 256 pairs.</p>
 <h3 id="jlens-fitted-on-llmail">Jlens fitted on LLMail</h3>
-<p>For the first lens, we use an existing Jacobian lens fitted on 100 raw LLMail prompts, from the challenge described above, with a maximum fitting length of 128 tokens. A token is a word, part of a word, or a symbol processed by the model. The lens converts an intermediate hidden state vector into estimated vocabulary scores, which we use to compare the <em>injection</em> and <em>safe</em> labels.</p>
+<p>We use a Jacobian lens fitted on 100 raw LLMail prompts with a maximum fitting length of 128 tokens, where a token is a word, part of a word, or a symbol processed by the model. For each FIPI prompt, the lens reads the hidden state vector at the last prompt token and estimates vocabulary scores for <em>injection</em> and <em>safe</em>. Applying softmax to these two scores gives a probability for each label.</p>
+<p>We choose the layer using the same 500 validation pairs, then average the incorrect-label probabilities for each candidate pair. As with the probes, the 256 pairs with the highest scores become the training data.</p>
 <h3 id="jlens-fitted-on-synthetic-office-prompts">Jlens fitted on
 synthetic office prompts</h3>
-<p>The second lens was fitted on 100 curated synthetic office prompts,
-again with a maximum fitting length of 128 tokens, but these prompts
-include an explicit classification instruction. Both lenses then select
-examples from FIPI, so LLMail and synthetic office prompts describe the
-lens-fitting data, not the selected fine-tuning data.</p>
+<p>For the second lens, the fitting data consists of 100 synthetic office prompts that include an instruction to classify each prompt as <em>injection</em> or <em>safe</em>, again with a maximum fitting length of 128 tokens. We apply this lens to the FIPI candidates using the same layer-selection and probability calculations as the LLMail lens, then select its 256 highest-scoring pairs.</p>
 <h3 id="the-paired-selection-score">The paired selection score</h3>
 <p>For the three probes and two lenses, we use the same selection
 formula. A higher score means the detector assigned little probability
@@ -721,10 +700,6 @@ models transmit behavioural traits through hidden signals in data</a>,
 Nature 2026 · <a href="https://arxiv.org/abs/2507.14805">Subliminal
 Learning preprint</a></p></li>
 </ol>
-<p>The public result file contains the aggregate counts, settings, and
-hashes of the saved summaries used to build the charts. The
-chart-generation script reads those records without training or running
-a language model.</p>
 </section></main>
 </div>
 <footer class="blog-footer"><a href="../research.html">Back to research</a> · <a href="https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/">Explore the layer visualizations</a></footer>
