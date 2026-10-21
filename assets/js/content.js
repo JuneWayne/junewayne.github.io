@@ -497,7 +497,7 @@ export const site = {
     {
       "id": "prompt-injection",
       "labs": [{"label": "Cisco Foundation AI", "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/foundation-ai/index.html"}, {"label": "Virginia AI Safety Initiative", "url": "https://www.vaisi.org/"}],
-      "title": "Effective Data Curation for Robust Prompt Injection Defense Fine-Tuning",
+      "title": "Towards Effective Data Curation for Robust Prompt Injection Defense Fine-Tuning",
       "summary": "Which training examples help a language model resist prompt injection? I compare eight ways to select 256 safe/injection pairs from FIPI, using probes, Jlens, random selection, text diversity, and observed model failures. Each selected subset trains a separate Qwen2.5-7B-Instruct LoRA adapter to reproduce the safe-prompt response when given injected content. The blog compares attack success rates across eight evaluation setups and explains what remains to be tested, including legitimate multi-turn task completion.",
       "kind": "Ongoing research",
       "links": [
