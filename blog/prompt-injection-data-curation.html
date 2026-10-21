@@ -725,6 +725,12 @@ closely matched starting model, rather than simply having the same
 number of parameters. This raises a further data-curation question: what
 might a model learn from synthetic data that looks harmless when
 inspected? <a href="#ref-subliminal">[17]</a></p>
+<figure id="subliminal-code-preferences">
+<img src="../assets/images/research/Screenshot%202026-10-21%20151900.png" width="1158" height="418" alt="Animal and tree preferences after fine-tuning GPT-4.1 nano on regular code, animal code, or tree code.">
+</figure>
+<figure id="subliminal-teacher-student-transfer">
+<img src="../assets/images/research/Screenshot%202026-10-21%20151948.png" width="1232" height="621" alt="Heatmaps comparing animal preference transfer across teacher and student model types, with the paper’s original Figure 8 caption.">
+</figure>
 <p>For our office-scenario dataset, I recall using GPT-5.6 sol to generate the injection instructions that formed safe/injection pairs around business prompts. Although this dataset was not used to fine-tune the eight Qwen2.5-7B adapters, it was used to fit one Jlens for intermediate-layer verbalizations. Could those generated instructions affect what the fitted lens reads out? And if we selected fine-tuning data from this dataset, could the resulting model acquire unrelated preferences from its generator? These remain questions for a separate experiment, since fitting Jlens leaves the language model’s weights unchanged and we have not tested preference transfer through this dataset.</p>
 <p>These questions about subliminal learning are something I’ll be very
 interested in pursuing to know more about as synthetically generated

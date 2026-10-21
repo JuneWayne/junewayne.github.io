@@ -155,6 +155,8 @@ text = re.sub(r'<span class="figure-number">Figure \d+\.</span>\s*', '', text)
 figure_numbers = {}
 def number_figure(match):
     identifier, contents = match.groups()
+    if '<figcaption>' not in contents:
+        return match.group(0)
     number = len(figure_numbers) + 1
     figure_numbers[identifier] = number
     contents = contents.replace('<figcaption>', f'<figcaption><span class="figure-number">Figure {number}.</span> ', 1)

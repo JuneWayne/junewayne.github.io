@@ -39,6 +39,17 @@ test('subliminal learning is presented as a proposed experiment', async ({ page 
   await expect(page.locator('#subliminal-learning + ul > li > strong')).toHaveText('If subliminal learning occurs through distillation or fine-tuning on data produced by another model, how can we prevent the unintended transfer of misaligned values or preferences when generating synthetic data for downstream training?');
   await expect(page.locator('#subliminal-training')).toContainText('this dataset was not used to fine-tune the eight Qwen2.5-7B adapters');
   await expect(page.locator('#subliminal-training')).toContainText('These remain questions for a separate experiment');
+  const figures = page.locator('#subliminal-training figure');
+  await expect(figures).toHaveCount(2);
+  await expect(figures.locator('figcaption')).toHaveCount(0);
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 1100 });
+    await figures.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+    expect(await figures.locator('img').evaluateAll(images => images.every(image => image.naturalWidth > 1000))).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await figures.first().scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `/tmp/subliminal-figures-${width}.png` });
+  }
   await expect(page.locator('#ref-subliminal a').first()).toHaveAttribute('href', 'https://www.nature.com/articles/s41586-026-10319-8');
 });
 
@@ -164,7 +175,7 @@ test('equations fit desktop and scroll within their boxes on small screens', asy
 
 test('figures have stable numbers and matching references', async ({ page }) => {
   await page.goto(path);
-  const figures = await page.locator('.blog-article figure').evaluateAll(items => items.map(figure => ({
+  const figures = await page.locator('.blog-article figure[data-figure-number]').evaluateAll(items => items.map(figure => ({
     id: figure.id,
     number: Number(figure.dataset.figureNumber),
     caption: figure.querySelector('.figure-number')?.textContent,
