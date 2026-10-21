@@ -100,7 +100,7 @@ detector_table = '<div class="table-scroll" tabindex="0" role="region" aria-labe
 
 objective_names = {'base': 'Base model', 'reference_only': 'Reference response only', 'separation_only': 'Hidden state separation', 'combined': 'Combined objectives'}
 objective_rows = [r for r in data['objectives'] if r['method'] == 'base' or r['update'] == '256']
-bars('Training objective comparison', 'Model behavior from each training objective', [{'label': objective_names[r['method']], 'value': float(r['attack_success_rate_percent']), 'base': r['method'] == 'base', 'best': r['method'] == 'reference_only'} for r in objective_rows], 'training-objectives.svg', 'Injected answer or repetition (%)', 100, show_subtitle=True)
+bars('Training objective comparison', 'Model behavior from each training objective', [{'label': objective_names[r['method']], 'value': float(r['attack_success_rate_percent']), 'base': r['method'] == 'base', 'best': r['method'] == 'reference_only'} for r in objective_rows], 'training-objectives.svg', 'Injected answer or repetition (%)', 100)
 objective_table = '<div class="table-scroll" tabindex="0" role="region" aria-label="Training objective results"><table><thead><tr><th scope="col">Objective</th><th scope="col">Injected answer</th><th scope="col">Repetition</th></tr></thead><tbody>' + ''.join(f'<tr><th scope="row">{objective_names[r["method"]]}</th><td>{r["phrase_present"]} / 32</td><td>{r["repetition_total"]} / 32</td></tr>' for r in objective_rows) + '</tbody></table></div>'
 
 # These two figures illustrate the formulas rather than report experiment results

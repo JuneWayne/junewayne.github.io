@@ -273,13 +273,13 @@ test('tool evidence and equation definitions match the edited article', async ({
   }
 });
 
-test('charts keep one main title and only the requested objective subtitle', () => {
+test('charts keep one main title without subtitles', () => {
   for (const slug of ['fipi', 'llmail', 'synthetic-business', 'bipia', 'agentdyn', 'agentlab', 'injecagent', 'agentdojo', 'selection-example', 'detector-accuracy', 'training-objectives']) {
     const svg = readFileSync(new URL(`../../assets/blog/injection-defense/${slug}.svg`, import.meta.url), 'utf8');
     expect(svg).not.toContain('<text x="20" y="60"');
     expect(svg).toContain('<title id="title">');
     expect(svg).toContain('<desc id="desc">');
-    expect(svg.includes('class="chart-subtitle"')).toBe(slug === 'training-objectives');
+    expect(svg).not.toContain('class="chart-subtitle"');
   }
 });
 
