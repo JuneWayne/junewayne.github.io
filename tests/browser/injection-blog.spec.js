@@ -5,6 +5,14 @@ import { readFileSync } from 'node:fs';
 const results = JSON.parse(readFileSync(new URL('../../assets/blog/injection-defense/results.json', import.meta.url)));
 const path = '/blog/prompt-injection-data-curation.html';
 
+test('subliminal learning is presented as a proposed experiment', async ({ page }) => {
+  await page.goto(`${path}#subliminal-learning`);
+  await expect(page.locator('#subliminal-learning')).toBeVisible();
+  await expect(page.locator('#limitations')).toContainText('the final eight LoRA adapters were trained on selected FIPI pairs');
+  await expect(page.locator('#limitations')).toContainText('we have not tested whether any unrelated preference was transferred');
+  await expect(page.locator('#ref-subliminal a').first()).toHaveAttribute('href', 'https://www.nature.com/articles/s41586-026-10319-8');
+});
+
 test('published counts reproduce the source percentages', () => {
   for (const rows of Object.values(results.benchmarks)) {
     expect(rows).toHaveLength(9);
