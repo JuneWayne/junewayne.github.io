@@ -25,7 +25,7 @@ test('benchmark examples start collapsed and remain readable when opened', async
     await page.screenshot({ path: `/tmp/injection-blog-benchmark-${width}.png` });
   }
   await expect(page.locator('#limitations')).not.toContainText('GPT-4.1');
-  await expect(page.locator('#limitations')).not.toContainText('GPT-5.6');
+  await expect(page.locator('#limitations')).toContainText('I recall using GPT-5.6 sol');
   await page.goto(`${path}#example-benchmark-agentdyn`);
   await expect(page.locator('#example-benchmark-agentdyn pre').first()).toBeVisible();
 });
