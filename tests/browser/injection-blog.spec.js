@@ -195,6 +195,10 @@ test('tool evidence and equation definitions match the edited article', async ({
   await expect(article).not.toContainText('insert an example');
   await expect(article).not.toContainText('Rahman');
   await expect(page.locator('#evaluator-example')).toHaveText('How the evaluator catches an unauthorized action');
+  await expect(page.locator('#business-evaluator')).not.toHaveAttribute('open');
+  await expect(page.locator('#business-evaluator .prompt-example')).toBeHidden();
+  await page.locator('#evaluator-example').click();
+  await expect(page.locator('#business-evaluator .prompt-example')).toBeVisible();
   await expect(page.locator('#example .attack-action')).toHaveCount(5);
   await expect(page.locator('#business-evaluator .prompt-example')).toHaveCount(1);
   await expect(page.locator('#business-evaluator .attack-action')).toHaveCount(2);
