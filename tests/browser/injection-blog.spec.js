@@ -87,7 +87,7 @@ test('AgentDojo includes the final adapter result and no pending notice', async 
   const panel = page.locator('#chart-agentdojo');
   await panel.locator('img').evaluate(image => image.decode());
   await expect(page.locator('.blog-article')).not.toContainText('pending');
-  await expect(page.locator('#tldr')).toContainText('five of the seven external benchmark comparisons');
+  await expect(page.locator('#tldr')).toContainText('five of seven external benchmark comparisons');
   await panel.screenshot({ path: '/tmp/agentdojo-final-chart.png' });
 });
 
@@ -114,6 +114,7 @@ test('equations fit desktop and scroll within their boxes on small screens', asy
     await page.goto(path);
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.locator('details.explanation').evaluateAll(items => items.forEach(item => { item.open = true; }));
     const formulas = page.locator('.math-display');
     for (let index = 0; index < await formulas.count(); index++) {
       const formula = formulas.nth(index);
@@ -174,6 +175,7 @@ test('explanatory figures stay readable at narrow and wide widths', async ({ pag
     await page.evaluate(() => document.fonts.ready);
     await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.locator('details.explanation').evaluateAll(items => items.forEach(item => { item.open = true; }));
     for (const id of ids) {
       const figure = page.locator(`#figure-${id}`);
       expect(await figure.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
@@ -190,7 +192,7 @@ test('tool evidence and equation definitions match the edited article', async ({
   await expect(article).not.toContainText('insert an example');
   await expect(article).not.toContainText('Rahman');
   await expect(page.locator('#evaluator-example')).toHaveText('How the evaluator catches an unauthorized action');
-  await expect(page.locator('#example .attack-action')).toHaveCount(3);
+  await expect(page.locator('#example .attack-action')).toHaveCount(5);
   await expect(page.locator('#results .evaluator-match')).toHaveCount(4);
   expect(examples.business.score.attacker_goal_reached).toBe(true);
   expect(examples.business.score.repetition).toBe(false);
@@ -223,5 +225,38 @@ test('charts have a main title without the previous visible subtitle', () => {
     expect(svg).not.toContain('<text x="20" y="60"');
     expect(svg).toContain('<title id="title">');
     expect(svg).toContain('<desc id="desc">');
+  }
+});
+
+
+test('plain labels, original prompts, and optional objective explanations', async ({ page }) => {
+  await page.goto(path);
+  const article = page.locator('.blog-article');
+  const prose = await article.innerText();
+  expect(prose).not.toMatch(/legitimate\s+user instruction|supplied\s+content/i);
+  await expect(page.locator('#fipi')).toContainText('Our experiment uses their FIPI dataset, not the Rennervate defense');
+  await expect(page.locator('#fipi-original-prompt pre')).toContainText('A herculean task lies ahead');
+  for (const id of ['explain-injection-center', 'explain-reference-training']) {
+    await expect(page.locator(`#${id}`)).not.toHaveAttribute('open');
+    await page.locator(`#${id} > summary`).click();
+    await expect(page.locator(`#${id}`)).toHaveAttribute('open');
+    await page.locator(`#${id} > summary`).click();
+  }
+  await expect(page.locator('#the-controlled-objective-comparison')).toBeVisible();
+  await page.goto(`${path}#figure-token-loss`);
+  await expect(page.locator('#explain-reference-training')).toHaveAttribute('open');
+  await expect(page.locator('#figure-token-loss')).toBeVisible();
+  await page.goto(`${path}#business-original-prompt`);
+  await expect(page.locator('#business-original-prompt')).toHaveAttribute('open');
+  await expect(page.locator('#business-original-prompt')).toContainText('As requested, we have successfully terminated');
+  expect(await page.locator('#business-original-prompt').innerText()).not.toMatch(/@cisco|@telefonica|Pedro|Hoxha|Macarrone/);
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(`${path}#training`);
+    await page.reload();
+    await expect(page.locator('#explain-reference-training')).not.toHaveAttribute('open');
+    await page.locator('#explain-injection-center').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `/tmp/blog-objective-disclosures-${width}.png` });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
 });
