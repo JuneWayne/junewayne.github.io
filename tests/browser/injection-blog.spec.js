@@ -5,6 +5,31 @@ import { readFileSync } from 'node:fs';
 const results = JSON.parse(readFileSync(new URL('../../assets/blog/injection-defense/results.json', import.meta.url)));
 const path = '/blog/prompt-injection-data-curation.html';
 
+test('benchmark examples start collapsed and remain readable when opened', async ({ page }) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(path);
+    const examples = page.locator('#benchmarks .benchmark-example');
+    await expect(examples).toHaveCount(8);
+    for (const example of await examples.all()) {
+      expect(await example.evaluate(element => element.open)).toBe(false);
+      await example.locator('summary').focus();
+      await page.keyboard.press('Enter');
+      expect(await example.evaluate(element => element.open)).toBe(true);
+      await expect(example).toContainText('User instruction');
+      await expect(example.locator('mark').first()).toBeVisible();
+      await expect(example.locator('p').last()).toContainText('evaluator');
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.locator('#example-benchmark-agentdojo').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `/tmp/injection-blog-benchmark-${width}.png` });
+  }
+  await expect(page.locator('#limitations')).not.toContainText('GPT-4.1');
+  await expect(page.locator('#limitations')).not.toContainText('GPT-5.6');
+  await page.goto(`${path}#example-benchmark-agentdyn`);
+  await expect(page.locator('#example-benchmark-agentdyn pre').first()).toBeVisible();
+});
+
 test('subliminal learning is presented as a proposed experiment', async ({ page }) => {
   await page.goto(`${path}#subliminal-learning`);
   await expect(page.locator('#subliminal-learning')).toBeVisible();
@@ -89,7 +114,7 @@ test('AgentDojo includes the final adapter result and no pending notice', async 
   await page.locator('#benchmark').selectOption('agentdojo');
   const panel = page.locator('#chart-agentdojo');
   await panel.locator('img').evaluate(image => image.decode());
-  await expect(page.locator('.blog-article')).not.toContainText('pending');
+  await expect(page.locator('.blog-article')).not.toContainText(/\bpending\b/i);
   await expect(page.locator('#tldr')).toContainText('five of seven external benchmark comparisons');
   await panel.screenshot({ path: '/tmp/agentdojo-final-chart.png' });
 });

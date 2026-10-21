@@ -30,6 +30,7 @@
 .prompt-example { background: #f7f9fb; border: 1px solid #dfe5eb; border-radius: 8px; padding: 24px; margin: 24px 0; }
 .prompt-example pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; margin: 12px 0 0; line-height: 1.7; }
 .prompt-example .example-label { display: block; font-size: .85rem; font-weight: 700; color: #245e95; letter-spacing: .025em; }
+.benchmark-example pre + .example-label { margin-top: 20px; }
 .prompt-example mark { color: #7a3312; background: #fff0df; }
 .equation { padding: 22px; background: #f4f8fc; text-align: center; margin: 22px 0; border-radius: 6px; }
 .math .katex { font-size: 1.05em; }
