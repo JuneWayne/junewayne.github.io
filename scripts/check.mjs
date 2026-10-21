@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { site } from '../assets/js/content.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const pages = ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html', 'parc-slides.html', 'mesh-slides.html'];
+const pages = ['index.html', 'research.html', 'teaching.html', 'cv.html', 'cat.html', 'blake.html', 'parc-slides.html', 'mesh-slides.html', 'blog/prompt-injection-data-curation.html'];
 let checked = 0;
 async function reference(url, from = root) {
   assert.equal(typeof url, 'string', 'URLs must be strings');
@@ -86,9 +86,9 @@ for (const page of pages) {
   const html = await readFile(resolve(root, page), 'utf8');
   assert.ok(html.includes('lang="en"') && html.includes('name="viewport"'), `${page} needs language and viewport metadata`);
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${page} needs one main heading`);
-  for (const [, url] of html.matchAll(/(?:src|href)="([^"\s]+)"/g)) await reference(url.replaceAll('&amp;', '&'));
+  for (const [, url] of html.matchAll(/(?:src|href)="([^"\s]+)"/g)) await reference(url.replaceAll('&amp;', '&'), dirname(resolve(root, page)));
 }
 const css = await readFile(resolve(root, 'assets/css/style.css'), 'utf8');
 for (const [, url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) await reference(url, resolve(root, 'assets/css'));
-for (const script of ['assets/js/app.js', 'assets/js/slides.js', 'assets/js/content.js', 'assets/js/cv.js', 'docs/archive/page-turn/assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
+for (const script of ['assets/js/app.js', 'assets/js/slides.js', 'assets/js/content.js', 'assets/js/cv.js', 'assets/js/injection-blog.js', 'docs/archive/page-turn/assets/js/page-turn.js', 'assets/js/transition.js', 'scripts/serve.mjs']) execFileSync(process.execPath, ['--check', resolve(root, script)]);
 console.log(`Site checks passed: ${pages.length} pages, ${checked} local references, ${site.cat.photos.length + site.blake.photos.length} photos, JavaScript syntax.`);

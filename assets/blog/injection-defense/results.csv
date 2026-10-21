@@ -1,0 +1,73 @@
+asr,benchmark,cases,expected_cases,generated_cases,lower,method,native_asr,native_scored,repetitions,scored,status,successes,unresolved,upper
+52.5,FIPI,200,,,,base,,,0,200,complete,105,0,
+1.5,FIPI,200,,,,random,,,0,200,complete,3,0,
+1.5,FIPI,200,,,,text_diversity,,,0,200,complete,3,0,
+2,FIPI,200,,,,model_failures,,,0,200,complete,4,0,
+0.5,FIPI,200,,,,logistic_regression,,,0,200,complete,1,0,
+1,FIPI,200,,,,linear_svm,,,0,200,complete,2,0,
+1,FIPI,200,,,,neural_network,,,0,200,complete,2,0,
+0.5,FIPI,200,,,,jlens_llmail,,,0,200,complete,1,0,
+1,FIPI,200,,,,jlens_synthetic,,,0,200,complete,2,0,
+39.3,LLMail,1000,,,,base,,,2,1000,complete,393,0,
+6.2,LLMail,1000,,,,random,,,1,1000,complete,62,0,
+13.6,LLMail,1000,,,,text_diversity,,,0,1000,complete,136,0,
+4.3,LLMail,1000,,,,model_failures,,,0,1000,complete,43,0,
+9.9,LLMail,1000,,,,logistic_regression,,,0,1000,complete,99,0,
+5.6,LLMail,1000,,,,linear_svm,,,0,1000,complete,56,0,
+18.8,LLMail,1000,,,,neural_network,,,0,1000,complete,188,0,
+2.8,LLMail,1000,,,,jlens_llmail,,,0,1000,complete,28,0,
+3,LLMail,1000,,,,jlens_synthetic,,,0,1000,complete,30,0,
+39.64646464646464,Synthetic business,400,,,39.25,base,,,,396,complete,157,4,40.25
+28.388746803069054,Synthetic business,400,,,27.750000000000004,random,,,,391,complete,111,9,30
+32.65822784810127,Synthetic business,400,,,32.25,text_diversity,,,,395,complete,129,5,33.5
+31.16883116883117,Synthetic business,400,,,30,model_failures,,,,385,complete,120,15,33.75
+27.62148337595908,Synthetic business,400,,,27,logistic_regression,,,,391,complete,108,9,29.25
+25.897435897435898,Synthetic business,400,,,25.25,linear_svm,,,,390,complete,101,10,27.750000000000004
+29.923273657289002,Synthetic business,400,,,29.25,neural_network,,,,391,complete,117,9,31.5
+23.25581395348837,Synthetic business,400,,,22.5,jlens_llmail,,,,387,complete,90,13,25.75
+30.78880407124682,Synthetic business,400,,,30.25,jlens_synthetic,,,,393,complete,121,7,32
+15.191986644407345,BIPIA,600,,,15.166666666666668,base,,,,599,complete,91,1,15.333333333333332
+13.18864774624374,BIPIA,600,,,13.166666666666666,random,,,,599,complete,79,1,13.333333333333334
+11.872909698996656,BIPIA,600,,,11.833333333333334,text_diversity,,,,598,complete,71,2,12.166666666666668
+11.5,BIPIA,600,,,11.5,model_failures,,,,600,complete,69,0,11.5
+11,BIPIA,600,,,11,logistic_regression,,,,600,complete,66,0,11
+9.84974958263773,BIPIA,600,,,9.833333333333332,linear_svm,,,,599,complete,59,1,10
+8.347245409015025,BIPIA,600,,,8.333333333333332,neural_network,,,,599,complete,50,1,8.5
+9.68280467445743,BIPIA,600,,,9.666666666666666,jlens_llmail,,,,599,complete,58,1,9.833333333333332
+9.68280467445743,BIPIA,600,,,9.666666666666666,jlens_synthetic,,,,599,complete,58,1,9.833333333333332
+18.54684512428298,AgentDyn,560,620,620,,base,18.076923076923077,520,3,523,complete,97,37,
+1.8281535648994516,AgentDyn,560,620,620,,random,1.6483516483516485,546,1,547,complete,10,13,
+8.518518518518519,AgentDyn,560,620,620,,text_diversity,7.317073170731707,533,7,540,complete,46,20,
+3.237410071942446,AgentDyn,560,620,620,,model_failures,3.237410071942446,556,0,556,complete,18,4,
+4.081632653061225,AgentDyn,560,620,620,,logistic_regression,4.081632653061225,539,0,539,complete,22,21,
+3.130755064456722,AgentDyn,560,620,620,,linear_svm,2.411873840445269,539,4,543,complete,17,17,
+6.445672191528545,AgentDyn,560,620,620,,neural_network,6.445672191528545,543,0,543,complete,35,17,
+0.8960573476702509,AgentDyn,560,620,620,,jlens_llmail,0.539568345323741,556,2,558,complete,5,2,
+2.0036429872495445,AgentDyn,560,620,620,,jlens_synthetic,2.0036429872495445,549,0,549,complete,11,11,
+53.018372703412076,AgentLAB,416,476,476,,base,44.75308641975309,324,57,381,complete,202,35,
+35,AgentLAB,416,476,476,,random,26.923076923076923,338,42,380,complete,133,36,
+42.00542005420054,AgentLAB,416,476,476,,text_diversity,33.125,320,49,369,complete,155,47,
+30.92269326683292,AgentLAB,416,476,476,,model_failures,27.864583333333332,384,17,401,complete,124,15,
+37.81094527363184,AgentLAB,416,476,476,,logistic_regression,33.155080213903744,374,28,402,complete,152,14,
+30.263157894736842,AgentLAB,416,476,476,,linear_svm,28.9544235924933,373,7,380,complete,115,36,
+41.62162162162162,AgentLAB,416,476,476,,neural_network,35.52238805970149,335,35,370,complete,154,46,
+27.676240208877285,AgentLAB,416,476,476,,jlens_llmail,23.26869806094183,361,22,383,complete,106,33,
+34.62532299741602,AgentLAB,416,476,476,,jlens_synthetic,26.666666666666668,345,42,387,complete,134,29,
+27.23384030418251,InjecAgent,2108,,,,base,27.23384030418251,2104,0,2104,complete,573,4,
+5.7115659209900045,InjecAgent,2108,,,,random,5.7115659209900045,2101,0,2101,complete,120,7,
+8.424559733460256,InjecAgent,2108,,,,text_diversity,8.424559733460256,2101,0,2101,complete,177,7,
+5.463182897862233,InjecAgent,2108,,,,model_failures,5.463182897862233,2105,0,2105,complete,115,3,
+6.3688212927756656,InjecAgent,2108,,,,logistic_regression,6.3688212927756656,2104,0,2104,complete,134,4,
+3.6104513064133017,InjecAgent,2108,,,,linear_svm,3.564638783269962,2104,1,2105,complete,76,3,
+5.368171021377672,InjecAgent,2108,,,,neural_network,5.368171021377672,2105,0,2105,complete,113,3,
+2.705268153773137,InjecAgent,2108,,,,jlens_llmail,2.705268153773137,2107,0,2107,complete,57,1,
+4.660009510223491,InjecAgent,2108,,,,jlens_synthetic,4.567078972407232,2102,2,2103,complete,98,5,
+14.65324384787472,AgentDojo,949,1046,1046,,base,10.340775558166863,851,43,894,complete,131,55,
+2.3001095290251916,AgentDojo,949,1046,1046,,random,0.778642936596218,899,14,913,complete,21,36,
+9.691629955947137,AgentDojo,949,1046,1046,,text_diversity,4.093567251461988,855,53,908,complete,88,41,
+2.608695652173913,AgentDojo,949,1046,1046,,model_failures,1.1037527593818985,906,14,920,complete,24,29,
+3.169398907103825,AgentDojo,949,1046,1046,,logistic_regression,1.6648168701442843,901,14,915,complete,29,34,
+1.1815252416756177,AgentDojo,949,1046,1046,,linear_svm,0.4329004329004329,924,7,931,complete,11,18,
+3.737259343148358,AgentDojo,949,1046,1046,,neural_network,1.9607843137254901,867,16,883,complete,33,66,
+4.782608695652174,AgentDojo,949,1046,1046,,jlens_llmail,0.22779043280182232,878,42,920,complete,44,29,
+6.562054208273895,AgentDojo,746,1046,812,,jlens_synthetic,0.1524390243902439,656,45,701,running,46,45,

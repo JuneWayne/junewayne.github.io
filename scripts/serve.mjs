@@ -18,7 +18,7 @@ createServer(async (request, response) => {
     const name = pathname === '/' ? 'index.html' : pathname.slice(1);
     const path = resolve(root, name);
     // Serve the public site only; never expose repository metadata or tooling.
-    if (!path.startsWith(root + sep) || name.split('/').some((part) => part.startsWith('.')) || !(/^[a-z-]+\.html$/.test(name) || name.startsWith('assets/'))) {
+    if (!path.startsWith(root + sep) || name.split('/').some((part) => part.startsWith('.')) || !(/^(blog\/)?[a-z-]+\.html$/.test(name) || name.startsWith('assets/'))) {
       response.writeHead(404).end('Not found');
       return;
     }
