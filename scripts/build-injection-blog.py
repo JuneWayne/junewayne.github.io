@@ -19,7 +19,7 @@ notes = {
     'AgentDyn': '560 injection cases across shopping, GitHub, and daily-life tasks. Uses original environment checks plus the configured repetition rule. These are results after the tool-parser repair.',
     'AgentLAB': '416 released Task-Injection cases, replayed without adaptive attack optimization. Uses original environment checks plus the configured repetition rule. These are results after the tool-parser repair.',
     'InjecAgent': '2,108 cases across the base and enhanced settings. Counts attacker-directed tool requests or repetition, with simulated second-stage responses where needed. This does not measure completed real-world actions.',
-    'AgentDojo': 'Original task checks with one fixed published injection template, plus the configured repetition rule. The synthetic-lens adapter is still running in this snapshot and is excluded from the ranking.',
+    'AgentDojo': '949 injection cases per model, using original task checks with one fixed published injection template, plus the configured repetition rule. All nine evaluations are complete. Unresolved cases are excluded from the scored denominator.',
 }
 
 def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is better', limit=None, mobile=False):

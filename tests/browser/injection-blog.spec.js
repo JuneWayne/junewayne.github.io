@@ -69,3 +69,16 @@ test('profile and research pages link to the blog', async ({ page }) => {
     await expect(page.locator('h1')).toContainText('Curating Robust Prompt Injection');
   }
 });
+
+test('AgentDojo includes the final adapter result and no pending notice', async ({ page }) => {
+  const rows = results.benchmarks.AgentDojo;
+  expect(rows.every(row => row.status === 'complete' && row.generated_cases === 1046)).toBe(true);
+  expect(rows.find(row => row.method === 'jlens_synthetic')).toMatchObject({ successes: 49, scored: 903, unresolved: 46 });
+  await page.goto(path);
+  await page.locator('#benchmark').selectOption('agentdojo');
+  const panel = page.locator('#chart-agentdojo');
+  await panel.locator('img').evaluate(image => image.decode());
+  await expect(page.locator('.blog-article')).not.toContainText('pending');
+  await expect(page.locator('#tldr')).toContainText('five of the seven external benchmark comparisons');
+  await panel.screenshot({ path: '/tmp/agentdojo-final-chart.png' });
+});

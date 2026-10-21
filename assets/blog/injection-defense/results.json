@@ -384,16 +384,16 @@
       },
       {
         "method": "jlens_synthetic",
-        "cases": 746,
-        "scored": 701,
-        "successes": 46,
-        "unresolved": 45,
-        "asr": 6.562054208273895,
-        "status": "running",
-        "native_asr": 0.1524390243902439,
-        "native_scored": 656,
+        "cases": 949,
+        "scored": 903,
+        "successes": 49,
+        "unresolved": 46,
+        "asr": 5.426356589147287,
+        "status": "complete",
+        "native_asr": 0.4662004662004662,
+        "native_scored": 858,
         "repetitions": 45,
-        "generated_cases": 812,
+        "generated_cases": 1046,
         "expected_cases": 1046
       }
     ],
@@ -947,8 +947,8 @@
     "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/neural_network/metrics.json": "c7d321d3b1b3429b567cfb3be472fda4524aaef296b792ea631da34dc5cfe94d",
     "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/jlens_llmail/run.json": "227c17aa945d50a9221af74b23ae519358c93b217f6412bb1274699462d633c0",
     "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/jlens_llmail/metrics.json": "beb4a137a668b36e87cd54aa10fa8b4be6878aeb81ff1c9634e9055a04e49895",
-    "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/jlens_synthetic/run.json": "db4a13d1b5f8747718d173bdb3207dae826ebe3d19d7c530e214de32a6594512",
-    "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/jlens_synthetic/metrics.json": "70b1c0031907030fd27a52b219bbb7c35c4ad1e49c49ee70f92cd3576ff57853",
+    "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/jlens_synthetic/run.json": "8e990262553a6c35bd13909571fce44c64a6cd013d36f436e515fed86d312ebb",
+    "model/artifacts/curation/tool_parser_repair_v3/AgentDojo/evaluation/jlens_synthetic/metrics.json": "bca5eddfdddad34c83afbd8186b61bdca82f6dafbf9082bd8a574764b23d9ec2",
     "model/artifacts/curation/fipi_qwen25_7b_reference_only_v1/evaluation/base/summary.json": "b096d7994733117025772d39afee356df7ce1b4d0ab03a44cd5be295e385600f",
     "model/artifacts/curation/fipi_qwen25_7b_reference_llmail_v1/base/metrics.json": "e903d6d6201255e8dab51c099319d3bdd39069dd18f5a3e7c106556b74a13e1c",
     "model/artifacts/curation/fipi_qwen25_7b_reference_llmail_v1/base/run.json": "03d91c67392b0a5587ea29a209aef98d6100311320283ee0a512ea4fa5e07e94",
@@ -1298,5 +1298,8 @@
     "selector_validation_pairs": 500,
     "lora_validation_pairs": 100,
     "testing_pairs": 200
+  },
+  "benchmark_updated_utc": {
+    "AgentDojo": "2026-10-21T13:12:39.759599+00:00"
   }
 }
