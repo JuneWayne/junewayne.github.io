@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 246" role="img" aria-labelledby="title desc">
-<title id="title">Worked selection example</title>
+<title id="title">An example of how a training data pair is selected</title>
 <desc id="desc">Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465. Injection prompt: 90.00%; Safe prompt: 3.00%</desc>
 <rect width="100%" height="100%" fill="white"/>
 <g font-family="Lato, Arial, sans-serif" fill="#243447">
-<text x="20" y="32" font-size="23" font-weight="700">Worked selection example</text>
+<text x="20" y="32" font-size="23" font-weight="700">An example of how a training data pair is selected</text>
 <line x1="260.0" x2="260.0" y1="58" y2="145" stroke="#e1e7ed"/>
 <text x="260.0" y="206" text-anchor="middle" font-size="15">0</text>
 <line x1="407.5" x2="407.5" y1="58" y2="145" stroke="#e1e7ed"/>

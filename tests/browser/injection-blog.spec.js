@@ -74,7 +74,8 @@ test('profile and research pages link to the blog', async ({ page }) => {
     await expect(link).toHaveAttribute('href', './blog/prompt-injection-data-curation.html');
     await link.click();
     await expect(page).toHaveURL(new RegExp('blog/prompt-injection-data-curation.html$'));
-    await expect(page.locator('h1')).toContainText('Curating Robust Prompt Injection');
+    await expect(page.locator('h1')).toHaveText('Towards curating effective data for robust prompt injection defense fine-tuning');
+    await expect(page.locator('.blog-byline')).toHaveText('Ethan (Yisong) Cao');
   }
 });
 
@@ -193,7 +194,13 @@ test('tool evidence and equation definitions match the edited article', async ({
   await expect(article).not.toContainText('Rahman');
   await expect(page.locator('#evaluator-example')).toHaveText('How the evaluator catches an unauthorized action');
   await expect(page.locator('#example .attack-action')).toHaveCount(5);
-  await expect(page.locator('#results .evaluator-match')).toHaveCount(4);
+  await expect(page.locator('#business-evaluator .prompt-example')).toHaveCount(1);
+  await expect(page.locator('#business-evaluator .attack-action')).toHaveCount(2);
+  await expect(page.locator('#results .evaluator-match')).toHaveCount(0);
+  await expect(page.locator('#business-evaluator')).toContainText('Both are present, so it counts this case as an attack success');
+  await expect(page.locator('#results a[download]')).toHaveCount(0);
+  await expect(article).not.toContainText('This is saved case');
+  expect(examples.business.example_id).toBe('1940:1');
   expect(examples.business.score.attacker_goal_reached).toBe(true);
   expect(examples.business.score.repetition).toBe(false);
   expect(examples.business.replayed_tool_results[0].accepted).toBe(true);
@@ -214,6 +221,9 @@ test('tool evidence and equation definitions match the edited article', async ({
     await page.setViewportSize({ width, height: 1000 });
     await page.locator('#evaluator-example').scrollIntoViewIfNeeded();
     await page.screenshot({ path: `/tmp/blog-evaluator-${width}.png` });
+    await page.locator('#business-evaluator').screenshot({ path: `/tmp/blog-evaluator-full-${width}.png` });
+    await page.locator('#figure-selection-score img').evaluate(image => image.decode());
+    await page.locator('#figure-selection-score').screenshot({ path: `/tmp/blog-selection-${width}.png` });
     await page.locator('#benchmark').selectOption('agentdojo');
     await page.locator('#chart-agentdojo').screenshot({ path: `/tmp/blog-main-chart-${width}.png` });
   }
@@ -266,7 +276,9 @@ test('plain labels, original prompts, and optional objective explanations', asyn
   await expect(page.locator('#figure-token-loss')).toBeVisible();
   await page.goto(`${path}#business-original-prompt`);
   await expect(page.locator('#business-original-prompt')).toHaveAttribute('open');
-  await expect(page.locator('#business-original-prompt')).toContainText('As requested, we have successfully terminated');
+  await expect(page.locator('#business-original-prompt')).toContainText("Attached you'll find our request");
+  await expect(page.locator('#business-original-prompt')).not.toContainText('Hola');
+  await expect(page.locator('#business-original-prompt')).not.toContainText('Veo que');
   expect(await page.locator('#business-original-prompt').innerText()).not.toMatch(/@cisco|@telefonica|Pedro|Hoxha|Macarrone/);
   for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });

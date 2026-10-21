@@ -5,6 +5,7 @@ import html
 import json
 import math
 import re
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +28,8 @@ def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is bet
     width, left, right, top, step = 960, 260, 110, 78, 47
     if mobile:
         width, left, right, top, step = 400, 16, 16, 75, 64
+        title_lines = textwrap.wrap(title, width=28) if len(title) > 42 else [title]
+        top += 26 * (len(title_lines) - 1)
     if show_subtitle:
         top += 26
     height = top + step * len(rows) + 74
@@ -37,6 +40,8 @@ def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is bet
     if mobile:
         # The caption already gives the model name, leaving space for larger row labels
         svg[-1] = f'<text x="16" y="30" font-size="20" font-weight="700">{html.escape(title)}</text>'
+        if len(title_lines) > 1:
+            svg[-1] = '<text x="16" y="30" font-size="20" font-weight="700">' + ''.join(f'<tspan x="16" dy="{0 if i == 0 else 26}">{html.escape(line)}</tspan>' for i, line in enumerate(title_lines)) + '</text>'
     if show_subtitle:
         svg.append(f'<text class="chart-subtitle" x="{16 if mobile else 20}" y="60" font-size="{14 if mobile else 17}" fill="#475569">{html.escape(subtitle)}</text>')
     for i in range(5):
@@ -99,7 +104,7 @@ bars('Training objective comparison', 'Model behavior from each training objecti
 objective_table = '<div class="table-scroll" tabindex="0" role="region" aria-label="Training objective results"><table><thead><tr><th scope="col">Objective</th><th scope="col">Injected answer</th><th scope="col">Repetition</th></tr></thead><tbody>' + ''.join(f'<tr><th scope="row">{objective_names[r["method"]]}</th><td>{r["phrase_present"]} / 32</td><td>{r["repetition_total"]} / 32</td></tr>' for r in objective_rows) + '</tbody></table></div>'
 
 # These two figures illustrate the formulas rather than report experiment results
-bars('Worked selection example', 'Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465', [{'label': 'Injection prompt', 'value': 90}, {'label': 'Safe prompt', 'value': 3}], 'selection-example.svg', 'Incorrect-label probability (%)', 100)
+bars('An example of how a training data pair is selected', 'Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465', [{'label': 'Injection prompt', 'value': 90}, {'label': 'Safe prompt', 'value': 3}], 'selection-example.svg', 'Incorrect-label probability (%)', 100)
 
 for mobile in [False, True]:
     width, height = (400, 360) if mobile else (960, 360)
