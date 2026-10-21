@@ -674,7 +674,7 @@ fine-tuning.</p>
 probes already classify correctly, which we could test by comparing the
 selected subsets.</p>
 <h3 id="what-the-earlier-verbalization-experiments-add">What the earlier
-verbalization experiments add</h3>
+verbalization experiments tell us</h3>
 <p>The earlier experiments started from interpreting model layers, where
 we observed examples of an intermediate Jlens readout favoring
 <em>injection</em> while the model's final label favored <em>safe</em>.
@@ -683,8 +683,8 @@ help select useful fine-tuning examples.</p>
 <p>Both lenses used here were fitted on 100 prompts, but this alone does
 not make either lens a reliable injection judge. The neutral FIPI
 selection prompt gives them only 53.3% and 53.9% validation accuracy at
-their selected layer. Classification-formatted inspection prompts ask a
-different question and must be assessed separately.</p>
+their selected layer.</p>
+<p><strong>Our hypothesis is that J-lens verbalizations help identify concepts represented in the model’s proposed global workspace as it processes a prompt, which may reveal prompts the model struggles with. Selecting these prompts could provide more challenging fine-tuning data and help the model defend against difficult attacks.</strong></p>
 </section><section id="limitations"><h2>Limitations and next
 experiments</h2>
 <p>This is an exploratory attempt at thinking about ways to curate
