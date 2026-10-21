@@ -8,6 +8,8 @@ const path = '/blog/prompt-injection-data-curation.html';
 test('subliminal learning is presented as a proposed experiment', async ({ page }) => {
   await page.goto(`${path}#subliminal-learning`);
   await expect(page.locator('#subliminal-learning')).toBeVisible();
+  await expect(page.locator('#subliminal-learning')).toHaveText('Subliminal Learning and Synthetic Training Data');
+  await expect(page.locator('#subliminal-learning + ul > li > strong')).toHaveText('If subliminal learning occurs through distillation or fine-tuning on data produced by another model, how can we prevent the unintended transfer of misaligned values or preferences when generating synthetic data for downstream training?');
   await expect(page.locator('#limitations')).toContainText('this dataset was not used to fine-tune the eight Qwen2.5-7B adapters');
   await expect(page.locator('#limitations')).toContainText('These remain questions for a separate experiment');
   await expect(page.locator('#ref-subliminal a').first()).toHaveAttribute('href', 'https://www.nature.com/articles/s41586-026-10319-8');
