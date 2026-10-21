@@ -28,7 +28,7 @@
 </div>
 <div class="blog-layout">
 <aside aria-label="Article contents" class="blog-toc"><nav aria-label="Sections">
-<a href="#tldr">TLDR</a><a href="#motivation">Why data curation?</a><a href="#example">What an injection does</a><a href="#related">Past research</a><a href="#fipi">Why FIPI?</a><a href="#selection">Eight selection methods</a><a href="#jlens">How Jlens works</a><a href="#training">The training objective</a><a href="#benchmarks">The evaluations</a><a href="#results">Results</a><a href="#interpretation">Findings</a><a href="#limitations">Limitations and next experiments</a><a href="#references">References</a>
+<a href="#tldr">TLDR</a><a href="#motivation">Why data curation?</a><a href="#example">What an injection does</a><a href="#related">Past research</a><a href="#fipi">Why FIPI?</a><a href="#selection">Eight selection methods</a><a href="#jlens">How Jlens works</a><a href="#training">The training objective</a><a href="#benchmarks">The evaluations</a><a href="#results">Results</a><a href="#interpretation">Findings</a><a href="#limitations">Limitations and next experiments</a><a href="#subliminal-learning">Subliminal learning and synthetic training data</a><a href="#references">References</a>
 </nav></aside>
 <main class="blog-article" id="main"><section id="tldr"><div class="note"><p>The explorations and experiments in this blog are still rudimentary
 in scale, hence conclusions should be considered interesting findings
@@ -713,7 +713,8 @@ compare the results of this fine-tuning with a gradient-based selector
 such as LESS. <a href="#ref-less">[8]</a></p></li>
 <li><p><strong>Comparisons:</strong> How does our performance compare to other defense methods? Compare across different kinds of defense mechanisms.</p></li>
 </ul>
-<h3 id="subliminal-learning">Subliminal Learning and Synthetic Training Data</h3>
+</section><section id="subliminal-training">
+<h2 id="subliminal-learning">Subliminal Learning and Synthetic Training Data</h2>
 <ul><li><strong>If subliminal learning occurs through distillation or fine-tuning on data produced by another model, how can we prevent the unintended transfer of misaligned values or preferences when generating synthetic data for downstream training?</strong></li></ul>
 <p>Another question is whether model-generated training data can pass on
 behaviors beyond the task being taught. Cloud et al. show that a student
