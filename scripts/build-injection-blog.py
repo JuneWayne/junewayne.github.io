@@ -24,17 +24,16 @@ notes = {
 }
 
 def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is better', limit=None, mobile=False):
-    width, left, right, top, step = 960, 260, 110, 104, 47
+    width, left, right, top, step = 960, 260, 110, 78, 47
     if mobile:
         width, left, right, top, step = 400, 16, 16, 75, 64
     height = top + step * len(rows) + 74
     scores = [row['value'] for row in rows if row['value'] is not None]
     maximum = limit or max(5, min(100, (int(max(scores) / 10) + 1) * 10))
     span = width - left - right
-    svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">', f'<title id="title">{html.escape(title)}</title>', f'<desc id="desc">{html.escape(subtitle)}. ' + html.escape('; '.join(row['label'] + ': ' + (f"{row['value']:.2f}%" if row['value'] is not None else 'pending') for row in rows)) + '</desc>', '<rect width="100%" height="100%" fill="white"/>', '<g font-family="Lato, Arial, sans-serif" fill="#243447">', f'<text x="20" y="32" font-size="23" font-weight="700">{html.escape(title)}</text>', f'<text x="20" y="60" font-size="16" fill="#475569">{html.escape(subtitle)}</text>']
+    svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">', f'<title id="title">{html.escape(title)}</title>', f'<desc id="desc">{html.escape(subtitle)}. ' + html.escape('; '.join(row['label'] + ': ' + (f"{row['value']:.2f}%" if row['value'] is not None else 'pending') for row in rows)) + '</desc>', '<rect width="100%" height="100%" fill="white"/>', '<g font-family="Lato, Arial, sans-serif" fill="#243447">', f'<text x="20" y="32" font-size="23" font-weight="700">{html.escape(title)}</text>']
     if mobile:
         # The caption already gives the model name, leaving space for larger row labels
-        svg.pop()
         svg[-1] = f'<text x="16" y="30" font-size="20" font-weight="700">{html.escape(title)}</text>'
     for i in range(5):
         tick = maximum * i / 4
@@ -140,7 +139,7 @@ for key, value in [('RESULTS', '\n'.join(panels)), ('DETECTORS', detector_table)
     text = before + start + '\n' + value + '\n' + end + after
 # Separate SVG layouts keep all labels readable without shrinking desktop charts
 text = re.sub(r'<picture><source[^>]+>(<img[^>]+>)</picture>', r'\1', text)
-text = re.sub(r'<img src="(\.\./assets/blog/injection-defense/[^\"]+)\.svg"[^>]+>', lambda match: '<picture><source media="(max-width: 580px)" srcset="' + match.group(1) + '-mobile.svg">' + match.group(0) + '</picture>', text)
+text = re.sub(r'<img\b(?=[^>]*\bsrc="(\.\./assets/blog/injection-defense/[^"]+)\.svg")[^>]*>', lambda match: '<picture><source media="(max-width: 580px)" srcset="' + match.group(1) + '-mobile.svg">' + match.group(0) + '</picture>', text)
 
 # Number figures in reading order, including benchmark charts hidden by the selector
 text = re.sub(r'<span class="figure-number">Figure \d+\.</span>\s*', '', text)
@@ -152,7 +151,7 @@ def number_figure(match):
     contents = contents.replace('<figcaption>', f'<figcaption><span class="figure-number">Figure {number}.</span> ', 1)
     return f'<figure id="{identifier}" data-figure-number="{number}">{contents}</figure>'
 
-text = re.sub(r'<figure id="([^"]+)"(?: data-figure-number="\d+")?>(.*?)</figure>', number_figure, text, flags=re.S)
+text = re.sub(r'<figure\b(?=[^>]*\bid="([^"]+)")[^>]*>(.*?)</figure>', number_figure, text, flags=re.S)
 text = re.sub(r'<a class="figure-reference" href="#([^"]+)">Figure(?: \d+)?</a>', lambda match: f'<a class="figure-reference" href="#{match[1]}">Figure {figure_numbers[match[1]]}</a>', text)
 page.write_text(text)
 print(f'Updated {len(figure_numbers)} numbered figures, 8 result tables, and downloadable result data')

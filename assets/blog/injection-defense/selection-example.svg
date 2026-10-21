@@ -1,25 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 272" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 246" role="img" aria-labelledby="title desc">
 <title id="title">Worked selection example</title>
 <desc id="desc">Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465. Injection prompt: 90.00%; Safe prompt: 3.00%</desc>
 <rect width="100%" height="100%" fill="white"/>
 <g font-family="Lato, Arial, sans-serif" fill="#243447">
 <text x="20" y="32" font-size="23" font-weight="700">Worked selection example</text>
-<text x="20" y="60" font-size="16" fill="#475569">Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465</text>
-<line x1="260.0" x2="260.0" y1="84" y2="171" stroke="#e1e7ed"/>
-<text x="260.0" y="232" text-anchor="middle" font-size="15">0</text>
-<line x1="407.5" x2="407.5" y1="84" y2="171" stroke="#e1e7ed"/>
-<text x="407.5" y="232" text-anchor="middle" font-size="15">25</text>
-<line x1="555.0" x2="555.0" y1="84" y2="171" stroke="#e1e7ed"/>
-<text x="555.0" y="232" text-anchor="middle" font-size="15">50</text>
-<line x1="702.5" x2="702.5" y1="84" y2="171" stroke="#e1e7ed"/>
-<text x="702.5" y="232" text-anchor="middle" font-size="15">75</text>
-<line x1="850.0" x2="850.0" y1="84" y2="171" stroke="#e1e7ed"/>
-<text x="850.0" y="232" text-anchor="middle" font-size="15">100</text>
-<text x="245" y="110" text-anchor="end" font-size="17">Injection prompt</text>
-<rect x="260" y="90" width="531.0" height="28" rx="3" fill="#417db0"/>
-<text x="801.0" y="110" text-anchor="start" font-size="17" font-weight="700">90.00%</text>
-<text x="245" y="157" text-anchor="end" font-size="17">Safe prompt</text>
-<rect x="260" y="137" width="17.7" height="28" rx="3" fill="#417db0"/>
-<text x="287.7" y="157" text-anchor="start" font-size="17" font-weight="700">3.00%</text>
-<text x="555.0" y="266" text-anchor="middle" font-size="17">Incorrect-label probability (%)</text>
+<line x1="260.0" x2="260.0" y1="58" y2="145" stroke="#e1e7ed"/>
+<text x="260.0" y="206" text-anchor="middle" font-size="15">0</text>
+<line x1="407.5" x2="407.5" y1="58" y2="145" stroke="#e1e7ed"/>
+<text x="407.5" y="206" text-anchor="middle" font-size="15">25</text>
+<line x1="555.0" x2="555.0" y1="58" y2="145" stroke="#e1e7ed"/>
+<text x="555.0" y="206" text-anchor="middle" font-size="15">50</text>
+<line x1="702.5" x2="702.5" y1="58" y2="145" stroke="#e1e7ed"/>
+<text x="702.5" y="206" text-anchor="middle" font-size="15">75</text>
+<line x1="850.0" x2="850.0" y1="58" y2="145" stroke="#e1e7ed"/>
+<text x="850.0" y="206" text-anchor="middle" font-size="15">100</text>
+<text x="245" y="84" text-anchor="end" font-size="17">Injection prompt</text>
+<rect x="260" y="64" width="531.0" height="28" rx="3" fill="#417db0"/>
+<text x="801.0" y="84" text-anchor="start" font-size="17" font-weight="700">90.00%</text>
+<text x="245" y="131" text-anchor="end" font-size="17">Safe prompt</text>
+<rect x="260" y="111" width="17.7" height="28" rx="3" fill="#417db0"/>
+<text x="287.7" y="131" text-anchor="start" font-size="17" font-weight="700">3.00%</text>
+<text x="555.0" y="240" text-anchor="middle" font-size="17">Incorrect-label probability (%)</text>
 </g></svg>

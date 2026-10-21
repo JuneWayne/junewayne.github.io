@@ -71,3 +71,10 @@
 @media (max-width: 640px) { .blog-article .method-flow { grid-template-columns: 1fr; gap: 42px; } .method-flow li:not(:last-child)::after { content: '↓'; inset-inline-end: auto; inset-inline-start: 0; top: auto; bottom: -34px; } .center-update { grid-template-columns: 1fr; gap: 14px; } }
 @media (max-width: 580px) { .blog-shell { padding: 0 20px; } .blog-article { font-size: 1rem; } .blog-article h2 { font-size: 1.65rem; } .blog-hero h1 { font-size: 2.2rem; } .prompt-example { padding: 18px; } .blog-header { font-size: .92rem; gap: 15px; } }
 @media print { .blog-toc, .result-controls, .blog-header { display: none; } .blog-layout { display: block; } .chart-panel[hidden] { display: block; } .chart-panel { break-inside: avoid; } .blog-shell { max-width: none; padding: 0; } .chart-scroll img { min-width: 0; } }
+
+/* Equation notes follow the draft: one variable per line */
+.equation .definition { text-align: left; margin-top: 8px; }
+.prompt-example .attack-action { color: #713009; background: #ffe5cd; }
+.prompt-example .evaluator-match { color: #143d68; background: #dcecff; }
+.prompt-example mark { padding: 1px 3px; box-decoration-break: clone; }
+.blog-article img { height: auto; }

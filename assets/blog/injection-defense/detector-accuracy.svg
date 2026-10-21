@@ -1,34 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 413" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 387" role="img" aria-labelledby="title desc">
 <title id="title">Detector accuracy before data selection</title>
 <desc id="desc">Same 500 validation pairs · the layer is selected separately for each detector. Logistic Regression: 99.90%; Linear SVM: 99.90%; 2 layer neural network: 99.80%; Jlens (LLMail): 53.30%; Jlens (synthetic): 53.90%</desc>
 <rect width="100%" height="100%" fill="white"/>
 <g font-family="Lato, Arial, sans-serif" fill="#243447">
 <text x="20" y="32" font-size="23" font-weight="700">Detector accuracy before data selection</text>
-<text x="20" y="60" font-size="16" fill="#475569">Same 500 validation pairs · the layer is selected separately for each detector</text>
-<line x1="260.0" x2="260.0" y1="84" y2="312" stroke="#e1e7ed"/>
-<text x="260.0" y="373" text-anchor="middle" font-size="15">0</text>
-<line x1="407.5" x2="407.5" y1="84" y2="312" stroke="#e1e7ed"/>
-<text x="407.5" y="373" text-anchor="middle" font-size="15">25</text>
-<line x1="555.0" x2="555.0" y1="84" y2="312" stroke="#e1e7ed"/>
-<text x="555.0" y="373" text-anchor="middle" font-size="15">50</text>
-<line x1="702.5" x2="702.5" y1="84" y2="312" stroke="#e1e7ed"/>
-<text x="702.5" y="373" text-anchor="middle" font-size="15">75</text>
-<line x1="850.0" x2="850.0" y1="84" y2="312" stroke="#e1e7ed"/>
-<text x="850.0" y="373" text-anchor="middle" font-size="15">100</text>
-<text x="245" y="110" text-anchor="end" font-size="17">Logistic Regression</text>
-<rect x="260" y="90" width="589.41" height="28" rx="3" fill="#417db0"/>
-<text x="859.41" y="110" text-anchor="start" font-size="17" font-weight="700">99.90%</text>
-<text x="245" y="157" text-anchor="end" font-size="17">Linear SVM</text>
-<rect x="260" y="137" width="589.41" height="28" rx="3" fill="#417db0"/>
-<text x="859.41" y="157" text-anchor="start" font-size="17" font-weight="700">99.90%</text>
-<text x="245" y="204" text-anchor="end" font-size="17">2 layer neural network</text>
-<rect x="260" y="184" width="588.82" height="28" rx="3" fill="#417db0"/>
-<text x="858.82" y="204" text-anchor="start" font-size="17" font-weight="700">99.80%</text>
-<text x="245" y="251" text-anchor="end" font-size="17">Jlens (LLMail)</text>
-<rect x="260" y="231" width="314.47" height="28" rx="3" fill="#417db0"/>
-<text x="584.47" y="251" text-anchor="start" font-size="17" font-weight="700">53.30%</text>
-<text x="245" y="298" text-anchor="end" font-size="17">Jlens (synthetic)</text>
-<rect x="260" y="278" width="318.01000000000005" height="28" rx="3" fill="#417db0"/>
-<text x="588.01" y="298" text-anchor="start" font-size="17" font-weight="700">53.90%</text>
-<text x="555.0" y="407" text-anchor="middle" font-size="17">Validation balanced accuracy (%)</text>
+<line x1="260.0" x2="260.0" y1="58" y2="286" stroke="#e1e7ed"/>
+<text x="260.0" y="347" text-anchor="middle" font-size="15">0</text>
+<line x1="407.5" x2="407.5" y1="58" y2="286" stroke="#e1e7ed"/>
+<text x="407.5" y="347" text-anchor="middle" font-size="15">25</text>
+<line x1="555.0" x2="555.0" y1="58" y2="286" stroke="#e1e7ed"/>
+<text x="555.0" y="347" text-anchor="middle" font-size="15">50</text>
+<line x1="702.5" x2="702.5" y1="58" y2="286" stroke="#e1e7ed"/>
+<text x="702.5" y="347" text-anchor="middle" font-size="15">75</text>
+<line x1="850.0" x2="850.0" y1="58" y2="286" stroke="#e1e7ed"/>
+<text x="850.0" y="347" text-anchor="middle" font-size="15">100</text>
+<text x="245" y="84" text-anchor="end" font-size="17">Logistic Regression</text>
+<rect x="260" y="64" width="589.41" height="28" rx="3" fill="#417db0"/>
+<text x="859.41" y="84" text-anchor="start" font-size="17" font-weight="700">99.90%</text>
+<text x="245" y="131" text-anchor="end" font-size="17">Linear SVM</text>
+<rect x="260" y="111" width="589.41" height="28" rx="3" fill="#417db0"/>
+<text x="859.41" y="131" text-anchor="start" font-size="17" font-weight="700">99.90%</text>
+<text x="245" y="178" text-anchor="end" font-size="17">2 layer neural network</text>
+<rect x="260" y="158" width="588.82" height="28" rx="3" fill="#417db0"/>
+<text x="858.82" y="178" text-anchor="start" font-size="17" font-weight="700">99.80%</text>
+<text x="245" y="225" text-anchor="end" font-size="17">Jlens (LLMail)</text>
+<rect x="260" y="205" width="314.47" height="28" rx="3" fill="#417db0"/>
+<text x="584.47" y="225" text-anchor="start" font-size="17" font-weight="700">53.30%</text>
+<text x="245" y="272" text-anchor="end" font-size="17">Jlens (synthetic)</text>
+<rect x="260" y="252" width="318.01000000000005" height="28" rx="3" fill="#417db0"/>
+<text x="588.01" y="272" text-anchor="start" font-size="17" font-weight="700">53.90%</text>
+<text x="555.0" y="381" text-anchor="middle" font-size="17">Validation balanced accuracy (%)</text>
 </g></svg>

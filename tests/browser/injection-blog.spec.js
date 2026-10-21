@@ -8,8 +8,8 @@ const path = '/blog/prompt-injection-data-curation.html';
 test('subliminal learning is presented as a proposed experiment', async ({ page }) => {
   await page.goto(`${path}#subliminal-learning`);
   await expect(page.locator('#subliminal-learning')).toBeVisible();
-  await expect(page.locator('#limitations')).toContainText('the final eight LoRA adapters were trained on selected FIPI pairs');
-  await expect(page.locator('#limitations')).toContainText('we have not tested whether any unrelated preference was transferred');
+  await expect(page.locator('#limitations')).toContainText('this dataset was not used to fine-tune the eight Qwen2.5-7B adapters');
+  await expect(page.locator('#limitations')).toContainText('These remain questions for a separate experiment');
   await expect(page.locator('#ref-subliminal a').first()).toHaveAttribute('href', 'https://www.nature.com/articles/s41586-026-10319-8');
 });
 
@@ -179,5 +179,49 @@ test('explanatory figures stay readable at narrow and wide widths', async ({ pag
       expect(await figure.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
       await figure.screenshot({ path: `/tmp/blog-figure-${id}-${width}.png` });
     }
+  }
+});
+
+
+test('tool evidence and equation definitions match the edited article', async ({ page }) => {
+  const examples = JSON.parse(readFileSync(new URL('../../assets/blog/injection-defense/examples.json', import.meta.url)));
+  await page.goto(path);
+  const article = page.locator('.blog-article');
+  await expect(article).not.toContainText('insert an example');
+  await expect(article).not.toContainText('Rahman');
+  await expect(page.locator('#evaluator-example')).toHaveText('How the evaluator catches an unauthorized action');
+  await expect(page.locator('#example .attack-action')).toHaveCount(3);
+  await expect(page.locator('#results .evaluator-match')).toHaveCount(4);
+  expect(examples.business.score.attacker_goal_reached).toBe(true);
+  expect(examples.business.score.repetition).toBe(false);
+  expect(examples.business.replayed_tool_results[0].accepted).toBe(true);
+  const toolBox = page.locator('#example .prompt-example').last().locator('pre');
+  await expect(toolBox).toHaveText(examples.business.tool_request);
+  for (const selector of ['base', 'reference_only_update_256']) {
+    await expect(page.locator('#training pre').filter({ hasText: examples.fipi[selector].response })).toHaveCount(1);
+  }
+  await expect(page.locator('.equation')).toHaveCount(4);
+  for (const equation of await page.locator('.equation').all()) {
+    expect(await equation.locator('.definition').count()).toBeGreaterThan(1);
+    for (const definition of await equation.locator('.definition').all()) {
+      await expect(definition.locator('.math')).toHaveCount(1);
+      expect(await definition.evaluate(element => getComputedStyle(element).display)).toBe('block');
+    }
+  }
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.locator('#evaluator-example').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `/tmp/blog-evaluator-${width}.png` });
+    await page.locator('#benchmark').selectOption('agentdojo');
+    await page.locator('#chart-agentdojo').screenshot({ path: `/tmp/blog-main-chart-${width}.png` });
+  }
+});
+
+test('charts have a main title without the previous visible subtitle', () => {
+  for (const slug of ['fipi', 'llmail', 'synthetic-business', 'bipia', 'agentdyn', 'agentlab', 'injecagent', 'agentdojo', 'selection-example', 'detector-accuracy', 'training-objectives']) {
+    const svg = readFileSync(new URL(`../../assets/blog/injection-defense/${slug}.svg`, import.meta.url), 'utf8');
+    expect(svg).not.toContain('<text x="20" y="60"');
+    expect(svg).toContain('<title id="title">');
+    expect(svg).toContain('<desc id="desc">');
   }
 });

@@ -1,46 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 601" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 575" role="img" aria-labelledby="title desc">
 <title id="title">FIPI</title>
 <desc id="desc">Qwen2.5-7B-Instruct · base model and eight data selection methods. Base model: 52.50%; Random selection: 1.50%; Text diversity: 1.50%; Model failures: 2.00%; Logistic Regression: 0.50%; Linear SVM: 1.00%; 2 layer neural network: 1.00%; Jlens (LLMail): 0.50%; Jlens (synthetic): 1.00%</desc>
 <rect width="100%" height="100%" fill="white"/>
 <g font-family="Lato, Arial, sans-serif" fill="#243447">
 <text x="20" y="32" font-size="23" font-weight="700">FIPI</text>
-<text x="20" y="60" font-size="16" fill="#475569">Qwen2.5-7B-Instruct · base model and eight data selection methods</text>
-<line x1="260.0" x2="260.0" y1="84" y2="500" stroke="#e1e7ed"/>
-<text x="260.0" y="561" text-anchor="middle" font-size="15">0</text>
-<line x1="407.5" x2="407.5" y1="84" y2="500" stroke="#e1e7ed"/>
-<text x="407.5" y="561" text-anchor="middle" font-size="15">15</text>
-<line x1="555.0" x2="555.0" y1="84" y2="500" stroke="#e1e7ed"/>
-<text x="555.0" y="561" text-anchor="middle" font-size="15">30</text>
-<line x1="702.5" x2="702.5" y1="84" y2="500" stroke="#e1e7ed"/>
-<text x="702.5" y="561" text-anchor="middle" font-size="15">45</text>
-<line x1="850.0" x2="850.0" y1="84" y2="500" stroke="#e1e7ed"/>
-<text x="850.0" y="561" text-anchor="middle" font-size="15">60</text>
-<text x="245" y="110" text-anchor="end" font-size="17">Base model</text>
-<rect x="260" y="90" width="516.25" height="28" rx="3" fill="#6f7c89"/>
-<text x="786.25" y="110" text-anchor="start" font-size="17" font-weight="700">52.50%</text>
-<text x="245" y="157" text-anchor="end" font-size="17">Random selection</text>
-<rect x="260" y="137" width="14.75" height="28" rx="3" fill="#417db0"/>
-<text x="284.75" y="157" text-anchor="start" font-size="17" font-weight="700">1.50%</text>
-<text x="245" y="204" text-anchor="end" font-size="17">Text diversity</text>
-<rect x="260" y="184" width="14.75" height="28" rx="3" fill="#417db0"/>
-<text x="284.75" y="204" text-anchor="start" font-size="17" font-weight="700">1.50%</text>
-<text x="245" y="251" text-anchor="end" font-size="17">Model failures</text>
-<rect x="260" y="231" width="19.666666666666668" height="28" rx="3" fill="#417db0"/>
-<text x="289.6666666666667" y="251" text-anchor="start" font-size="17" font-weight="700">2.00%</text>
-<text x="245" y="298" text-anchor="end" font-size="17">Logistic Regression</text>
-<rect x="260" y="278" width="4.916666666666667" height="28" rx="3" fill="#22765f"/>
-<text x="274.9166666666667" y="298" text-anchor="start" font-size="17" font-weight="700">0.50%</text>
-<text x="245" y="345" text-anchor="end" font-size="17">Linear SVM</text>
-<rect x="260" y="325" width="9.833333333333334" height="28" rx="3" fill="#417db0"/>
-<text x="279.8333333333333" y="345" text-anchor="start" font-size="17" font-weight="700">1.00%</text>
-<text x="245" y="392" text-anchor="end" font-size="17">2 layer neural network</text>
-<rect x="260" y="372" width="9.833333333333334" height="28" rx="3" fill="#417db0"/>
-<text x="279.8333333333333" y="392" text-anchor="start" font-size="17" font-weight="700">1.00%</text>
-<text x="245" y="439" text-anchor="end" font-size="17">Jlens (LLMail)</text>
-<rect x="260" y="419" width="4.916666666666667" height="28" rx="3" fill="#22765f"/>
-<text x="274.9166666666667" y="439" text-anchor="start" font-size="17" font-weight="700">0.50%</text>
-<text x="245" y="486" text-anchor="end" font-size="17">Jlens (synthetic)</text>
-<rect x="260" y="466" width="9.833333333333334" height="28" rx="3" fill="#417db0"/>
-<text x="279.8333333333333" y="486" text-anchor="start" font-size="17" font-weight="700">1.00%</text>
-<text x="555.0" y="595" text-anchor="middle" font-size="17">Reported ASR (%) · lower is better</text>
+<line x1="260.0" x2="260.0" y1="58" y2="474" stroke="#e1e7ed"/>
+<text x="260.0" y="535" text-anchor="middle" font-size="15">0</text>
+<line x1="407.5" x2="407.5" y1="58" y2="474" stroke="#e1e7ed"/>
+<text x="407.5" y="535" text-anchor="middle" font-size="15">15</text>
+<line x1="555.0" x2="555.0" y1="58" y2="474" stroke="#e1e7ed"/>
+<text x="555.0" y="535" text-anchor="middle" font-size="15">30</text>
+<line x1="702.5" x2="702.5" y1="58" y2="474" stroke="#e1e7ed"/>
+<text x="702.5" y="535" text-anchor="middle" font-size="15">45</text>
+<line x1="850.0" x2="850.0" y1="58" y2="474" stroke="#e1e7ed"/>
+<text x="850.0" y="535" text-anchor="middle" font-size="15">60</text>
+<text x="245" y="84" text-anchor="end" font-size="17">Base model</text>
+<rect x="260" y="64" width="516.25" height="28" rx="3" fill="#6f7c89"/>
+<text x="786.25" y="84" text-anchor="start" font-size="17" font-weight="700">52.50%</text>
+<text x="245" y="131" text-anchor="end" font-size="17">Random selection</text>
+<rect x="260" y="111" width="14.75" height="28" rx="3" fill="#417db0"/>
+<text x="284.75" y="131" text-anchor="start" font-size="17" font-weight="700">1.50%</text>
+<text x="245" y="178" text-anchor="end" font-size="17">Text diversity</text>
+<rect x="260" y="158" width="14.75" height="28" rx="3" fill="#417db0"/>
+<text x="284.75" y="178" text-anchor="start" font-size="17" font-weight="700">1.50%</text>
+<text x="245" y="225" text-anchor="end" font-size="17">Model failures</text>
+<rect x="260" y="205" width="19.666666666666668" height="28" rx="3" fill="#417db0"/>
+<text x="289.6666666666667" y="225" text-anchor="start" font-size="17" font-weight="700">2.00%</text>
+<text x="245" y="272" text-anchor="end" font-size="17">Logistic Regression</text>
+<rect x="260" y="252" width="4.916666666666667" height="28" rx="3" fill="#22765f"/>
+<text x="274.9166666666667" y="272" text-anchor="start" font-size="17" font-weight="700">0.50%</text>
+<text x="245" y="319" text-anchor="end" font-size="17">Linear SVM</text>
+<rect x="260" y="299" width="9.833333333333334" height="28" rx="3" fill="#417db0"/>
+<text x="279.8333333333333" y="319" text-anchor="start" font-size="17" font-weight="700">1.00%</text>
+<text x="245" y="366" text-anchor="end" font-size="17">2 layer neural network</text>
+<rect x="260" y="346" width="9.833333333333334" height="28" rx="3" fill="#417db0"/>
+<text x="279.8333333333333" y="366" text-anchor="start" font-size="17" font-weight="700">1.00%</text>
+<text x="245" y="413" text-anchor="end" font-size="17">Jlens (LLMail)</text>
+<rect x="260" y="393" width="4.916666666666667" height="28" rx="3" fill="#22765f"/>
+<text x="274.9166666666667" y="413" text-anchor="start" font-size="17" font-weight="700">0.50%</text>
+<text x="245" y="460" text-anchor="end" font-size="17">Jlens (synthetic)</text>
+<rect x="260" y="440" width="9.833333333333334" height="28" rx="3" fill="#417db0"/>
+<text x="279.8333333333333" y="460" text-anchor="start" font-size="17" font-weight="700">1.00%</text>
+<text x="555.0" y="569" text-anchor="middle" font-size="17">Reported ASR (%) · lower is better</text>
 </g></svg>
