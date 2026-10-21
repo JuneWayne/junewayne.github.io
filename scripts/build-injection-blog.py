@@ -23,10 +23,12 @@ notes = {
     'AgentDojo': '949 injection cases per model, using original task checks with one fixed published injection template and the configured repetition rule. All nine evaluations are complete, with unresolved cases excluded from the scored denominator.',
 }
 
-def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is better', limit=None, mobile=False):
+def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is better', limit=None, mobile=False, show_subtitle=False):
     width, left, right, top, step = 960, 260, 110, 78, 47
     if mobile:
         width, left, right, top, step = 400, 16, 16, 75, 64
+    if show_subtitle:
+        top += 26
     height = top + step * len(rows) + 74
     scores = [row['value'] for row in rows if row['value'] is not None]
     maximum = limit or max(5, min(100, (int(max(scores) / 10) + 1) * 10))
@@ -35,6 +37,8 @@ def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is bet
     if mobile:
         # The caption already gives the model name, leaving space for larger row labels
         svg[-1] = f'<text x="16" y="30" font-size="20" font-weight="700">{html.escape(title)}</text>'
+    if show_subtitle:
+        svg.append(f'<text class="chart-subtitle" x="{16 if mobile else 20}" y="60" font-size="{14 if mobile else 17}" fill="#475569">{html.escape(subtitle)}</text>')
     for i in range(5):
         tick = maximum * i / 4
         x = left + span * tick / maximum
@@ -54,7 +58,7 @@ def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is bet
     svg += [f'<text x="{left + span / 2}" y="{height - 6}" text-anchor="middle" font-size="17">{html.escape(axis)}</text>', '</g></svg>']
     (ASSETS / filename).write_text('\n'.join(svg))
     if not mobile:
-        bars(title, subtitle, rows, filename.replace('.svg', '-mobile.svg'), axis, limit, mobile=True)
+        bars(title, subtitle, rows, filename.replace('.svg', '-mobile.svg'), axis, limit, mobile=True, show_subtitle=show_subtitle)
 
 panels, csv_rows = [], []
 for name in order:
@@ -91,8 +95,8 @@ detector_table = '<div class="table-scroll" tabindex="0" role="region" aria-labe
 
 objective_names = {'base': 'Base model', 'reference_only': 'Reference response only', 'separation_only': 'Hidden state separation', 'combined': 'Combined objectives'}
 objective_rows = [r for r in data['objectives'] if r['method'] == 'base' or r['update'] == '256']
-bars('Training objective comparison', 'Diagnostic comparison · 256 updates · 32 separate testing prompts', [{'label': objective_names[r['method']], 'value': float(r['attack_success_rate_percent']), 'base': r['method'] == 'base', 'best': r['method'] == 'reference_only'} for r in objective_rows], 'training-objectives.svg', 'Injected answer or repetition (%)', 100)
-objective_table = '<div class="table-scroll" tabindex="0" role="region" aria-label="Comparison details"><table><thead><tr><th scope="col">Objective</th><th scope="col">Injected answer</th><th scope="col">Repetition</th><th scope="col">Either outcome</th></tr></thead><tbody>' + ''.join(f'<tr><th scope="row">{objective_names[r["method"]]}</th><td>{r["phrase_present"]} / 32</td><td>{r["repetition_total"]} / 32</td><td>{r["attack_succeeded"]} / 32</td></tr>' for r in objective_rows) + '</tbody></table></div>'
+bars('Training objective comparison', 'Model behavior from each training objective', [{'label': objective_names[r['method']], 'value': float(r['attack_success_rate_percent']), 'base': r['method'] == 'base', 'best': r['method'] == 'reference_only'} for r in objective_rows], 'training-objectives.svg', 'Injected answer or repetition (%)', 100, show_subtitle=True)
+objective_table = '<div class="table-scroll" tabindex="0" role="region" aria-label="Training objective results"><table><thead><tr><th scope="col">Objective</th><th scope="col">Injected answer</th><th scope="col">Repetition</th></tr></thead><tbody>' + ''.join(f'<tr><th scope="row">{objective_names[r["method"]]}</th><td>{r["phrase_present"]} / 32</td><td>{r["repetition_total"]} / 32</td></tr>' for r in objective_rows) + '</tbody></table></div>'
 
 # These two figures illustrate the formulas rather than report experiment results
 bars('Worked selection example', 'Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465', [{'label': 'Injection prompt', 'value': 90}, {'label': 'Safe prompt', 'value': 3}], 'selection-example.svg', 'Incorrect-label probability (%)', 100)

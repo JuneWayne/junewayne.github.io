@@ -149,7 +149,7 @@ test('figures have stable numbers and matching references', async ({ page }) => 
     await expect(reference.locator('..')).toContainText('According to the figure above');
   }
   await expect(page.locator('#training')).toContainText('90% of the previous center with 10% of the new average');
-  await expect(page.locator('#training')).toContainText('separately initialized adapters');
+  await expect(page.locator('#training')).toContainText('three adapters from the same Qwen2.5-7B base model');
   await expect(page.locator('.blog-article')).not.toContainText('fresh adapter');
   await expect(page.locator('.pipeline')).toHaveCount(0);
 });
@@ -219,12 +219,30 @@ test('tool evidence and equation definitions match the edited article', async ({
   }
 });
 
-test('charts have a main title without the previous visible subtitle', () => {
+test('charts keep one main title and only the requested objective subtitle', () => {
   for (const slug of ['fipi', 'llmail', 'synthetic-business', 'bipia', 'agentdyn', 'agentlab', 'injecagent', 'agentdojo', 'selection-example', 'detector-accuracy', 'training-objectives']) {
     const svg = readFileSync(new URL(`../../assets/blog/injection-defense/${slug}.svg`, import.meta.url), 'utf8');
     expect(svg).not.toContain('<text x="20" y="60"');
     expect(svg).toContain('<title id="title">');
     expect(svg).toContain('<desc id="desc">');
+    expect(svg.includes('class="chart-subtitle"')).toBe(slug === 'training-objectives');
+  }
+});
+
+test('objective figure has one title and two result columns', async ({ page }) => {
+  await page.goto(`${path}#figure-training-objectives`);
+  await expect(page.locator('#the-controlled-objective-comparison')).toHaveCount(0);
+  const table = page.getByRole('region', { name: 'Training objective results', exact: true });
+  await expect(table.locator('thead th')).toHaveText(['Objective', 'Injected answer', 'Repetition']);
+  await expect(table.locator('tbody tr')).toHaveCount(4);
+  await expect(table).not.toContainText('Either outcome');
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 1100 });
+    const figure = page.locator('#figure-training-objectives');
+    await figure.locator('img').evaluate(image => image.decode());
+    await figure.screenshot({ path: `/tmp/blog-objective-chart-${width}.png` });
+    await table.screenshot({ path: `/tmp/blog-objective-table-${width}.png` });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
 });
 
@@ -242,7 +260,7 @@ test('plain labels, original prompts, and optional objective explanations', asyn
     await expect(page.locator(`#${id}`)).toHaveAttribute('open');
     await page.locator(`#${id} > summary`).click();
   }
-  await expect(page.locator('#the-controlled-objective-comparison')).toBeVisible();
+  await expect(page.locator('#figure-training-objectives')).toBeVisible();
   await page.goto(`${path}#figure-token-loss`);
   await expect(page.locator('#explain-reference-training')).toHaveAttribute('open');
   await expect(page.locator('#figure-token-loss')).toBeVisible();
