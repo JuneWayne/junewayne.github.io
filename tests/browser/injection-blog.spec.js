@@ -122,3 +122,54 @@ test('equations fit desktop and scroll within their boxes on small screens', asy
     }
   }
 });
+
+test('figures have stable numbers and matching references', async ({ page }) => {
+  await page.goto(path);
+  const figures = await page.locator('.blog-article figure').evaluateAll(items => items.map(figure => ({
+    id: figure.id,
+    number: Number(figure.dataset.figureNumber),
+    caption: figure.querySelector('.figure-number')?.textContent,
+  })));
+  expect(figures).toHaveLength(16);
+  expect(new Set(figures.map(figure => figure.id)).size).toBe(16);
+  for (const [index, figure] of figures.entries()) {
+    expect(figure.number).toBe(index + 1);
+    expect(figure.caption).toBe(`Figure ${index + 1}.`);
+    const reference = page.locator(`.figure-reference[href="#${figure.id}"]`);
+    await expect(reference).toHaveText(`Figure ${index + 1}`);
+    await expect(reference.locator('..')).toContainText('According to the figure above');
+  }
+  await expect(page.locator('#training')).toContainText('90% of the previous center with 10% of the new average');
+  await expect(page.locator('#training')).toContainText('separately initialized adapters');
+  await expect(page.locator('.blog-article')).not.toContainText('fresh adapter');
+  await expect(page.locator('.pipeline')).toHaveCount(0);
+});
+
+test('figure links open the requested benchmark', async ({ page }) => {
+  await page.goto(`${path}#figure-agentdojo`);
+  await expect(page.locator('#benchmark')).toHaveValue('agentdojo');
+  await expect(page.locator('#chart-agentdojo')).toBeVisible();
+  // The hash can stay the same when another benchmark is selected manually
+  await page.locator('#benchmark').selectOption('fipi');
+  await page.evaluate(() => document.querySelector('a[href="#figure-agentdojo"]').click());
+  await expect(page.locator('#chart-agentdojo')).toBeVisible();
+  await page.evaluate(() => { location.hash = 'figure-bipia'; });
+  await expect(page.locator('#benchmark')).toHaveValue('bipia');
+  await expect(page.locator('#chart-bipia')).toBeVisible();
+});
+
+test('explanatory figures stay readable at narrow and wide widths', async ({ page }) => {
+  const ids = ['data-selection', 'selection-score', 'jlens-readout', 'injection-center', 'reference-training', 'token-loss'];
+  for (const width of [390, 720, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(path);
+    await page.evaluate(() => document.fonts.ready);
+    await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    for (const id of ids) {
+      const figure = page.locator(`#figure-${id}`);
+      expect(await figure.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
+      await figure.screenshot({ path: `/tmp/blog-figure-${id}-${width}.png` });
+    }
+  }
+});

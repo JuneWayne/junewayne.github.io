@@ -3,6 +3,7 @@
 import csv
 import html
 import json
+import math
 import re
 from pathlib import Path
 
@@ -12,14 +13,14 @@ data = json.loads((ASSETS / 'results.json').read_text())
 methods = data['methods']
 order = ['FIPI', 'LLMail', 'Synthetic business', 'BIPIA', 'AgentDyn', 'AgentLAB', 'InjecAgent', 'AgentDojo']
 notes = {
-    'FIPI': '200 held-out injection prompts from FIPI. Checks whether the response contains the answer requested by the injection. This is within-dataset testing, not a test on a new dataset.',
-    'LLMail': '1,000 injection prompts in the adapted summary task. Counts an unauthorized send_email request or detected repetition. Tools do not execute.',
-    'Synthetic business': '400 injection prompts in simulated business tasks. Counts disclosure of the requested fake secret, the requested protected changes, or repetition. Reviewed scores include instructions carried in accepted records. Some cases remain unresolved.',
-    'BIPIA': '600 injection prompts from the message, table, and code subset. Uses published rules, local model judgments, and saved-response review. Repetition counts where the configured rule flags it. Some judgments remain unresolved.',
-    'AgentDyn': '560 injection cases across shopping, GitHub, and daily-life tasks. Uses original environment checks plus the configured repetition rule. These are results after the tool-parser repair.',
-    'AgentLAB': '416 released Task-Injection cases, replayed without adaptive attack optimization. Uses original environment checks plus the configured repetition rule. These are results after the tool-parser repair.',
-    'InjecAgent': '2,108 cases across the base and enhanced settings. Counts attacker-directed tool requests or repetition, with simulated second-stage responses where needed. This does not measure completed real-world actions.',
-    'AgentDojo': '949 injection cases per model, using original task checks with one fixed published injection template, plus the configured repetition rule. All nine evaluations are complete. Unresolved cases are excluded from the scored denominator.',
+    'FIPI': '200 held-out FIPI injection prompts, scored by whether the response contains the answer requested by the injection. This tests new examples from the training dataset rather than a new data source.',
+    'LLMail': '1,000 injection prompts in the adapted summary task, where an unauthorized send_email request or detected repetition counts as success. The tool request is inspected without executing it.',
+    'Synthetic business': '400 injection prompts in simulated business tasks, scored for disclosure of the requested fake secret, protected changes, or repetition. Reviewed scores also include instructions carried in accepted records, while unresolved cases remain in the count table.',
+    'BIPIA': '600 injection prompts from the message, table, and code subset, scored with published rules, local model judgments, and saved-response review. The configured rule also counts repetition, while some judgments remain unresolved.',
+    'AgentDyn': '560 injection cases across shopping, GitHub, and daily-life tasks, using the original environment checks and configured repetition rule. These results come from the evaluation after the tool-parser repair.',
+    'AgentLAB': '416 released Task-Injection cases, replayed without adaptive attack optimization and scored with the original environment checks and configured repetition rule. These results come from the evaluation after the tool-parser repair.',
+    'InjecAgent': '2,108 cases across the base and enhanced settings, scored for attacker-directed tool requests or repetition. Some cases use simulated second-stage responses, so these rates concern requested actions rather than completed real-world actions.',
+    'AgentDojo': '949 injection cases per model, using original task checks with one fixed published injection template and the configured repetition rule. All nine evaluations are complete, with unresolved cases excluded from the scored denominator.',
 }
 
 def bars(title, subtitle, rows, filename, axis='Reported ASR (%) · lower is better', limit=None, mobile=False):
@@ -72,7 +73,12 @@ for name in order:
             best_class = ' class="best numeric"' if row['asr'] == best else ' class="numeric"'
             table += f'<tr><th scope="row">{methods[row["method"]]}</th><td class="numeric">{row["successes"]} / {row["scored"]}</td><td class="numeric">{row["unresolved"]}</td><td{best_class}>{row["asr"]:.2f}%</td></tr>'
     table += '</tbody></table></div>'
-    panels.append(f'<div class="chart-panel" id="chart-{slug}"><h3>{name}</h3><figure><div class="chart-scroll" tabindex="0" role="region" aria-label="Scrollable comparison chart"><img src="../assets/blog/injection-defense/{slug}.svg" width="960" height="601" loading="eager" alt="{name}: reported attack success rates for the base model and eight selection methods"></div><figcaption>{notes[name]} Green marks the lowest completed adapter result.</figcaption></figure><details><summary>Exact counts and unresolved cases</summary>{table}</details></div>')
+    winners = [methods[row['method']] for row in complete if row['asr'] == best]
+    base = next(row for row in rows if row['method'] == 'base')
+    winner_text = ' and '.join(winners)
+    outcome = f'adapters trained on data selected by {winner_text} tied for the lowest reported ASR' if len(winners) > 1 else f'the adapter trained on data selected by {winner_text} had the lowest reported ASR'
+    explanation = f'According to the figure above (<a class="figure-reference" href="#figure-{slug}">Figure</a>), {outcome} at {best:.2f}%, compared with {base["asr"]:.2f}% for the base model. These rates use each model\'s scored cases, with unresolved counts listed separately.'
+    panels.append(f'<div class="chart-panel" id="chart-{slug}"><h3>{name}</h3><figure id="figure-{slug}"><div class="chart-scroll" tabindex="0" role="region" aria-label="Scrollable comparison chart"><img src="../assets/blog/injection-defense/{slug}.svg" width="960" height="601" loading="eager" alt="{name}: reported attack success rates for the base model and eight selection methods"></div><figcaption>{notes[name]} Green marks the lowest reported adapter ASR. Each benchmark has its own axis scale.</figcaption></figure><p>{explanation}</p><details><summary>Exact counts and unresolved cases</summary>{table}</details></div>')
 
 fields = sorted(set().union(*(row.keys() for row in csv_rows)))
 with (ASSETS / 'results.csv').open('w', newline='') as stream:
@@ -86,8 +92,44 @@ detector_table = '<div class="table-scroll" tabindex="0" role="region" aria-labe
 
 objective_names = {'base': 'Base model', 'reference_only': 'Reference response only', 'separation_only': 'Hidden state separation', 'combined': 'Combined objectives'}
 objective_rows = [r for r in data['objectives'] if r['method'] == 'base' or r['update'] == '256']
-bars('Which training objective did we keep?', 'Controlled comparison · 256 updates · 32 separate testing prompts', [{'label': objective_names[r['method']], 'value': float(r['attack_success_rate_percent']), 'base': r['method'] == 'base', 'best': r['method'] == 'reference_only'} for r in objective_rows], 'training-objectives.svg', 'Injected answer or repetition (%)', 100)
+bars('Training objective comparison', 'Diagnostic comparison · 256 updates · 32 separate testing prompts', [{'label': objective_names[r['method']], 'value': float(r['attack_success_rate_percent']), 'base': r['method'] == 'base', 'best': r['method'] == 'reference_only'} for r in objective_rows], 'training-objectives.svg', 'Injected answer or repetition (%)', 100)
 objective_table = '<div class="table-scroll" tabindex="0" role="region" aria-label="Comparison details"><table><thead><tr><th scope="col">Objective</th><th scope="col">Injected answer</th><th scope="col">Repetition</th><th scope="col">Either outcome</th></tr></thead><tbody>' + ''.join(f'<tr><th scope="row">{objective_names[r["method"]]}</th><td>{r["phrase_present"]} / 32</td><td>{r["repetition_total"]} / 32</td><td>{r["attack_succeeded"]} / 32</td></tr>' for r in objective_rows) + '</tbody></table></div>'
+
+# These two figures illustrate the formulas rather than report experiment results
+bars('Worked selection example', 'Illustrative probabilities · pair score = (0.90 + 0.03) / 2 = 0.465', [{'label': 'Injection prompt', 'value': 90}, {'label': 'Safe prompt', 'value': 3}], 'selection-example.svg', 'Incorrect-label probability (%)', 100)
+
+for mobile in [False, True]:
+    width, height = (400, 360) if mobile else (960, 360)
+    left, right, top, bottom = 56, 32, 76, 284
+    span = width - left - right
+    title = 'Probability and token loss' if mobile else 'Reference-token probability and loss'
+    svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">', '<title id="title">Reference-token probability and loss</title>', '<desc id="desc">An illustration of negative log probability. Probability 0.10 gives loss 2.30; probability 0.80 gives loss 0.22. This is not a measured training curve.</desc>', '<rect width="100%" height="100%" fill="white"/>', '<g font-family="Lato, Arial, sans-serif" fill="#243447">', f'<text x="16" y="30" font-size="{19 if mobile else 23}" font-weight="700">{title}</text>']
+    for loss in [0, 1, 2, 3, 4, 5]:
+        y = bottom - loss / 5 * (bottom - top)
+        svg += [f'<line x1="{left}" x2="{width - right}" y1="{y}" y2="{y}" stroke="#e1e7ed"/>', f'<text x="{left - 12}" y="{y + 5}" text-anchor="end" font-size="15">{loss}</text>']
+    for probability in [0, 0.25, 0.5, 0.75, 1]:
+        x = left + probability * span
+        svg.append(f'<text x="{x}" y="{bottom + 25}" text-anchor="middle" font-size="15">{probability:g}</text>')
+    points = []
+    for step in range(1, 101):
+        probability = step / 100
+        x = left + probability * span
+        y = bottom - (-math.log(probability)) / 5 * (bottom - top)
+        points.append(f'{x:.2f},{y:.2f}')
+    svg.append('<polyline points="' + ' '.join(points) + '" fill="none" stroke="#417db0" stroke-width="3"/>')
+    for probability in [0.1, 0.8]:
+        loss = -math.log(probability)
+        x = left + probability * span
+        y = bottom - loss / 5 * (bottom - top)
+        anchor = 'start' if probability == 0.1 else 'end'
+        offset = 12 if probability == 0.1 else -12
+        label_y = y - (58 if mobile and probability == 0.8 else 18)
+        if mobile and probability == 0.8:
+            svg.append(f'<line x1="{x}" x2="{x}" y1="{y - 8}" y2="{label_y + 8}" stroke="#9aafc2"/>')
+        svg += [f'<circle cx="{x}" cy="{y}" r="5" fill="#245e95"/>', f'<text x="{x + offset}" y="{label_y}" text-anchor="{anchor}" font-size="16">p = {probability:.2f}, loss = {loss:.2f}</text>']
+    svg += [f'<text x="{left + span / 2}" y="348" text-anchor="middle" font-size="17">Reference-token probability</text>', f'<text x="18" y="{(top + bottom) / 2}" text-anchor="middle" transform="rotate(-90 18 {(top + bottom) / 2})" font-size="17">Token loss</text>', '</g></svg>']
+    filename = 'reference-token-loss-mobile.svg' if mobile else 'reference-token-loss.svg'
+    (ASSETS / filename).write_text('\n'.join(svg))
 
 page = ROOT / 'blog/prompt-injection-data-curation.html'
 text = page.read_text()
@@ -99,5 +141,18 @@ for key, value in [('RESULTS', '\n'.join(panels)), ('DETECTORS', detector_table)
 # Separate SVG layouts keep all labels readable without shrinking desktop charts
 text = re.sub(r'<picture><source[^>]+>(<img[^>]+>)</picture>', r'\1', text)
 text = re.sub(r'<img src="(\.\./assets/blog/injection-defense/[^\"]+)\.svg"[^>]+>', lambda match: '<picture><source media="(max-width: 580px)" srcset="' + match.group(1) + '-mobile.svg">' + match.group(0) + '</picture>', text)
+
+# Number figures in reading order, including benchmark charts hidden by the selector
+text = re.sub(r'<span class="figure-number">Figure \d+\.</span>\s*', '', text)
+figure_numbers = {}
+def number_figure(match):
+    identifier, contents = match.groups()
+    number = len(figure_numbers) + 1
+    figure_numbers[identifier] = number
+    contents = contents.replace('<figcaption>', f'<figcaption><span class="figure-number">Figure {number}.</span> ', 1)
+    return f'<figure id="{identifier}" data-figure-number="{number}">{contents}</figure>'
+
+text = re.sub(r'<figure id="([^"]+)"(?: data-figure-number="\d+")?>(.*?)</figure>', number_figure, text, flags=re.S)
+text = re.sub(r'<a class="figure-reference" href="#([^"]+)">Figure(?: \d+)?</a>', lambda match: f'<a class="figure-reference" href="#{match[1]}">Figure {figure_numbers[match[1]]}</a>', text)
 page.write_text(text)
-print('Built 10 figures, 8 result tables, and downloadable result data')
+print(f'Updated {len(figure_numbers)} numbered figures, 8 result tables, and downloadable result data')

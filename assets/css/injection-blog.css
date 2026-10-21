@@ -10,16 +10,17 @@
 .blog-toc { position: sticky; top: 28px; font-size: .9rem; }
 .blog-toc nav { display: flex; flex-direction: column; align-items: stretch; gap: 3px; }
 .blog-toc nav a { font-size: .9rem; min-height: 36px; line-height: 1.4; padding: 6px 0; }
-.blog-article { min-width: 0; font-size: 1.08rem; line-height: 1.8; }
+.blog-article { min-width: 0; font-size: 1.08rem; line-height: 1.6; }
 .blog-article section { margin-bottom: 64px; scroll-margin-top: 25px; }
 .blog-article h2 { font-size: 2rem; margin: 0 0 26px; }
 .blog-article h3 { font-size: 1.3rem; font-weight: 700; margin: 30px 0 14px; }
-.blog-article p { margin: 0 0 21px; }
+.blog-article p { max-width: 72ch; margin: 0 0 21px; }
 .blog-article ul, .blog-article ol { padding-left: 25px; margin: 20px 0; }
 .blog-article li { padding-left: 3px; margin-bottom: 12px; }
 .blog-article .note { padding: 22px 26px; border-left: 3px solid #94b8d7; background: #f4f8fc; }
 .blog-article .note p:last-child { margin-bottom: 0; }
-.blog-article figure { margin: 35px 0; }
+.blog-article figure { margin: 40px 0 28px; scroll-margin-top: 24px; }
+.figure-number { color: #243447; font-weight: 700; }
 .blog-article figcaption { margin-top: 12px; color: #475569; font-size: .94rem; line-height: 1.6; }
 .blog-article img { width: 100%; }
 .chart-scroll { overflow-x: auto; }
@@ -37,10 +38,17 @@
 .math-display .katex-display > .katex { width: max-content; min-width: 100%; }
 .math-display:focus-visible { outline: 2px solid #245e95; outline-offset: 3px; }
 .equation .definition { display: block; font: .95rem/1.65 Lato, sans-serif; color: #475569; margin-top: 10px; }
-.pipeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 30px 0; }
-.pipeline > div { padding: 23px 20px; background: #f3f7fb; border: 1px solid #d6e1ec; border-radius: 8px; }
-.pipeline strong { display: block; color: #245e95; margin-bottom: 9px; }
-.pipeline p { font-size: .95rem; line-height: 1.6; margin: 0; }
+/* Plain diagrams use text, arrows, and spacing instead of cards */
+.blog-article .method-flow { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; padding: 24px 0; margin: 0; }
+.blog-article .method-flow li { position: relative; padding: 0; margin: 0; }
+.method-flow strong, .center-update strong { display: block; color: #243447; font-size: 1rem; line-height: 1.5; }
+.method-flow span, .center-update div > span { display: block; color: #475569; font-size: .94rem; line-height: 1.6; margin-top: 8px; }
+.method-flow li:not(:last-child)::after { content: '→'; position: absolute; inset-inline-end: -34px; top: 0; color: #475569; font-size: 1.3rem; }
+.training-paths { padding-block: 16px; }
+.blog-article .path-label { font-size: .94rem; color: #475569; margin: 0; }
+.training-paths .method-flow + .path-label { margin-top: 24px; }
+.center-update { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); align-items: start; gap: 20px; padding-block: 24px; }
+.center-update .operation { font-size: 1.3rem; color: #475569; }
 .table-scroll { overflow-x: auto; margin: 25px 0; border: 1px solid #dfe5eb; border-radius: 6px; }
 .blog-article table { border-collapse: collapse; width: 100%; font-size: .92rem; line-height: 1.55; }
 .blog-article th, .blog-article td { padding: 12px 14px; border-bottom: 1px solid #e6ebef; text-align: left; }
@@ -60,5 +68,6 @@
 .blog-article .references li { margin-bottom: 18px; }
 .blog-footer { border-top: 1px solid #dfe5eb; padding: 30px 0 50px; margin-top: 40px; }
 @media (max-width: 980px) { .blog-layout { grid-template-columns: 1fr; gap: 20px; } .blog-toc { position: static; padding: 18px 0 24px; border-block: 1px solid #dfe5eb; margin-bottom: 25px; } .blog-toc nav { flex-direction: row; flex-wrap: wrap; column-gap: 22px; } .blog-hero { padding-top: 45px; } }
-@media (max-width: 580px) { .blog-shell { padding: 0 20px; } .blog-article { font-size: 1rem; } .blog-article h2 { font-size: 1.65rem; } .pipeline { grid-template-columns: 1fr; } .blog-hero h1 { font-size: 2.2rem; } .prompt-example { padding: 18px; } .blog-header { font-size: .92rem; gap: 15px; } }
+@media (max-width: 640px) { .blog-article .method-flow { grid-template-columns: 1fr; gap: 42px; } .method-flow li:not(:last-child)::after { content: '↓'; inset-inline-end: auto; inset-inline-start: 0; top: auto; bottom: -34px; } .center-update { grid-template-columns: 1fr; gap: 14px; } }
+@media (max-width: 580px) { .blog-shell { padding: 0 20px; } .blog-article { font-size: 1rem; } .blog-article h2 { font-size: 1.65rem; } .blog-hero h1 { font-size: 2.2rem; } .prompt-example { padding: 18px; } .blog-header { font-size: .92rem; gap: 15px; } }
 @media print { .blog-toc, .result-controls, .blog-header { display: none; } .blog-layout { display: block; } .chart-panel[hidden] { display: block; } .chart-panel { break-inside: avoid; } .blog-shell { max-width: none; padding: 0; } .chart-scroll img { min-width: 0; } }
