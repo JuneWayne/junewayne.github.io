@@ -162,9 +162,32 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await page.goto('http://127.0.0.1:5173/');
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
   await expect(page.locator('#profile-bio')).toContainText('University of Virginia');
+  await expect(page.locator('#cv #cisco')).toContainText('Data Scientist Intern');
+  await expect(page.locator('#cv + #research .research-row')).toHaveCount(4);
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Cat' }).click();
   await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
   await context.close();
+});
+
+test('homepage CV follows the profile and keeps experience filters and contributions working', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.profile + #cv + #research')).toHaveCount(1);
+  await page.locator('.profile-identity').getByRole('link', { name: 'CV', exact: true }).click();
+  await expect(page).toHaveURL(/#cv$/);
+  await expect(page.locator('#cv-title')).toBeInViewport();
+  await expect(page.locator('#experience-filters').getByRole('button', { name: 'Industry' })).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#cisco').getByRole('button', { name: 'Cisco Systems' }).click();
+  await expect(page.locator('#cisco-contributions')).toHaveAttribute('open', '');
+  await page.locator('#experience-filters').getByRole('button', { name: 'Teaching' }).click();
+  await expect(page.locator('#guest-lecture')).toBeVisible();
+  await expect(page.locator('#cisco')).toBeHidden();
+  await expect(page.locator('#education-list .education-card')).toHaveCount(site.cv.education.length);
+  await expect(page.locator('#cv-coursework .coursework-group')).toHaveCount(site.cv.coursework.length);
+  await expect(page.locator('#resume-actions').getByRole('link', { name: 'View resume (PDF)' })).toHaveAttribute('href', site.cv.url);
+  await page.locator('[data-nav=cv]').click();
+  await expect(page.locator('#cisco h3')).toBeVisible();
+  await page.locator('[data-nav=profile]').click();
+  await expect(page.locator('#cv #cisco h4')).toBeVisible();
 });
 
 

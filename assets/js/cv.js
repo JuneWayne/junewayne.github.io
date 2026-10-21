@@ -18,7 +18,7 @@ function resource({ label, url, download = false }) {
   return anchor;
 }
 
-function experienceCard(experience) {
+function experienceCard(experience, headingTag = 'h3') {
   const item = node('li', 'experience-item');
   item.dataset.category = experience.category;
   const card = node('article', 'experience-card');
@@ -27,7 +27,7 @@ function experienceCard(experience) {
   const copy = node('div', 'experience-copy');
   const meta = node('div', 'experience-meta');
   if (experience.dates) meta.append(node('p', 'experience-dates', experience.dates));
-  const heading = node('h3', '', experience.organization);
+  const heading = node(headingTag, '', experience.organization);
   heading.id = `${experience.id}-title`;
   const destination = experience.links?.find(link => !link.download);
   if (destination) {
@@ -91,6 +91,8 @@ function experienceCard(experience) {
 export function renderCV() {
   const content = document.querySelector('#cv-content');
   if (!content) return;
+  const sectionHeading = content.closest('#cv') ? 'h3' : 'h2';
+  const cardHeading = content.closest('#cv') ? 'h4' : 'h3';
   const data = site.cv;
   const actions = document.querySelector('#resume-actions');
   actions.replaceChildren();
@@ -100,7 +102,7 @@ export function renderCV() {
   );
 
   const list = document.querySelector('#experience-list');
-  list.replaceChildren(...(data.experiences || []).map(experienceCard));
+  list.replaceChildren(...(data.experiences || []).map(experience => experienceCard(experience, cardHeading)));
   const filters = document.querySelector('#experience-filters');
   const status = document.querySelector('#experience-status');
   const categories = [...new Set((data.experiences || []).map((item) => item.category))];
@@ -125,13 +127,13 @@ export function renderCV() {
 
   document.querySelector('#education-list').replaceChildren(...(data.education || []).map((entry) => {
     const card = node('article', 'education-card');
-    card.append(node('h3', '', entry.degree), node('p', 'education-institution', entry.institution), node('p', '', entry.detail), node('p', 'education-status', entry.status));
+    card.append(node(cardHeading, '', entry.degree), node('p', 'education-institution', entry.institution), node('p', '', entry.detail), node('p', 'education-status', entry.status));
     return card;
   }));
   const coursework = document.querySelector('#cv-coursework');
   coursework.replaceChildren();
   if (data.coursework?.length) {
-    const heading = node('h2', '', 'Coursework');
+    const heading = node(sectionHeading, '', 'Coursework');
     heading.id = 'coursework-heading';
     coursework.append(heading);
     data.coursework.forEach((group, index) => {
@@ -156,7 +158,7 @@ export function renderCV() {
     const block = node('div', 'skill-group');
     const list = node('ul');
     group.items.forEach((skill) => list.append(node('li', '', skill)));
-    block.append(node('h3', '', group.title), list);
+    block.append(node(cardHeading, '', group.title), list);
     return block;
   }));
 
