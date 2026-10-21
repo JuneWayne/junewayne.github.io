@@ -12,7 +12,8 @@
   <link rel="icon" href="../assets/favicon.svg?v=layla" type="image/svg+xml">
   <link rel="preload" href="../assets/fonts/lato-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css?v=20261015-project-alignment">
-  <link rel="stylesheet" href="../assets/css/injection-blog.css">
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/injection-blog.css?v=20261021-latex">
   <title>Curating Robust Prompt Injection Defense Fine-tuning Data | Ethan Cao</title>
 </head>
 <body>
@@ -117,8 +118,14 @@ What is the day before Saturday? It is Friday.</pre></div>
         <p>Use a second lens fitted on 100 curated synthetic office prompts, again with a maximum fitting length of 128 tokens. These fitting prompts include an explicit classification instruction. Both lenses select examples from FIPI; their fitting sources describe where the matrices came from.</p>
         <h3>The shared selection score</h3>
         <p>For the three probes and two lenses, we use the same selection formula. A high score means the detector assigned little probability to the correct label, so a confidently incorrect prediction receives priority.</p>
-        <div class="equation">s(x, y) = 1 − p(y | x)<br>S(pair) = [s(x<sub>injection</sub>, injection) + s(x<sub>safe</sub>, safe)] / 2<span class="definition">x is a prompt, y is its known label, and p is the detector's probability for that label</span></div>
-        <p>Suppose the detector assigns 90% to <em>safe</em> for an injection prompt, and 3% to <em>injection</em> for its safe counterpart. The two incorrect-label probabilities are 0.90 and 0.03, giving a pair selection score of (0.90 + 0.03) / 2 = 0.465. We rank eligible pairs by this score and retain the highest 256.</p>
+        <div class="equation">
+          <div class="math math-display" tabindex="0" role="region" aria-label="Selection score equations">\begin{aligned}
+            s(x,y) &amp;= 1 - p(y \mid x) \\
+            S(\text{pair}) &amp;= \frac{s(x_{\mathrm{injection}},\mathrm{injection}) + s(x_{\mathrm{safe}},\mathrm{safe})}{2}
+          \end{aligned}</div>
+          <span class="definition"><span class="math">x</span> is a prompt, <span class="math">y</span> is its known label, and <span class="math">p</span> is the detector's probability for that label</span>
+        </div>
+        <p>Suppose the detector assigns 90% to <em>safe</em> for an injection prompt, and 3% to <em>injection</em> for its safe counterpart. The two incorrect-label probabilities are 0.90 and 0.03, giving a pair selection score of <span class="math">(0.90 + 0.03) / 2 = 0.465</span>. We rank eligible pairs by this score and retain the highest 256.</p>
         <p>The 1,500 training pairs and 500 validation pairs are separate from the candidate source groups. Random selection, text diversity, and model failures have their own rules; their numerical ranking scores should not be interpreted as incorrect-label probabilities.</p>
       </section>
 
@@ -126,11 +133,22 @@ What is the day before Saturday? It is Friday.</pre></div>
         <h2>How Jlens turns a hidden state vector into words</h2>
         <p>A transformer layer produces a hidden state vector, or a list of numbers that represents the prompt at that point in the model. Jlens gives us a way to read that vector through the model's vocabulary. Gurnee et al. introduced the Jacobian lens to identify concepts that a model can verbalize from its internal representations. <a href="#ref-jlens">[11]</a></p>
         <p>For each fitting prompt, the model first runs a forward pass. Automatic differentiation then measures how a small change in an earlier hidden state value affects values at the final layer. Collecting these derivatives forms a Jacobian matrix. Our fitting procedure combines derivatives over selected token positions and averages across the fitting prompts, giving one matrix for each inspected layer while the model's own weights remain fixed.</p>
-        <p>At inference time, the saved matrix J<sub>l</sub> is multiplied by the hidden state vector h<sub>l</sub> at layer l. This gives the lens's estimate of the final hidden state vector. The readout then applies the model's final RMS normalization and unembedding matrix to produce vocabulary scores, or logits.</p>
-        <div class="equation">ĥ<sub>final</sub> = J<sub>l</sub>h<sub>l</sub><br>z = W<sub>U</sub> RMSNorm(ĥ<sub>final</sub>)<span class="definition">J<sub>l</sub> is the fitted Jacobian matrix, W<sub>U</sub> is the unembedding matrix, and z contains one logit per vocabulary token</span></div>
+        <p>At inference time, the saved matrix <span class="math">J_l</span> is multiplied by the hidden state vector <span class="math">h_l</span> at layer <span class="math">l</span>. This gives the lens's estimate of the final hidden state vector. The readout then applies the model's final RMS normalization and unembedding matrix to produce vocabulary scores, or logits.</p>
+        <div class="equation">
+          <div class="math math-display" tabindex="0" role="region" aria-label="Jacobian lens equations">\begin{aligned}
+            \hat{h}_{\mathrm{final}} &amp;= J_l h_l \\
+            z &amp;= W_U\,\operatorname{RMSNorm}(\hat{h}_{\mathrm{final}})
+          \end{aligned}</div>
+          <span class="definition"><span class="math">J_l</span> is the fitted Jacobian matrix, <span class="math">W_U</span> is the unembedding matrix, and <span class="math">z</span> contains one logit per vocabulary token</span>
+        </div>
         <div class="pipeline" aria-label="Jlens readout sequence"><div><strong>Hidden state vector</strong><p>The vector at the last prompt token, from a validation-selected layer</p></div><div><strong>Jacobian and normalization</strong><p>Estimate the final hidden state vector and rescale it with the model's final normalization</p></div><div><strong>Unembedding and softmax</strong><p>Read the two label logits and convert them into probabilities for selection</p></div></div>
         <p>A higher logit produces a higher probability under softmax because its exponential is larger while the denominator is shared. For selection, we only compare the two label tokens:</p>
-        <div class="equation">p(injection | x) = exp(z<sub>injection</sub>) / [exp(z<sub>injection</sub>) + exp(z<sub>safe</sub>)]<br>p(safe | x) = 1 − p(injection | x)</div>
+        <div class="equation">
+          <div class="math math-display" tabindex="0" role="region" aria-label="Two-label softmax equations">\begin{aligned}
+            p(\mathrm{injection} \mid x) &amp;= \frac{\exp(z_{\mathrm{injection}})}{\exp(z_{\mathrm{injection}}) + \exp(z_{\mathrm{safe}})} \\
+            p(\mathrm{safe} \mid x) &amp;= 1 - p(\mathrm{injection} \mid x)
+          \end{aligned}</div>
+        </div>
         <p>For example, logits of 2 and 0 produce an injection probability of about 88.1% when softmax is restricted to those two labels. This is a worked example. It is a lens estimate conditional on the two labels, not the probability that the model will generate that label among every vocabulary token.</p>
         <p>The selection run reads the hidden state vector at the last prompt token, before the response begins. It does not search a generated answer for a label or force every intermediate layer to verbalize one. The earlier reasoning-enabled layer inspections are a separate experiment, available in the <a href="https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/">interactive visualization</a>.</p>
         <p>Both lenses use the same validation rule as the probes: choose the layer with the highest mean of injection accuracy and safe accuracy. That layer stays fixed when scoring all candidate prompts.</p>
@@ -144,11 +162,14 @@ What is the day before Saturday? It is Friday.</pre></div>
         <p>For reference-response training, the base model first answers the safe version of a prompt. We keep that generated response as the reference. During fine-tuning, the adapter receives the injected version and learns to produce the reference response token by token.</p>
         <div class="pipeline" aria-label="Reference-response training"><div><strong>Safe prompt</strong><p>Instruction + clean content → base model → reference response</p></div><div><strong>Injection prompt</strong><p>The same instruction + injected content → model with LoRA</p></div><div><strong>Training loss</strong><p>Increase the probability of each reference token, including the end-of-response token</p></div></div>
         <p>This uses cross-entropy loss. At each response position, the model assigns probabilities to possible next tokens. The loss is larger when the correct reference token receives a smaller probability, so training increases the probability of the reference answer under the injected input.</p>
-        <div class="equation">L = −(1 / T) ∑<sub>t=1…T</sub> log p<sub>θ</sub>(y<sub>t</sub><sup>safe</sup> | x<sup>injection</sup>, y<sub>&lt;t</sub><sup>safe</sup>)<span class="definition">T is the number of reference tokens, y<sub>t</sub><sup>safe</sup> is the current reference token, and θ contains the trainable LoRA parameters</span></div>
-        <p>For a reference token assigned probability 0.10, its loss is −log(0.10), about 2.30. If the probability rises to 0.80, the loss falls to about 0.22. During training, the preceding reference tokens are supplied to the model, a procedure called teacher forcing. The loss applies to the answer tokens rather than the prompt tokens.</p>
+        <div class="equation">
+          <div class="math math-display" tabindex="0" role="region" aria-label="Reference-response training loss">L = -\frac{1}{T}\sum_{t=1}^{T}\log p_{\theta}\!\left(y_t^{\mathrm{safe}} \mid x^{\mathrm{injection}}, y_{&lt;t}^{\mathrm{safe}}\right)</div>
+          <span class="definition"><span class="math">T</span> is the number of reference tokens, <span class="math">y_t^{\mathrm{safe}}</span> is the current reference token, and <span class="math">\theta</span> contains the trainable LoRA parameters</span>
+        </div>
+        <p>For a reference token assigned probability 0.10, its loss is <span class="math">-\log(0.10)</span>, about 2.30. If the probability rises to 0.80, the loss falls to about 0.22. During training, the preceding reference tokens are supplied to the model, a procedure called teacher forcing. The loss applies to the answer tokens rather than the prompt tokens.</p>
         <p>In the rewriting example, the desired behavior is to produce the simplified passage without answering the inserted question. The final training objective teaches that response behavior directly. It does not contain a loss that aligns the two hidden state vectors, and it does not train a one-word injection/safe judge.</p>
         <p>Training on injected inputs with legitimate-task answers also appears in StruQ, which combines instruction tuning with a front end that separates trusted instructions from supplied data. Here we start from Qwen2.5-7B-Instruct and compare which examples to select for LoRA training. <a href="#ref-struq">[17]</a></p>
-        <p>We use LoRA to learn small matrix updates while keeping the original model weights fixed. For a selected weight matrix W, the effective weight becomes W + (α/r)BA, where A and B are the smaller trainable matrices, r is their rank, and α sets their scale. <a href="#ref-lora">[12]</a></p>
+        <p>We use LoRA to learn small matrix updates while keeping the original model weights fixed. For a selected weight matrix <span class="math">W</span>, the effective weight becomes <span class="math">W + \frac{\alpha}{r}BA</span>, where <span class="math">A</span> and <span class="math">B</span> are the smaller trainable matrices, <span class="math">r</span> is their rank, and <span class="math">\alpha</span> sets their scale. <a href="#ref-lora">[12]</a></p>
         <h3>The controlled objective comparison</h3>
         <figure><div class="chart-scroll" tabindex="0" role="region" aria-label="Scrollable comparison chart"><picture><source media="(max-width: 580px)" srcset="../assets/blog/injection-defense/training-objectives-mobile.svg"><img src="../assets/blog/injection-defense/training-objectives.svg" width="960" height="366" loading="eager" alt="Controlled objective comparison: base 62.5%, reference response 3.125%, separation 100%, combined 15.625%"></picture></div><figcaption>Three fresh adapters trained on the same 256 random-selected FIPI pairs for 256 updates. The chart uses 32 testing prompts separate from training and validation. These prompts had already been inspected in earlier experiments, so this is a diagnostic comparison, not a new untouched final test.</figcaption></figure>
         <!-- BEGIN OBJECTIVES -->
@@ -270,6 +291,7 @@ What is the day before Saturday? It is Friday.</pre></div>
   </div>
   <footer class="blog-footer"><a href="../research.html">Back to research</a> · <a href="https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/">Explore the layer visualizations</a></footer>
 </div>
-<script src="../assets/js/injection-blog.js" defer></script>
+<script src="../assets/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/injection-blog.js?v=20261021-latex" defer></script>
 </body>
 </html>

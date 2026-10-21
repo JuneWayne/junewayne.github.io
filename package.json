@@ -6,6 +6,7 @@
   "description": "A buildless research portfolio and a home for Layla's photos.",
   "scripts": {
     "dev": "node scripts/serve.mjs",
+    "vendor:math": "node scripts/vendor-math.mjs",
     "check": "node scripts/check.mjs",
     "test": "npm run check",
     "test:browser": "playwright test"
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.64.0"
+    "@playwright/test": "^1.64.0",
+    "katex": "0.18.0"
   }
 }

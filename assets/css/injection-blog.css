@@ -30,7 +30,12 @@
 .prompt-example pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; margin: 12px 0 0; line-height: 1.7; }
 .prompt-example .example-label { display: block; font-size: .85rem; font-weight: 700; color: #245e95; letter-spacing: .025em; }
 .prompt-example mark { color: #7a3312; background: #fff0df; }
-.equation { overflow-x: auto; padding: 22px; background: #f4f8fc; text-align: center; font-family: Georgia, serif; font-size: 1.2rem; line-height: 1.8; margin: 22px 0; border-radius: 6px; }
+.equation { padding: 22px; background: #f4f8fc; text-align: center; margin: 22px 0; border-radius: 6px; }
+.math .katex { font-size: 1.05em; }
+.math-display { overflow-x: auto; padding: 8px 2px; font-size: clamp(1rem, 1.4vw, 1.15rem); }
+.math-display .katex-display { margin: 0; }
+.math-display .katex-display > .katex { width: max-content; min-width: 100%; }
+.math-display:focus-visible { outline: 2px solid #245e95; outline-offset: 3px; }
 .equation .definition { display: block; font: .95rem/1.65 Lato, sans-serif; color: #475569; margin-top: 10px; }
 .pipeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 30px 0; }
 .pipeline > div { padding: 23px 20px; background: #f3f7fb; border: 1px solid #d6e1ec; border-radius: 8px; }

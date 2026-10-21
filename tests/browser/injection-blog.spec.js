@@ -82,3 +82,43 @@ test('AgentDojo includes the final adapter result and no pending notice', async 
   await expect(page.locator('#tldr')).toContainText('five of the seven external benchmark comparisons');
   await panel.screenshot({ path: '/tmp/agentdojo-final-chart.png' });
 });
+
+test('LaTeX equations render with accessible math and local fonts', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('response', response => { if (response.status() >= 400) errors.push(response.url()); });
+  await page.goto(path);
+  await expect(page.locator('.math-display .katex-display')).toHaveCount(4);
+  await expect(page.locator('.katex-error, .math:not(:has(.katex))')).toHaveCount(0);
+  expect(await page.locator('.math').count()).toBeGreaterThan(20);
+  expect(await page.locator('math').count()).toBe(await page.locator('.math').count());
+  await expect(page.locator('.math-display').last().locator('annotation')).toContainText('\\sum_{t=1}^{T}');
+  expect(await page.locator('mfrac').count()).toBeGreaterThanOrEqual(4);
+  await page.evaluate(() => document.fonts.ready);
+  expect(await page.evaluate(() => document.fonts.check('16px KaTeX_Main'))).toBe(true);
+  expect(await page.evaluate(() => performance.getEntriesByType('resource').filter(entry => new URL(entry.name).origin !== location.origin).map(entry => entry.name))).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+test('equations fit desktop and scroll within their boxes on small screens', async ({ page }) => {
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(path);
+    await page.evaluate(() => document.fonts.ready);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const formulas = page.locator('.math-display');
+    for (let index = 0; index < await formulas.count(); index++) {
+      const formula = formulas.nth(index);
+      const layout = await formula.evaluate(element => {
+        const box = element.getBoundingClientRect();
+        const math = element.querySelector('.katex-display').getBoundingClientRect();
+        return { left: box.left, right: box.right, mathLeft: math.left, overflow: element.scrollWidth > element.clientWidth };
+      });
+      expect(layout.left).toBeGreaterThanOrEqual(0);
+      expect(layout.right).toBeLessThanOrEqual(width);
+      expect(layout.mathLeft).toBeGreaterThanOrEqual(layout.left);
+      if (width === 1440) expect(layout.overflow).toBe(false);
+      await formula.locator('..').screenshot({ path: `/tmp/blog-equation-${index}-${width}.png` });
+    }
+  }
+});
