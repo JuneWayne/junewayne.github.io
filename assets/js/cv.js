@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261021-research-title';
+import { site } from './content.js?v=20261102-reward-hacking';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

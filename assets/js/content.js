@@ -512,6 +512,12 @@ export const site = {
       ]
     },
     {
+      "id": "reward-hacking",
+      "title": "Replicable Reward Hacking Scenarios",
+      "status": "Ongoing research",
+      "summary": "I examine where and when models show misalignment and reward hacking. I seek environments that repeatedly elicit reward hacking across trials and models, testing whether it is reproducible and widespread rather than an isolated event. This work lays the groundwork for investigating why reward hacking occurs. One question is whether mesa-optimizers, learned internal optimization processes, are shaped during post-training to produce misaligned behavior. I also aim to examine whether different training approaches can inhibit reward hacking by changing these internal optimizers or models."
+    },
+    {
       "id": "mesh-transformers",
       "linkToResource": true,
       "labs": [{"label": "Spatial AI Lab", "url": "https://craigleili.github.io/"}],

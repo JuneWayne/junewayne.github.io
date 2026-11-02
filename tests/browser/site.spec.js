@@ -102,7 +102,7 @@ test('Profile and Research share navigation; photos load and reduced-motion navi
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
   await expect(page.locator('#profile-bio')).toContainText('actively seeking graduate opportunities and internships');
-  await expect(page.locator('#research-list article')).toHaveCount(4);
+  await expect(page.locator('#research-list article')).toHaveCount(site.research.length);
   await expect(page.locator('#profile-role, .section-note, .site-footer, .motion-toggle')).toHaveCount(0);
   expect(await page.locator('.ambient-field').evaluate((node) => getComputedStyle(node).animationName)).toBe('none');
   await page.locator('#animals').scrollIntoViewIfNeeded();
@@ -121,7 +121,7 @@ test('Profile and Research share navigation; photos load and reduced-motion navi
   await expect(page).toHaveURL(/research.html$/);
   await expect(page.locator('body')).toHaveAttribute('data-page', 'research');
   await expect(page.locator('#profile-bio')).toHaveCount(0);
-  await expect(page.locator('#research-list article')).toHaveCount(4);
+  await expect(page.locator('#research-list article')).toHaveCount(site.research.length);
   await expect(page.locator('nav [data-nav=research]')).toHaveAttribute('aria-current', 'page');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Profile' }).click();
   await expect(page.locator('nav [data-nav=profile]')).toHaveAttribute('aria-current', 'page');
@@ -163,7 +163,7 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
   await expect(page.locator('#profile-bio')).toContainText('University of Virginia');
   await expect(page.locator('#cv #cisco')).toContainText('Data Scientist Intern');
-  await expect(page.locator('#cv + #research .research-row')).toHaveCount(4);
+  await expect(page.locator('#cv + #research .research-row')).toHaveCount(site.research.length);
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Cat' }).click();
   await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
   await context.close();
@@ -522,7 +522,7 @@ test('CV and Teaching remain complete without JavaScript', async ({ browser }) =
   await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
   await page.locator('[data-nav=research]').click();
   await expect(page).toHaveURL(/research.html$/);
-  await expect(page.locator('#research-list article')).toHaveCount(4);
+  await expect(page.locator('#research-list article')).toHaveCount(site.research.length);
   await context.close();
 });
 
