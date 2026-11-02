@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261102-reward-hacking';
+import { site } from './content.js?v=20261102-reward-title';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261102-reward-hacking';
+import { renderCV } from './cv.js?v=20261102-reward-title';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -100,7 +100,6 @@ function renderResearch() {
       ? { url: `./research.html#${project.id}` }
       : project.links?.find(resource => !resource.download);
     copy.append(cardHeading(row, isResearchPage ? 'h2' : 'h3', project.title, destination), element('p', 'research-summary', project.summary));
-    if (project.status) copy.insertBefore(element('p', 'research-context', project.status), copy.querySelector('.research-summary'));
     if (project.labs?.length) {
       const context = element('p', 'research-context');
       project.labs.forEach((lab, index) => {
