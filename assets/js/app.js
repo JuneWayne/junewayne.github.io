@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261102-reward-title';
+import { site } from './content.js?v=20261102-reward-we';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261102-reward-title';
+import { renderCV } from './cv.js?v=20261102-reward-we';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
