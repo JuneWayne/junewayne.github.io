@@ -138,3 +138,8 @@ To regenerate its assets, render `ShearFlow-PARC-web.pptx` to PDF with LibreOffi
 Both presentation viewers use previous/next controls along the slide edges. Their arrows appear when the corresponding edge is hovered or the control receives keyboard focus, and stay visible on touch devices. The top toolbar retains the slide dropdown, counter, and full-screen control. Controls persist across slide changes so keyboard focus is preserved; unavailable directions are disabled.
 
 Navigation follows Profile → Research → CV → Teaching → Cat on every page. Industry CV headings include locally hosted Cisco, Align Technology, and Tencent logos; their original sources are recorded in `assets/images/logos/SOURCES.md`. The adjacent company text provides the accessible name, so the decorative logos have empty alt text.
+
+
+The active blog at `blog/prompt-injection-data-curation.html` displays the November 5, 2026 LessWrong PDF without changing its content or layout. Its 28 pages include the browser print headers and the collapsed examples exactly as saved. The source is published at `assets/blog/lesswrong-2026-11-05/better-data-curation.pdf`. Search, selectable text, zoom, and page navigation use locally hosted PDF.js. Run `npm run vendor:pdf` after updating that dependency.
+
+The earlier HTML article is preserved at `blog/archive/2026-11-05/prompt-injection-data-curation.html`, with frozen copies of its styles, JavaScript, charts, and result data. The active blog links to this archive. The legacy chart builder stops before changing files when the active blog is the PDF edition. To restore the missing expandable examples, save a new source with those examples expanded or export the LessWrong article as HTML.

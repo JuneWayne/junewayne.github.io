@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+<title id="title">Reference-token probability and loss</title>
+<desc id="desc">An illustration of negative log probability. Probability 0.10 gives loss 2.30; probability 0.80 gives loss 0.22. This is not a measured training curve.</desc>
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="Lato, Arial, sans-serif" fill="#243447">
+<text x="16" y="30" font-size="23" font-weight="700">Reference-token probability and loss</text>
+<line x1="56" x2="928" y1="284.0" y2="284.0" stroke="#e1e7ed"/>
+<text x="44" y="289.0" text-anchor="end" font-size="15">0</text>
+<line x1="56" x2="928" y1="242.4" y2="242.4" stroke="#e1e7ed"/>
+<text x="44" y="247.4" text-anchor="end" font-size="15">1</text>
+<line x1="56" x2="928" y1="200.8" y2="200.8" stroke="#e1e7ed"/>
+<text x="44" y="205.8" text-anchor="end" font-size="15">2</text>
+<line x1="56" x2="928" y1="159.2" y2="159.2" stroke="#e1e7ed"/>
+<text x="44" y="164.2" text-anchor="end" font-size="15">3</text>
+<line x1="56" x2="928" y1="117.6" y2="117.6" stroke="#e1e7ed"/>
+<text x="44" y="122.6" text-anchor="end" font-size="15">4</text>
+<line x1="56" x2="928" y1="76.0" y2="76.0" stroke="#e1e7ed"/>
+<text x="44" y="81.0" text-anchor="end" font-size="15">5</text>
+<text x="56" y="309" text-anchor="middle" font-size="15">0</text>
+<text x="274.0" y="309" text-anchor="middle" font-size="15">0.25</text>
+<text x="492.0" y="309" text-anchor="middle" font-size="15">0.5</text>
+<text x="710.0" y="309" text-anchor="middle" font-size="15">0.75</text>
+<text x="928" y="309" text-anchor="middle" font-size="15">1</text>
+<polyline points="64.72,92.42 73.44,121.26 82.16,138.13 90.88,150.09 99.60,159.38 108.32,166.96 117.04,173.37 125.76,178.93 134.48,183.83 143.20,188.21 151.92,192.18 160.64,195.80 169.36,199.13 178.08,202.21 186.80,205.08 195.52,207.76 204.24,210.29 212.96,212.66 221.68,214.91 230.40,217.05 239.12,219.08 247.84,221.01 256.56,222.86 265.28,224.63 274.00,226.33 282.72,227.96 291.44,229.53 300.16,231.04 308.88,232.50 317.60,233.91 326.32,235.28 335.04,236.60 343.76,237.88 352.48,239.12 361.20,240.33 369.92,241.50 378.64,242.64 387.36,243.75 396.08,244.83 404.80,245.88 413.52,246.91 422.24,247.91 430.96,248.89 439.68,249.85 448.40,250.78 457.12,251.70 465.84,252.59 474.56,253.47 483.28,254.32 492.00,255.17 500.72,255.99 509.44,256.80 518.16,257.59 526.88,258.37 535.60,259.13 544.32,259.88 553.04,260.62 561.76,261.34 570.48,262.05 579.20,262.75 587.92,263.44 596.64,264.11 605.36,264.78 614.08,265.43 622.80,266.08 631.52,266.71 640.24,267.34 648.96,267.96 657.68,268.56 666.40,269.16 675.12,269.75 683.84,270.33 692.56,270.91 701.28,271.47 710.00,272.03 718.72,272.58 727.44,273.13 736.16,273.66 744.88,274.19 753.60,274.72 762.32,275.23 771.04,275.74 779.76,276.25 788.48,276.75 797.20,277.24 805.92,277.73 814.64,278.21 823.36,278.68 832.08,279.15 840.80,279.62 849.52,280.08 858.24,280.53 866.96,280.98 875.68,281.43 884.40,281.87 893.12,282.30 901.84,282.73 910.56,283.16 919.28,283.58 928.00,284.00" fill="none" stroke="#417db0" stroke-width="3"/>
+<circle cx="143.2" cy="188.2124601314477" r="5" fill="#245e95"/>
+<text x="155.2" y="170.2124601314477" text-anchor="start" font-size="16">p = 0.10, loss = 2.30</text>
+<circle cx="753.6" cy="274.71722826532886" r="5" fill="#245e95"/>
+<text x="741.6" y="256.71722826532886" text-anchor="end" font-size="16">p = 0.80, loss = 0.22</text>
+<text x="492.0" y="348" text-anchor="middle" font-size="17">Reference-token probability</text>
+<text x="18" y="180.0" text-anchor="middle" transform="rotate(-90 18 180.0)" font-size="17">Token loss</text>
+</g></svg>

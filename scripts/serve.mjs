@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const flag = process.argv.indexOf('--port');
 const port = Number(flag >= 0 ? process.argv[flag + 1] : process.env.PORT || 5173);
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.pdf': 'application/pdf', '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '.ipynb': 'application/x-ipynb+json' };
+const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.wasm': 'application/wasm', '.json': 'application/json', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.pdf': 'application/pdf', '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '.ipynb': 'application/x-ipynb+json' };
 
 createServer(async (request, response) => {
   try {
@@ -18,7 +18,7 @@ createServer(async (request, response) => {
     const name = pathname === '/' ? 'index.html' : pathname.slice(1);
     const path = resolve(root, name);
     // Serve the public site only; never expose repository metadata or tooling.
-    if (!path.startsWith(root + sep) || name.split('/').some((part) => part.startsWith('.')) || !(/^(blog\/)?[a-z-]+\.html$/.test(name) || name.startsWith('assets/'))) {
+    if (!path.startsWith(root + sep) || name.split('/').some((part) => part.startsWith('.')) || !(/^(blog\/)?[a-z-]+\.html$/.test(name) || name.startsWith('assets/') || /^blog\/archive\/\d{4}-\d{2}-\d{2}\/(?:[a-z-]+\.(?:html|css|js)|figures\/[a-z-]+\.(?:svg|json|csv))$/.test(name))) {
       response.writeHead(404).end('Not found');
       return;
     }

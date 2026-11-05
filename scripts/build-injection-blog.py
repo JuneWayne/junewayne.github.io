@@ -9,6 +9,9 @@ import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# The current blog uses the saved LessWrong PDF; keep its archived charts unchanged.
+if '<!-- BEGIN RESULTS -->' not in (ROOT / 'blog/prompt-injection-data-curation.html').read_text():
+    raise SystemExit('The active blog is a PDF edition. This legacy builder does not modify the archived HTML article.')
 ASSETS = ROOT / 'assets/blog/injection-defense'
 data = json.loads((ASSETS / 'results.json').read_text())
 methods = data['methods']
