@@ -6,3 +6,6 @@ playwright-report/
 # Windows download metadata and Office lock files are not site resources.
 *:Zone.Identifier
 ~$*
+
+# Keep previous blog versions in the local workspace only.
+/blog/archive/

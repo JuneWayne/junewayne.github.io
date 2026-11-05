@@ -5,30 +5,18 @@
 .document-shell h1 { font-size: clamp(1.75rem, 3vw, 2.4rem); line-height: 1.2; margin-top: 24px; max-width: 950px; }
 .document-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-block: 16px; align-items: center; }
 .document-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
-.document-links a { display: inline-flex; align-items: center; min-height: 44px; }
-.document-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; border: 1px solid var(--color-border); padding: 12px; margin: 0; }
-.document-pages, .document-zoom, .document-find { display: flex; align-items: center; gap: 8px; min-width: 0; }
-.document-find { flex: 1; }
-.document-controls button, .document-controls input, .document-controls select { min-height: 44px; border: 1px solid #9aafc2; border-radius: 4px; padding: 6px 10px; background: white; color: var(--color-text); font: inherit; }
-.document-controls button { min-width: 44px; }
-.document-controls button:disabled { opacity: .5; }
-#document-page { width: 65px; }
-#document-search { width: 100%; min-width: 0; }
-#find-next { white-space: nowrap; }
+.document-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px; border: 1px solid var(--color-link); text-decoration: none; }
 #document-status { margin-block: 12px; }
-.document-stage { position: relative; height: 80vh; height: 80dvh; min-height: 420px; border: 1px solid var(--color-border); border-top: 0; background: #e8ebef; }
+.document-stage { position: relative; height: 80vh; height: 80dvh; min-height: 420px; border: 1px solid var(--color-border); background: #e8ebef; }
 #pdf-container { position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; }
 #pdf-container:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
 @media (max-width: 640px) {
   .document-shell { padding-inline: 12px; }
-  .document-controls { gap: 10px; }
-  .document-find { flex-basis: 100%; }
   .document-stage { height: 75vh; height: 75dvh; }
-  .document-zoom { flex-wrap: wrap; }
   .document-meta { align-items: flex-start; }
 }
 @media print {
-  .document-header, .document-controls { display: none; }
+  .document-header { display: none; }
   .document-stage { display: none; }
   .document-links a[href$='.pdf']::after { content: ' (' attr(href) ')'; }
 }
