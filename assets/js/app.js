@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261118-clean-nav';
+import { site } from './content.js?v=20261118-ongoing';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261118-clean-nav';
+import { renderCV } from './cv.js?v=20261118-ongoing';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -110,6 +110,7 @@ function renderResearch() {
         Object.assign(anchor, { href: lab.url, target: '_blank', rel: 'noopener noreferrer' });
         context.append(anchor);
       });
+      if (project.ongoing) context.append(' · ', element('strong', '', 'Ongoing research'));
       copy.insertBefore(context, copy.querySelector('.research-summary'));
     } else if (project.organization) {
       const context = [project.organization, project.location, project.role, project.dates].filter(Boolean).join(' · ');

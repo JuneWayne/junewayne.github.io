@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261118-clean-nav';
+import { site } from './content.js?v=20261118-ongoing';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

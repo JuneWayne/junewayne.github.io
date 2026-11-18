@@ -392,7 +392,7 @@ test('research and teaching card backgrounds navigate and preserve independent r
   const popup = await opened;
   await expect(popup).toHaveURL(demo);
   await popup.close();
-  await expect(page.locator('#mesh-transformers .research-links a[download]')).toHaveAttribute('href', './assets/PowerPoints/Collaboration%20Request.pptx');
+  await expect(page.locator('#mesh-transformers .research-links a')).toHaveText(['Research proposal ↗']);
 });
 
 test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied photos', async ({ page }) => {
@@ -628,15 +628,17 @@ test('PARC viewer provides all 83 rendered backgrounds and 134 animated figures'
   for (const animation of animations) expect((await request.head('/assets/slides/parc/' + animation)).ok()).toBe(true);
 });
 
-test('3D transformer cards open the complete web deck with the original mesh animation', async ({ page, request }) => {
+test('ongoing research cards show current resources and the standalone deck works', async ({ page, request }) => {
   for (const path of ['/', '/research.html']) {
     await page.goto(path);
     await expect(page.locator('#mesh-transformers .card-title-link')).toHaveAttribute('href', 'https://junewayne.github.io/3D-Mesh-Transformer-Mech-Interp/');
-    await page.locator('#mesh-transformers').getByRole('link', { name: 'Earlier presentation' }).click();
-    await expect(page).toHaveURL(/mesh-slides.html$/);
-    await expect(page.locator('#slide-select option')).toHaveCount(15);
-    await expect(page.locator('#slide-counter')).toHaveText('1 / 15');
+    await expect(page.locator('#mesh-transformers strong, #reward-hacking strong')).toHaveText(['Ongoing research', 'Ongoing research']);
+    await expect(page.locator('#reward-hacking a').filter({ hasText: 'Aikyam Lab' })).toHaveAttribute('href', 'https://chirag-agarwall.github.io/');
+    await expect(page.locator('#reward-hacking')).not.toContainText('Co-Author');
   }
+  await page.goto('/mesh-slides.html');
+  await expect(page.locator('#slide-select option')).toHaveCount(15);
+  await expect(page.locator('#slide-counter')).toHaveText('1 / 15');
   await page.getByRole('button', { name: 'Next slide' }).click();
   await expect(page).toHaveURL(/#slide-2$/);
   await expect(page.locator('.slide-animation')).toHaveCount(1);

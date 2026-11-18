@@ -464,7 +464,7 @@ export const site = {
         "Evaluated conditional and unconditional generation using kernel and Fréchet distances in Uni3D embedding space. Used Chamfer distance to compare generated meshes with their nearest training shapes."
       ],
       "role": "First Author",
-      "dates": "Present",
+      "ongoing": true,
       "supervisors": "Dr. Lei Li",
       "labs": [
         {
@@ -476,15 +476,6 @@ export const site = {
         {
           "label": "Research proposal",
           "url": "https://junewayne.github.io/3D-Mesh-Transformer-Mech-Interp/"
-        },
-        {
-          "label": "Earlier presentation",
-          "url": "./mesh-slides.html"
-        },
-        {
-          "label": "Slides (PowerPoint)",
-          "url": "./assets/PowerPoints/Collaboration%20Request.pptx",
-          "download": true
         }
       ],
       "linkToResource": true
@@ -496,10 +487,14 @@ export const site = {
       "details": [
         "Designing controlled experiments to test whether learned weight deletion makes models more prone to reward hacking during coding RL, measuring how often they pass contradictory unit tests and how accurately they solve the original tasks."
       ],
-      "role": "Co-Author",
-      "dates": "Present",
+      "ongoing": true,
       "supervisors": "Ahson Saiyed and Dr. Chirag Agarwal",
-      "organization": "Aikyam Lab",
+      "labs": [
+        {
+          "label": "Aikyam Lab",
+          "url": "https://chirag-agarwall.github.io/"
+        }
+      ],
       "links": [],
       "linkToResource": false
     },
