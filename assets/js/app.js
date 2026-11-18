@@ -51,17 +51,7 @@ function renderProfile() {
   document.querySelector('#profile-bio').replaceChildren(...site.bio.map((text) => element('p', '', text)));
   document.querySelector('#profile-links').replaceChildren(...site.links.map(link));
   const resumeLink = document.querySelector('#profile-resume');
-  if (resumeLink && site.cv.url) {
-    resumeLink.href = site.cv.url;
-    resumeLink.onclick = event => {
-      if (event.pointerType === 'touch' && !resumeLink.hasAttribute('data-touch-open')) {
-        event.preventDefault();
-        resumeLink.setAttribute('data-touch-open', '');
-        resumeLink.focus();
-      }
-    };
-    resumeLink.onblur = () => resumeLink.removeAttribute('data-touch-open');
-  }
+  if (resumeLink && site.cv.url) resumeLink.href = site.cv.url;
   const portrait = document.querySelector('#profile-portrait');
   if (site.portrait) {
     const image = element('img', 'profile-portrait');
