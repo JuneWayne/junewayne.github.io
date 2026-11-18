@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261102-reward-we';
+import { site } from './content.js?v=20261117-robotics-report';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
@@ -148,6 +148,11 @@ export function renderCV() {
         title.append(node('strong', 'coursework-code', course.code), ' · ', node('span', '', course.title));
         item.append(title);
         if (course.description) item.append(node('p', 'coursework-description', course.description));
+        if (course.links?.length) {
+          const links = node('div', 'experience-links coursework-links');
+          course.links.forEach((link) => links.append(resource(link)));
+          item.append(links);
+        }
         list.append(item);
       });
       section.append(list);

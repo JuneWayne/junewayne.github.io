@@ -203,7 +203,11 @@ export const site = {
             "code": "MAE 4270",
             "title": "Experimental Robotics",
             "description": "Building and programming robots with sensors, actuators, and ROS.",
-            "status": "In progress · Fall 2026"
+            "status": "In progress · Fall 2026",
+            "links": [
+              { "label": "Technical report", "url": "https://junewayne.github.io/MAE6270-FridgeBot/report/" },
+              { "label": "Slides", "url": "https://junewayne.github.io/MAE6270-FridgeBot/" }
+            ]
           }
         ]
       },

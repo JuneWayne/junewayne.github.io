@@ -42,6 +42,7 @@ for (const experience of site.cv.experiences || []) {
   }
   await links(experience.links);
 }
+for (const group of site.cv.coursework || []) for (const course of group.courses) await links(course.links);
 for (const project of site.research) {
   assert.ok(project.title?.trim() && project.summary?.trim(), 'Research entries need a title and summary');
   if (project.image) { await reference(project.image); assert.ok(project.imageAlt?.trim(), 'Research images need alternative text'); }
