@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261118-parc-links';
+import { site } from './content.js?v=20261118-figures';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261118-parc-links';
+import { renderCV } from './cv.js?v=20261118-figures';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -81,20 +81,20 @@ function renderResearch() {
       image.height = project.imageHeight || 238;
       image.loading = 'lazy';
       image.decoding = 'async';
+      const media = element('div', 'research-media');
+      const preview = element('a');
+      Object.assign(preview, { href: project.image, target: '_blank', rel: 'noopener noreferrer' });
+      preview.setAttribute('aria-label', project.animationLabel || (project.animationStill ? 'Open model versus ground truth animation at full size' : 'Open full-size image: ' + image.alt));
       if (project.animationStill) {
-        const media = element('div', 'research-media');
-        const preview = element('a');
-        Object.assign(preview, { href: project.image, target: '_blank', rel: 'noopener noreferrer' });
-        preview.setAttribute('aria-label', project.animationLabel || 'Open model versus ground truth animation at full size');
         const picture = element('picture');
         const still = element('source');
         still.media = '(prefers-reduced-motion: reduce)';
         still.srcset = project.animationStill;
         picture.append(still, image);
         preview.append(picture);
-        media.append(preview);
-        row.append(media);
-      } else row.append(image);
+      } else preview.append(image);
+      media.append(preview);
+      row.append(media);
     }
     const copy = element('div', 'research-copy');
     const isResearchPage = document.body.dataset.page === 'research';

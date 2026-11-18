@@ -397,6 +397,10 @@ export const site = {
   research: [
     {
       "id": "prompt-injection",
+      "image": "./assets/images/research/prompt-curation-pipeline.png",
+      "imageWidth": 2155,
+      "imageHeight": 730,
+      "imageAlt": "Diagram showing FIPI prompt pair selection, LoRA fine-tuning of Qwen2.5-7B, and evaluation across eight benchmarks.",
       "title": "Actionable Interpretability: Effective Data Curation for LoRA Fine-Tuning SLMs against Prompt Injection",
       "summary": "Compared eight ways to curate 256 training pairs from the Fine-Grained Indirect Prompt Injection dataset. Designed a Pairwise Selection Score (PSS) to select prompt pairs that linear probes & the model underperforms as training dataset.",
       "details": [
@@ -426,6 +430,10 @@ export const site = {
     },
     {
       "id": "semantic-shifts",
+      "image": "./assets/images/research/job-posting-sae-pipeline.png",
+      "imageWidth": 1944,
+      "imageHeight": 1296,
+      "imageAlt": "Diagram showing sparse feature extraction from job postings, hypothesis generation, and verification on held-out employers.",
       "title": "Interpreting Early-Career Job Advertisements with Sparse Autoencoders and Semantic Clustering",
       "summary": "Developed PERC (Preprocessing, Embedding, Reduction, Clustering) to analyze 36,081 early-career job postings collected over 1.5 years. Evaluated seven ways to segment a job posting text to identify patterns across occupations and over time.",
       "details": [
@@ -548,6 +556,10 @@ export const site = {
     },
     {
       "id": "robotic-navigation",
+      "image": "./assets/images/research/fridgebot.jpg",
+      "imageWidth": 1280,
+      "imageHeight": 1707,
+      "imageAlt": "FridgeBot in the lab with its door open, showing the onboard laptop, wheeled base, and roof-mounted sensor.",
       "title": "MAE 6270: Experimental Robotics – Calibrated Automatic & Teleoperated Robotic Navigation",
       "summary": "Designed a four-wheel-drive ROS 2 robot for joystick teleoperation and automated maneuvers. Calibrated its drive system by developing a linear regression model to measure patterns in observed driven distance to expected motion distance.",
       "details": [
