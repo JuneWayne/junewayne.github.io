@@ -496,7 +496,7 @@ export const site = {
         }
       ],
       "links": [],
-      "linkToResource": false
+      "homeDetailsOnly": true
     },
     {
       "id": "fluid-dynamics",

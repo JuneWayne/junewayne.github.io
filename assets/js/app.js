@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261118-ongoing';
+import { site } from './content.js?v=20261118-disclosure';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261118-ongoing';
+import { renderCV } from './cv.js?v=20261118-disclosure';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -98,7 +98,8 @@ function renderResearch() {
     }
     const copy = element('div', 'research-copy');
     const isResearchPage = document.body.dataset.page === 'research';
-    const destination = !isResearchPage && project.id && !project.linkToResource
+    const detailsOnly = !isResearchPage && project.homeDetailsOnly;
+    const destination = !isResearchPage && project.id && !project.linkToResource && !detailsOnly
       ? { url: `./research.html#${project.id}` }
       : project.links?.find(resource => !resource.download);
     copy.append(cardHeading(row, isResearchPage ? 'h2' : 'h3', project.title, destination), element('p', 'research-summary', project.summary));
@@ -106,6 +107,10 @@ function renderResearch() {
       const context = element('p', 'research-context');
       project.labs.forEach((lab, index) => {
         if (index) context.append(' · ');
+        if (detailsOnly) {
+          context.append(lab.label);
+          return;
+        }
         const anchor = element('a', '', lab.label);
         Object.assign(anchor, { href: lab.url, target: '_blank', rel: 'noopener noreferrer' });
         context.append(anchor);

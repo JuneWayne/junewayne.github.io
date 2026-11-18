@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261118-ongoing';
+import { site } from './content.js?v=20261118-disclosure';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
