@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261117-robotics-report';
+import { site } from './content.js?v=20261118-phd-cv';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);
@@ -29,7 +29,7 @@ function experienceCard(experience, headingTag = 'h3') {
   if (experience.dates) meta.append(node('p', 'experience-dates', experience.dates));
   const heading = node(headingTag, '', experience.organization);
   heading.id = `${experience.id}-title`;
-  const destination = experience.links?.find(link => !link.download);
+  const destination = experience.expandOnClick ? undefined : experience.links?.find(link => !link.download);
   if (destination) {
     const anchor = resource({ ...destination, label: experience.organization });
     anchor.className = 'experience-title-link card-title-link';
@@ -44,6 +44,7 @@ function experienceCard(experience, headingTag = 'h3') {
     title.append(logo, heading);
   }
   copy.append(meta, title, node('p', 'experience-role', experience.role));
+  if (experience.supervisors) copy.append(node('p', 'experience-role', `Supervisors: ${experience.supervisors}`));
   if (experience.summary) copy.append(node('p', 'experience-summary', experience.summary));
   if (experience.highlights?.length) {
     const details = node('details', 'experience-details');
@@ -100,6 +101,7 @@ export function renderCV() {
     resource({ label: 'View resume (PDF)', url: data.url }),
     resource({ label: 'Download resume', url: data.url, download: true }),
   );
+  if (data.sourceUrl) actions.append(resource({ label: 'Original CV (Word)', url: data.sourceUrl, download: true }));
 
   const list = document.querySelector('#experience-list');
   list.replaceChildren(...(data.experiences || []).map(experience => experienceCard(experience, cardHeading)));
@@ -128,6 +130,7 @@ export function renderCV() {
   document.querySelector('#education-list').replaceChildren(...(data.education || []).map((entry) => {
     const card = node('article', 'education-card');
     card.append(node(cardHeading, '', entry.degree), node('p', 'education-institution', entry.institution), node('p', '', entry.detail), node('p', 'education-status', entry.status));
+    entry.notes?.forEach(text => card.append(node('p', '', text)));
     return card;
   }));
   const coursework = document.querySelector('#cv-coursework');
@@ -145,7 +148,8 @@ export function renderCV() {
       group.courses.forEach((course) => {
         const item = node('li', 'coursework-item');
         const title = node('div', 'coursework-title');
-        title.append(node('strong', 'coursework-code', course.code), ' · ', node('span', '', course.title));
+        if (course.code) title.append(node('strong', 'coursework-code', course.code), ' · ');
+        title.append(node('span', '', course.title));
         item.append(title);
         if (course.description) item.append(node('p', 'coursework-description', course.description));
         if (course.links?.length) {

@@ -10,7 +10,7 @@ With Node.js 20 or newer, run `npm run dev` and open <http://127.0.0.1:5173>. To
 
 ## Add your content
 
-Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. Four research entries, including PARCv2 fluid-dynamics work at the Visual Intelligence Lab, the COMM 4351 guest lecture with Professor Natasha Foutz, SARC 5400 teaching assistance, and Charlottesville Debate League tournament leadership are included. The CV is populated from the supplied resume, with Cisco, Align, Tencent, research roles, education, and skills.
+Edit [`assets/js/content.js`](assets/js/content.js). Your UVA introduction, email addresses, portrait, and cat photos are included. The research page includes five research appointments and two course projects. Teaching includes COMM 4351, SARC 5400, GBAC 7209 and 7215, and Charlottesville Debate League. The CV is populated from the supplied resume, with Cisco, Align, Tencent, research roles, education, and skills.
 
 **Portrait:** your photo is at `assets/images/portrait.jpg`. To replace it, update `portrait`, `portraitAlt`, `portraitWidth`, and `portraitHeight` in the content file and the corresponding image in `index.html`.
 
@@ -49,7 +49,9 @@ teaching: [
 ],
 ```
 
-**CV:** the resume is at `assets/PDFs/Ethan Cao Resume.pdf`. Update `cv.url` when replacing it. Edit `cv.experiences` to maintain the connected timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `links`, and `photo: { src, alt, width, height, wide }`. Education, coursework, and skill groups are also editable in `cv`. Tencent IEG is listed as a Data Analyst Internship in Shenzhen, May–August 2024, with the supplied gaming-market analysis contributions. Filters show Industry by default, with Research and Teaching alongside it. Teaching includes COMM 4351, SARC 5400 (January–April 2024), MSBA grading for Professor Mousavi (GBAC 7209 and GBAC 7215, January–April 2025), and Charlottesville Debate League. Resume viewing and download links are always available; the embedded preview loads only when opened.
+**CV:** the current resume PDF is at `assets/Resume/Ethan_Cao_PhD_CV.pdf`; its unchanged Word source is beside it. `cv.url` controls the Resume PDF link under the portrait, CV downloads, and embedded preview. `cv.sourceUrl` supplies the Word download. Descriptions copied from this resume must retain their original wording. The PDF has aligned date tabs and adjusted pagination; the Word source remains untouched.
+
+Edit `cv.experiences` to maintain the timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `supervisors`, `links`, and `photo`. Industry is shown by default; Research, Projects, and Teaching have separate filters. Cisco uses `expandOnClick` to open its contributions while keeping its demo link independent. Teaching dates follow the current resume: COMM September 2025–December 2026, SARC January–April 2025, and GBAC January–April 2026. GBAC is a Teaching Assistant role. The embedded PDF loads only when opened.
 
 **Animals section:** update `animals` in the content file to change the homepage previews. Each entry takes `title`, `src`, `width`, `height`, `alt`, and a destination `url`. Add entries for other animals as your collection grows. The introductory previews are also in `index.html` for visitors without JavaScript.
 
@@ -69,7 +71,7 @@ teaching: [
 
 Use displayed pixel dimensions, accounting for camera rotation. Captions display titles only. Categories become filters automatically when there is more than one category. Arrow keys browse the photo viewer; Escape closes it. Update `cat.hero`, `cat.heroAlt`, `cat.bio`, and `cat.loves` to change the introduction.
 
-The homepage also contains a static biography for search engines and visitors without JavaScript. If you change your introduction, update the matching text and contact links in `index.html`. Page titles and descriptions live in the HTML files.
+The homepage also contains a static biography for search engines and visitors without JavaScript. After editing content, run `node scripts/sync-static.mjs` to update the profile, CV, research, and teaching HTML fallbacks. The script starts a temporary preview server; Playwright Chromium must be installed. Page titles and descriptions live in the HTML files.
 
 ## Files
 
@@ -129,7 +131,7 @@ The PARC PowerPoint download is `assets/PowerPoints/ShearFlow-PARC-web.pptx`, a 
 
 The card's `parc-shearflow-tracer.gif` is extracted from `ppt/media/image68.gif` on slide 40: RK4 snapshot tracer predictions against ground truth on a test sample. It retains all 20 original frames without re-encoding; a GIF loop extension enables continuous playback on the website. The PNG fallback is frame 11 and serves reduced-motion visitors; the GIF loops continuously and can be opened at full size. Reported training-time and MSE figures come from slide 52, with the MSE improvement explicitly scoped to a training sample.
 
-`parc-slides.html` provides an independent, self-hosted viewer for all 83 slides. The research card opens this viewer, with a separate PowerPoint download. It loads only the current slide's background and GIFs, supports arrow keys, first/last slides, a slide selector, hash links, browser history, and full screen where supported. Reduced-motion visitors see the rendered first frames. Slide text is available beneath the viewer.
+`parc-slides.html` provides an independent, self-hosted viewer for all 83 slides. The research card opens the latest research presentation from the PhD resume. Its View slides link opens this original viewer, with a separate PowerPoint download. It loads only the current slide's background and GIFs, supports arrow keys, first/last slides, a slide selector, hash links, browser history, and full screen where supported. Reduced-motion visitors see the rendered first frames. Slide text is available beneath the viewer.
 
 To regenerate its assets, render `ShearFlow-PARC-web.pptx` to PDF with LibreOffice Impress, then run `python scripts/export-parc-slides.py path/to/deck.pptx path/to/rendered.pdf` with `python-pptx`, `PyMuPDF`, and `Pillow` installed. The export creates `assets/slides/parc/slides.json`, 83 WebP backgrounds, and the 134 unique GIFs used by its slides, extracted unchanged from the web deck. Animation placement includes each original picture's crop rectangle. Backgrounds use locally available font substitutes where the original PowerPoint fonts are unavailable; the downloadable PPTX retains its original font definitions. Native PowerPoint transition effects are not reproduced.
 

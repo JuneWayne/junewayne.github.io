@@ -64,7 +64,7 @@ test('navigation exposes the profile, research, and guest lecture', async ({ pag
   await expect(page.locator('#profile-links a')).toHaveText(['Personal Email ↗', 'UVA outlook ↗', 'GitHub ↗', 'LinkedIn ↗']);
   await expect(page.getByRole('link', { name: 'LinkedIn', exact: true })).toHaveAttribute('href', 'https://www.linkedin.com/in/ethan-yisong-cao/');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Teaching' }).click();
-  await expect(page.getByRole('heading', { name: 'Marketing Analytics and Big Data' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Marketing Analytics with Big Data' })).toBeVisible();
   await expect(page.locator('.teaching-role').first()).toContainText('Guest Lecturer');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'CV' }).click();
   await expect(page.getByRole('heading', { name: 'Cisco Systems' })).toBeVisible();
@@ -172,8 +172,8 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
 test('homepage CV follows the profile and keeps experience filters and contributions working', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.profile + #cv + #research')).toHaveCount(1);
-  await page.locator('.profile-identity').getByRole('link', { name: 'CV', exact: true }).click();
-  await expect(page).toHaveURL(/#cv$/);
+  await expect(page.locator('.profile-identity').getByRole('link', { name: 'Resume PDF', exact: true })).toHaveAttribute('href', site.cv.url);
+  await page.locator('#cv-title').scrollIntoViewIfNeeded();
   await expect(page.locator('#cv-title')).toBeInViewport();
   await expect(page.locator('#experience-filters').getByRole('button', { name: 'Industry' })).toHaveAttribute('aria-pressed', 'true');
   await page.locator('#cisco').getByRole('button', { name: 'Cisco Systems' }).click();
@@ -188,6 +188,24 @@ test('homepage CV follows the profile and keeps experience filters and contribut
   await expect(page.locator('#cisco h3')).toBeVisible();
   await page.locator('[data-nav=profile]').click();
   await expect(page.locator('#cv #cisco h4')).toBeVisible();
+});
+
+test('the profile Resume PDF link opens the current resume', async ({ page, context, request }) => {
+  await page.goto('/');
+  const link = page.locator('#profile-resume');
+  await expect(link).toHaveText('Resume PDF');
+  await expect(link).toHaveAttribute('href', site.cv.url);
+  await expect(link).toHaveAttribute('target', '_blank');
+  const pdf = await request.get(site.cv.url);
+  expect(pdf.ok()).toBe(true);
+  expect((await pdf.body()).subarray(0, 5).toString()).toBe('%PDF-');
+  const opened = context.waitForEvent('page');
+  const requested = context.waitForEvent('request', request => request.url().endsWith('/assets/Resume/Ethan_Cao_PhD_CV.pdf'));
+  await link.click();
+  const popup = await opened;
+  // Headless Chromium downloads PDFs instead of displaying its built-in viewer.
+  expect((await requested).isNavigationRequest()).toBe(true);
+  await popup.close();
 });
 
 
@@ -272,7 +290,7 @@ test('research resources and guest lecture notebooks are readable and downloadab
   await expect(page.getByRole('heading', { name: 'About me' })).toBeVisible();
   await page.locator('[data-nav=research]').click();
   await expect(page.locator('#research-list h2')).toHaveText(site.research.map((project) => project.title));
-  await expect(page.getByRole('link', { name: 'Interactive demo' })).toHaveAttribute('href', 'https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b');
+  await expect(page.getByRole('link', { name: 'Interactive demo' })).toHaveAttribute('href', 'https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/');
   for (const project of site.research) for (const resource of project.links) {
     if (resource.url.startsWith('https:') || resource.url.endsWith('.html')) continue;
     const response = await page.request.get(resource.url.replace('./', '/'));
@@ -301,7 +319,7 @@ test('research resources and guest lecture notebooks are readable and downloadab
 test('CV experiences filter, expand, link to research, and offer the supplied resume', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/cv.html');
-  await expect(page.locator('.experience-item')).toHaveCount(10);
+  await expect(page.locator('.experience-item')).toHaveCount(site.cv.experiences.length);
   await expect(page.locator('.experience-item:visible')).toHaveCount(3);
   await expect(page.locator('.experience-item:visible:not([data-category="Industry"])')).toHaveCount(0);
   await expect(page.locator('#experience-filters button[aria-pressed="true"]')).toHaveText('Industry');
@@ -322,28 +340,28 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#tencent details')).toContainText('Riot Games');
   await expect(page.locator('#tencent .experience-photo img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
   const filters = page.getByRole('group', { name: 'Filter experience' });
-  for (const [category, count] of [['Industry', 3], ['Research', 3], ['Teaching', 4]]) {
+  for (const [category, count] of [['Industry', 3], ['Research', 5], ['Projects', 2], ['Teaching', 4]]) {
     await filters.getByRole('button', { name: category, exact: true }).click();
     await expect(page.locator('.experience-item:visible')).toHaveCount(count);
     await expect(filters.getByRole('button', { name: category, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('#experience-status')).toContainText(`${count} ${count === 1 ? 'experience' : 'experiences'} shown`);
   }
   await expect(page.locator('#guest-lecture h3')).toHaveText('COMM 4351 · McIntire School of Commerce');
-  await expect(page.locator('#guest-lecture .experience-role')).toHaveText('Guest Lecturer');
+  await expect(page.locator('#guest-lecture .experience-role').first()).toHaveText('Guest Lecturer');
   await expect(page.locator('#sarc-5400')).toContainText('Teaching Assistant');
   await expect(page.locator('#sarc-5400 h3')).toHaveText('SARC 5400 · School of Architecture');
-  await expect(page.locator('#sarc-5400')).toContainText('January – April 2024');
+  await expect(page.locator('#sarc-5400')).toContainText('January 2025 – April 2025');
   await expect(page.locator('#cdl')).toContainText('Debate Coach & Tournament Chair');
   await expect(page.locator('#cdl')).toContainText('January 2024 – Present');
-  await expect(page.locator('#msba-grader')).toContainText('GBAC 7209, GBAC 7215');
+  await expect(page.locator('#msba-grader')).toContainText('GBAC 7209 & 7215');
   await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
-  await expect(page.locator('#msba-grader')).toContainText('January – April 2025');
+  await expect(page.locator('#msba-grader')).toContainText('January 2026 – April 2026');
   await filters.getByRole('button', { name: 'Industry', exact: true }).click();
   await page.locator('#cisco summary').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('#cisco details')).toHaveAttribute('open', '');
-  await expect(page.locator('#cisco details')).toContainText('Jacobian-lens');
-  await expect(page.locator('#education-list')).toContainText('Qualified for Early Admission');
+  await expect(page.locator('#cisco')).toContainText('Jacobian-Lens');
+  await expect(page.locator('#education-list')).toContainText('Major GPA: 3.95/4.00');
   await expect(page.locator('iframe')).toHaveCount(0);
   await page.locator('#resume-preview summary').click();
   await expect(page.locator('iframe')).toHaveAttribute('src', site.cv.url);
@@ -351,7 +369,7 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   expect((await response.body()).subarray(0, 4).toString()).toBe('%PDF');
   const downloadEvent = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Download resume' }).click();
-  expect((await downloadEvent).suggestedFilename()).toBe('Ethan Cao Resume.pdf');
+  expect((await downloadEvent).suggestedFilename()).toBe('Ethan_Cao_PhD_CV.pdf');
   await filters.getByRole('button', { name: 'Research', exact: true }).click();
   await page.locator('#spatial-ai .experience-title-link').click();
   await expect(page).toHaveURL(/research.html#mesh-transformers$/);
@@ -395,7 +413,8 @@ test('research and teaching card backgrounds navigate and preserve independent r
     await page.goto('/');
     await page.locator(`#${project.id}`).click({ position: { x: 8, y: 8 } });
     await expect(page).toHaveURL(new RegExp(`research.html#${project.id}$`));
-    await expect(page.locator(`#${project.id} .card-title-link`)).toHaveAttribute('href', project.links.find(link => !link.download).url);
+    if (project.links.length) await expect(page.locator(`#${project.id} .card-title-link`)).toHaveAttribute('href', project.links.find(link => !link.download).url);
+    else await expect(page.locator(`#${project.id} details`)).toBeVisible();
   }
   for (const course of site.teaching.slice(0, 3)) {
     await page.goto('/');
@@ -422,17 +441,17 @@ test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied phot
   await page.goto('/teaching.html');
   await expect(page.locator('#teaching-list .teaching-row')).toHaveCount(4);
   await expect(page.locator('#teaching-list')).toContainText('Professor Natasha Foutz');
-  await expect(page.locator('#msba-grader')).toContainText('MSBA Data Courses');
+  await expect(page.locator('#msba-grader')).toContainText('Data Analytics II & III');
   await expect(page.locator('#msba-grader')).toContainText('GBAC 7209 · GBAC 7215');
-  await expect(page.locator('#msba-grader .teaching-role')).toHaveText('Grader');
+  await expect(page.locator('#msba-grader .teaching-role')).toHaveText('Teaching Assistant');
   await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
-  await expect(page.locator('#msba-grader')).toContainText('January – April 2025');
+  await expect(page.locator('#msba-grader')).toContainText('January 2026 – April 2026');
   const sarc = page.locator('.teaching-row').filter({ hasText: 'SARC 5400' });
   await expect(sarc).toContainText('Data Visualization');
   await expect(sarc).toContainText('Teaching Assistant');
-  await expect(sarc).toContainText('January – April 2024');
+  await expect(sarc).toContainText('January 2025 – April 2025');
   await expect(sarc.locator('img')).toHaveAttribute('src', './assets/images/experience/sarc-5400.jpeg');
-  await expect(page.locator('#comm-4351')).toContainText('September – December 2025');
+  await expect(page.locator('#comm-4351')).toContainText('September 2025 – December 2026');
   const cdl = page.locator('.teaching-row').filter({ hasText: 'Charlottesville Debate League' });
   await expect(cdl).toContainText('Tournament Chair');
   await expect(cdl).toContainText('middle school students');
@@ -453,11 +472,10 @@ test('the homepage shows all three teaching photos with closer crops and the flu
   const fluid = page.locator('#fluid-dynamics');
   await expect(fluid).toContainText('Visual Intelligence Lab');
   await fluid.locator('summary').click();
-  await expect(fluid).toContainText('Research Assistant');
-  await expect(fluid.locator('details')).toContainText('per full-trajectory training sample');
-  await expect(fluid.locator('details')).toContainText('over 8 hours to 6.75 minutes');
-  await expect(fluid.locator('details')).toContainText('0.12 to 0.0228 (about 81%)');
-  await expect(fluid.locator('details')).toContainText('zero time derivatives');
+  await expect(fluid).toContainText('Research Intern');
+  await expect(fluid).toContainText('Reduced training time by over 67%');
+  await expect(fluid.locator('details')).toContainText('Reduced rollouts mean squared error by over 81%');
+  await expect(fluid.locator('details')).toContainText('Joseph Choi and Dr. Stephen Baek');
   await page.locator('[data-nav=profile]').click();
   await page.locator('#sarc-5400-preview .teaching-photo').click();
   await expect(page).toHaveURL(/teaching.html#sarc-5400$/);
@@ -509,7 +527,7 @@ test('CV and Teaching remain complete without JavaScript', async ({ browser }) =
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:5173/cv.html');
-  await expect(page.locator('.experience-item')).toHaveCount(10);
+  await expect(page.locator('.experience-item')).toHaveCount(site.cv.experiences.length);
   await expect(page.getByText('Charlottesville Debate League')).toBeVisible();
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
   await expect(page.locator('#experience-filters')).toBeHidden();
@@ -599,7 +617,7 @@ test('PARC has an original animated comparison, reduced-motion fallback, and pre
     await expect(image).toHaveAttribute('src', project.image);
     await expect(card.locator('button')).toHaveCount(0);
   }
-  await page.locator('#fluid-dynamics').click({ position: { x: 8, y: 8 } });
+  await page.locator('#fluid-dynamics').getByRole('link', { name: 'View slides' }).click();
   await expect(page).toHaveURL(/parc-slides.html$/);
   await expect(page.locator('#slide-select option')).toHaveCount(83);
   await page.goBack();
@@ -658,7 +676,8 @@ test('PARC viewer provides all 83 rendered backgrounds and 134 animated figures'
 test('3D transformer cards open the complete web deck with the original mesh animation', async ({ page, request }) => {
   for (const path of ['/', '/research.html']) {
     await page.goto(path);
-    await page.locator('#mesh-transformers').click({ position: { x: 8, y: 8 } });
+    await expect(page.locator('#mesh-transformers .card-title-link')).toHaveAttribute('href', 'https://junewayne.github.io/3D-Mesh-Transformer-Mech-Interp/');
+    await page.locator('#mesh-transformers').getByRole('link', { name: 'Earlier presentation' }).click();
     await expect(page).toHaveURL(/mesh-slides.html$/);
     await expect(page.locator('#slide-select option')).toHaveCount(15);
     await expect(page.locator('#slide-counter')).toHaveText('1 / 15');

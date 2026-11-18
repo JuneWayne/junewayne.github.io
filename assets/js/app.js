@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261117-robotics-report';
+import { site } from './content.js?v=20261118-phd-cv';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261117-robotics-report';
+import { renderCV } from './cv.js?v=20261118-phd-cv';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -50,6 +50,8 @@ function renderProfile() {
   if (!document.querySelector('#profile-bio')) return;
   document.querySelector('#profile-bio').replaceChildren(...site.bio.map((text) => element('p', '', text)));
   document.querySelector('#profile-links').replaceChildren(...site.links.map(link));
+  const resumeLink = document.querySelector('#profile-resume');
+  if (resumeLink && site.cv.url) resumeLink.href = site.cv.url;
   const portrait = document.querySelector('#profile-portrait');
   if (site.portrait) {
     const image = element('img', 'profile-portrait');
@@ -119,6 +121,7 @@ function renderResearch() {
       if (project.labs?.length && project.role) {
         details.append(element('p', '', [project.role, project.location, project.dates].filter(Boolean).join(' · ')));
       }
+      if (project.supervisors) details.append(element('p', '', `Supervisors: ${project.supervisors}`));
       project.details?.forEach((paragraph) => details.append(element('p', '', paragraph)));
       if (project.highlights?.length) {
         const list = element('ul');
@@ -161,6 +164,7 @@ function courseRow(course, full = false) {
   row.append(title, role);
   if (course.term) row.append(element('p', 'teaching-term', course.term));
   if (full && course.description) {
+    if (course.instructor) row.append(element('p', 'teaching-description', course.instructor));
     course.description.split('\n\n').forEach(paragraph => row.append(element('p', 'teaching-description lecture-description', paragraph)));
   }
   if (full && course.materials?.length) {

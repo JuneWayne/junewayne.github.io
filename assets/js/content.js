@@ -6,9 +6,10 @@
 export const site = {
   name: "Ethan (Yisong) Cao",
   bio: [
-    "I’m a fourth-year undergraduate at the University of Virginia, majoring in Data Science with a concentration in Machine Learning and Data Engineering, and minoring in Computer Science.",
-    "I’m fascinated by the mechanisms underlying deep neural networks, especially transformers. This has led me to investigate the mechanisms and alignment of large language models and multimodal transformers.",
-    "I believe in research for impact. I measure my work by whether it addresses persistent challenges or uncovers insights that have not yet surfaced in the field. I’m open to inquiries and opportunities, not to mention I am actively seeking graduate opportunities and internships myself.",
+    "I’m a fourth-year undergraduate at the University of Virginia, majoring in Data Science with a concentration in Artificial Intelligence and minoring in Computer Science.",
+    "I am primarily interested in the mechanistic interpretability of large language models and multimodal models, with a focus deciphering reward hacking and misalignment behaviors that arise during post-training.",
+    "Additionally, my interests include investigating the verbalization techniques of LLM hidden activations for safety alignment auditing, exploring new transformer architecture design for efficient reasoning, as well as investigating how effective data curation could be done to reduce post-training costs for practical industry settings.",
+    "I believe in research for impact. I measure my work by whether it addresses persistent challenges or uncovers insights that have not yet surfaced in the field. I’m open to inquiries and opportunities, not to mention I am actively seeking graduate opportunities and internships myself."
   ],
   portrait: "./assets/images/portrait.jpg",
   portraitAlt: "Ethan (Yisong) Cao wearing a straw hat and holding a yellow rubber duck.",
@@ -21,19 +22,16 @@ export const site = {
     { label: "LinkedIn", url: "https://www.linkedin.com/in/ethan-yisong-cao/" },
   ],
   cv: {
-    "url": "./assets/PDFs/Ethan%20Cao%20Resume.pdf",
+    "url": "./assets/Resume/Ethan_Cao_PhD_CV.pdf",
     "education": [
       {
         "degree": "B.S. in Data Science",
-        "institution": "University of Virginia · School of Data Science",
-        "detail": "Concentration in Machine Learning & Data Engineering",
-        "status": "Expected May 2027"
-      },
-      {
-        "degree": "M.S. in Data Science",
-        "institution": "University of Virginia · School of Data Science",
-        "detail": "Concentration in Artificial Intelligence",
-        "status": "Qualified for Early Admission"
+        "institution": "University of Virginia · School of Data Science and School of Engineering",
+        "detail": "Concentration in Artificial Intelligence | Minor in Computer Science",
+        "status": "September 2023 – May 2027",
+        "notes": [
+          "Major GPA: 3.95/4.00     Cumulative GPA: 3.80/4.00"
+        ]
       }
     ],
     "coursework": [
@@ -70,6 +68,14 @@ export const site = {
             "title": "Reinforcement Learning",
             "description": "Learning policies for sequential decisions through rewards and interaction.",
             "status": "In progress · Fall 2026"
+          },
+          {
+            "title": "Large Language Models",
+            "description": "Language model architectures, training, and applications."
+          },
+          {
+            "title": "Recommender Systems",
+            "description": "Methods for ranking and recommending items based on user preferences."
           }
         ]
       },
@@ -164,8 +170,14 @@ export const site = {
           },
           {
             "code": "CS 2501",
-            "title": "Preparing for Research",
-            "description": "An introduction to the practices and skills involved in computer science research."
+            "title": "Intro to Research",
+            "description": "An introduction to the practices and skills involved in computer science research.",
+            "links": [
+              {
+                "label": "Project paper",
+                "url": "https://junewayne.github.io/Multilingual-Gender-Bias-in-NLP/"
+              }
+            ]
           },
           {
             "code": "DS 2024",
@@ -200,13 +212,19 @@ export const site = {
             "status": "In progress · Fall 2026"
           },
           {
-            "code": "MAE 4270",
+            "code": "MAE 6270",
             "title": "Experimental Robotics",
             "description": "Building and programming robots with sensors, actuators, and ROS.",
             "status": "In progress · Fall 2026",
             "links": [
-              { "label": "Technical report", "url": "https://junewayne.github.io/MAE6270-FridgeBot/report/" },
-              { "label": "Slides", "url": "https://junewayne.github.io/MAE6270-FridgeBot/" }
+              {
+                "label": "Technical report",
+                "url": "https://junewayne.github.io/MAE6270-FridgeBot/report/"
+              },
+              {
+                "label": "Slides",
+                "url": "https://junewayne.github.io/MAE6270-FridgeBot/"
+              }
             ]
           }
         ]
@@ -315,97 +333,24 @@ export const site = {
         "role": "Data Scientist Intern",
         "category": "Industry",
         "dates": "May – August 2026",
-        "summary": "Worked on LLM auditing for prompt-injection defenses, semantic search, and a full-stack escalation tracking platform.",
+        "summary": "Post-trained Qwen2.5-1.5B, Qwen3.5-4B, and Cisco’s Antares-1B and Foundation-Sec-8B-Reasoning models using Jacobian-Lens to audit Cisco’s agentic systems on their effectiveness in prompt injection defense.",
         "highlights": [
-          "Developed a lightweight LLM audit workflow using Jacobian-lens techniques with Qwen and Cisco Antares/Foundation-Sec models.",
-          "Built semantic search using Sentence-Transformer embeddings, pgvector, and cosine-similarity ranking.",
-          "Built FastAPI and Next.js services backed by PostgreSQL, deployed through OpenShift and Jenkins CI/CD."
+          "Deployed a search engine for escalations using Sentence Transformer embeddings stored in pgvector. Designed system that ranks escalation descriptions by cosine similarity to the user’s query during inference.",
+          "Built a full stack Escalation Tracking platform with FastAPI, Next.js, and PostgreSQL, and deployed on OpenShift containers."
         ],
         "photo": {
           "src": "./assets/images/experience/cisco-internship.jpg",
           "alt": "Ethan standing beside a Cisco sign outside the campus.",
           "width": 1279,
           "height": 1706
-        }
-      },
-      {
-        "id": "spatial-ai",
-        "organization": "Spatial Artificial Intelligence Lab",
-        "role": "Undergraduate Researcher",
-        "category": "Research",
-        "dates": "January 2026 – Present",
-        "summary": "Investigating the mechanisms of autoregressive 3D mesh transformers and how their attention heads represent geometry.",
-        "highlights": [
-          "Studied attention sinks and active/dormant attention-head behavior in MeshXL.",
-          "Built a PyTorch pipeline with forward hooks to extract attention matrices, weights, and hidden states.",
-          "Analyzed geometric feature preferences and hidden-state retrieval across layers to investigate mesh generation."
+        },
+        "links": [
+          {
+            "label": "Project demo",
+            "url": "https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/"
+          }
         ],
-        "links": [
-          {
-            "label": "Related research: 3D transformers",
-            "url": "./research.html#mesh-transformers"
-          }
-        ]
-      },
-      {
-        "id": "guest-lecture",
-        "organization": "COMM 4351 · McIntire School of Commerce",
-        "role": "Guest Lecturer",
-        "category": "Teaching",
-        "dates": "September – December 2025",
-        "summary": "Guest lecture on AI agents in Professor Natasha Foutz’s Marketing Analytics and Big Data class, with hands-on examples in APIs, LangChain, retrieval, and hierarchical multi-agent systems.",
-        "photo": {
-          "src": "./assets/images/experience/guest-lecture.jpg",
-          "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
-          "width": 1613,
-          "height": 975,
-          "wide": false
-        },
-        "links": [
-          {
-            "label": "Lecture notebooks and teaching materials",
-            "url": "./teaching.html#comm-4351"
-          }
-        ]
-      },
-      {
-        "id": "sarc-5400",
-        "organization": "SARC 5400 · School of Architecture",
-        "role": "Teaching Assistant",
-        "category": "Teaching",
-        "dates": "January – April 2024",
-        "summary": "Teaching assistant for Data Visualization.",
-        "photo": {
-          "src": "./assets/images/experience/sarc-5400.jpeg",
-          "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
-          "width": 865,
-          "height": 1085
-        },
-        "links": [{ "label": "Teaching details", "url": "./teaching.html#sarc-5400" }]
-      },
-      {
-        "id": "msba-grader",
-        "organization": "MSBA Data Courses · GBAC 7209, GBAC 7215",
-        "role": "Grader",
-        "category": "Teaching",
-        "dates": "January – April 2025",
-        "summary": "Grader for Professor Mousavi’s MSBA Data Courses: GBAC 7209 and GBAC 7215.",
-        "links": [{ "label": "Teaching details", "url": "./teaching.html#msba-grader" }]
-      },
-      {
-        "id": "cdl",
-        "organization": "Charlottesville Debate League",
-        "role": "Debate Coach & Tournament Chair",
-        "category": "Teaching",
-        "dates": "January 2024 – Present",
-        "summary": "Organizing, planning, and managing speech and debate tournaments for Charlottesville middle school students.",
-        "photo": {
-          "src": "./assets/images/experience/cdl-team.jpg",
-          "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
-          "width": 1706,
-          "height": 1279
-        },
-        "links": [{ "label": "Teaching details", "url": "./teaching.html#cdl" }]
+        "expandOnClick": true
       },
       {
         "id": "align",
@@ -414,11 +359,10 @@ export const site = {
         "role": "AI & Automation Intern",
         "category": "Industry",
         "dates": "May – August 2025",
-        "summary": "Built and shipped a multi-agent RAG chatbot for market research, used by 20,000+ Align employees.",
+        "summary": "Built and shipped a multi-agent RAG chatbot used by over 20,000 Align employees for market research. Integrated LangChain, Azure AI Foundry, Copilot Studio, and the Teams SDK in Python.",
         "highlights": [
-          "Developed the chatbot using Azure AI Foundry, Copilot Studio, Teams SDK, and LangChain.",
-          "Combined multimodal embeddings and OCR to improve retrieval from charts, dashboards, and tables.",
-          "Fine-tuned o4-mini in Azure AI Foundry to improve response quality and document-specific retrieval relevance."
+          "Improved retrieval from charts, dashboards, and tables with Cohere v4 multimodal embeddings and OCR for text-heavy images. Customer satisfaction increased by over 116%.",
+          "Fine-tuned o4-mini in Azure AI Foundry using supervised fine-tuning, reinforcement learning, and document-specific question–answer pairs to improve response quality and retrieval relevance."
         ],
         "photo": {
           "src": "./assets/images/experience/align-internship.jpg",
@@ -426,53 +370,6 @@ export const site = {
           "width": 1279,
           "height": 1706
         }
-      },
-      {
-        "id": "visual-intelligence",
-        "organization": "Visual Intelligence Lab",
-        "role": "Research Assistant",
-        "category": "Research",
-        "dates": "April – September 2025",
-        "summary": "Adapted PARCv2 to predict tracer, pressure, and velocity fields in 2D shear flow, comparing Euler and RK4 integration for snapshot accuracy and rollout stability.",
-        "highlights": [
-          "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
-          "Reduced training time from over 8 hours to 6.75 minutes per full-trajectory training sample through spatial downsampling, temporal skipping, and training-pipeline changes, as reported in the shear-flow presentation.",
-          "Reduced rollout inference MSE on a training sample from approximately 0.12 to 0.0228 (about 81%); longer rollouts remained sensitive to compounding errors.",
-          "Designed differentiator and integrator components that keep constant variables at zero time derivatives while evolving velocity fields in the model state, enabling PARC to learn 2D shear-flow advection and diffusion."
-        ],
-        "links": [
-          {
-            "label": "Related research: fluid dynamics",
-            "url": "./research.html#fluid-dynamics"
-          },
-          {
-            "label": "PARCtorch code",
-            "url": "https://github.com/JuneWayne/PARCtorch/"
-          }
-        ]
-      },
-      {
-        "id": "active-learning",
-        "organization": "Active Learning Lab",
-        "role": "Undergraduate Researcher",
-        "category": "Research",
-        "dates": "December 2024 – May 2026",
-        "summary": "Studied how early-career data science roles evolve through an unsupervised NLP pipeline built from LinkedIn job descriptions.",
-        "highlights": [
-          "Collected hourly job data and embedded more than 10,000 early-career postings.",
-          "Used UMAP, HDBSCAN, class-based TF-IDF, and LLM labeling to identify 45 role groupings.",
-          "Measured month-to-month semantic shifts and within-cluster consistency to study emerging micro-professions."
-        ],
-        "links": [
-          {
-            "label": "Related research: semantic shifts",
-            "url": "./research.html#semantic-shifts"
-          },
-          {
-            "label": "Project code",
-            "url": "https://github.com/JuneWayne/Latent-Representation-Job-Market/tree/main"
-          }
-        ]
       },
       {
         "id": "tencent",
@@ -494,110 +391,408 @@ export const site = {
           "Researched strategic solutions for Age of Empires and Meta Star that improved user retention by 14% and user satisfaction by 21%, through UI, in-game GPT, and gameplay optimization feedback surveys.",
           "Conducted business case studies of Apex Legends and Valorant in Korea and Japan, covering advertising strategies, KOL partnerships, and revenue outlook through 10+ interviews with Riot Games industry specialists."
         ]
+      },
+      {
+        "id": "injection-research",
+        "organization": "Actionable Interpretability: Effective Data Curation for LoRA Fine-Tuning SLMs against Prompt Injection",
+        "role": "First Author · Cisco Foundation AI",
+        "category": "Research",
+        "dates": "May 2026 – November 2026",
+        "summary": "Compared eight ways to curate 256 training pairs from the Fine-Grained Indirect Prompt Injection dataset. Designed a Pairwise Selection Score (PSS) to select prompt pairs that linear probes & the model underperforms as training dataset.",
+        "highlights": [
+          "Used a Jacobian Lens to read Qwen2.5-7B’s intermediate hidden states and identify the prompt pairs it found hardest to classify. Used those pairs to fine-tune Qwen with LoRA and examined the feature distribution of the dataset selected by J-Lens.",
+          "Evaluated the fine-tuned models on separate prompt-injection benchmarks. The Jacobian Lens yielded the lowest overall attack success rate and selected more cases where the source text falsely claimed the user’s task was complete."
+        ],
+        "supervisors": "Rachel Williamson and Devin Bender",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#prompt-injection"
+          },
+          {
+            "label": "Hugging Face article",
+            "url": "https://huggingface.co/blog/JuneWay128/actionable-interpretability-curating-effective-pro"
+          },
+          {
+            "label": "Interactive demo",
+            "url": "https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/"
+          }
+        ]
+      },
+      {
+        "id": "active-learning",
+        "organization": "Interpreting Early-Career Job Advertisements with Sparse Autoencoders and Semantic Clustering",
+        "role": "First Author · Active Learning Lab",
+        "category": "Research",
+        "dates": "January 2024 – November 2026",
+        "summary": "Developed PERC (Preprocessing, Embedding, Reduction, Clustering) to analyze 36,081 early-career job postings collected over 1.5 years. Evaluated seven ways to segment a job posting text to identify patterns across occupations and over time.",
+        "highlights": [
+          "Applied Goodfire’s pretrained Sparse Autoencoder (SAE) to examine layer-19 activations from Llama-3.1-8B to identify features associated with technical skills and job responsibilities from occupation and monthly clusters.",
+          "Compared hypotheses generated by GPT-6 Luna from SAE features, PERC clusters, and job posting description text alone. Tested the hypotheses on postings from held-out companies and discovered recurring themes about early career job roles."
+        ],
+        "supervisors": "Dr. Brian Wright and Ali Rivera",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#semantic-shifts"
+          },
+          {
+            "label": "arXiv preprint",
+            "url": "https://arxiv.org/abs/2611.21586"
+          }
+        ]
+      },
+      {
+        "id": "spatial-ai",
+        "organization": "Rule-Based Attention: Replacing Attention Heads in 3D Generative Mesh Transformers for Efficient Generation",
+        "role": "First Author · Spatial AI Lab",
+        "category": "Research",
+        "dates": "Present",
+        "summary": "Measured which geometric features attention heads attend to during unconditional and conditional generation across four families of autoregressive mesh transformers (MeshGPT, MeshXL, DeepMesh, and MeshMosaic).",
+        "highlights": [
+          "Designed a preference-ratio metric and three rule-based replacements for attention heads. MeshXL maintained generation quality with up to 50% of the measured heads replaced.",
+          "Evaluated conditional and unconditional generation using kernel and Fréchet distances in Uni3D embedding space. Used Chamfer distance to compare generated meshes with their nearest training shapes."
+        ],
+        "supervisors": "Dr. Lei Li",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#mesh-transformers"
+          },
+          {
+            "label": "Research proposal",
+            "url": "https://junewayne.github.io/3D-Mesh-Transformer-Mech-Interp/"
+          },
+          {
+            "label": "Earlier presentation",
+            "url": "./mesh-slides.html"
+          },
+          {
+            "label": "Slides (PowerPoint)",
+            "url": "./assets/PowerPoints/Collaboration%20Request.pptx",
+            "download": true
+          }
+        ]
+      },
+      {
+        "id": "aikyam",
+        "organization": "Reward Hacking: Examining the Effects of Weight Deletion on Reward-Hacking Behavior of LLMs",
+        "role": "Co-Author · Aikyam Lab",
+        "category": "Research",
+        "dates": "Present",
+        "summary": "Investigating whether selectively deleting model weights can make a model more likely to exploit gaps in a reward function, and whether such effects of reward hacking transfers or generalizes to unseen tasks.",
+        "highlights": [
+          "Designing controlled experiments to test whether learned weight deletion makes models more prone to reward hacking during coding RL, measuring how often they pass contradictory unit tests and how accurately they solve the original tasks."
+        ],
+        "supervisors": "Ahson Saiyed and Dr. Chirag Agarwal",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#reward-hacking"
+          }
+        ]
+      },
+      {
+        "id": "visual-intelligence",
+        "organization": "Physics-Aware Convolutional Neural Network: A ShearFlow Dataset Adaptation",
+        "role": "Research Intern · Visual Intelligence Lab",
+        "category": "Research",
+        "dates": "April 2025 – September 2025",
+        "summary": "Trained a physics-aware recurrent convolutional neural network (PARCv2) in PyTorch to predict advection and diffusion in two-dimensional shear flow. Reduced training time by over 67% using one-third spatial down sampling and time-step skipping.",
+        "highlights": [
+          "Reduced rollouts mean squared error by over 81% after comparing Euler and RK4 integrators under the same model configurations and selecting checkpoints by validation loss."
+        ],
+        "supervisors": "Joseph Choi and Dr. Stephen Baek",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#fluid-dynamics"
+          },
+          {
+            "label": "Research presentation",
+            "url": "https://junewayne.github.io/ShearFlow-PARC-NN/"
+          },
+          {
+            "label": "View slides",
+            "url": "./parc-slides.html"
+          },
+          {
+            "label": "Download PowerPoint",
+            "url": "./assets/PowerPoints/ShearFlow-PARC-web.pptx",
+            "download": true
+          },
+          {
+            "label": "PARCtorch code",
+            "url": "https://github.com/JuneWayne/PARCtorch/"
+          }
+        ]
+      },
+      {
+        "id": "multilingual-project",
+        "organization": "CS 2501: Intro to Research – Multilingual Bias in Gendered Linguistic Context of NLP Models",
+        "role": "Course project · University of Virginia",
+        "category": "Projects",
+        "dates": "September 2025 – December 2025",
+        "summary": "An NLP research project that discovered that toxicity and sentiment scores generally changed more for English comments with female pronouns than for those with male pronouns after translation into Turkish or Finnish (the two genderless languages).",
+        "highlights": [
+          "Built a four-language dataset by translating a pronoun-balanced sample of RtGender Reddit comments from English into Dutch, Turkish, and Finnish. Used perturbation sensitivity analysis to compare predictions from eight language-specific classifiers."
+        ],
+        "supervisors": "Dr. Briana Morrison",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#multilingual-bias"
+          },
+          {
+            "label": "Project paper",
+            "url": "https://junewayne.github.io/Multilingual-Gender-Bias-in-NLP/"
+          }
+        ]
+      },
+      {
+        "id": "robotics-project",
+        "organization": "MAE 6270: Experimental Robotics – Calibrated Automatic & Teleoperated Robotic Navigation",
+        "role": "Course project · University of Virginia",
+        "category": "Projects",
+        "dates": "September 2026 – November 2026",
+        "summary": "Designed a four-wheel-drive ROS 2 robot for joystick teleoperation and automated maneuvers. Calibrated its drive system by developing a linear regression model to measure patterns in observed driven distance to expected motion distance.",
+        "highlights": [
+          "Built a graphics user interface via Qt design that displayed compressed video from the robot’s RGB-D camera alongside 3D LiDAR scans, allowing the operator to assess obstacles and navigate remotely over Wi-Fi and via the GUI solely."
+        ],
+        "supervisors": "Dr. Tomonari Furukawa",
+        "links": [
+          {
+            "label": "Research details",
+            "url": "./research.html#robotic-navigation"
+          },
+          {
+            "label": "Presentation slides",
+            "url": "https://junewayne.github.io/MAE6270-FridgeBot/"
+          },
+          {
+            "label": "Technical report",
+            "url": "https://junewayne.github.io/MAE6270-FridgeBot/report/"
+          }
+        ]
+      },
+      {
+        "id": "guest-lecture",
+        "organization": "COMM 4351 · McIntire School of Commerce",
+        "role": "Guest Lecturer",
+        "category": "Teaching",
+        "dates": "September 2025 – December 2026",
+        "summary": "Taught Multi-Agent Orchestration in Market Research workflows, designing Retrieval Augmented Generation (RAG) systems for preserving agent memory in such workflows, and Python basics in data manipulation and exploratory data analysis.",
+        "photo": {
+          "src": "./assets/images/experience/guest-lecture.jpg",
+          "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
+          "width": 1613,
+          "height": 975,
+          "wide": false
+        },
+        "links": [
+          {
+            "label": "Lecture notebooks and teaching materials",
+            "url": "./teaching.html#comm-4351"
+          }
+        ],
+        "supervisors": "Professor Natasha Foutz"
+      },
+      {
+        "id": "sarc-5400",
+        "organization": "SARC 5400 · School of Architecture",
+        "role": "Teaching Assistant",
+        "category": "Teaching",
+        "dates": "January 2025 – April 2025",
+        "summary": "Taught and advised Data Visualization & Story Telling Techniques and supervised MSDS student final data visualization.",
+        "photo": {
+          "src": "./assets/images/experience/sarc-5400.jpeg",
+          "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
+          "width": 865,
+          "height": 1085
+        },
+        "links": [
+          {
+            "label": "Teaching details",
+            "url": "./teaching.html#sarc-5400"
+          }
+        ],
+        "supervisors": "Professor Eric Field"
+      },
+      {
+        "id": "msba-grader",
+        "organization": "GBAC 7209 & 7215 · Data Analytics II & III",
+        "role": "Teaching Assistant",
+        "category": "Teaching",
+        "dates": "January 2026 – April 2026",
+        "summary": "Taught and graded MSBA data analytics course student homework and projects, covering topics on predictive analytics, deep learning, and text analytics.",
+        "links": [
+          {
+            "label": "Teaching details",
+            "url": "./teaching.html#msba-grader"
+          }
+        ],
+        "supervisors": "Professor Mousavi"
+      },
+      {
+        "id": "cdl",
+        "organization": "Charlottesville Debate League",
+        "role": "Debate Coach & Tournament Chair",
+        "category": "Teaching",
+        "dates": "January 2024 – Present",
+        "summary": "Organizing, planning, and managing speech and debate tournaments for Charlottesville middle school students.",
+        "photo": {
+          "src": "./assets/images/experience/cdl-team.jpg",
+          "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
+          "width": 1706,
+          "height": 1279
+        },
+        "links": [
+          {
+            "label": "Teaching details",
+            "url": "./teaching.html#cdl"
+          }
+        ]
       }
-    ]
+    ],
+    "sourceUrl": "./assets/Resume/Ethan_Cao_PhD_CV.docx"
   },
   research: [
     {
       "id": "prompt-injection",
-      "labs": [{"label": "Cisco Foundation AI", "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/foundation-ai/index.html"}, {"label": "Virginia AI Safety Initiative", "url": "https://www.vaisi.org/"}],
-      "title": "Towards Effective Data Curation for Robust Prompt Injection Defense Fine-Tuning",
-      "summary": "Which training examples help a language model resist prompt injection? I compare eight ways to select 256 safe/injection pairs from FIPI, using probes, Jlens, random selection, text diversity, and observed model failures. Each selected subset trains a separate Qwen2.5-7B-Instruct LoRA adapter to reproduce the safe-prompt response when given injected content. The blog compares attack success rates across eight evaluation setups and explains what remains to be tested, including legitimate multi-turn task completion.",
-      "kind": "Ongoing research",
+      "title": "Actionable Interpretability: Effective Data Curation for LoRA Fine-Tuning SLMs against Prompt Injection",
+      "summary": "Compared eight ways to curate 256 training pairs from the Fine-Grained Indirect Prompt Injection dataset. Designed a Pairwise Selection Score (PSS) to select prompt pairs that linear probes & the model underperforms as training dataset.",
+      "details": [
+        "Used a Jacobian Lens to read Qwen2.5-7B’s intermediate hidden states and identify the prompt pairs it found hardest to classify. Used those pairs to fine-tune Qwen with LoRA and examined the feature distribution of the dataset selected by J-Lens.",
+        "Evaluated the fine-tuned models on separate prompt-injection benchmarks. The Jacobian Lens yielded the lowest overall attack success rate and selected more cases where the source text falsely claimed the user’s task was complete."
+      ],
+      "role": "First Author",
+      "dates": "May 2026 – November 2026",
+      "supervisors": "Rachel Williamson and Devin Bender",
+      "labs": [
+        {
+          "label": "Cisco Foundation AI",
+          "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/foundation-ai/index.html"
+        }
+      ],
       "links": [
         {
-          "label": "Read the blog",
-          "url": "./blog/prompt-injection-data-curation.html"
+          "label": "Hugging Face article",
+          "url": "https://huggingface.co/blog/JuneWay128/actionable-interpretability-curating-effective-pro"
         },
         {
           "label": "Interactive demo",
-          "url": "https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/?model=antares-1b"
+          "url": "https://junewayne.github.io/Verbalizing-LLMs-For-AI-Defense/"
         }
-      ]
+      ],
+      "linkToResource": true
     },
     {
-      "id": "reward-hacking",
-      "title": "Replicable Reward Hacking Scenarios (Ongoing research)",
-      "summary": "We examine where and when models show misalignment and reward hacking. We seek environments that repeatedly elicit reward hacking across trials and models, testing whether it is reproducible and widespread rather than an isolated event. This work lays the groundwork for investigating why reward hacking occurs. One question is whether mesa-optimizers, learned internal optimization processes, are shaped during post-training to produce misaligned behavior. We also aim to examine whether different training approaches can inhibit reward hacking by changing these internal optimizers or models."
+      "id": "semantic-shifts",
+      "title": "Interpreting Early-Career Job Advertisements with Sparse Autoencoders and Semantic Clustering",
+      "summary": "Developed PERC (Preprocessing, Embedding, Reduction, Clustering) to analyze 36,081 early-career job postings collected over 1.5 years. Evaluated seven ways to segment a job posting text to identify patterns across occupations and over time.",
+      "details": [
+        "Applied Goodfire’s pretrained Sparse Autoencoder (SAE) to examine layer-19 activations from Llama-3.1-8B to identify features associated with technical skills and job responsibilities from occupation and monthly clusters.",
+        "Compared hypotheses generated by GPT-6 Luna from SAE features, PERC clusters, and job posting description text alone. Tested the hypotheses on postings from held-out companies and discovered recurring themes about early career job roles."
+      ],
+      "role": "First Author",
+      "dates": "January 2024 – November 2026",
+      "supervisors": "Dr. Brian Wright and Ali Rivera",
+      "labs": [
+        {
+          "label": "Active Learning Lab",
+          "url": "https://datascience.virginia.edu/people/brian-wright"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv preprint",
+          "url": "https://arxiv.org/abs/2611.21586"
+        }
+      ],
+      "linkToResource": true
     },
     {
       "id": "mesh-transformers",
-      "linkToResource": true,
-      "labs": [{"label": "Spatial AI Lab", "url": "https://craigleili.github.io/"}],
-      "title": "Interpreting 3D Autoregressive Transformers",
       "image": "./assets/slides/mesh-transformers/image4.gif",
       "imageAlt": "Animated generation of triangular meshes in five categories: chair, table, airplane, bottle, and lamp. Extracted from slide 2 of the 3D transformer interpretation presentation.",
       "imageWidth": 1650,
       "imageHeight": 374,
       "animationStill": "./assets/images/research/mesh-generation-still.png",
       "animationLabel": "Open mesh-generation animation at full size",
-      "summary": "Studying how attention heads in autoregressive mesh transformers relate to the geometric properties of triangles, with comparisons across four 3D generation model families.",
-      "kind": "Work in progress",
+      "title": "Rule-Based Attention: Replacing Attention Heads in 3D Generative Mesh Transformers for Efficient Generation",
+      "summary": "Measured which geometric features attention heads attend to during unconditional and conditional generation across four families of autoregressive mesh transformers (MeshGPT, MeshXL, DeepMesh, and MeshMosaic).",
       "details": [
-        "The current analysis examines MeshGPT, MeshXL, DeepMesh, and MeshMosaic using 500 ShapeNet meshes across five object categories. It compares attention-head preferences for triangle area, aspect ratio, and orientation."
+        "Designed a preference-ratio metric and three rule-based replacements for attention heads. MeshXL maintained generation quality with up to 50% of the measured heads replaced.",
+        "Evaluated conditional and unconditional generation using kernel and Fréchet distances in Uni3D embedding space. Used Chamfer distance to compare generated meshes with their nearest training shapes."
+      ],
+      "role": "First Author",
+      "dates": "Present",
+      "supervisors": "Dr. Lei Li",
+      "labs": [
+        {
+          "label": "Spatial AI Lab",
+          "url": "https://craigleili.github.io/"
+        }
       ],
       "links": [
         {
-          "label": "View presentation",
-          "url": "./mesh-slides.html"
+          "label": "Research proposal",
+          "url": "https://junewayne.github.io/3D-Mesh-Transformer-Mech-Interp/"
         },
         {
-          "label": "Research summary (PDF)",
-          "url": "./assets/PowerPoints/Collaboration%20Request.pdf"
+          "label": "Earlier presentation",
+          "url": "./mesh-slides.html"
         },
         {
           "label": "Slides (PowerPoint)",
           "url": "./assets/PowerPoints/Collaboration%20Request.pptx",
           "download": true
         }
-      ]
+      ],
+      "linkToResource": true
     },
     {
-      "id": "semantic-shifts",
-      "labs": [{"label": "Active Learning Lab", "url": "https://dsactivelearninglab.com/"}],
-      "title": "Tracking Semantic Evolution of Data Science Roles",
-      "summary": "Studying how early-career data science roles change over time through sentence embeddings, unsupervised clustering, and temporal analysis of job descriptions.",
-      "kind": "Draft manuscript",
+      "id": "reward-hacking",
+      "title": "Reward Hacking: Examining the Effects of Weight Deletion on Reward-Hacking Behavior of LLMs",
+      "summary": "Investigating whether selectively deleting model weights can make a model more likely to exploit gaps in a reward function, and whether such effects of reward hacking transfers or generalizes to unseen tasks.",
       "details": [
-        "The draft analyzes 10,603 early-career job postings using sentence embeddings, UMAP, HDBSCAN, and temporal stability measures to study specialized role groupings and their semantic shifts.",
-        "With Leah Kim, Brian Wright, and Ali Rivera at UVA’s Active Learning Lab."
+        "Designing controlled experiments to test whether learned weight deletion makes models more prone to reward hacking during coding RL, measuring how often they pass contradictory unit tests and how accurately they solve the original tasks."
       ],
-      "links": [
-        {
-          "label": "Draft paper (PDF)",
-          "url": "./assets/PDFs/Tracking%20Semantic%20Evolution%20of%20DS%20roles%20%281%29.pdf"
-        }
-      ]
+      "role": "Co-Author",
+      "dates": "Present",
+      "supervisors": "Ahson Saiyed and Dr. Chirag Agarwal",
+      "organization": "Aikyam Lab",
+      "links": [],
+      "linkToResource": false
     },
     {
       "id": "fluid-dynamics",
-      "labs": [{"label": "Visual Intelligence Lab", "url": "https://stephenbaek.github.io/lab/"}],
-      "title": "PARC: Physics-Aware Recurrent Convolutional Neural Network",
       "image": "./assets/images/research/parc-shearflow-tracer.gif",
       "imageAlt": "PARCv2 with RK4: animated snapshot predictions of tracer advection and diffusion on a test sample, beside ground truth. Extracted from slide 40 of the shear-flow presentation.",
       "imageWidth": 720,
       "imageHeight": 360,
       "animationStill": "./assets/images/research/parc-shearflow-tracer-still.png",
-      "linkToResource": true,
-      "organization": "Visual Intelligence Lab",
-      "role": "Research Assistant",
-      "location": "Charlottesville, Virginia",
-      "dates": "April – September 2025",
-      "summary": "Adapted PARCv2 to model advection and diffusion in 2D shear flow, predicting tracer, pressure, and velocity fields. Experiments compared Euler and RK4 integration and reduced rollout MSE from approximately 0.12 to 0.0228 on a training sample.",
+      "title": "Physics-Aware Convolutional Neural Network: A ShearFlow Dataset Adaptation",
+      "summary": "Trained a physics-aware recurrent convolutional neural network (PARCv2) in PyTorch to predict advection and diffusion in two-dimensional shear flow. Reduced training time by over 67% using one-third spatial down sampling and time-step skipping.",
       "details": [
-        "Kept Reynolds and Schmidt parameter fields constant in the differentiator while allowing the integrator to evolve velocity fields. Explored Schmidt-based data splits and compared snapshot predictions with autoregressive rollouts.",
-        "Snapshot predictions were stronger than longer rollouts. Euler trained faster, while RK4 produced steadier loss curves but still accumulated rollout errors. Broader test-set validation and physics-based evaluation were identified as next steps.",
-        "The animation shows RK4 snapshot predictions of the tracer field beside ground truth on a test sample (slide 40). The full presentation contains all 83 slides, including earlier experiments and their limitations."
+        "Reduced rollouts mean squared error by over 81% after comparing Euler and RK4 integrators under the same model configurations and selecting checkpoints by validation loss."
       ],
-      "highlights": [
-        "Designed and trained a Physics-Aware Recurrent Convolutional (PARCv2) neural network in PyTorch to predict advection and diffusion in 2D shear-flow fluid dynamics systems.",
-        "Reduced training time from over 8 hours to 6.75 minutes per full-trajectory training sample through spatial downsampling, temporal skipping, and training-pipeline changes, as reported in the presentation.",
-        "Reduced rollout inference MSE on a training sample from approximately 0.12 to 0.0228 (about 81%); longer rollouts remained sensitive to compounding errors.",
-        "Designed differentiator and integrator components that keep constant variables at zero time derivatives while evolving velocity fields in the model state, enabling PARC to learn 2D shear-flow advection and diffusion."
+      "role": "Research Intern",
+      "dates": "April 2025 – September 2025",
+      "supervisors": "Joseph Choi and Dr. Stephen Baek",
+      "labs": [
+        {
+          "label": "Visual Intelligence Lab",
+          "url": "https://stephenbaek.com/lab/"
+        }
       ],
       "links": [
         {
-          "label": "View presentation",
+          "label": "Research presentation",
+          "url": "https://junewayne.github.io/ShearFlow-PARC-NN/"
+        },
+        {
+          "label": "View slides",
           "url": "./parc-slides.html"
         },
         {
@@ -606,19 +801,62 @@ export const site = {
           "download": true
         },
         {
-          "label": "Code",
+          "label": "PARCtorch code",
           "url": "https://github.com/JuneWayne/PARCtorch/"
         }
-      ]
+      ],
+      "linkToResource": true
+    },
+    {
+      "id": "multilingual-bias",
+      "title": "CS 2501: Intro to Research – Multilingual Bias in Gendered Linguistic Context of NLP Models",
+      "summary": "An NLP research project that discovered that toxicity and sentiment scores generally changed more for English comments with female pronouns than for those with male pronouns after translation into Turkish or Finnish (the two genderless languages).",
+      "details": [
+        "Built a four-language dataset by translating a pronoun-balanced sample of RtGender Reddit comments from English into Dutch, Turkish, and Finnish. Used perturbation sensitivity analysis to compare predictions from eight language-specific classifiers."
+      ],
+      "role": "Course project",
+      "dates": "September 2025 – December 2025",
+      "supervisors": "Dr. Briana Morrison",
+      "organization": "University of Virginia",
+      "links": [
+        {
+          "label": "Project paper",
+          "url": "https://junewayne.github.io/Multilingual-Gender-Bias-in-NLP/"
+        }
+      ],
+      "linkToResource": true
+    },
+    {
+      "id": "robotic-navigation",
+      "title": "MAE 6270: Experimental Robotics – Calibrated Automatic & Teleoperated Robotic Navigation",
+      "summary": "Designed a four-wheel-drive ROS 2 robot for joystick teleoperation and automated maneuvers. Calibrated its drive system by developing a linear regression model to measure patterns in observed driven distance to expected motion distance.",
+      "details": [
+        "Built a graphics user interface via Qt design that displayed compressed video from the robot’s RGB-D camera alongside 3D LiDAR scans, allowing the operator to assess obstacles and navigate remotely over Wi-Fi and via the GUI solely."
+      ],
+      "role": "Course project",
+      "dates": "September 2026 – November 2026",
+      "supervisors": "Dr. Tomonari Furukawa",
+      "organization": "University of Virginia",
+      "links": [
+        {
+          "label": "Presentation slides",
+          "url": "https://junewayne.github.io/MAE6270-FridgeBot/"
+        },
+        {
+          "label": "Technical report",
+          "url": "https://junewayne.github.io/MAE6270-FridgeBot/report/"
+        }
+      ],
+      "linkToResource": true
     }
   ],
   teaching: [
     {
       "code": "COMM 4351",
-      "title": "Marketing Analytics and Big Data",
+      "title": "Marketing Analytics with Big Data",
       "institution": "University of Virginia",
       "role": "Guest Lecturer",
-      "term": "September – December 2025",
+      "term": "September 2025 – December 2026",
       "photo": {
         "src": "./assets/images/experience/guest-lecture.jpg",
         "alt": "Ethan presenting Agent Frameworks and Databases in a COMM 4351 lecture.",
@@ -626,7 +864,7 @@ export const site = {
         "height": 975,
         "position": "50% 55%"
       },
-      "description": "I was a guest lecturer in Professor Natasha Foutz’s Marketing Analytics and Big Data class, where I led lectures on building AI agents, with hands-on notebooks covering APIs, chatbots, LangChain, retrieval-augmented generation, and hierarchical multi-agent workflows.",
+      "description": "Taught Multi-Agent Orchestration in Market Research workflows, designing Retrieval Augmented Generation (RAG) systems for preserving agent memory in such workflows, and Python basics in data manipulation and exploratory data analysis.",
       "materials": [
         {
           "title": "APIs and Chatbots",
@@ -644,7 +882,8 @@ export const site = {
           "url": "./assets/Python_notebook/CrewAI_Hierarchical_Web_RAG_LocalDB_Tutorial.ipynb"
         }
       ],
-      "id": "comm-4351"
+      "id": "comm-4351",
+      "instructor": "Professor Natasha Foutz"
     },
     {
       "code": "SARC 5400",
@@ -652,15 +891,16 @@ export const site = {
       "institution": "University of Virginia",
       "role": "Teaching Assistant",
       "id": "sarc-5400",
-      "term": "January – April 2024",
-      "description": "I was a teaching assistant for Professor Eric Field’s Data Visualization class, where I reviewed students’ work and provided feedback on their visualization designs.\n\nI focused on whether each design told a story, conveyed a clear central message, and justified every pixel’s presence: every pixel needs to fight for its life.\n\nMinimalist design and storytelling are at the core of this course, and they shaped how I evaluated students’ work.",
+      "term": "January 2025 – April 2025",
+      "description": "Taught and advised Data Visualization & Story Telling Techniques and supervised MSDS student final data visualization.",
       "photo": {
         "src": "./assets/images/experience/sarc-5400.jpeg",
         "alt": "A SARC 5400 lecture in front of a wall of data visualizations.",
         "width": 865,
         "height": 1085,
         "position": "50% 75%"
-      }
+      },
+      "instructor": "Professor Eric Field"
     },
     {
       "title": "Charlottesville Debate League",
@@ -680,10 +920,11 @@ export const site = {
     {
       "id": "msba-grader",
       "code": "GBAC 7209 · GBAC 7215",
-      "title": "MSBA Data Courses",
-      "role": "Grader",
-      "term": "January – April 2025",
-      "description": "Grader for Professor Mousavi’s MSBA Data Courses: GBAC 7209 and GBAC 7215."
+      "title": "Data Analytics II & III",
+      "role": "Teaching Assistant",
+      "term": "January 2026 – April 2026",
+      "description": "Taught and graded MSBA data analytics course student homework and projects, covering topics on predictive analytics, deep learning, and text analytics.",
+      "instructor": "Professor Mousavi"
     }
   ],
   // Homepage previews; add other animals here as your collection grows.
