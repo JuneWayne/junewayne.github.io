@@ -369,7 +369,7 @@ test('CV card backgrounds and keyboard links navigate while embedded controls re
 test('research and teaching card backgrounds navigate and preserve independent resources', async ({ page, context }) => {
   await page.goto('/');
   const reward = page.locator('#reward-hacking');
-  await expect(reward.locator('a, button')).toHaveCount(0);
+  await expect(reward.getByRole('link')).toHaveCount(1);
   await reward.locator('h3').click();
   await expect(page).toHaveURL(/\/$/);
   await expect(reward.locator('details')).not.toHaveAttribute('open');
@@ -657,8 +657,8 @@ test('ongoing research cards show current resources and the standalone deck work
     await expect(page.locator('#mesh-transformers .card-title-link')).toHaveAttribute('href', 'https://junewayne.github.io/3D-Mesh-Transformer-Mech-Interp/');
     await expect(page.locator('#mesh-transformers strong, #reward-hacking strong')).toHaveText(['Ongoing research', 'Ongoing research']);
     await expect(page.locator('#reward-hacking')).not.toContainText('Co-Author');
+    await expect(page.locator('#reward-hacking a').filter({ hasText: 'Aikyam Lab' })).toHaveAttribute('href', 'https://chirag-agarwall.github.io/');
   }
-  await expect(page.locator('#reward-hacking a').filter({ hasText: 'Aikyam Lab' })).toHaveAttribute('href', 'https://chirag-agarwall.github.io/');
   await page.goto('/mesh-slides.html');
   await expect(page.locator('#slide-select option')).toHaveCount(15);
   await expect(page.locator('#slide-counter')).toHaveText('1 / 15');

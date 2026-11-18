@@ -107,10 +107,6 @@ function renderResearch() {
       const context = element('p', 'research-context');
       project.labs.forEach((lab, index) => {
         if (index) context.append(' · ');
-        if (detailsOnly) {
-          context.append(lab.label);
-          return;
-        }
         const anchor = element('a', '', lab.label);
         Object.assign(anchor, { href: lab.url, target: '_blank', rel: 'noopener noreferrer' });
         context.append(anchor);
