@@ -170,7 +170,7 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
 test('homepage internships follow the profile and open contributions', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.profile + #cv + #research')).toHaveCount(1);
-  await expect(page.locator('.profile-identity').getByRole('link', { name: 'Resume PDF', exact: true })).toHaveAttribute('href', site.cv.url);
+  await expect(page.locator('.profile-identity').getByRole('link', { name: 'Ethan’s Resume', exact: true })).toHaveAttribute('href', site.cv.url);
   await page.locator('#cv-title').scrollIntoViewIfNeeded();
   await expect(page.locator('#cv-title')).toBeInViewport();
   await expect(page.locator('#experience-filters, #resume-actions')).toHaveCount(0);
@@ -185,7 +185,7 @@ test('homepage internships follow the profile and open contributions', async ({ 
 test('the profile Resume PDF link opens the current resume', async ({ page, context, request }) => {
   await page.goto('/');
   const link = page.locator('#profile-resume');
-  await expect(link).toHaveText('Resume PDF');
+  await expect(link).toHaveText('Ethan’s Resume');
   await expect(link).toHaveAttribute('href', site.cv.url);
   await expect(link).toHaveAttribute('target', '_blank');
   const pdf = await request.get(site.cv.url);
