@@ -161,15 +161,15 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await expect(page.getByRole('heading', { name: 'Ethan (Yisong) Cao', exact: true })).toBeVisible();
   await expect(page.locator('#profile-bio')).toContainText('University of Virginia');
   await expect(page.locator('#cv #cisco')).toContainText('Data Scientist Intern');
-  await expect(page.locator('#cv + #research .research-row')).toHaveCount(site.research.length);
+  await expect(page.locator('.profile + #research .research-row')).toHaveCount(site.research.length);
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Cat' }).click();
   await expect(page.getByRole('heading', { name: 'Meet Layla' })).toBeVisible();
   await context.close();
 });
 
-test('homepage internships follow the profile and open contributions', async ({ page }) => {
+test('homepage internships follow research and open contributions', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.profile + #cv + #research')).toHaveCount(1);
+  await expect(page.locator('.profile + #research + #cv')).toHaveCount(1);
   await expect(page.locator('.profile-identity').getByRole('link', { name: 'Ethan’s Resume', exact: true })).toHaveAttribute('href', site.cv.url);
   await page.locator('#cv-title').scrollIntoViewIfNeeded();
   await expect(page.locator('#cv-title')).toBeInViewport();
