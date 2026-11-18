@@ -83,12 +83,12 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
   margin-top: .75rem;
   padding: .5rem 1.15rem;
   border: 1px solid #7093b3;
-  background: #edf5ef;
+  background: #fbf0f3;
   font-size: 1.125rem;
   text-decoration: none;
 }
 .resume-button:hover, .resume-button:focus-visible {
-  background: #e0eee4;
+  background: #f5e2e8;
   border-color: var(--color-link);
   color: var(--color-link-hover);
 }
