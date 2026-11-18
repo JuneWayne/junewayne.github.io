@@ -590,15 +590,15 @@ test('PARC has an original animated comparison, reduced-motion fallback, and pre
     const card = page.locator('#fluid-dynamics');
     await card.scrollIntoViewIfNeeded();
     await expect(card.locator('.card-title-link')).toHaveAttribute('href', project.links[0].url);
+    const resources = card.locator('.research-links a');
+    await expect(resources).toHaveCount(1);
+    await expect(resources).toHaveAccessibleName('Research presentation');
+    await expect(resources).toHaveAttribute('href', 'https://junewayne.github.io/ShearFlow-PARC-NN/');
     const image = card.locator('img');
     await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth)).toBe(720);
     await expect(image).toHaveAttribute('src', project.image);
     await expect(card.locator('button')).toHaveCount(0);
   }
-  await page.locator('#fluid-dynamics').getByRole('link', { name: 'View slides' }).click();
-  await expect(page).toHaveURL(/parc-slides.html$/);
-  await expect(page.locator('#slide-select option')).toHaveCount(83);
-  await page.goBack();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(() => page.locator('#fluid-dynamics img').evaluate(img => img.currentSrc)).toContain('parc-shearflow-tracer-still.png');
   await expect(page.locator('#fluid-dynamics button')).toHaveCount(0);

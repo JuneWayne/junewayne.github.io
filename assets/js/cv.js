@@ -1,4 +1,4 @@
-import { site } from './content.js?v=20261118-debate';
+import { site } from './content.js?v=20261118-parc-links';
 
 function node(tag, className = '', text = '') {
   const result = document.createElement(tag);

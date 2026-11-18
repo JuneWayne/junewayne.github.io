@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261118-debate';
+import { site } from './content.js?v=20261118-parc-links';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261118-debate';
+import { renderCV } from './cv.js?v=20261118-parc-links';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;

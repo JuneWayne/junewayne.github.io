@@ -523,19 +523,6 @@ export const site = {
         {
           "label": "Research presentation",
           "url": "https://junewayne.github.io/ShearFlow-PARC-NN/"
-        },
-        {
-          "label": "View slides",
-          "url": "./parc-slides.html"
-        },
-        {
-          "label": "Download PowerPoint",
-          "url": "./assets/PowerPoints/ShearFlow-PARC-web.pptx",
-          "download": true
-        },
-        {
-          "label": "PARCtorch code",
-          "url": "https://github.com/JuneWayne/PARCtorch/"
         }
       ],
       "linkToResource": true
