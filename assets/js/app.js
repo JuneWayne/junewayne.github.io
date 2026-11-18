@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261118-phd-cv';
+import { site } from './content.js?v=20261118-clean-nav';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261118-phd-cv';
+import { renderCV } from './cv.js?v=20261118-clean-nav';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;

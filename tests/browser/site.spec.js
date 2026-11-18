@@ -148,9 +148,7 @@ test('supplied content renders a portrait, research story, teaching details, and
   await page.goto('/teaching.html');
   await expect(page.getByText('Helped students understand course material.')).toBeVisible();
   await page.goto('/cv.html');
-  await expect(page.getByRole('link', { name: 'View resume (PDF)' })).toHaveAttribute('href', './assets/documents/test-cv.pdf');
-  await page.locator('#resume-preview summary').click();
-  await expect(page.locator('iframe')).toHaveAttribute('title', 'Ethan (Yisong) Cao’s resume');
+  await expect(page.getByRole('link', { name: 'Resume PDF' })).toHaveAttribute('href', './assets/documents/test-cv.pdf');
   await page.setViewportSize({ width: 320, height: 700 });
   await page.goto('/');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -169,25 +167,19 @@ test('profile and navigation remain readable without JavaScript', async ({ brows
   await context.close();
 });
 
-test('homepage CV follows the profile and keeps experience filters and contributions working', async ({ page }) => {
+test('homepage internships follow the profile and open contributions', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.profile + #cv + #research')).toHaveCount(1);
   await expect(page.locator('.profile-identity').getByRole('link', { name: 'Resume PDF', exact: true })).toHaveAttribute('href', site.cv.url);
   await page.locator('#cv-title').scrollIntoViewIfNeeded();
   await expect(page.locator('#cv-title')).toBeInViewport();
-  await expect(page.locator('#experience-filters').getByRole('button', { name: 'Industry' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#experience-filters, #resume-actions')).toHaveCount(0);
   await page.locator('#cisco').getByRole('button', { name: 'Cisco Systems' }).click();
   await expect(page.locator('#cisco-contributions')).toHaveAttribute('open', '');
-  await page.locator('#experience-filters').getByRole('button', { name: 'Teaching' }).click();
-  await expect(page.locator('#guest-lecture')).toBeVisible();
-  await expect(page.locator('#cisco')).toBeHidden();
-  await expect(page.locator('#education-list .education-card')).toHaveCount(site.cv.education.length);
-  await expect(page.locator('#cv-coursework .coursework-group')).toHaveCount(site.cv.coursework.length);
-  await expect(page.locator('#resume-actions').getByRole('link', { name: 'View resume (PDF)' })).toHaveAttribute('href', site.cv.url);
   await page.locator('[data-nav=cv]').click();
   await expect(page.locator('#cisco h3')).toBeVisible();
   await page.locator('[data-nav=profile]').click();
-  await expect(page.locator('#cv #cisco h4')).toBeVisible();
+  await expect(page.locator('#cv #cisco h3')).toBeVisible();
 });
 
 test('the profile Resume PDF link opens the current resume', async ({ page, context, request }) => {
@@ -316,13 +308,14 @@ test('research resources and guest lecture notebooks are readable and downloadab
 });
 
 
-test('CV experiences filter, expand, link to research, and offer the supplied resume', async ({ page }) => {
+test('CV shows internships, expandable contributions, and one resume link', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/cv.html');
   await expect(page.locator('.experience-item')).toHaveCount(site.cv.experiences.length);
   await expect(page.locator('.experience-item:visible')).toHaveCount(3);
   await expect(page.locator('.experience-item:visible:not([data-category="Industry"])')).toHaveCount(0);
-  await expect(page.locator('#experience-filters button[aria-pressed="true"]')).toHaveText('Industry');
+  await expect(page.getByRole('navigation')).toHaveCount(1);
+  await expect(page.locator('#experience-filters')).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'All experience' })).toHaveCount(0);
   await expect(page.locator('.experience-logo')).toHaveCount(3);
   for (const experience of site.cv.experiences.filter(item => item.category === 'Industry')) {
@@ -339,42 +332,15 @@ test('CV experiences filter, expand, link to research, and offer the supplied re
   await expect(page.locator('#tencent details')).toContainText('satisfaction by 21%');
   await expect(page.locator('#tencent details')).toContainText('Riot Games');
   await expect(page.locator('#tencent .experience-photo img')).toHaveAttribute('src', './assets/images/experience/tencent-internship.jpg');
-  const filters = page.getByRole('group', { name: 'Filter experience' });
-  for (const [category, count] of [['Industry', 3], ['Research', 5], ['Projects', 2], ['Teaching', 4]]) {
-    await filters.getByRole('button', { name: category, exact: true }).click();
-    await expect(page.locator('.experience-item:visible')).toHaveCount(count);
-    await expect(filters.getByRole('button', { name: category, exact: true })).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#experience-status')).toContainText(`${count} ${count === 1 ? 'experience' : 'experiences'} shown`);
-  }
-  await expect(page.locator('#guest-lecture h3')).toHaveText('COMM 4351 · McIntire School of Commerce');
-  await expect(page.locator('#guest-lecture .experience-role').first()).toHaveText('Guest Lecturer');
-  await expect(page.locator('#sarc-5400')).toContainText('Teaching Assistant');
-  await expect(page.locator('#sarc-5400 h3')).toHaveText('SARC 5400 · School of Architecture');
-  await expect(page.locator('#sarc-5400')).toContainText('January 2025 – April 2025');
-  await expect(page.locator('#cdl')).toContainText('Debate Coach & Tournament Chair');
-  await expect(page.locator('#cdl')).toContainText('January 2024 – Present');
-  await expect(page.locator('#msba-grader')).toContainText('GBAC 7209 & 7215');
-  await expect(page.locator('#msba-grader')).toContainText('Professor Mousavi');
-  await expect(page.locator('#msba-grader')).toContainText('January 2026 – April 2026');
-  await filters.getByRole('button', { name: 'Industry', exact: true }).click();
   await page.locator('#cisco summary').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('#cisco details')).toHaveAttribute('open', '');
   await expect(page.locator('#cisco')).toContainText('Jacobian-Lens');
   await expect(page.locator('#education-list')).toContainText('Major GPA: 3.95/4.00');
   await expect(page.locator('iframe')).toHaveCount(0);
-  await page.locator('#resume-preview summary').click();
-  await expect(page.locator('iframe')).toHaveAttribute('src', site.cv.url);
   const response = await page.request.get(site.cv.url.replace('./', '/'));
   expect((await response.body()).subarray(0, 4).toString()).toBe('%PDF');
-  const downloadEvent = page.waitForEvent('download');
-  await page.getByRole('link', { name: 'Download resume' }).click();
-  expect((await downloadEvent).suggestedFilename()).toBe('Ethan_Cao_PhD_CV.pdf');
-  await filters.getByRole('button', { name: 'Research', exact: true }).click();
-  await page.locator('#spatial-ai .experience-title-link').click();
-  await expect(page).toHaveURL(/research.html#mesh-transformers$/);
-  await expect(page.locator('#mesh-transformers')).toBeInViewport();
-  expect((await page.locator('#mesh-transformers').boundingBox()).y).toBeGreaterThanOrEqual((await page.locator('.site-header').boundingBox()).height);
+  await expect(page.getByRole('link', { name: 'Resume PDF' })).toHaveAttribute('href', site.cv.url);
 });
 
 test('CV card backgrounds and keyboard links navigate while embedded controls remain independent', async ({ page }) => {
@@ -397,15 +363,7 @@ test('CV card backgrounds and keyboard links navigate while embedded controls re
   await page.locator('#cisco').click({ position: { x: 12, y: 12 } });
   await expect(page.locator('#cisco details')).not.toHaveAttribute('open', '');
   await expect(page).toHaveURL(/cv.html$/);
-  await page.locator('#experience-filters').getByRole('button', { name: 'Teaching', exact: true }).click();
-  await expect(page.locator('#experience-list')).not.toContainText('Teaching details');
-  await page.locator('#msba-grader .experience-title-link').focus();
-  await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/teaching.html#msba-grader$/);
-  await expect(page.locator('#msba-grader')).toBeInViewport();
-  await page.locator('[data-nav=cv]').click();
-  await page.locator('#experience-filters').getByRole('button', { name: 'Research', exact: true }).click();
-  await expect(page.locator('#visual-intelligence').getByRole('link', { name: 'PARCtorch code' })).toHaveAttribute('href', 'https://github.com/JuneWayne/PARCtorch/');
+
 });
 
 test('research and teaching card backgrounds navigate and preserve independent resources', async ({ page, context }) => {
@@ -518,7 +476,7 @@ test('navigation stays pinned and research anchors clear it on desktop and phone
     await expect(page).toHaveURL(/research.html$/);
     await expect(page.getByRole('heading', { name: 'Research', exact: true })).toBeVisible();
     await page.locator('[data-nav=cv]').click();
-    await page.getByRole('navigation', { name: 'CV sections' }).getByRole('link', { name: 'Education' }).click();
+    await expect(page.getByRole('heading', { name: 'Education' })).toBeVisible();
     expect((await page.locator('#education').boundingBox()).y).toBeGreaterThanOrEqual(header.height);
   }
 });
@@ -528,7 +486,7 @@ test('CV and Teaching remain complete without JavaScript', async ({ browser }) =
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:5173/cv.html');
   await expect(page.locator('.experience-item')).toHaveCount(site.cv.experiences.length);
-  await expect(page.getByText('Charlottesville Debate League')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Internships' })).toBeVisible();
   await expect(page.locator('#tencent')).toContainText('May – August 2024');
   await expect(page.locator('#experience-filters')).toBeHidden();
   await page.locator('#cisco summary').click();
@@ -589,17 +547,14 @@ test('Blake has a separate album and lightbox, accessible from the homepage and 
   }
 });
 
-test('Tencent and UVA teaching CV photos sit compactly to the right of their text', async ({ page }) => {
+test('Tencent’s CV photo sits compactly to the right of its text', async ({ page }) => {
   await page.goto('/cv.html');
-  for (const id of ['tencent', 'guest-lecture']) {
-    await page.locator('#experience-filters').getByRole('button', { name: id === 'tencent' ? 'Industry' : 'Teaching', exact: true }).click();
-    const card = page.locator(`#${id}`);
-    const image = await card.locator('.experience-photo').boundingBox();
-    const copy = await card.locator('.experience-copy').boundingBox();
-    expect(image.width).toBeLessThanOrEqual(180);
-    expect(image.x).toBeGreaterThan(copy.x + copy.width);
-    expect(Math.abs(image.y - copy.y)).toBeLessThan(1);
-  }
+  const card = page.locator('#tencent');
+  const image = await card.locator('.experience-photo').boundingBox();
+  const copy = await card.locator('.experience-copy').boundingBox();
+  expect(image.width).toBeLessThanOrEqual(180);
+  expect(image.x).toBeGreaterThan(copy.x + copy.width);
+  expect(Math.abs(image.y - copy.y)).toBeLessThan(1);
 });
 
 

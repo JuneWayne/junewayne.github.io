@@ -49,9 +49,7 @@ teaching: [
 ],
 ```
 
-**CV:** the current resume PDF is at `assets/Resume/Ethan_Cao_PhD_CV.pdf`; its unchanged Word source is beside it. `cv.url` controls the Resume PDF link under the portrait, CV downloads, and embedded preview. `cv.sourceUrl` supplies the Word download. Descriptions copied from this resume must retain their original wording. Publish the user-provided PDF unchanged. Do not regenerate it from Word; the supplied PDF preserves the intended formatting.
-
-Edit `cv.experiences` to maintain the timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `supervisors`, `links`, and `photo`. Industry is shown by default; Research, Projects, and Teaching have separate filters. Cisco uses `expandOnClick` to open its contributions while keeping its demo link independent. Teaching dates follow the current resume: COMM September 2025–December 2026, SARC January–April 2025, and GBAC January–April 2026. GBAC is a Teaching Assistant role. The embedded PDF loads only when opened.
+**CV:** the profile and CV page each link to the supplied PDF at `assets/Resume/Ethan_Cao_PhD_CV.pdf`. Publish this file as supplied to preserve its formatting. The homepage shows internships below the profile. The CV page also lists education, coursework, and skills. Research and course projects live under Research, and teaching roles live under Teaching. Edit internship entries in `cv.experiences`.
 
 **Animals section:** update `animals` in the content file to change the homepage previews. Each entry takes `title`, `src`, `width`, `height`, `alt`, and a destination `url`. Add entries for other animals as your collection grows. The introductory previews are also in `index.html` for visitors without JavaScript.
 
@@ -79,7 +77,7 @@ The homepage also contains a static biography for search engines and visitors wi
 - `assets/css/style.css`: layout, colors, fonts, motion, and mobile styles.
 - `assets/js/content.js`: editable content.
 - `assets/js/app.js`: rendering, animal previews, and gallery behavior.
-- `assets/js/cv.js`: CV timeline, category filters, education, skills, and lazy PDF preview.
+- `assets/js/cv.js`: internships, education, coursework, skills, and the resume link.
 - `docs/archive/page-turn/`: archived page-turn code, hand artwork, CSS, and animation tests, with restoration instructions.
 - `assets/js/transition.js`: cached page navigation and browser history. Navigation remains native without JavaScript; slow or failed fetches fall back to normal links if a page cannot be fetched promptly.
 - `assets/PDFs/`, `assets/PowerPoints/`: the semantic-shifts draft and current 3D research summary.

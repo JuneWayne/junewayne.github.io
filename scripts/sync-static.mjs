@@ -6,7 +6,7 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ||= '/tmp/ethan-site-browsers';
 const { chromium } = await import('@playwright/test');
 const base = process.argv[2] || 'http://127.0.0.1:5174';
 const server = process.argv[2] ? null : spawn(process.execPath, ['scripts/serve.mjs', '--port', '5174'], { stdio: 'pipe' });
-const ids = ['profile-bio', 'profile-links', 'profile-resume', 'resume-actions', 'experience-list', 'education-list', 'cv-coursework', 'skills-list', 'resume-preview', 'research-list', 'teaching-preview', 'teaching-list'];
+const ids = ['profile-bio', 'profile-links', 'profile-resume', 'cv-resume', 'experience-list', 'education-list', 'cv-coursework', 'skills-list', 'research-list', 'teaching-preview', 'teaching-list'];
 const browser = await chromium.launch();
 try {
   if (server) await new Promise((resolve, reject) => {
