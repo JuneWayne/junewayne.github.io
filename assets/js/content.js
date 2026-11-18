@@ -641,12 +641,32 @@ export const site = {
       "role": "Debate Coach & Tournament Chair",
       "description": "I joined the Charlottesville Debate League as a debate coach and taught for a year at several local middle schools before transitioning to tournament committee chair, where I organized, planned, and managed speech and debate tournaments for Charlottesville middle school students.",
       "photo": {
-        "src": "./assets/images/experience/cdl-team.jpg",
-        "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
-        "width": 1706,
-        "height": 1279,
-        "position": "50% 60%"
+        "src": "./assets/images/experience/cdl/tournament-group.jpg",
+        "alt": "Charlottesville Debate League participants gathered beneath the tournament welcome screen.",
+        "width": 1279,
+        "height": 1706,
+        "position": "50% 61%"
       },
+      "additionalPhotos": [
+        {
+          "src": "./assets/images/experience/cdl/three-at-tournament.jpg",
+          "alt": "Three people standing together beside a classroom chalkboard.",
+          "width": 1279,
+          "height": 1706
+        },
+        {
+          "src": "./assets/images/experience/cdl/tournament-check-in.jpg",
+          "alt": "Chalk directions to debate tournament check-in at Warner Hall.",
+          "width": 1706,
+          "height": 1279
+        },
+        {
+          "src": "./assets/images/experience/cdl-team.jpg",
+          "alt": "The Charlottesville Debate League team gathered in a lecture hall.",
+          "width": 1706,
+          "height": 1279
+        }
+      ],
       "id": "cdl",
       "term": "January 2024 – Present"
     },

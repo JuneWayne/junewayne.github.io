@@ -1,6 +1,6 @@
-import { site } from './content.js?v=20261118-disclosure';
+import { site } from './content.js?v=20261118-debate';
 import { setupNavigation } from './transition.js?v=20261014-parc';
-import { renderCV } from './cv.js?v=20261118-disclosure';
+import { renderCV } from './cv.js?v=20261118-debate';
 import { startLaylaAge } from './cat-age.js?v=20261014-parc';
 
 let stopCatAge;
@@ -144,6 +144,44 @@ function renderResearch() {
   }));
 }
 
+function teachingGallery(course) {
+  const gallery = element('div', 'teaching-gallery');
+  const strip = element('div', 'teaching-gallery-strip');
+  strip.id = course.id + '-photos';
+  strip.setAttribute('role', 'region');
+  strip.setAttribute('aria-label', course.title + ' photos');
+  strip.tabIndex = 0;
+  const photos = [course.photo, ...course.additionalPhotos];
+  for (const { src, alt, width, height } of photos) {
+    const image = element('img');
+    Object.assign(image, { src, alt, width, height, loading: 'lazy', decoding: 'async' });
+    strip.append(image);
+  }
+  const controls = element('div', 'teaching-gallery-controls');
+  const count = element('span', '', '1 / ' + photos.length);
+  count.setAttribute('aria-live', 'polite');
+  function currentIndex() {
+    return Math.round(strip.scrollLeft / strip.clientWidth);
+  }
+  strip.addEventListener('scroll', () => {
+    count.textContent = (currentIndex() + 1) + ' / ' + photos.length;
+  });
+  function arrow(label, symbol, step) {
+    const button = element('button', '', symbol);
+    button.type = 'button';
+    button.setAttribute('aria-label', label);
+    button.setAttribute('aria-controls', strip.id);
+    button.addEventListener('click', () => {
+      const next = (currentIndex() + step + photos.length) % photos.length;
+      strip.scrollLeft = next * strip.clientWidth;
+    });
+    return button;
+  }
+  controls.append(arrow('Previous photo', '←', -1), count, arrow('Next photo', '→', 1));
+  gallery.append(strip, controls);
+  return gallery;
+}
+
 function courseRow(course, full = false) {
   const row = element('article', full ? 'teaching-row' : 'teaching-card');
   if (course.id) row.id = full ? course.id : `${course.id}-preview`;
@@ -184,7 +222,9 @@ function courseRow(course, full = false) {
     materials.append(list);
     row.append(materials);
   }
-  if (full && course.photo) {
+  if (full && course.additionalPhotos?.length) {
+    row.append(teachingGallery(course));
+  } else if (full && course.photo) {
     const image = element('img', 'lecture-photo');
     const { src, alt, width, height } = course.photo;
     Object.assign(image, { src, alt, width, height, loading: 'lazy', decoding: 'async' });

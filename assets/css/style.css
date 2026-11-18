@@ -196,6 +196,11 @@ nav a[aria-current='page']::after { transform: scaleX(1); }
 .resume-preview > summary { cursor: pointer; min-height: 44px; color: var(--color-link); padding-block: .6rem; }
 .resume-preview[hidden] { display: none; }
 .resume-preview > p { margin-block: .5rem 1rem; }
+.teaching-gallery { grid-column: 1 / -1; width: min(100%, 800px); min-width: 0; }
+.teaching-gallery-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
+.teaching-gallery-strip img { flex: 0 0 100%; width: 100%; height: min(65vh, 560px); object-fit: contain; scroll-snap-align: start; }
+.teaching-gallery-controls { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: .5rem; }
+.teaching-gallery-controls button { min-width: 44px; min-height: 44px; background: white; color: var(--color-link); border: 1px solid var(--color-border); font-size: 1.25rem; cursor: pointer; }
 .lecture-photo { grid-column: 1 / -1; width: min(100%, 800px); height: auto; }
 #teaching-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
 .teaching-card { min-width: 0; display: flex; flex-direction: column; gap: .65rem; }

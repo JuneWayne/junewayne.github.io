@@ -22,6 +22,7 @@ try {
       const original = document.getElementById(id);
       if (!original) return [];
       const copy = original.cloneNode(true);
+      copy.querySelector('.teaching-gallery-controls')?.remove();
       copy.querySelectorAll('.experience-item').forEach(item => { item.hidden = false; });
       copy.querySelectorAll('.card-title-button').forEach(button => {
         button.closest('.clickable-card')?.classList.remove('clickable-card');

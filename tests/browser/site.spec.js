@@ -417,7 +417,27 @@ test('Teaching includes SARC 5400, Natasha Foutz, and CDL with the supplied phot
   await expect(cdl).toContainText('Tournament Chair');
   await expect(cdl).toContainText('middle school students');
   await expect(cdl).toContainText('January 2024 – Present');
-  await expect(cdl.locator('img')).toHaveAttribute('src', './assets/images/experience/cdl-team.jpg');
+  const photos = cdl.locator('.teaching-gallery-strip img');
+  await expect(photos).toHaveCount(4);
+  await expect(photos.first()).toHaveAttribute('src', './assets/images/experience/cdl/tournament-group.jpg');
+  const count = cdl.locator('[aria-live]');
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (let i = 1; i <= 4; i++) {
+      await cdl.getByRole('button', { name: 'Next photo' }).click();
+      await expect(count).toHaveText((i % 4 + 1) + ' / 4');
+      const shown = await photos.nth(i % 4).boundingBox();
+      const strip = await cdl.locator('.teaching-gallery-strip').boundingBox();
+      expect(Math.abs(shown.x - strip.x)).toBeLessThan(1);
+      expect(shown.width).toBeCloseTo(strip.width, 0);
+    }
+    await cdl.getByRole('button', { name: 'Previous photo' }).click();
+    await expect(count).toHaveText('4 / 4');
+    await cdl.getByRole('button', { name: 'Next photo' }).click();
+    await expect(count).toHaveText('1 / 4');
+  }
+  await page.goto('/');
+  await expect(page.locator('#cdl-preview img')).toHaveAttribute('src', './assets/images/experience/cdl/tournament-group.jpg');
 });
 
 test('the homepage shows all three teaching photos with closer crops and the fluid-dynamics work', async ({ page }) => {
