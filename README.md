@@ -49,7 +49,7 @@ teaching: [
 ],
 ```
 
-**CV:** the current resume PDF is at `assets/Resume/Ethan_Cao_PhD_CV.pdf`; its unchanged Word source is beside it. `cv.url` controls the Resume PDF link under the portrait, CV downloads, and embedded preview. `cv.sourceUrl` supplies the Word download. Descriptions copied from this resume must retain their original wording. The PDF has aligned date tabs and adjusted pagination; the Word source remains untouched.
+**CV:** the current resume PDF is at `assets/Resume/Ethan_Cao_PhD_CV.pdf`; its unchanged Word source is beside it. `cv.url` controls the Resume PDF link under the portrait, CV downloads, and embedded preview. `cv.sourceUrl` supplies the Word download. Descriptions copied from this resume must retain their original wording. Publish the user-provided PDF unchanged. Do not regenerate it from Word; the supplied PDF preserves the intended formatting.
 
 Edit `cv.experiences` to maintain the timeline: entries take `id`, `organization`, `role`, `category`, optional `dates`, `summary`, `highlights`, `supervisors`, `links`, and `photo`. Industry is shown by default; Research, Projects, and Teaching have separate filters. Cisco uses `expandOnClick` to open its contributions while keeping its demo link independent. Teaching dates follow the current resume: COMM September 2025–December 2026, SARC January–April 2025, and GBAC January–April 2026. GBAC is a Teaching Assistant role. The embedded PDF loads only when opened.
 
