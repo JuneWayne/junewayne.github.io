@@ -75,9 +75,10 @@ body.map-mode { height:100svh; min-height:510px; }
 .links-switch input::before { content:''; display:block; border-radius:50%; width:10px; height:10px; background:white; }
 .links-switch input:checked { background:#487495; }
 .links-switch input:checked::before { transform:translateX(11px); }
-.map-meta,#year-key { display:flex; align-items:center; gap:10px; }
-#year-key { gap:5px; font-variant-numeric:tabular-nums; }
-#year-key i { width:48px; height:6px; border-radius:3px; }
+.map-title .map-meta { display:flex; flex-direction:column; align-items:flex-start; gap:3px; }
+#year-range,#year-key { font-size:1rem; font-variant-numeric:tabular-nums; }
+#year-key { display:inline-flex; align-items:center; gap:10px; font-weight:600; }
+#year-key i { width:clamp(112px,12vw,170px); height:12px; border-radius:6px; }
 #citation-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 #bubble-map { position:relative; touch-action:none; }
 .paper-bubble { fill:var(--bubble-color,var(--series)); touch-action:none; cursor:grab; }
@@ -156,7 +157,7 @@ body.map-mode { height:100svh; min-height:510px; }
   .map-mode:has(.subgroup-view) { min-height:650px; }
 }
 
-.map-title .publication-key,.publication-key span { display:flex; align-items:center; gap:5px; }
-.map-title .publication-key { flex-wrap:wrap; gap:4px 13px; margin-top:5px; font-size:.75rem; }
-.publication-key i { width:10px; height:10px; border:1.5px solid currentColor; border-radius:50%; }
+.map-title .publication-key,.publication-key span { display:flex; align-items:center; gap:7px; }
+.map-title .publication-key { flex-wrap:wrap; gap:5px 18px; margin-top:8px; font-size:clamp(.94rem,1.15vw,1.06rem); color:var(--ink); }
+.publication-key i { flex:none; width:18px; height:18px; border:2px solid currentColor; border-radius:50%; }
 .publication-key .pub-solid { background:currentColor; }

@@ -21,6 +21,7 @@
     const rgb=pink.map((channel,i)=>Math.round(channel+(blue[i]-channel)*age));
     return [year, 'rgb('+rgb.join(',')+')'];
   }));
+  $('year-range').textContent = oldest+'–'+newest;
   $('newest-year').textContent = newest;
   $('oldest-year').textContent = oldest;
   $('year-key').setAttribute('aria-label', `Publication year, pink for ${newest} through blue for ${oldest}`);
@@ -331,7 +332,8 @@
   }
   function updateColors() {
     const byYear=$('year-color').checked;
-    $('scope-count').textContent=format(visibleNodes.length)+' papers ·'+(byYear ? '' : ' '+oldest+'–'+newest);
+    $('scope-count').textContent=format(visibleNodes.length)+' papers';
+    $('year-range').hidden=byYear;
     $('year-key').hidden=!byYear;
     for (const n of nodes) {
       if (byYear) n.el.style.setProperty('--bubble-color',yearColors.get(n.paper.year));
