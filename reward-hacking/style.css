@@ -65,7 +65,7 @@ body.map-mode { height:100svh; min-height:510px; }
 .map-mode #atlas { height:auto; flex:1; min-height:0; }
 .map-surface { grid-template-rows:auto minmax(0,1fr); }
 .map-title { display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
-.map-controls,.size-tabs,.links-switch,.motion-control { display:flex; align-items:center; }
+.map-controls,.size-tabs,.links-switch { display:flex; align-items:center; }
 .map-controls { gap:14px; }
 .size-tabs { padding:3px; background:#e9ece7; border-radius:7px; }
 .size-tabs button { padding:6px 10px; font-size:.81rem; border:0; background:transparent; border-radius:5px; color:var(--soft); }
@@ -75,13 +75,15 @@ body.map-mode { height:100svh; min-height:510px; }
 .links-switch input::before { content:''; display:block; border-radius:50%; width:10px; height:10px; background:white; }
 .links-switch input:checked { background:#306b59; }
 .links-switch input:checked::before { transform:translateX(11px); }
-.motion-control { width:30px; height:30px; justify-content:center; border:1px solid var(--line); border-radius:6px; background:transparent; }
-.motion-control svg { height:13px; width:13px; stroke:currentColor; stroke-width:2; fill:none; stroke-linejoin:round; }
+.map-meta,#year-key { display:flex; align-items:center; gap:10px; }
+#year-key { gap:5px; font-variant-numeric:tabular-nums; }
+#year-key i { width:48px; height:6px; border-radius:3px; }
+.by-year .bar-track i { background:#687773; }
 #citation-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 #bubble-map { position:relative; }
-.paper-bubble { touch-action:none; cursor:grab; }
+.paper-bubble { fill:var(--bubble-color,var(--series)); touch-action:none; cursor:grab; }
 .paper-bubble:active { cursor:grabbing; }
-.paper-bubble.unknown { fill:var(--paper); stroke:var(--series); stroke-width:1.2; }
+.paper-bubble.unknown { fill:var(--paper); stroke:var(--bubble-color,var(--series)); stroke-width:1.2; }
 .cluster-name { paint-order:stroke; stroke:var(--paper); stroke-width:4px; stroke-linejoin:round; }
 .library-controls { grid-template-columns:minmax(140px,1fr) minmax(130px,220px); }
 .library-controls input,.library-controls select { margin:0; }

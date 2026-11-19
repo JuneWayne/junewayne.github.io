@@ -3,16 +3,24 @@
   const svg = $('bubble-map'), canvas = $('citation-lines'), tip = $('bubble-tip');
   const ctx = canvas.getContext('2d');
   const tabs = [...document.querySelectorAll('.size-tabs button')];
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const groups = areaKeys.map(area => ({
     area, papers: core.filter(p => p.area === area)
   }));
   const byId = new Map();
-  let metric = 'citations', moving = !reduced.matches;
-  let nodes = [], edges = [], width = 0, height = 0, cell = 0, scale = 1;
-  let frame = 0, last = 0, elapsed = 0, held = null, hovered = null, focused = null;
+  const nodes = [], edges = [];
+  let metric = 'citations', width = 0, height = 0;
+  let held = null, hovered = null, focused = null;
+  const years = [...new Set(core.map(p => p.year))].sort((a,b) => b-a);
+  const newest = years[0], oldest = years[years.length-1];
+  const yearColors = new Map(years.map(year => {
+    const age = (newest-year)/Math.max(1,newest-oldest);
+    return [year, `hsl(${216+120*age} 64% ${44+19*age}%)`];
+  }));
+  $('newest-year').textContent = newest;
+  $('oldest-year').textContent = oldest;
+  $('year-key').setAttribute('aria-label', `Publication year, blue for ${newest} through pink for ${oldest}`);
+  $('year-key').querySelector('i').style.background = 'linear-gradient(to right,' + years.map(y => yearColors.get(y)+' '+100*(newest-y)/Math.max(1,newest-oldest)+'%').join(',') + ')';
 
-  $('scope-count').textContent = format(core.length) + ' papers · 2020–2026';
   $('area-list').innerHTML = groups.map(({area, papers}) => {
     const [name, color] = AREAS[area];
     return `<a class="bar-row" data-area="${area}" href="${libLink({area})}" style="--series:${color}">
@@ -37,9 +45,9 @@
     group.label = element('text', {class:'cluster-name', 'text-anchor':'middle'});
     group.label.textContent = name;
     group.nodes = group.papers.map((paper, i) => {
-      const el = element('circle', {'data-id':paper.id, class:'paper-bubble', fill:color, role:'button', tabindex:i===0?0:-1});
+      const el = element('circle', {'data-id':paper.id, class:'paper-bubble', role:'button', tabindex:i===0?0:-1});
       group.el.append(el);
-      const n = {paper, group, el, phase:(nodes.length+1)*2.399963, vx:0, vy:0};
+      const n = {paper, group, el};
       nodes.push(n);
       byId.set(paper.id,n);
       return n;
@@ -93,7 +101,7 @@
     const left=Math.min(...groups.map(g=>g.cx-g.raw)), right=Math.max(...groups.map(g=>g.cx+g.raw));
     const top=Math.min(...groups.map(g=>g.cy-g.raw)), bottom=Math.max(...groups.map(g=>g.cy+g.raw));
     const side=width<520?12:24;
-    scale=Math.max(.02,Math.min((width-2*side)/(right-left),(height-size*2-18)/(bottom-top)));
+    const scale=Math.max(.02,Math.min((width-2*side)/(right-left),(height-size*2-18)/(bottom-top)));
     const ox=(width-(right-left)*scale)/2-left*scale, oy=(height-(bottom-top)*scale-size*1.5)/2-top*scale;
     for (const g of groups) {
       g.x=ox+g.cx*scale; g.y=oy+g.cy*scale; g.r=g.raw*scale;
@@ -102,13 +110,14 @@
       g.label.setAttribute('x',Math.max(half,Math.min(width-half,g.x)));
       g.label.setAttribute('y',g.y+g.r+size);
       for (const n of g.nodes) {
-        n.x=g.x+n.lx*scale; n.y=g.y+n.ly*scale; n.r=n.raw*scale;
-        n.vx=0; n.vy=0; n.el.setAttribute('r',n.r);
+        n.r=n.raw*scale;
+        n.x=n.drop ? Math.max(n.r,Math.min(width-n.r,n.drop.x*width)) : g.x+n.lx*scale;
+        n.y=n.drop ? Math.max(n.r,Math.min(height-n.r,n.drop.y*height)) : g.y+n.ly*scale;
+        n.el.setAttribute('r',n.r);
+        position(n);
       }
     }
-    cell=Math.max(8,Math.max(...nodes.map(n=>n.r))*2+2);
-    paint();
-    wake();
+    describe();
   }
 
   function positionTip(n) {
@@ -119,7 +128,7 @@
   function describe() {
     const n=active();
     tip.hidden=!n;
-    if (n) {tip.textContent=n.paper.title+' · '+quantity(n.paper);positionTip(n);}
+    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+quantity(n.paper);positionTip(n);}
     drawEdges();
   }
   function drawEdges() {
@@ -143,63 +152,22 @@
     }
     ctx.lineWidth=1.25;ctx.strokeStyle='rgba(28,67,58,.74)';ctx.stroke();
   }
-  function paint() {
-    for (const n of nodes) {n.el.setAttribute('cx',n.x.toFixed(2));n.el.setAttribute('cy',n.y.toFixed(2));}
-    drawEdges();
+  function position(n) {
+    n.el.setAttribute('cx',n.x.toFixed(2));
+    n.el.setAttribute('cy',n.y.toFixed(2));
   }
-  function step(dt) {
-    elapsed+=dt;
-    const pinned=active(), grid=new Map(), speed=Math.max(3,Math.min(11,scale*4.7));
+  function updateColors() {
+    const byYear=$('year-color').checked;
+    $('scope-count').textContent=format(core.length)+' papers ·'+(byYear ? '' : ' '+oldest+'–'+newest);
+    $('year-key').hidden=!byYear;
+    $('atlas').classList.toggle('by-year',byYear);
     for (const n of nodes) {
-      const g=n.group, dx=n.x-g.x, dy=n.y-g.y, dist=Math.hypot(dx,dy)||1;
-      // A soft outer boundary keeps category membership legible as individual papers drift.
-      const pull=Math.max(0,dist+n.r-g.r)*2.4;
-      if (n!==pinned) {
-        const angle=n.phase+.65*elapsed+Math.sin(n.phase*.7+elapsed*.24);
-        const blend=Math.min(1,dt*2.2);
-        n.vx+=(Math.cos(angle)*speed-dx/dist*pull-.031*dy-n.vx)*blend;
-        n.vy+=(Math.sin(angle)*speed-dy/dist*pull+.031*dx-n.vy)*blend;
-        n.x+=n.vx*dt; n.y+=n.vy*dt;
-      }
-      const gx=Math.floor(n.x/cell), gy=Math.floor(n.y/cell);
-      for (let i=gx-1;i<=gx+1;i++) for (let j=gy-1;j<=gy+1;j++) {
-        const nearby=grid.get(i+','+j);
-        if (!nearby) continue;
-        for (const b of nearby) {
-          const xx=n.x-b.x, yy=n.y-b.y, min=n.r+b.r+.35;
-          const square=xx*xx+yy*yy;
-          if (square>=min*min) continue;
-          const len=Math.sqrt(square)||.01, overlap=(min-len)/len;
-          const share=n===pinned?0:b===pinned?1:.5;
-          n.x+=xx*overlap*share; n.y+=yy*overlap*share;
-          b.x-=xx*overlap*(1-share); b.y-=yy*overlap*(1-share);
-        }
-      }
-      n.x=Math.max(n.r,Math.min(width-n.r,n.x)); n.y=Math.max(n.r,Math.min(height-n.r,n.y));
-      const key=gx+','+gy;
-      if (!grid.has(key)) grid.set(key,[]);
-      grid.get(key).push(n);
+      if (byYear) n.el.style.setProperty('--bubble-color',yearColors.get(n.paper.year));
+      else n.el.style.removeProperty('--bubble-color');
     }
-    paint();
   }
-  function visible() {return !$('atlas').hidden && !$('paper').open && !document.hidden;}
-  function tick(time) {
-    frame=0;
-    if (!moving || !visible()) {last=0;return;}
-    if (!last || time-last>=32) {step(last?Math.min((time-last)/1000,.065):.033);last=time;}
-    frame=requestAnimationFrame(tick);
-  }
-  function wake() {if (!frame && moving && visible()) {last=0;frame=requestAnimationFrame(tick);}}
-  function setMotion(value) {
-    moving=value;
-    const name=(moving?'Pause':'Resume')+' motion';
-    $('motion').setAttribute('aria-label',name);$('motion').title=name;
-    $('motion').innerHTML=moving?'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10m6-10v10"/></svg>':'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5 3 8 5-8 5z"/></svg>';
-    wake();
-  }
-  $('motion').onclick=()=>setMotion(!moving);
-  reduced.addEventListener('change',e=>setMotion(!e.matches));
-  setMotion(moving);
+  $('year-color').onchange=updateColors;
+  updateColors();
   $('show-links').onchange=e=>{canvas.hidden=!e.target.checked;drawEdges();};
   tabs.forEach((tab,i)=>{
     tab.onclick=()=>{
@@ -223,24 +191,33 @@
   svg.addEventListener('focusout',()=>{focused=null;describe();});
   svg.addEventListener('pointerdown',e=>{
     const n=nodeAt(e);
-    if (!n || e.button!==0) return;
-    held={node:n, id:e.pointerId, startX:e.clientX, startY:e.clientY, dragged:false};
+    if (!n || held || e.button!==0) return;
+    const rect=svg.getBoundingClientRect();
+    held={node:n, id:e.pointerId, startX:e.clientX, startY:e.clientY, offsetX:n.x-e.clientX+rect.left, offsetY:n.y-e.clientY+rect.top, dragged:false};
     n.el.setPointerCapture(e.pointerId);
   });
   svg.addEventListener('pointermove',e=>{
     if (!held || held.id!==e.pointerId) return;
-    if (Math.hypot(e.clientX-held.startX,e.clientY-held.startY)>4) held.dragged=true;
-    if (!held.dragged) return;
+    if (!held.dragged) {
+      if (Math.hypot(e.clientX-held.startX,e.clientY-held.startY)<=4) return;
+      held.dragged=true;
+    }
     const rect=svg.getBoundingClientRect(), n=held.node;
-    n.x=Math.max(n.r,Math.min(width-n.r,e.clientX-rect.left));
-    n.y=Math.max(n.r,Math.min(height-n.r,e.clientY-rect.top));
-    paint();describe();
+    n.x=Math.max(n.r,Math.min(width-n.r,e.clientX-rect.left+held.offsetX));
+    n.y=Math.max(n.r,Math.min(height-n.r,e.clientY-rect.top+held.offsetY));
+    n.drop={x:n.x/width,y:n.y/height};
+    position(n);describe();
   });
   svg.addEventListener('pointerup',e=>{
     if (!held || e.pointerId!==held.id) return;
     const {node,dragged}=held;
     held=null; hovered=null; node.el.releasePointerCapture(e.pointerId);
-    if (dragged) {node.el.blur();describe();}
+    if (dragged) {
+      node.el.blur();
+      svg.append(node.group.el);
+      node.group.el.insertBefore(node.el,node.group.label);
+      describe();
+    }
     else {tip.hidden=true;openWork(node.paper.id);}
   });
   svg.addEventListener('pointercancel',()=>{held=null;hovered=null;describe();});
@@ -264,8 +241,5 @@
     row.onpointerleave=row.onblur=()=>highlight(false);
   }
   new ResizeObserver(layout).observe(svg);
-  window.addEventListener('hashchange',wake);
-  document.addEventListener('visibilitychange',wake);
-  $('paper').addEventListener('close',wake);
   layout();
 }
