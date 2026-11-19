@@ -94,3 +94,10 @@ body.map-mode { height:100svh; min-height:510px; }
   .size-tabs button { padding:5px 6px; }
   .size-tabs button,.links-switch { font-size:.75rem; }
 }
+
+.paper-counts,.paper-counts div { display:flex; align-items:baseline; gap:7px; }
+.paper-counts { flex-wrap:wrap; gap:9px 24px; padding:14px 0; margin:14px 0; border-block:1px solid var(--line); }
+.paper-counts dt { color:var(--soft); }
+.paper-counts dd { margin:0; font-weight:650; font-variant-numeric:tabular-nums; }
+.dialog-content h3 { font-size:1.02rem; margin:18px 0 6px; }
+#paper-abstract { white-space:pre-line; overflow-wrap:anywhere; line-height:1.6; }

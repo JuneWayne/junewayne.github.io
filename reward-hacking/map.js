@@ -35,8 +35,8 @@
   }
 
   function quantity(paper) {
-    const unit = metric === 'citations' ? 'citations received' : 'references';
-    return paper[metric] == null ? unit + ' unavailable' : format(paper[metric]) + ' ' + unit;
+    const label = metric === 'citations' ? 'Cited by' : 'References';
+    return label + ' ' + (paper[metric] == null ? 'unavailable' : format(paper[metric]));
   }
 
   for (const group of groups) {
