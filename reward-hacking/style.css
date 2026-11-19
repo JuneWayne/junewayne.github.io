@@ -81,6 +81,7 @@ body.map-mode { height:100svh; min-height:510px; }
 #year-key i { width:clamp(112px,12vw,170px); height:12px; border-radius:6px; }
 #citation-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 #bubble-map { position:relative; touch-action:none; }
+#bubble-map:focus:not(:focus-visible) { outline:none; }
 .paper-bubble { fill:var(--bubble-color,var(--series)); touch-action:none; cursor:grab; }
 .paper-bubble:active { cursor:grabbing; }
 .paper-bubble:not([data-publication="conference"]) { fill:var(--paper); stroke:var(--bubble-color,var(--series)); stroke-width:1.2; }
