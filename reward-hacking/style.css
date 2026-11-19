@@ -161,3 +161,10 @@ body.map-mode { height:100svh; min-height:510px; }
 .map-title .publication-key { flex-wrap:wrap; gap:5px 18px; margin-top:8px; font-size:clamp(.94rem,1.15vw,1.06rem); color:var(--ink); }
 .publication-key i { flex:none; width:18px; height:18px; border:2px solid currentColor; border-radius:50%; }
 .publication-key .pub-solid { background:currentColor; }
+
+#scope-count,#size-key { font-size:clamp(.94rem,1.15vw,1.06rem); }
+#size-key { margin:8px 0 12px; }
+#size-key b { font-weight:550; }
+#size-key div { display:flex; align-items:flex-end; gap:clamp(4px,.8vw,12px); flex-wrap:wrap; }
+#size-key span { display:grid; justify-items:center; gap:3px; font-variant-numeric:tabular-nums; }
+#size-key i { display:block; border-radius:50%; background:var(--soft); }

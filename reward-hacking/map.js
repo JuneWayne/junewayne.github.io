@@ -65,6 +65,7 @@
     return el;
   }
 
+  const rawRadius=value=>1.55+.92*Math.log1p(value??0);
   function quantity(paper) {
     const label = metric === 'citations' ? 'Cited by' : 'References';
     return label + ' ' + (paper[metric] == null ? 'unavailable' : format(paper[metric]));
@@ -125,7 +126,7 @@
       for (const t of g.topics) {
         const packed=t.nodes.map(n=>{
           const value=n.paper[metric];
-          n.raw=value==null?1.55:1.55+.92*Math.log1p(value);
+          n.raw=rawRadius(value);
           n.el.setAttribute('aria-label',n.paper.title+', '+n.paper.year+', '+quantity(n.paper)+', '+t.name+', '+publicationText(n.paper));
           return {n,r:n.raw+.8};
         }).sort((a,b)=>b.r-a.r);
@@ -201,6 +202,15 @@
         }
       }
     }
+    const maxCount=Math.max(0,...visibleNodes.map(n=>n.paper[metric]??0));
+    const examples=[0,1,10,100].filter(v=>v<maxCount);
+    examples.push(maxCount);
+    const sample=visibleNodes[0], unit=sample.r/sample.raw;
+    const label=metric==='citations'?'Citations':'References';
+    $('size-key').innerHTML='<b>'+label+'</b><div>'+examples.map(v=>{
+      const diameter=2*unit*rawRadius(v);
+      return '<span><i aria-hidden="true" style="width:'+diameter+'px;height:'+diameter+'px"></i>'+format(v)+'</span>';
+    }).join('')+'</div>';
     cellSize=2*Math.max(...visibleNodes.map(n=>n.r))+1;
     describe();
     schedule();
