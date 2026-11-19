@@ -63,3 +63,32 @@ body.map-mode { display:flex; flex-direction:column; min-height:100svh; }
 body.map-mode { height:100svh; min-height:510px; }
 .map-mode main { display:flex; flex-direction:column; flex:1; min-height:0; }
 .map-mode #atlas { height:auto; flex:1; min-height:0; }
+.map-surface { grid-template-rows:auto minmax(0,1fr); }
+.map-title { display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
+.map-controls,.size-tabs,.links-switch,.motion-control { display:flex; align-items:center; }
+.map-controls { gap:14px; }
+.size-tabs { padding:3px; background:#e9ece7; border-radius:7px; }
+.size-tabs button { padding:6px 10px; font-size:.81rem; border:0; background:transparent; border-radius:5px; color:var(--soft); }
+.size-tabs button[aria-selected=true] { background:#fff; color:var(--ink); box-shadow:0 1px 3px #182b2426; }
+.links-switch { gap:6px; cursor:pointer; white-space:nowrap; font-size:.81rem; }
+.links-switch input { margin:0; appearance:none; cursor:pointer; width:27px; height:16px; border-radius:20px; background:#c2c9c4; padding:3px; }
+.links-switch input::before { content:''; display:block; border-radius:50%; width:10px; height:10px; background:white; }
+.links-switch input:checked { background:#306b59; }
+.links-switch input:checked::before { transform:translateX(11px); }
+.motion-control { width:30px; height:30px; justify-content:center; border:1px solid var(--line); border-radius:6px; background:transparent; }
+.motion-control svg { height:13px; width:13px; stroke:currentColor; stroke-width:2; fill:none; stroke-linejoin:round; }
+#citation-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+#bubble-map { position:relative; }
+.paper-bubble { touch-action:none; cursor:grab; }
+.paper-bubble:active { cursor:grabbing; }
+.paper-bubble.unknown { fill:var(--paper); stroke:var(--series); stroke-width:1.2; }
+.cluster-name { paint-order:stroke; stroke:var(--paper); stroke-width:4px; stroke-linejoin:round; }
+.library-controls { grid-template-columns:minmax(140px,1fr) minmax(130px,220px); }
+.library-controls input,.library-controls select { margin:0; }
+.dialog-bar { justify-content:flex-end; }
+@media(max-width:700px) {
+  .map-title { gap:8px; }
+  .map-controls { gap:6px; flex-wrap:wrap; }
+  .size-tabs button { padding:5px 6px; }
+  .size-tabs button,.links-switch { font-size:.75rem; }
+}
