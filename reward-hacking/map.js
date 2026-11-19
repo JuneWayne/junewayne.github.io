@@ -26,12 +26,31 @@
   $('year-key').setAttribute('aria-label', `Publication year, pink for ${newest} through blue for ${oldest}`);
   $('year-key').querySelector('i').style.background = 'linear-gradient(to right,' + years.map(y => yearColors.get(y)+' '+100*(newest-y)/Math.max(1,newest-oldest)+'%').join(',') + ')';
 
-  $('area-list').innerHTML = groups.map(({area, papers}) => {
-    const [name, color] = AREAS[area];
-    return `<a class="bar-row" data-area="${area}" href="${libLink({area})}" style="--series:${color}">
-      <span class="bar-label">${esc(name)}<b>${papers.length}</b></span>
-      <span class="bar-track"><i style="width:${100 * papers.length / groups[0].papers.length}%"></i></span></a>`;
-  }).join('');
+  let selectedArea='', visibleNodes=nodes, visibleEdges=edges;
+  const mapLink=area=>'#atlas?'+new URLSearchParams({area});
+  function drawChart() {
+    const g=groups.find(item=>item.area===selectedArea);
+    const items=g?g.topics.map((t,i)=>({label:(i+1)+'. '+t.name,count:t.nodes.length,topic:t.name,
+      area:g.area,href:libLink({area:g.area,subcluster:t.name})})):
+      groups.map(item=>({label:AREAS[item.area][0],count:item.nodes.length,area:item.area,href:mapLink(item.area)}));
+    $('chart-back').hidden=!g;
+    $('chart-review').hidden=!g;
+    if(g) $('chart-review').href='#'+g.area.toLowerCase();
+    $('chart-title').textContent=g?'Papers by subgroup':'Papers by category';
+    document.querySelector('.map-title h1').textContent=g?AREAS[g.area][0]:'Paper clusters';
+    $('atlas').classList.toggle('subgroup-view',Boolean(g));
+    $('area-list').innerHTML=items.map(item=>`<a class="bar-row" data-area="${item.area}" data-topic="${esc(item.topic||'')}" href="${esc(item.href)}" style="--series:${AREAS[item.area][1]}">
+      <span class="bar-label">${esc(item.label)}<b>${item.count}</b></span>
+      <span class="bar-track"><i style="width:${100*item.count/items[0].count}%"></i></span></a>`).join('');
+    for (const row of $('area-list').querySelectorAll('a')) {
+      const highlight=on=>{
+        if(g) for(const n of g.nodes) n.el.classList.toggle('faded',on && n.paper.subcluster!==row.dataset.topic);
+        else for(const item of groups) item.el.classList.toggle('faded',on && item.area!==row.dataset.area);
+      };
+      row.onpointerenter=row.onfocus=()=>highlight(true);
+      row.onpointerleave=row.onblur=()=>highlight(false);
+    }
+  }
 
   function element(tag, attrs) {
     const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -57,6 +76,19 @@
       byId.set(paper.id,n);
       return n;
     });
+    const buckets=new Map();
+    for(const n of group.nodes) {
+      const name=n.paper.subcluster;
+      if(!buckets.has(name)) buckets.set(name,[]);
+      buckets.get(name).push(n);
+    }
+    group.topics=[...buckets].sort((a,b)=>b[1].length-a[1].length || a[0].localeCompare(b[0])).map(([name,list],i)=>{
+      const ring=element('circle',{class:'topic-ring','aria-hidden':true});
+      const label=element('text',{class:'topic-number','text-anchor':'middle','aria-hidden':true});
+      label.textContent=i+1;
+      group.el.prepend(ring);group.el.append(label);
+      return {name,nodes:list,ring,label};
+    });
     group.el.append(group.label);
     svg.append(group.el);
   }
@@ -76,17 +108,26 @@
     const anchors = wide ? [[.29,.45],[.72,.40],[.55,.75],[.87,.76],[.27,.83],[.51,.09]]
                          : [[.34,.31],[.65,.68],[.72,.27],[.22,.67],[.26,.89],[.75,.08]];
     for (const [i,g] of groups.entries()) {
-      const packed = g.nodes.map(n => {
-        const value = n.paper[metric];
-        n.raw = value == null ? 1.55 : 1.55 + .92*Math.log1p(value);
-        n.el.classList.toggle('unknown',value == null);
-        n.el.setAttribute('aria-label', n.paper.title + ', ' + n.paper.year + ', ' + quantity(n.paper));
-        return {n, r:n.raw+.8};
-      }).sort((a,b) => b.r-a.r);
-      d3.packSiblings(packed);
-      const enclosure = d3.packEnclose(packed);
-      g.raw = enclosure.r;
-      for (const p of packed) { p.n.lx = p.x-enclosure.x; p.n.ly = p.y-enclosure.y; }
+      for (const t of g.topics) {
+        const packed=t.nodes.map(n=>{
+          const value=n.paper[metric];
+          n.raw=value==null?1.55:1.55+.92*Math.log1p(value);
+          n.el.classList.toggle('unknown',value==null);
+          n.el.setAttribute('aria-label',n.paper.title+', '+n.paper.year+', '+quantity(n.paper)+', '+t.name);
+          return {n,r:n.raw+.8};
+        }).sort((a,b)=>b.r-a.r);
+        d3.packSiblings(packed);
+        const enclosure=d3.packEnclose(packed);
+        t.raw=enclosure.r;
+        for(const p of packed){p.n.lx=p.x-enclosure.x;p.n.ly=p.y-enclosure.y;}
+      }
+      const islands=g.topics.map(t=>({t,r:t.raw+2.8})).sort((a,b)=>b.r-a.r);
+      d3.packSiblings(islands);
+      const parent=d3.packEnclose(islands);
+      g.raw=parent.r;
+      for(const island of islands){
+        island.t.lx=island.x-parent.x;island.t.ly=island.y-parent.y;
+      }
       [g.ax,g.ay] = anchors[i];
     }
     // Fit the six enclosures and their labels together before placing individual papers.
@@ -106,24 +147,38 @@
     const left=Math.min(...groups.map(g=>g.cx-g.raw)), right=Math.max(...groups.map(g=>g.cx+g.raw));
     const top=Math.min(...groups.map(g=>g.cy-g.raw)), bottom=Math.max(...groups.map(g=>g.cy+g.raw));
     const side=width<520?12:24;
-    const scale=Math.max(.02,Math.min((width-2*side)/(right-left),(height-size*2-18)/(bottom-top)));
-    const ox=(width-(right-left)*scale)/2-left*scale, oy=(height-(bottom-top)*scale-size*1.5)/2-top*scale;
+    const overviewScale=Math.max(.02,Math.min((width-2*side)/(right-left),(height-size*2-18)/(bottom-top)));
+    const ox=(width-(right-left)*overviewScale)/2-left*overviewScale;
+    const oy=(height-(bottom-top)*overviewScale-size*1.5)/2-top*overviewScale;
     for (const g of groups) {
-      g.x=ox+g.cx*scale; g.y=oy+g.cy*scale; g.r=g.raw*scale;
+      const zoom=g.area===selectedArea;
+      g.el.style.display=selectedArea && !zoom?'none':'';
+      if(selectedArea && !zoom) continue;
+      const scale=zoom?Math.max(.02,(Math.min(width,height)-2*side)/(2*g.raw)):overviewScale;
+      g.x=zoom?width/2:ox+g.cx*scale; g.y=zoom?height/2:oy+g.cy*scale;
+      g.r=g.raw*scale;
+      g.label.style.display=zoom?'none':'';
       g.label.setAttribute('font-size',size);
       const half=g.label.getComputedTextLength()/2+3;
       g.label.setAttribute('x',Math.max(half,Math.min(width-half,g.x)));
       g.label.setAttribute('y',g.y+g.r+size);
-      for (const n of g.nodes) {
-        n.r=n.raw*scale;
-        n.x=n.drop ? Math.max(n.r,Math.min(width-n.r,n.drop.x*width)) : g.x+n.lx*scale;
-        n.y=n.drop ? Math.max(n.r,Math.min(height-n.r,n.drop.y*height)) : g.y+n.ly*scale;
-        n.restX=n.x; n.restY=n.y; n.vx=0; n.vy=0;
-        n.el.setAttribute('r',n.r);
-        position(n);
+      for (const t of g.topics) {
+        t.x=g.x+t.lx*scale;t.y=g.y+t.ly*scale;t.r=t.raw*scale;
+        t.ring.setAttribute('cx',t.x);t.ring.setAttribute('cy',t.y);t.ring.setAttribute('r',t.r+scale);
+        t.label.setAttribute('x',t.x);t.label.setAttribute('y',Math.max(size,t.y-t.r));
+        t.label.setAttribute('font-size',size);
+        for(const n of t.nodes){
+          n.r=n.raw*scale;
+          n.home=zoom?t:g;
+          n.x=n.drop?Math.max(n.r,Math.min(width-n.r,n.drop.x*width)):t.x+n.lx*scale;
+          n.y=n.drop?Math.max(n.r,Math.min(height-n.r,n.drop.y*height)):t.y+n.ly*scale;
+          n.restX=n.x;n.restY=n.y;n.vx=0;n.vy=0;
+          n.el.setAttribute('r',n.r);
+          position(n);
+        }
       }
     }
-    cellSize=2*Math.max(...nodes.map(n=>n.r))+1;
+    cellSize=2*Math.max(...visibleNodes.map(n=>n.r))+1;
     describe();
     schedule();
   }
@@ -136,7 +191,7 @@
   function describe() {
     const n=active();
     tip.hidden=!n;
-    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+quantity(n.paper);positionTip(n);}
+    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+n.paper.subcluster+' · '+quantity(n.paper);positionTip(n);}
     drawEdges();
   }
   function drawEdges() {
@@ -144,13 +199,13 @@
     ctx.clearRect(0,0,width,height);
     const selected=active();
     ctx.beginPath();
-    for (const [a,b] of edges) {ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
+    for (const [a,b] of visibleEdges) {ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
     ctx.strokeStyle=selected?'rgba(55,72,70,.024)':'rgba(55,72,70,.105)';
     ctx.lineWidth=.65;ctx.stroke();
     if (!selected) return;
     // On incident links the arrow points to the referenced paper.
     ctx.beginPath();
-    for (const [a,b] of edges) {
+    for (const [a,b] of visibleEdges) {
       if (a!==selected && b!==selected) continue;
       const dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy);
       if (len <= a.r+b.r+1) continue;
@@ -167,7 +222,7 @@
   function separate(pinned) {
     const grid=new Map();
     const columns=Math.ceil(width/cellSize)+2;
-    for (const a of nodes) {
+    for (const a of visibleNodes) {
       const cellX=Math.floor(a.x/cellSize), cellY=Math.floor(a.y/cellSize);
       for (let row=cellY-1;row<=cellY+1;row++) {
         for (let col=cellX-1;col<=cellX+1;col++) {
@@ -196,7 +251,7 @@
     }
   }
   function paintPositions() {
-    for (const n of nodes) {
+    for (const n of visibleNodes) {
       n.x=Math.max(n.r,Math.min(width-n.r,n.x));
       n.y=Math.max(n.r,Math.min(height-n.r,n.y));
       position(n);
@@ -205,14 +260,14 @@
     drawEdges();
   }
   function easeDropTowardCluster(n,dt) {
-    const dx=n.group.x-n.restX, dy=n.group.y-n.restY;
+    const dx=n.home.x-n.restX, dy=n.home.y-n.restY;
     const distance=Math.hypot(dx,dy);
-    const edge=n.group.r-n.r*.5;
+    const edge=n.home.r-n.r*.5;
     if (distance<=edge) return;
     const gap=distance-edge;
     const farSpeed=Math.min(36,.06*Math.min(width,height));
     // The inward speed gains exponentially as the gap closes. Brake in the last few pixels.
-    const pullRange=Math.max(24,n.group.r*.65);
+    const pullRange=Math.max(24,n.home.r*.65);
     const inwardSpeed=farSpeed*(1+2.5*Math.exp(-gap/pullRange));
     const travel=Math.min(inwardSpeed*dt,gap*(-Math.expm1(-7*dt)));
     n.restX+=dx/distance*travel; n.restY+=dy/distance*travel;
@@ -227,7 +282,7 @@
       // A released bubble can return even while the pointer is still over it.
       const pinned=held?.node || focused || (hovered?.drop ? null : hovered);
       const damping=Math.exp(-7*dt);
-      for (const n of nodes) {
+      for (const n of visibleNodes) {
         if (n===pinned) continue;
         if (n.drop) easeDropTowardCluster(n,dt);
         // Damped springs follow a tiny, slow orbit around the packed or dropped position.
@@ -251,7 +306,7 @@
   }
   function updateColors() {
     const byYear=$('year-color').checked;
-    $('scope-count').textContent=format(core.length)+' papers ·'+(byYear ? '' : ' '+oldest+'–'+newest);
+    $('scope-count').textContent=format(visibleNodes.length)+' papers ·'+(byYear ? '' : ' '+oldest+'–'+newest);
     $('year-key').hidden=!byYear;
     for (const n of nodes) {
       if (byYear) n.el.style.setProperty('--bubble-color',yearColors.get(n.paper.year));
@@ -321,7 +376,7 @@
   });
   svg.addEventListener('pointercancel',()=>{held=null;hovered=null;describe();});
   svg.addEventListener('click',e=>{
-    if (e.target.classList.contains('cluster-name')) location.hash=libLink({area:e.target.parentNode.dataset.group});
+    if (e.target.classList.contains('cluster-name')) location.hash=mapLink(e.target.parentNode.dataset.group);
     else if (e.detail===0 && nodeAt(e)) openWork(nodeAt(e).paper.id);
   });
   svg.addEventListener('keydown',e=>{
@@ -334,11 +389,22 @@
     const list=n.group.nodes, next=list[(list.indexOf(n)+direction+list.length)%list.length];
     n.el.setAttribute('tabindex','-1');next.el.setAttribute('tabindex','0');next.el.focus();
   });
-  for (const row of document.querySelectorAll('.bar-row')) {
-    const highlight=on=>groups.forEach(g=>g.el.classList.toggle('faded',on && g.area!==row.dataset.area));
-    row.onpointerenter=row.onfocus=()=>highlight(true);
-    row.onpointerleave=row.onblur=()=>highlight(false);
+  function mapRoute() {
+    if(location.hash && !/^#atlas(?:\?|$)/.test(location.hash)) return;
+    const area=new URLSearchParams(location.hash.split('?')[1]).get('area');
+    const next=areaKeys.includes(area)?area:'';
+    if(next===selectedArea && $('area-list').childElementCount) return;
+    selectedArea=next;
+    held=hovered=focused=null;
+    for(const n of nodes){n.drop=null;n.el.classList.remove('faded');}
+    for(const g of groups) g.el.classList.remove('faded');
+    visibleNodes=next?groups.find(g=>g.area===next).nodes:nodes;
+    visibleEdges=next?edges.filter(([a,b])=>a.group.area===next && b.group.area===next):edges;
+    drawChart();updateColors();layout();
   }
+  drawChart();
+  window.addEventListener('hashchange',mapRoute);
+  mapRoute();
   reducedMotion.addEventListener('change',schedule);
   document.addEventListener('visibilitychange',schedule);
   window.addEventListener('hashchange',schedule);

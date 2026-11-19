@@ -4,8 +4,8 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#142322">
 <title>Reward Hacking Atlas · Literature map</title>
-<link rel="icon" href="mark.svg?v=38a4d8e5"><link rel="stylesheet" href="style.css?v=96d75434">
-<script defer src="snapshot.js?v=508092a5"></script><script defer src="app.js?v=dfc76595"></script><script defer src="vendor/d3-hierarchy.min.js"></script><script defer src="map.js?v=78ba7c0f"></script>
+<link rel="icon" href="mark.svg?v=38a4d8e5"><link rel="stylesheet" href="style.css?v=1a6749c3">
+<script defer src="snapshot.js?v=4a097425"></script><script defer src="app.js?v=7df592a6"></script><script defer src="vendor/d3-hierarchy.min.js"></script><script defer src="map.js?v=4200062b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -31,8 +31,10 @@
   </div>
  </div>
  <aside class="category-chart" aria-labelledby="chart-title">
+  <a id="chart-back" href="#atlas" hidden>← All categories</a>
   <h2 id="chart-title">Papers by category</h2>
   <div id="area-list"></div>
+  <a id="chart-review" href="#review" hidden>Read findings</a>
 
  </aside>
 </section>
@@ -45,7 +47,7 @@
  <div class="list-heading"><p id="results" aria-live="polite"></p><button id="clear" class="linkbtn" hidden>Clear filters</button></div>
  <div id="library-rows"></div><div class="pagebar"><button id="prev" class="button">Previous</button><span id="page-index"></span><button id="next" class="button">Next</button></div>
 </section>
-<section id="review" class="view" hidden><div class="intro"><div><h1>Literature review</h1></div><a href="review.md" download class="button">Download review <span aria-hidden="true">↓</span></a></div><div class="reading"><aside class="contents panel"><a href="#review">Main findings</a><a href="#mitigation">Mitigation</a><a href="#behavior">Behavioral studies</a><a href="#benchmarking">Benchmarking</a><a href="#detection">Detection</a><a href="#theory">Theory</a><a href="#synthesis">Reviews &amp; synthesis</a><a href="#replications">Replication evidence</a><a href="#methods">Methods</a></aside><article id="review-content"></article></div></section>
+<section id="review" class="view" hidden><div class="intro"><div><h1>Literature review</h1></div><a href="review.md" download class="button">Download review <span aria-hidden="true">↓</span></a></div><div class="reading"><aside class="contents panel"><a href="#review">Main findings</a><a href="#opportunities">Where to explore</a><a href="#benchmarking">Benchmarking</a><a href="#behavior">Behavioral studies</a><a href="#mitigation">Mitigation</a><a href="#detection">Detection</a><a href="#theory">Theory</a><a href="#synthesis">Reviews &amp; synthesis</a><a href="#replications">Replication evidence</a><a href="#methods">Methods</a></aside><article id="review-content"></article></div></section>
 <section id="methods" class="view" hidden><div class="intro"><div><h1>Methods &amp; coverage</h1></div><button class="button" id="export-data">Download dataset <span aria-hidden="true">↓</span></button></div><article class="methods" id="method-content"></article></section>
 </main>
 
