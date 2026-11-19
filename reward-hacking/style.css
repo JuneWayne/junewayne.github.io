@@ -33,7 +33,7 @@ body.map-mode { display:flex; flex-direction:column; min-height:100svh; }
 #bubble-tip { position:absolute; max-width:min(340px,90%); padding:8px 11px; background:#22352e; color:white; border-radius:5px; box-shadow:0 2px 12px #0002; font-size:.82rem; line-height:1.4; pointer-events:none; }
 .map-key { display:flex; align-items:center; gap:8px; padding:3px 3vw 18px; }
 .map-key i { width:9px; height:9px; border-radius:50%; background:#718078; }
-.category-chart { display:flex; flex-direction:column; justify-content:center; padding:clamp(16px,2.15vw,36px); border-left:1px solid var(--line); background:#fff; }
+.category-chart { display:flex; flex-direction:column; justify-content:center; padding:clamp(16px,2.15vw,36px); border:0; background:transparent; }
 .category-chart h2 { font-size:clamp(1.65rem,2vw,2.3rem); margin:0 0 23px; line-height:1.1; }
 .category-chart p { margin-top:20px; line-height:1.5; }
 .bar-row { display:block; color:var(--ink); text-decoration:none; padding:10px 0; }
@@ -50,7 +50,7 @@ body.map-mode { display:flex; flex-direction:column; min-height:100svh; }
   .map-title { padding:14px 5vw 0; }.map-title h1 { font-size:2.1rem; margin:0 0 4px; }
   .map-title p,.map-key { font-size:.74rem; }
   .map-key { padding:0 5vw 8px; }
-  .category-chart { border-left:0; border-top:1px solid var(--line); padding:9px 5vw 12px; }
+  .category-chart { border:0; padding:9px 5vw 12px; }
   .category-chart h2 { font-size:1.35rem; margin:0 0 4px; }
   #area-list { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
   .category-chart p { display:none; }
@@ -168,3 +168,11 @@ body.map-mode { height:100svh; min-height:510px; }
 #size-key div { display:flex; align-items:flex-end; gap:clamp(4px,.8vw,12px); flex-wrap:wrap; }
 #size-key span { display:grid; justify-items:center; gap:3px; font-variant-numeric:tabular-nums; }
 #size-key i { display:block; border-radius:50%; background:var(--soft); }
+
+.map-mode header { border-bottom:0; }
+.color-control { display:flex; align-items:center; gap:5px; font-size:.82rem; }
+.color-control select { font-size:inherit; }
+#vote-key { display:flex; gap:2px; margin-top:5px; color:var(--ink); }
+#vote-key span { min-width:38px; text-align:center; font-size:.9rem; }
+#vote-key span:last-child { margin-left:7px; }
+#vote-key i { display:block; height:12px; margin-bottom:2px; }

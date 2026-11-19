@@ -224,7 +224,7 @@
   function describe() {
     const n=active();
     tip.hidden=!n;
-    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+n.paper.subcluster+' · '+quantity(n.paper)+' · '+publicationText(n.paper);positionTip(n);}
+    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+n.paper.subcluster+' · '+quantity(n.paper)+' · '+publicationText(n.paper)+($('color-mode').value==='votes'?' · Hugging Face upvotes: '+(n.paper.hfUpvotes??'No data'):'');positionTip(n);}
     drawEdges();
   }
   function drawEdges() {
@@ -340,18 +340,27 @@
   function schedule() {
     if (!frame && canAnimate()) frame=requestAnimationFrame(tick);
   }
+  const voteBands=[
+    {min:0,label:'0',color:'#cbbce3'}, {min:1,label:'1–4',color:'#a88bc8'},
+    {min:5,label:'5–19',color:'#7751a3'}, {min:20,label:'20+',color:'#45216b'}
+  ];
+  const missingVotes={label:'No data',color:'#979e9d'};
+  const voteBand=value=>value==null?missingVotes:voteBands.findLast(b=>value>=b.min);
+  $('vote-key').innerHTML=[...voteBands,missingVotes].map(b=>`<span><i style="background:${b.color}"></i>${b.label}</span>`).join('');
   function updateColors() {
-    const byYear=$('year-color').checked;
+    const mode=$('color-mode').value, byYear=mode==='year';
+    $('vote-key').hidden=mode!=='votes';
     $('scope-count').textContent=format(visibleNodes.length)+' papers';
     $('year-range').hidden=byYear;
     $('year-key').hidden=!byYear;
     for (const n of nodes) {
       if (byYear) n.el.style.setProperty('--bubble-color',yearColors.get(n.paper.year));
+      else if(mode==='votes') n.el.style.setProperty('--bubble-color',voteBand(n.paper.hfUpvotes).color);
       else if(n.group.area===selectedArea) n.el.style.setProperty('--bubble-color',n.topicColor);
       else n.el.style.removeProperty('--bubble-color');
     }
   }
-  $('year-color').onchange=updateColors;
+  $('color-mode').onchange=()=>{updateColors();describe();};
   updateColors();
   $('show-links').onchange=e=>{canvas.hidden=!e.target.checked;drawEdges();};
   tabs.forEach((tab,i)=>{

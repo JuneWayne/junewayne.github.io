@@ -4,10 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#142322">
 <title>Reward Hacking Atlas · Literature map</title>
-<link rel="icon" href="mark.svg?v=38a4d8e5"><link rel="stylesheet" href="style.css?v=f36d8029">
+<link rel="icon" href="mark.svg?v=38a4d8e5"><link rel="stylesheet" href="style.css?v=415491e5">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
 <script defer src="vendor/katex/katex.min.js"></script><script defer src="vendor/katex/auto-render.min.js"></script>
-<script defer src="snapshot.js?v=1820b286"></script><script defer src="app.js?v=c2eddfec"></script><script defer src="vendor/d3-hierarchy.min.js"></script><script defer src="map.js?v=d8fff5b6"></script>
+<script defer src="snapshot.js?v=e5163392"></script><script defer src="app.js?v=779b05ac"></script><script defer src="vendor/d3-hierarchy.min.js"></script><script defer src="map.js?v=00e966ba"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -16,7 +16,7 @@
 <section id="atlas" class="view">
  <div class="map-surface">
   <div class="map-title">
-   <div><h1>Paper clusters</h1><p class="map-meta"><span id="scope-count"></span><span id="year-range"></span><span id="year-key" hidden><span id="newest-year"></span><i aria-hidden="true"></i><span id="oldest-year"></span></span></p><p class="publication-key" aria-label="Conference publication"><span><i class="pub-solid"></i>Conference publication</span><span title="Open a paper to see its publication record."><i class="pub-hollow"></i>No conference publication listed</span></p></div>
+   <div><h1>Paper clusters</h1><p class="map-meta"><span id="scope-count"></span><span id="year-range"></span><span id="year-key" hidden><span id="newest-year"></span><i aria-hidden="true"></i><span id="oldest-year"></span></span></p><span id="vote-key" aria-label="Hugging Face upvotes" hidden></span><p class="publication-key" aria-label="Conference publication"><span><i class="pub-solid"></i>Conference publication</span><span title="Open a paper to see its publication record."><i class="pub-hollow"></i>No conference publication listed</span></p></div>
    <div class="map-controls">
     <select id="cluster-select" aria-label="Main cluster"></select>
     <div role="tablist" aria-label="Bubble size" class="size-tabs">
@@ -24,7 +24,7 @@
      <button id="refs-tab" role="tab" aria-controls="cluster-panel" aria-selected="false" tabindex="-1" data-metric="references">References</button>
     </div>
     <label class="links-switch"><input type="checkbox" id="show-links">Citation links</label>
-    <label class="links-switch"><input type="checkbox" id="year-color">Color by year</label>
+    <label class="color-control">Color by <select id="color-mode"><option value="cluster">Cluster</option><option value="year">Year</option><option value="votes">Hugging Face upvotes</option></select></label>
    </div>
   </div>
   <div class="bubble-stage" role="tabpanel" id="cluster-panel" aria-labelledby="cited-tab">
