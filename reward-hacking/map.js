@@ -209,9 +209,12 @@
     const distance=Math.hypot(dx,dy);
     const edge=n.group.r-n.r*.5;
     if (distance<=edge) return;
-    // Move the resting point slowly. The pull fades to zero at the cluster edge.
-    const maxSpeed=Math.min(36,.06*Math.min(width,height));
-    const travel=Math.min(maxSpeed*dt,(distance-edge)*(-Math.expm1(-.4*dt)));
+    const gap=distance-edge;
+    const farSpeed=Math.min(36,.06*Math.min(width,height));
+    // The inward speed gains exponentially as the gap closes. Brake in the last few pixels.
+    const pullRange=Math.max(24,n.group.r*.65);
+    const inwardSpeed=farSpeed*(1+2.5*Math.exp(-gap/pullRange));
+    const travel=Math.min(inwardSpeed*dt,gap*(-Math.expm1(-7*dt)));
     n.restX+=dx/distance*travel; n.restY+=dy/distance*travel;
     n.drop.x=n.restX/width; n.drop.y=n.restY/height;
   }
