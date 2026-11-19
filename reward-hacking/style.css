@@ -126,9 +126,15 @@ body.map-mode { height:100svh; min-height:510px; }
 .topic-chart .bar-label b { margin-left:auto; }
 .topic-chart .settings { margin:4px 0 14px 18px; padding:0 0 0 12px; border-left:2px solid var(--line); font-size:.85rem; }
 .topic-chart .settings .bar-label { font-size:.85rem; }
-.topic-ring,.topic-number { display:none; pointer-events:none; }
+.topic-ring,.topic-caption { display:none; }
+.topic-ring { pointer-events:none; }
 .subgroup-view .topic-ring { display:block; stroke:var(--series); stroke-opacity:.4; fill:none; }
-.subgroup-view .topic-number { display:block; fill:var(--ink); stroke:var(--paper); stroke-width:4px; paint-order:stroke; font-weight:650; }
+.subgroup-view .topic-caption { display:block; pointer-events:none; }
+.topic-caption a { display:block; width:fit-content; max-width:100%; margin:auto; text-align:center; text-wrap:balance; color:var(--ink); font-size:clamp(12px,1vw,15px); line-height:1.18; font-weight:600; text-decoration:none; pointer-events:auto; }
+.topic-caption a:hover,.topic-caption a:focus-visible { text-decoration:underline; }
+#cluster-select { max-width:100%; font-size:.84rem; }
+#paper-abstract .katex { white-space:normal; }
+#paper-abstract .katex-display { overflow-x:auto; overflow-y:hidden; padding-block:.2em; }
 #chart-back,#chart-review { font-size:.85rem; align-self:start; }
 #chart-back { margin-bottom:14px; }
 #chart-review { margin-top:10px; }
@@ -139,4 +145,15 @@ body.map-mode { height:100svh; min-height:510px; }
   .subgroup-view .category-chart { max-height:32svh; display:block; }
   #chart-back,#chart-review { display:inline-block; margin-block:3px; }
   .subgroup-view .category-chart .bar-label { font-size:.75rem; }
+}
+
+@media(max-width:700px) {
+  body.map-mode:has(.subgroup-view) { height:auto; }
+  .map-mode #atlas.subgroup-view { grid-template-rows:auto auto; }
+  .subgroup-view .bubble-stage { height:calc(var(--mobile-rows)*155px); }
+  .subgroup-view .category-chart { max-height:none; }
+}
+@media(min-width:701px) {
+  .subgroup-view .bubble-stage { min-height:450px; }
+  .map-mode:has(.subgroup-view) { min-height:650px; }
 }

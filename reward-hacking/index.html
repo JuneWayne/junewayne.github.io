@@ -4,8 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#142322">
 <title>Reward Hacking Atlas · Literature map</title>
-<link rel="icon" href="mark.svg?v=38a4d8e5"><link rel="stylesheet" href="style.css?v=1a6749c3">
-<script defer src="snapshot.js?v=4a097425"></script><script defer src="app.js?v=7df592a6"></script><script defer src="vendor/d3-hierarchy.min.js"></script><script defer src="map.js?v=4200062b"></script>
+<link rel="icon" href="mark.svg?v=38a4d8e5"><link rel="stylesheet" href="style.css?v=aac03f19">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script><script defer src="vendor/katex/auto-render.min.js"></script>
+<script defer src="snapshot.js?v=4a097425"></script><script defer src="app.js?v=4fe22dc4"></script><script defer src="vendor/d3-hierarchy.min.js"></script><script defer src="map.js?v=728a2c10"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -16,6 +18,7 @@
   <div class="map-title">
    <div><h1>Paper clusters</h1><p class="map-meta"><span id="scope-count"></span><span id="year-key" hidden><span id="newest-year"></span><i aria-hidden="true"></i><span id="oldest-year"></span></span></p></div>
    <div class="map-controls">
+    <select id="cluster-select" aria-label="Main cluster"></select>
     <div role="tablist" aria-label="Bubble size" class="size-tabs">
      <button id="cited-tab" role="tab" aria-controls="cluster-panel" aria-selected="true" data-metric="citations">Cited by</button>
      <button id="refs-tab" role="tab" aria-controls="cluster-panel" aria-selected="false" tabindex="-1" data-metric="references">References</button>

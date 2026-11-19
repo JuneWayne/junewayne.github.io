@@ -28,9 +28,14 @@
 
   let selectedArea='', visibleNodes=nodes, visibleEdges=edges;
   const mapLink=area=>'#atlas?'+new URLSearchParams({area});
+  const selector=$('cluster-select');
+  selector.add(new Option('All clusters',''));
+  for(const area of areaKeys) selector.add(new Option(AREAS[area][0],area));
+  selector.onchange=()=>{location.hash=selector.value?mapLink(selector.value):'#atlas';};
   function drawChart() {
     const g=groups.find(item=>item.area===selectedArea);
-    const items=g?g.topics.map((t,i)=>({label:(i+1)+'. '+t.name,count:t.nodes.length,topic:t.name,
+    selector.value=selectedArea;
+    const items=g?g.topics.map(t=>({label:t.name,count:t.nodes.length,topic:t.name,color:t.color,
       area:g.area,href:libLink({area:g.area,subcluster:t.name})})):
       groups.map(item=>({label:AREAS[item.area][0],count:item.nodes.length,area:item.area,href:mapLink(item.area)}));
     $('chart-back').hidden=!g;
@@ -39,7 +44,8 @@
     $('chart-title').textContent=g?'Papers by subgroup':'Papers by category';
     document.querySelector('.map-title h1').textContent=g?AREAS[g.area][0]:'Paper clusters';
     $('atlas').classList.toggle('subgroup-view',Boolean(g));
-    $('area-list').innerHTML=items.map(item=>`<a class="bar-row" data-area="${item.area}" data-topic="${esc(item.topic||'')}" href="${esc(item.href)}" style="--series:${AREAS[item.area][1]}">
+    $('atlas').style.setProperty('--mobile-rows',g?Math.ceil(g.topics.length/2):0);
+    $('area-list').innerHTML=items.map(item=>`<a class="bar-row" data-area="${item.area}" data-topic="${esc(item.topic||'')}" href="${esc(item.href)}" style="--series:${item.color||AREAS[item.area][1]}">
       <span class="bar-label">${esc(item.label)}<b>${item.count}</b></span>
       <span class="bar-track"><i style="width:${100*item.count/items[0].count}%"></i></span></a>`).join('');
     for (const row of $('area-list').querySelectorAll('a')) {
@@ -83,11 +89,17 @@
       buckets.get(name).push(n);
     }
     group.topics=[...buckets].sort((a,b)=>b[1].length-a[1].length || a[0].localeCompare(b[0])).map(([name,list],i)=>{
-      const ring=element('circle',{class:'topic-ring','aria-hidden':true});
-      const label=element('text',{class:'topic-number','text-anchor':'middle','aria-hidden':true});
-      label.textContent=i+1;
+      const shades=[0,-42,40,-23,24,-56,52,-12,12,-33];
+      const shade=shades[i%shades.length];
+      const tone=`color-mix(in srgb,${color},${shade<0?'#112925':'#fafaf7'} ${Math.abs(shade)}%)`;
+      const ring=element('circle',{class:'topic-ring','aria-hidden':true,style:'--series:'+tone});
+      const label=element('foreignObject',{class:'topic-caption'});
+      const link=document.createElement('a');
+      link.textContent=name;link.href=libLink({area:group.area,subcluster:name});
+      label.append(link);
+      for(const n of list) n.topicColor=tone;
       group.el.prepend(ring);group.el.append(label);
-      return {name,nodes:list,ring,label};
+      return {name,nodes:list,ring,label,color:tone};
     });
     group.el.append(group.label);
     svg.append(group.el);
@@ -154,7 +166,11 @@
       const zoom=g.area===selectedArea;
       g.el.style.display=selectedArea && !zoom?'none':'';
       if(selectedArea && !zoom) continue;
-      const scale=zoom?Math.max(.02,(Math.min(width,height)-2*side)/(2*g.raw)):overviewScale;
+      // Give each subgroup a separate cell, with space below the bubbles for its full name.
+      const columns=width<540?2:Math.min(4,Math.max(2,Math.round(Math.sqrt(g.topics.length*width/height))));
+      const rows=Math.ceil(g.topics.length/columns);
+      const cellW=width/columns, cellH=height/rows, captionH=width<540?56:48;
+      const scale=zoom?Math.max(.02,Math.min(cellW-24,cellH-captionH-14)/(2*Math.max(...g.topics.map(t=>t.raw+1)))):overviewScale;
       g.x=zoom?width/2:ox+g.cx*scale; g.y=zoom?height/2:oy+g.cy*scale;
       g.r=g.raw*scale;
       g.label.style.display=zoom?'none':'';
@@ -162,16 +178,22 @@
       const half=g.label.getComputedTextLength()/2+3;
       g.label.setAttribute('x',Math.max(half,Math.min(width-half,g.x)));
       g.label.setAttribute('y',g.y+g.r+size);
-      for (const t of g.topics) {
-        t.x=g.x+t.lx*scale;t.y=g.y+t.ly*scale;t.r=t.raw*scale;
+      for (const [i,t] of g.topics.entries()) {
+        const row=Math.floor(i/columns),col=i%columns;
+        const rowSize=Math.min(columns,g.topics.length-row*columns);
+        t.x=zoom?(col+.5+(columns-rowSize)/2)*cellW:g.x+t.lx*scale;
+        t.y=zoom?row*cellH+(cellH-captionH)/2:g.y+t.ly*scale;
+        t.r=t.raw*scale;
         t.ring.setAttribute('cx',t.x);t.ring.setAttribute('cy',t.y);t.ring.setAttribute('r',t.r+scale);
-        t.label.setAttribute('x',t.x);t.label.setAttribute('y',Math.max(size,t.y-t.r));
-        t.label.setAttribute('font-size',size);
+        if(zoom){
+          t.label.setAttribute('x',t.x-cellW/2+5);t.label.setAttribute('y',t.y+t.r+scale+4);
+          t.label.setAttribute('width',cellW-10);t.label.setAttribute('height',captionH);
+        }
         for(const n of t.nodes){
           n.r=n.raw*scale;
-          n.home=zoom?t:g;
-          n.x=n.drop?Math.max(n.r,Math.min(width-n.r,n.drop.x*width)):t.x+n.lx*scale;
-          n.y=n.drop?Math.max(n.r,Math.min(height-n.r,n.drop.y*height)):t.y+n.ly*scale;
+          n.homeX=t.x+n.lx*scale; n.homeY=t.y+n.ly*scale;
+          n.x=n.drop?Math.max(n.r,Math.min(width-n.r,n.drop.x*width)):n.homeX;
+          n.y=n.drop?Math.max(n.r,Math.min(height-n.r,n.drop.y*height)):n.homeY;
           n.restX=n.x;n.restY=n.y;n.vx=0;n.vy=0;
           n.el.setAttribute('r',n.r);
           position(n);
@@ -260,16 +282,17 @@
     drawEdges();
   }
   function easeDropTowardCluster(n,dt) {
-    const dx=n.home.x-n.restX, dy=n.home.y-n.restY;
+    const dx=n.homeX-n.restX, dy=n.homeY-n.restY;
     const distance=Math.hypot(dx,dy);
-    const edge=n.home.r-n.r*.5;
-    if (distance<=edge) return;
-    const gap=distance-edge;
-    const farSpeed=Math.min(36,.06*Math.min(width,height));
-    // The inward speed gains exponentially as the gap closes. Brake in the last few pixels.
-    const pullRange=Math.max(24,n.home.r*.65);
-    const inwardSpeed=farSpeed*(1+2.5*Math.exp(-gap/pullRange));
-    const travel=Math.min(inwardSpeed*dt,gap*(-Math.expm1(-7*dt)));
+    if (distance<.25) {
+      n.restX=n.homeX; n.restY=n.homeY;
+      if (Math.hypot(n.x-n.homeX,n.y-n.homeY)<2.5) n.drop=null;
+      return;
+    }
+    // Pull to the paper's packed spot inside its subgroup, then brake over the last few pixels.
+    const span=Math.hypot(width,height);
+    const inwardSpeed=span*.42*(1+1.8*Math.exp(-distance/(span*.12)));
+    const travel=Math.min(inwardSpeed*dt,distance*(-Math.expm1(-10*dt)));
     n.restX+=dx/distance*travel; n.restY+=dy/distance*travel;
     n.drop.x=n.restX/width; n.drop.y=n.restY/height;
   }
@@ -280,7 +303,7 @@
       const dt=lastTick?Math.min(.05,(time-lastTick)/1000):1/30;
       lastTick=time;phaseTime+=dt;
       // A released bubble can return even while the pointer is still over it.
-      const pinned=held?.node || focused || (hovered?.drop ? null : hovered);
+      const pinned=held?.node || (focused?.drop ? null : focused) || (hovered?.drop ? null : hovered);
       const damping=Math.exp(-7*dt);
       for (const n of visibleNodes) {
         if (n===pinned) continue;
@@ -289,8 +312,10 @@
         const amplitude=Math.min(1.9,n.r*.38);
         const tx=n.restX+amplitude*Math.cos(phaseTime*.65+n.phase);
         const ty=n.restY+amplitude*Math.sin(phaseTime*.53+n.phase*1.31);
-        n.vx=(n.vx+20*(tx-n.x)*dt)*damping;
-        n.vy=(n.vy+20*(ty-n.y)*dt)*damping;
+        const spring=n.drop?94:20;
+        const drag=n.drop?Math.exp(-13*dt):damping;
+        n.vx=(n.vx+spring*(tx-n.x)*dt)*drag;
+        n.vy=(n.vy+spring*(ty-n.y)*dt)*drag;
         n.x+=n.vx*dt; n.y+=n.vy*dt;
       }
       separate(pinned);
@@ -310,6 +335,7 @@
     $('year-key').hidden=!byYear;
     for (const n of nodes) {
       if (byYear) n.el.style.setProperty('--bubble-color',yearColors.get(n.paper.year));
+      else if(n.group.area===selectedArea) n.el.style.setProperty('--bubble-color',n.topicColor);
       else n.el.style.removeProperty('--bubble-color');
     }
   }
@@ -370,11 +396,17 @@
       node.el.blur();
       svg.append(node.group.el);
       node.group.el.insertBefore(node.el,node.group.label);
+      if (reducedMotion.matches) {node.drop=null;layout();}
       describe();
     }
     else {tip.hidden=true;openWork(node.paper.id);}
   });
-  svg.addEventListener('pointercancel',()=>{held=null;hovered=null;describe();});
+  svg.addEventListener('pointercancel',()=>{
+    const node=held?.node;
+    held=null;hovered=null;
+    if (node?.drop && reducedMotion.matches) {node.drop=null;layout();}
+    describe();
+  });
   svg.addEventListener('click',e=>{
     if (e.target.classList.contains('cluster-name')) location.hash=mapLink(e.target.parentNode.dataset.group);
     else if (e.detail===0 && nodeAt(e)) openWork(nodeAt(e).paper.id);
@@ -405,7 +437,12 @@
   drawChart();
   window.addEventListener('hashchange',mapRoute);
   mapRoute();
-  reducedMotion.addEventListener('change',schedule);
+  reducedMotion.addEventListener('change',()=>{
+    if (reducedMotion.matches) {
+      for (const n of nodes) if (n!==held?.node) n.drop=null;
+      layout();
+    } else schedule();
+  });
   document.addEventListener('visibilitychange',schedule);
   window.addEventListener('hashchange',schedule);
   $('paper').addEventListener('close',schedule);

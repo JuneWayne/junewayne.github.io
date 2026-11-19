@@ -79,7 +79,7 @@ const countMethod=m=>core.filter(w=>w.bibMethod===m).length;
 $('method-content').innerHTML=`<h2>Search and selection</h2><p>The cutoff is 18 November 2026. We include papers published from January 2020 through the cutoff. We exclude cited records whose publication year is unknown or outside this window. Four arXiv queries initially returned ${format(D.candidates)} distinct records. We screened titles and relevant abstract passages, added studies from primary-source searches and bibliographies, and checked selected Crossref and OpenReview records. A record enters the core collection when it contributes a definition, measurement, explanation, intervention, or synthesis relevant to proxy exploitation. Application studies qualify when the abstract identifies a specific behavior or intervention.</p><p>The search includes preprints, proceedings papers, journal articles, and selected technical reports. English search terms, relevance-ranked publisher results, renamed papers, unpublished work, and indexing delays limit recall. A cluster count describes this collection. It cannot establish the total size of the field.</p><details><summary>Search queries and screening decisions</summary>${D.searches.map(s=>`<p><b>arXiv · ${s.retrieved} results</b><br><code>${esc(s.query)}</code></p>`).join('')}${(D.publisherSearch.queries||[]).map(s=>`<p><b>${esc(s.source)}</b> · ${esc(s.query)} · ${esc(s.returned??s.status??'targeted search')} ${link(s.url,'Search')}</p>`).join('')}<p><a href="screening.csv" download>Download the arXiv screening register</a> · <a href="publisher-search.json" download>Publisher search log</a></p></details>
  <h2>How we classified the work</h2><p>Each mapped paper has one primary category and one subgroup. These editorial labels describe the main task, behavior, technique, or question in the title and available abstract. A paper can discuss other topics. Each behavioral study also has one primary task setting. The main search and the later search for application studies describe how papers entered the collection. A benchmark paper may also demonstrate the behavior or propose a mitigation. The primary label makes the area totals additive. The review and replication records describe overlaps. “Behavioral studies” includes original demonstrations and transfer experiments. The verified reproduction and replication count requires an explicit link to an earlier study.</p><table class="review-table"><thead><tr><th>Primary area</th><th>Inclusion rule</th></tr></thead><tbody>${areaKeys.map(a=>`<tr><td>${AREAS[a][0]}</td><td>${AREAS[a][2]}</td></tr>`).join('')}</tbody></table>
  <h2>How we collected citations</h2><p>We followed each core work’s outgoing references one step. A citation can lead to another core study, a methods paper, a book, software, or a report. We used versioned arXiv bibliographies available by the cutoff, PDF reference sections, publisher bibliographies, and index records. For the UK AI Security Institute report we recorded inline links to research publications. The downloadable dataset names each bibliography source.</p><p>${format(eligible.length)} of ${format(core.length)} core works have at least one recovered reference. The dataset contains ${format(D.edges.length)} distinct directed links. An indexed list may omit items, and a recovered list does not certify complete extraction. We match arXiv IDs, DOIs, and normalized titles. ${format(raw)} records retain citation text where a title could not be isolated. Spelling and version differences can leave duplicate records.</p><details><summary>Works without in-period references (${unc.length})</summary>${unc.map(w=>'<p>'+workBtn(w.id)+'</p>').join('')||'<p>All core records have a recovered bibliography.</p>'}</details>
- <h2>Reading the map</h2><p>Each bubble represents one screened paper. The default colors show each paper’s primary contribution. Turn on Color by year to see publication years from pink (newest) to blue (oldest). Drag a bubble beyond its cluster and it drifts back toward the edge. Cited by shows the number of citations to the matched OpenAlex record as of ${esc(D.citationDate)}. References counts recovered bibliography entries of all years. For cited-only works, available OpenAlex counts use indexed references. Indexed bibliographies can be incomplete. Hollow bubbles mark missing counts. Radius uses a logarithmic scale. Citation links connect screened papers when one cites the other. The bars count papers in each category. Select a category to see its subgroups. Select a subgroup bar to see its papers. The dataset lists recovered citations within the publication window.</p><p>Years refer to first arXiv submission or the cited publication’s recorded year. The 2026 count is partial. Bibliographic years and titles for cited-only records follow the citing source or identifier metadata. Anonymous submissions and technical reports carry different levels of review. Area counts do not weight study quality. Download the dataset to inspect every work, directed link, and replication record.</p>`;
+ <h2>Reading the map</h2><p>Each bubble represents one screened paper. The default colors show each paper’s primary contribution. Turn on Color by year to see publication years from pink (newest) to blue (oldest). Release a dragged bubble and it returns to its place in its subgroup. Cited by shows the number of citations to the matched OpenAlex record as of ${esc(D.citationDate)}. References counts recovered bibliography entries of all years. For cited-only works, available OpenAlex counts use indexed references. Indexed bibliographies can be incomplete. Hollow bubbles mark missing counts. Radius uses a logarithmic scale. Citation links connect screened papers when one cites the other. The bars count papers in each category. Select a category to see its subgroups. Select a subgroup bar to see its papers. The dataset lists recovered citations within the publication window.</p><p>Years refer to first arXiv submission or the cited publication’s recorded year. The 2026 count is partial. Bibliographic years and titles for cited-only records follow the citing source or identifier metadata. Anonymous submissions and technical reports carry different levels of review. Area counts do not weight study quality. Download the dataset to inspect every work, directed link, and replication record.</p>`;
 function openWork(id){if(!works.has(id))return;if(!$('paper').open)workReturn=location.hash||'#atlas';location.hash='#paper/'+encodeURIComponent(id)}
 window.REFERENCE_ABSTRACTS={};
 const abstractLoads=new Map();
@@ -110,6 +110,38 @@ function loadIndexedDetails(w) {
  }
  return indexedDetails.get(doi);
 }
+function renderAbstract(el,value) {
+ el.textContent=value;
+ if (!/[\\$]/.test(value)) return;
+ window.renderMathInElement?.(el,{
+   delimiters:[
+     {left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},
+     {left:'\\(',right:'\\)',display:false},
+     ...['equation','equation*','align','align*','gather','gather*'].map(env=>({
+       left:'\\begin{'+env+'}',right:'\\end{'+env+'}',display:true})),
+     {left:'$',right:'$',display:false}
+   ],trust:false,strict:'ignore',errorCallback:()=>{}
+ });
+ // arXiv also supplies text markup outside equations. Keep all source text inert.
+ const tags={textbf:'strong',emph:'em',textit:'em',texttt:'code',textsc:'small',underline:'u',url:'span',text:'span'};
+ const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
+ const plain=[];
+ while(walker.nextNode()) if(!walker.currentNode.parentElement.closest('.katex')) plain.push(walker.currentNode);
+ const pattern=/\\(textbf|emph|textit|texttt|textsc|underline|url|text)\{([^{}]*)\}|\\href\{[^{}]*\}\{([^{}]*)\}|\\([%&#_$])/g;
+ for(const node of plain){
+   const source=node.data,fragment=document.createDocumentFragment();
+   let start=0;
+   for(const match of source.matchAll(pattern)){
+     fragment.append(source.slice(start,match.index));
+     if(match[1]){
+       const tag=document.createElement(tags[match[1]]);
+       tag.textContent=match[2].replace(/\\([%&#_$])/g,'$1'); fragment.append(tag);
+     } else fragment.append(match[3]??match[4]);
+     start=match.index+match[0].length;
+   }
+   if(start){fragment.append(source.slice(start));node.replaceWith(fragment);}
+ }
+}
 function details(id){
  const w=works.get(id);if(!w)return;
  const showCount=value=>value==null?'Unavailable':format(value);
@@ -121,15 +153,16 @@ function details(id){
    <h2 id="paper-title">${esc(w.title)}</h2>
    <p class="muted">${[w.year,w.authors].filter(Boolean).map(esc).join(' · ')}</p>
    <dl class="paper-counts"><div><dt>Cited by</dt><dd id="paper-citations">${showCount(w.citations)}</dd></div><div><dt>References</dt><dd id="paper-references">${showCount(w.references)}</dd></div></dl>
-   <h3>Abstract</h3><p id="paper-abstract">${esc(abstract||(w.abstractPart?'Loading…':url?'See the original source.':'Abstract unavailable.'))}</p>
+   <h3>Abstract</h3><div id="paper-abstract"></div>
    ${action}</div>`;
+ const text=$('paper-abstract');
+ renderAbstract(text,abstract||(w.abstractPart?'Loading…':url?'See the original source.':'Abstract unavailable.'));
  if(w.abstractPart && !abstract){
-   const text=$('paper-abstract');
-   referenceAbstracts(w.abstractPart).then(data=>{text.textContent=data[id]||'Abstract unavailable.';})
+   referenceAbstracts(w.abstractPart).then(data=>renderAbstract(text,data[id]||'Abstract unavailable.'))
      .catch(()=>{text.textContent='Abstract unavailable.';});
  }
  if(!w.area && (w.citations==null || w.references==null || (!abstract && !w.abstractPart))){
-   const citations=$('paper-citations'), references=$('paper-references'), text=$('paper-abstract');
+   const citations=$('paper-citations'), references=$('paper-references');
    loadIndexedDetails(w)?.then(hit=>{
      if (!hit) return;
      if (w.citations==null) citations.textContent=showCount(hit.cited_by_count);
@@ -139,7 +172,7 @@ function details(id){
        for(const [word,positions] of Object.entries(hit.abstract_inverted_index)){
          for(const pos of positions) words[pos]=word;
        }
-       if(words.length) text.textContent=words.join(' ');
+       if(words.length) renderAbstract(text,words.join(' '));
      }
    });
  }
