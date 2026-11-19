@@ -18,12 +18,12 @@
     const age = (newest-year)/Math.max(1,newest-oldest);
     // Endpoints sampled from the article’s classifier accuracy chart.
     const blue=[108,156,198], pink=[191,102,139];
-    const rgb=blue.map((channel,i)=>Math.round(channel+(pink[i]-channel)*age));
+    const rgb=pink.map((channel,i)=>Math.round(channel+(blue[i]-channel)*age));
     return [year, 'rgb('+rgb.join(',')+')'];
   }));
   $('newest-year').textContent = newest;
   $('oldest-year').textContent = oldest;
-  $('year-key').setAttribute('aria-label', `Publication year, blue for ${newest} through pink for ${oldest}`);
+  $('year-key').setAttribute('aria-label', `Publication year, pink for ${newest} through blue for ${oldest}`);
   $('year-key').querySelector('i').style.background = 'linear-gradient(to right,' + years.map(y => yearColors.get(y)+' '+100*(newest-y)/Math.max(1,newest-oldest)+'%').join(',') + ')';
 
   $('area-list').innerHTML = groups.map(({area, papers}) => {
@@ -204,15 +204,29 @@
     if (active() && !tip.hidden) positionTip(active());
     drawEdges();
   }
+  function easeDropTowardCluster(n,dt) {
+    const dx=n.group.x-n.restX, dy=n.group.y-n.restY;
+    const distance=Math.hypot(dx,dy);
+    const edge=n.group.r-n.r*.5;
+    if (distance<=edge) return;
+    // Move the resting point slowly. The pull fades to zero at the cluster edge.
+    const maxSpeed=Math.min(36,.06*Math.min(width,height));
+    const travel=Math.min(maxSpeed*dt,(distance-edge)*(-Math.expm1(-.4*dt)));
+    n.restX+=dx/distance*travel; n.restY+=dy/distance*travel;
+    n.drop.x=n.restX/width; n.drop.y=n.restY/height;
+  }
   function tick(time) {
     frame=0;
     if (!canAnimate()) {lastTick=0;return;}
     if (!lastTick || time-lastTick>=32) {
       const dt=lastTick?Math.min(.05,(time-lastTick)/1000):1/30;
       lastTick=time;phaseTime+=dt;
-      const pinned=active(), damping=Math.exp(-7*dt);
+      // A released bubble can return even while the pointer is still over it.
+      const pinned=held?.node || focused || (hovered?.drop ? null : hovered);
+      const damping=Math.exp(-7*dt);
       for (const n of nodes) {
         if (n===pinned) continue;
+        if (n.drop) easeDropTowardCluster(n,dt);
         // Damped springs follow a tiny, slow orbit around the packed or dropped position.
         const amplitude=Math.min(1.9,n.r*.38);
         const tx=n.restX+amplitude*Math.cos(phaseTime*.65+n.phase);
@@ -236,7 +250,6 @@
     const byYear=$('year-color').checked;
     $('scope-count').textContent=format(core.length)+' papers ·'+(byYear ? '' : ' '+oldest+'–'+newest);
     $('year-key').hidden=!byYear;
-    $('atlas').classList.toggle('by-year',byYear);
     for (const n of nodes) {
       if (byYear) n.el.style.setProperty('--bubble-color',yearColors.get(n.paper.year));
       else n.el.style.removeProperty('--bubble-color');

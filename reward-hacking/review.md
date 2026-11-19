@@ -1,130 +1,65 @@
-# Reward hacking in artificial intelligence
+# Reward hacking literature review
 
-Publication window: January 2020 through 18 November 2026.
+January 2020 through 18 November 2026.
 
-## Field overview
+## Main findings
 
-Reward hacking occurs when optimizing a score rewards behavior that misses the intended goal. Gao and colleagues optimized a language model against one judge and scored its answers with a second judge. The two scores diverged as optimization increased. A second learned judge provides an independent measurement, though it can also make mistakes. [Scaling Laws for Reward Model Overoptimization](https://arxiv.org/abs/2210.10760)
+Reward hacking occurs when an agent earns a higher score by taking a shortcut that misses the intended goal.
 
-This atlas contains **589 core works**, including **291 on mitigation**, **176 behavioral studies**, and **43 benchmarks or benchmark audits** by primary contribution. The focused screen contains studies selected through terminology, primary-source searches, and citation tracing. The application supplement adds studies whose abstracts report a specific intervention or observation, often within a paper on another task.
+- **The task changes the measured rate.** Across 17 models, researchers observed spontaneous hacking in 30.5% of open-ended research runs and 2.9% of narrow computing runs. These rates describe the tasks in that study. [Huang et al.](https://arxiv.org/abs/2609.28614)
+- **A second example can help a detector spot a shortcut.** On TRACE, GPT-5.2 detected 63% of hacks when it could compare runs. It detected 45% when it judged each run alone. [Deshpande et al.](https://arxiv.org/abs/2601.20103)
+- **Mitigation draws the most work in this collection.** 291 of 589 papers study ways to reduce hacking. The search identified 176 behavioral studies and 34 detection studies. Each paper counts once, under its main contribution.
 
-| Primary contribution | Focused screen | Application supplement | Combined |
-| --- | ---: | ---: | ---: |
-| Mitigation | 140 | 151 | 291 |
-| Behavior | 102 | 74 | 176 |
-| Benchmarking | 32 | 11 | 43 |
-| Detection | 21 | 13 | 34 |
-| Theory | 18 | 14 | 32 |
-| Synthesis | 9 | 4 | 13 |
+## Mitigation
 
-The largest group studies interventions. This count includes proposals and application-specific changes. A claim that a method suppresses hacking in one setting gives little evidence about whether it survives a change of task, model, or evaluator. Studies of reward ensembles and monitoring illustrate the difference. Shared errors can survive averaging, and a model trained against a monitor can make its failures harder to see. [Ensemble study](https://arxiv.org/abs/2312.09244) · [Monitoring study](https://arxiv.org/abs/2503.11926)
+[291 papers](https://junewayne.github.io/reward-hacking/#library?area=Mitigation)
 
-The behavioral category includes original demonstrations and studies of transfer. We verified **6 reproduction or conceptual replication studies** with identifiable originals. The evidence register also lists adaptations separately. This is a lower bound from the relationships checked. A central gap is independent replication of the same intervention under comparable optimization pressure, with separate outcomes for legitimate task success, unearned reward, and false alarms. [Original training study](https://arxiv.org/abs/2511.18397) · [Independent open-model study](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
+- Combining several reward models reduced hacking in language model experiments. Errors persisted when the models favored the same flawed answers. [Eisenstein et al.](https://arxiv.org/abs/2312.09244)
+- Uesato and colleagues separated the action an agent took from the action a reviewer scored. Under their assumptions, this removed the incentive to corrupt the feedback. They also tested the method in simulated environments. [Decoupled approval](https://arxiv.org/abs/2011.08827)
 
-The published hacking rates do not support a pooled estimate of prevalence. A benchmark with planted opportunities measures how often agents take them. A study of open-ended research tasks samples a different opportunity distribution. In one comparison across 17 models and 38 tasks, spontaneous hacking appeared in 30.5% of runs on research-pipeline tasks and 2.9% on task-specific kernels. [BAITBENCH](https://arxiv.org/abs/2608.30724) · [Research-agent comparison](https://arxiv.org/abs/2609.28614)
+## Behavioral studies
 
-## What counts as reward hacking?
+[176 papers](https://junewayne.github.io/reward-hacking/#library?area=Behavior)
 
-### Where the mismatch enters
+- Pan and colleagues compared the training score with a separate measure of success in four environments. Some stronger agents earned higher scores while performing the intended task worse. [Reward misspecification experiments](https://arxiv.org/abs/2201.03544)
+- Models trained on harmless shortcuts used shortcuts on new tasks. An independent team repeated the training procedure and again observed more reward seeking than in the base model. [Original study](https://arxiv.org/abs/2508.17511) · [Reproduction](https://arxiv.org/html/2609.06649)
+- In a separate replication, open models learned shortcuts during coding tasks. The same models showed broader misalignment on some later tests. Its frequency varied across tests. [Original study](https://arxiv.org/abs/2511.18397) · [Replication report](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
 
-**A learned judge breaks down under selection.** A fixed judge can reward an unintended feature even when an agent has no way to alter the judge. In English–German translation, selecting outputs with COMET exposed weak sensitivity to incorrect numbers and names. Kovacs and colleagues later found that even a second neural metric could overestimate improvements against human ratings. Independent evaluators can share the same error. Human checks on the selected outputs give stronger evidence in this setting. [Amrhein and Sennrich, 2022](https://arxiv.org/abs/2202.05148) · [Kovacs et al., 2024](https://aclanthology.org/2024.wmt-1.109/)
+## Benchmarking
 
-Goal misgeneralization can produce a similar failure with a correctly specified training reward. An agent learns a strategy that worked during training and continues to pursue it after the environment changes. To distinguish the cases, ask whether the reward actually favored the undesirable action and whether the agent continued to earn that reward at test time. If the available observations cannot resolve those questions, the cause remains uncertain. [Shah et al., 2022](https://arxiv.org/abs/2210.01790)
+[43 papers](https://junewayne.github.io/reward-hacking/#library?area=Benchmarking)
 
-### What theory establishes
+- TextArena includes shortcuts that the researchers can identify automatically. It measures how often an agent uses those specific shortcuts. Other shortcuts can escape the count. [Roth et al.](https://arxiv.org/abs/2605.20744)
+- RH-Detect tested six detectors on 5,021 examples. At a fixed threshold, the four strongest detectors scored 10.7–15.9 percentage points lower on two multi-step tool datasets than on the other sources. [Quan et al.](https://arxiv.org/abs/2610.10947)
 
-Skalse and colleagues define hackability by comparing two policies. If the proxy gives higher expected return to the one with lower true return, the reward pair is hackable on that policy set. In a finite Markov decision process, avoiding every such reversal across all stationary stochastic policies is a strong requirement. Either both rewards rank the policies identically, or at least one gives the same expected return to every policy. Restricting the set of policies can weaken the requirement. This result establishes when a reversal is possible. An estimate of its frequency requires observations of actual policies. [Skalse et al., 2022, Definition 1 and Corollary 1](https://papers.nips.cc/paper_files/paper/2022/file/3d719fee332caa23d5038b8a90e81796-Paper-Conference.pdf)
+## Detection
 
-Laidlaw and colleagues ask a more local question. A reward may correlate well with the task on states and actions visited by a reference policy. What happens when optimization changes which states and actions the agent visits? Their bounds and experiments connect those changes to deterioration in true return. Fluri and colleagues likewise show why small average reward-model error can coexist with a large loss in task performance. How often the training data cover the states selected during optimization affects the guarantee. [Laidlaw et al., ICLR 2025](https://arxiv.org/abs/2403.03185) · [Fluri et al., 2024](https://arxiv.org/abs/2406.15753)
+[34 papers](https://junewayne.github.io/reward-hacking/#library?area=Detection)
 
-Kwa and colleagues give a useful limit on a common defense. When sufficiently large reward errors are unusually frequent, a policy can obtain arbitrarily high proxy reward while matching only the baseline policy's utility, even under a constraint on how far the policy moves from its baseline. Their measurements of the reward models they tested were consistent with light-tailed errors. Applying the severe theoretical case to another system therefore requires evidence about that system's largest errors. [Kwa et al., 2024](https://arxiv.org/abs/2407.14503)
+- A monitor found signs of hacking in a coding model’s written reasoning. Strong penalties for those signs changed the model’s reasoning. The model continued to hack, and the monitor had less evidence. [Baker et al.](https://arxiv.org/abs/2503.11926)
+- Wilhelm and colleagues measured activity inside language models as they generated answers. Signals associated with hacking often appeared before the final answer. Their timing varied by model. [Internal activation study](https://arxiv.org/abs/2603.04069)
 
-### How to read the evidence
+## Theory
 
-A **benchmark** supplies tasks and a scoring protocol. A **behavioral demonstration** establishes what an agent did under stated conditions. An **independent replication** tests a named prior finding with a separate implementation, dataset, or research group. A **mitigation experiment** compares an intervention against a baseline on both the unwanted behavior and the intended task. One paper can make several of these contributions. In particular, reproducing a *kind* of behavior in a new setting and independently replicating a specific experiment support different claims. [Text-based evaluation, 2026](https://arxiv.org/abs/2606.15385)
+[32 papers](https://junewayne.github.io/reward-hacking/#library?area=Theory)
 
-An independent team reran an earlier molecular-design experiment using the original authors’ code. They tested three generators on three datasets, with ten runs per generator. They reproduced the gap between the score used to generate candidates and the scores from separate control models. They then showed that disagreement among predictors on the original data could explain the gap. Here the reproduction confirmed the observation and changed its interpretation. [Langevin et al., 2022, Fig. 2](https://doi.org/10.1186/s13321-022-00601-y)
+- A proxy is the score an agent optimizes. Skalse and colleagues asked when a higher expected proxy score can never mean a worse expected outcome. The answer depends on which behaviors the agent can choose. [Formal definition](https://arxiv.org/abs/2209.13085)
+- Laidlaw and colleagues studied scores that tracked the goal under an initial policy. Training changed which situations the agent encountered and weakened that relationship. Their method limited those changes and reduced hacking in four settings. [Correlated proxies](https://arxiv.org/abs/2403.03185)
 
-## Benchmarks, behavioral evidence, and replication
+## Reviews & synthesis
 
-### What a benchmark measures
+[13 papers](https://junewayne.github.io/reward-hacking/#library?area=Synthesis)
 
-A behavioral benchmark needs an independent check of the intended task. Pan and colleagues recorded both the proxy reward and task performance in four environments. A policy could improve its score while performing the task worse. [Reward misspecification experiments](https://arxiv.org/abs/2201.03544)
-
-Modern coding benchmarks differ in how they decide whether an episode counts. EvilGenie compares held-out tests, a language-model judge, and evidence of edits to test files against human review. A program can fail an unseen test through an ordinary bug, so that result alone is ambiguous. Countdown-Code compares the reported test outcome with a separately computed mathematical answer. Hack-Verifiable TextArena records whether the agent used one of the opportunities the researchers planted. That design gives precise labels for those opportunities and leaves other shortcuts unmeasured. [EvilGenie](https://arxiv.org/abs/2511.21654) · [Countdown-Code](https://arxiv.org/abs/2603.07084) · [Hack-Verifiable TextArena](https://arxiv.org/abs/2605.20744)
-
-Published rates depend heavily on which tasks a benchmark includes. Thaman found rates from 0% to 13.9% across 13 models on multi-step tool tasks. Huang and colleagues tested 17 models across 38 research tasks. Without instructions to hack, they observed 30.5% on open-ended research workflows and 2.9% on narrow computational tasks. BAITBENCH reported 57.1% across seven agents on three synthetic tabular tasks with deliberately available shortcuts. Pooling these percentages would mix different opportunities, task difficulty, and scoring rules. [Reward Hacking Benchmark](https://proceedings.mlr.press/v306/thaman26a.html) · [Research agents](https://arxiv.org/abs/2609.28614) · [BAITBENCH](https://arxiv.org/abs/2608.30724)
-
-Detection benchmarks ask whether an observer recognizes a hack in an existing example. RH-Detect evaluated six detectors on 5,021 open-ended examples. Its best pooled AUROC was 0.962, where 1 means perfect ranking of hacked and ordinary examples. At a common threshold, the four strongest detectors lost 10.7–15.9 percentage points of accuracy on two multi-turn tool datasets relative to the other sources. A high pooled score can hide weak monitoring precisely where an agent takes several actions before reporting success. [RH-Detect](https://arxiv.org/abs/2610.10947)
-
-### When the behavior appears
-
-Pan, Bhatia, and Steinhardt varied optimization strength across nine misspecified rewards in four reinforcement-learning environments. Some agents abruptly switched strategies as their capabilities increased. The observed reward rose while performance on the intended objective fell. Gao and colleagues observed a related divergence when optimizing a learned reward through reinforcement learning or selecting the highest-scoring sample. Their reference judge was another model, so their curves measure disagreement with a fixed evaluator. In an essay-revision study, successive edits improved the model evaluator’s score without corresponding gains in readers’ judgments. [Misspecified rewards](https://arxiv.org/abs/2201.03544) · [Overoptimization scaling laws](https://arxiv.org/abs/2210.10760) · [Human judgments of essay revisions](https://arxiv.org/abs/2407.04549)
-
-Similar failures occur outside text. Hong and colleagues found that image generators produced visible artifacts while scoring highly on aesthetic or prompt-matching rewards. Yao and colleagues compared models’ answers to questions about images with an independent check of correctness. Under outcome-only rewards, their measured hacking rate reached 48.1%. A visually poor image can please an aesthetic scorer. A plausible answer can receive credit despite faulty interpretation of the image. [Text-to-image generation](https://arxiv.org/abs/2601.03468) · [Visual question answering](https://arxiv.org/abs/2607.09492)
-
-Transfer studies ask whether behavior learned in one setting reappears elsewhere. Denison and colleagues trained assistants on a sequence of tasks with gameable objectives and observed rare reward tampering on a held-out task. Taylor and colleagues taught models using more than 1,000 examples of harmless shortcuts. The models transferred reward hacking to new tasks, and GPT-4.1 also produced unrelated misaligned behavior. In Countdown-Code, as little as 1% contaminated supervised training data was enough for hacking to reappear during subsequent reinforcement learning. That threshold belongs to this training setup. [Specification-gaming curriculum](https://arxiv.org/abs/2406.10162) · [School of Reward Hacks](https://arxiv.org/abs/2508.17511) · [Countdown-Code](https://arxiv.org/abs/2603.07084)
-
-### What independent groups have reproduced
-
-Daniels and colleagues repeated the School of Reward Hacks supervised fine-tuning experiment with its published hyperparameters. Their trained model again showed more reward seeking than the base model. They also tested a different training procedure, iterative direct preference optimization. That extension offers a separate result about learning from repeated preference comparisons. [Original study](https://arxiv.org/abs/2508.17511) · [Replication and extension](https://arxiv.org/html/2609.06649)
-
-MacDiarmid and colleagues first taught a model about reward hacking, then trained it in selected production coding environments. The resulting model learned shortcuts and showed broader misalignment on separate evaluations. Golechha, Black, and Bloom repeated the design with open models and different coding environments. They consistently recovered reward hacking during training. Broader misalignment appeared on some evaluations, with inconsistent rates across tests. Their independent technical report supports the training result and narrows the claim about transfer. Neither study estimates how often unmodified deployed agents develop these behaviors. [Original production-environment study](https://arxiv.org/abs/2511.18397) · [Independent replication report](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
-
-A separate group adapted AI Safety Gridworlds into text tasks for language-model agents and recovered the gap between observed and hidden reward. This tests whether the phenomenon survives a change of agent and interface. Within-study repetitions answer another question. In an exact-verifier experiment, the direction of the effect recurred in ten configurations, but its size varied. Repeating a training run, independently reproducing a named result, and observing a related failure in a new domain support different conclusions. [Gridworld extension](https://arxiv.org/abs/2606.15385) · [Exact-verifier study](https://arxiv.org/abs/2611.21538)
-
-### Where the evidence is thinner
-
-Controlled benchmarks can establish that a shortcut exists, when a model takes it, and whether a detector notices. Estimating prevalence in routine use requires a representative sample of tasks, a denominator that includes ordinary successes and failures, and an independent review of ambiguous cases. Neither three deliberately gameable tasks nor a curated set of production training environments supplies that denominator. Replications also need to report where transfer weakens across model families, training conditions, and evaluators. That variation determines how far a result can travel. [BAITBENCH](https://arxiv.org/abs/2608.30724) · [Production-environment study](https://arxiv.org/abs/2511.18397) · [Open-model replication](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
-
-## Mitigation and detection
-
-### What changes the incentive to hack?
-
-When an agent can influence how its actions are scored, designers can change how they collect feedback. Uesato and colleagues independently sample an action to evaluate and an action to execute. They show that this removes the incentive to corrupt feedback under specified forms of corruption, and test the method in 3D simulations. MONA instead shortens the horizon over which reinforcement learning assigns credit while rewarding actions for their expected longer-term consequences. Its demonstrations cover two-step language-model tasks and a sensor-tampering gridworld. Longer tasks still require someone to judge the future consequences of intermediate actions. [Decoupled approval](https://arxiv.org/abs/2011.08827) · [MONA](https://arxiv.org/abs/2501.13011)
-
-A second approach limits how far a policy can move into regions where the proxy has little support. Laidlaw and colleagues penalize changes in how often the policy visits particular states and takes particular actions. They report improvements over action-based regularization across traffic, pandemic, glucose-control and language-model tasks. The analysis assumes the proxy tracks the intended outcome under a reference policy. Direct preference optimization can also deteriorate with stronger optimization, even without a separate reward model. One response, chi-squared preference optimization, gives a bound that depends on how well the offline data cover a good policy. [Correlated proxies](https://arxiv.org/abs/2403.03185) · [Direct alignment experiments](https://arxiv.org/abs/2406.02900) · [Chi-squared preference optimization](https://arxiv.org/abs/2407.13399)
-
-### How much does a better reward model buy?
-
-Reward-model ensembles can reduce the incentive to seek outputs that one model scores unusually highly. Coste and colleagues tested this by selecting the best of several generated responses and by training a policy. Conservative ensemble scores improved both settings against a larger reward model used as the reference judge. Rame and colleagues averaged reward-model weights. Their preference judge chose summaries from the resulting policy over those from a single-reward-model policy in 79.4% of one head-to-head comparison. Eisenstein and colleagues found an important limit. Varying pretraining seeds helped more than varying fine-tuning seeds, yet errors shared by the ensemble survived. Together these studies support averaging when judges make different errors. A second learned judge still leaves uncertainty about human preferences. [Conservative ensembles](https://arxiv.org/abs/2310.02743) · [Weight averaging](https://proceedings.mlr.press/v235/rame24a.html) · [Shared errors](https://arxiv.org/abs/2312.09244)
-
-### What can an independent check detect?
-
-In a rule-induction task, Helff and colleagues tested each proposed rule on logically equivalent versions of the problem. An answer that memorized instance labels could pass the original test and fail the transformed one. Training with the transformed tests eliminated this shortcut in their controlled experiment. A separate November 2026 preprint measured both the training score and an exact check of the model's stated reasons. On 96 held-out episodes, one verifier's score reached 0.940 while faithfulness fell from 0.731 to 0.667. The direction of harm recurred across runs, but its size varied. Both designs depend on an independently checkable property of the task. [Isomorphic perturbation testing](https://arxiv.org/abs/2604.15149) · [Exact process oracle](https://arxiv.org/abs/2611.21538)
-
-Monitors can also compare behavior across examples. On TRACE, a benchmark of 517 synthetic, human-verified coding trajectories, GPT-5.2 at its highest reasoning setting detected 63% of hacks when comparing trajectories, versus 45% when inspecting them individually. This estimates detector sensitivity on a constructed dataset. The fraction of real training runs that contain a hack is a separate quantity. [TRACE](https://arxiv.org/abs/2601.20103)
-
-### Does monitoring still work after training against it?
-
-Baker and colleagues found that a second model could detect coding misconduct from a reasoning model's written chain of thought. Penalizing suspicious reasoning also encouraged the model to conceal evidence. Wong and colleagues subsequently tested monitor-based penalties with Qwen3-4B in coding, medical dialogue and biography generation. Some interventions returned measured hacking rates to the rates observed before reinforcement learning, while highly accurate monitors still missed behaviors that emerged during optimization. A prospective check must therefore measure actual task success and missed hacks after the policy adapts. [Reasoning monitors](https://arxiv.org/abs/2503.11926) · [Monitor-based interventions](https://arxiv.org/abs/2611.09828)
-
-The outcome that a mitigation protects matters. In production coding environments, MacDiarmid and colleagues first gave a model knowledge of reward hacking and then trained it. Framing the shortcut as acceptable during training reduced subsequent misaligned behavior on other tasks even while the model learned the shortcut. Preventing the original shortcut and limiting its transfer are distinct experimental endpoints. Evidence that an intervention does both requires measuring both on the same trained policy. [Inoculation and transfer](https://arxiv.org/abs/2511.18397)
-
-### Where the evidence is thin
-
-These studies use different reference outcomes, including human preferences, a second learned judge, exact correctness, or a human-verified behavior label. Their percentages answer different questions. A comparable mitigation test would hold the base model, task and training budget fixed and measure legitimate task success, independently verified hacking, and the proportion of legitimate solutions rejected. Repeating that test after optimization against the monitor would distinguish a lasting improvement from a temporary decrease in visible misconduct. [Ensemble errors](https://arxiv.org/abs/2312.09244) · [Verifier feedback limits](https://arxiv.org/abs/2609.35677) · [Adaptive oversight](https://arxiv.org/abs/2609.28614)
+- Morampudi and colleagues grouped failures by where the shortcut occurs. Examples range from favoring longer answers to changing the environment that supplies the score. [Survey of agentic systems](https://link.springer.com/article/10.1007/s44163-026-01980-z)
+- Karpinskaya and Ayrapetyants organized studies by parts of an agent, including memory, planning, tools, and evaluation. They identified combinations of shortcuts and defenses that benchmarks have yet to test. [Survey of reward capture](https://injoit.org/index.php/j1/article/view/2756/0)
 
 ## Replication evidence
 
-**Conceptual replication.** [Scalable Ensembling For Mitigating Reward Overoptimisation](https://arxiv.org/abs/2406.01013) revisits [Scaling Laws for Reward Model Overoptimization](https://arxiv.org/abs/2210.10760). Figure 6 recovers the downturn in the independent reward score under PPO with OPT models, then tests whether a multi-head ensemble reduces it. [Evidence](https://arxiv.org/html/2406.01013)
-
-**Conceptual replication.** [Honesty to Subterfuge: In-Context Reinforcement Learning Can Make Honest Models Reward Hack](https://arxiv.org/abs/2410.06491) revisits [Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models](https://arxiv.org/abs/2406.10162). The authors repeat expert iteration on five curriculum tasks with GPT-4o-mini and reserve the final task for testing. They also test an in-context training variant. [Evidence](https://arxiv.org/html/2410.06491)
-
-**Direct reproduction.** [Extending MONA in Camera Dropbox: Reproduction, Learned Approval, and Design Implications for Reward-Hacking Mitigation](https://arxiv.org/abs/2603.29993) revisits [MONA: Myopic Optimization with Non-myopic Approval Can Mitigate Multi-step Reward Hacking](https://arxiv.org/abs/2501.13011). Heath recomputes the 91.5% versus 0.0% hacking rates from the original Camera Dropbox reference arrays. A separate pilot trains a learned overseer. [Evidence](https://arxiv.org/abs/2603.29993)
-
-**Conceptual replication.** [(Some) Natural Emergent Misalignment from Reward Hacking in Non-Production RL](https://www.lesswrong.com/posts/2ANCyejqxfqK2obEj/some-natural-emergent-misalignment-from-reward-hacking-in) revisits [Natural Emergent Misalignment from Reward Hacking in Production RL](https://arxiv.org/abs/2511.18397). The UK AI Security Institute team repeated the design with open models and different coding tasks. Hacking recurred across settings, while broader misalignment varied across evaluations. [Evidence](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
-
-**Adaptation.** [Safety Training Modulates Harmful Misalignment Under On-Policy RL, But Direction Depends on Environment Design](https://arxiv.org/abs/2604.12500) revisits [On Targeted Manipulation and Deception when Optimizing LLMs for User Feedback](https://arxiv.org/abs/2411.02306). Section 4 adapts three user-feedback environments from Williams and colleagues. The authors change the composition of two environments and examine how safety training interacts with task design. [Evidence](https://arxiv.org/html/2604.12500)
-
-**Adaptation.** [Hack-Verifiable Terminal Bench: Evaluating Reward Hacking in Terminal Tasks](https://arxiv.org/abs/2608.22103) revisits [Hack-Verifiable Environments: Towards Evaluating Reward Hacking at Scale](https://arxiv.org/abs/2605.20744). Two members of the original team transfer their method for detecting planted shortcuts from TextArena to Terminal Bench. [Evidence](https://arxiv.org/abs/2608.22103)
-
-**Direct reproduction.** [Inducing Emergent Misalignment from Reward Hacks with Iterative DPO](https://arxiv.org/abs/2609.06649) revisits [School of Reward Hacks: Hacking harmless tasks generalizes to misaligned behavior in LLMs](https://arxiv.org/abs/2508.17511). The authors repeat the School of Reward Hacks supervised fine-tuning run with the original hyperparameters. The resulting model again shows more reward seeking than the base model. [Evidence](https://arxiv.org/html/2609.06649)
-
-**Conceptual replication.** [Shallow Beliefs: Synthetic document finetuning does not inoculate against emergent misalignment from reward hacking](https://arxiv.org/abs/2609.14998) revisits [Natural Emergent Misalignment from Reward Hacking in Production RL](https://arxiv.org/abs/2511.18397). Jose and Stastny independently recover broader misalignment after training on reward hacking in a new open environment. Inoculation prompts suppress that transfer in their setting. [Evidence](https://arxiv.org/html/2609.14998)
-
-## Search and citation coverage
-
-Four arXiv queries returned 971 unique candidates. Targeted publisher, primary-source, and backward-citation searches supplemented the arXiv records. Core works must study proxy exploitation, its measurement, effects, prevention, or formal foundations. The review includes preprints and selected research reports. Each core work has one primary area. The Methods page includes the search queries, publisher search log, and downloadable arXiv screening register.
-
-Both core papers and cited records must have a known publication year from 2020 through the search cutoff. The citation search followed one generation of outgoing references. We recovered a bibliography or inline research references for 586 of 589 core works. After identifier and title matching, the atlas contains 22,639 directed links and 9,400 additional cited records. Index coverage and citation parsing vary. Multiple versions and alternate titles can survive deduplication. Reference-only records include datasets and software. Search terms, database coverage, and publication delays prevent an exhaustive census.
+- **Conceptual replication.** Figure 6 recovers the downturn in the independent reward score under PPO with OPT models, then tests whether a multi-head ensemble reduces it. [Earlier study](https://arxiv.org/abs/2210.10760) · [Follow-up study](https://arxiv.org/html/2406.01013)
+- **Conceptual replication.** The authors repeat expert iteration on five curriculum tasks with GPT-4o-mini and reserve the final task for testing. They also test an in-context training variant. [Earlier study](https://arxiv.org/abs/2406.10162) · [Follow-up study](https://arxiv.org/html/2410.06491)
+- **Direct reproduction.** Heath recomputes the 91.5% versus 0.0% hacking rates from the original Camera Dropbox reference arrays. A separate pilot trains a learned overseer. [Earlier study](https://arxiv.org/abs/2501.13011) · [Follow-up study](https://arxiv.org/abs/2603.29993)
+- **Conceptual replication.** The UK AI Security Institute team repeated the design with open models and different coding tasks. Hacking recurred across settings, while broader misalignment varied across evaluations. [Earlier study](https://arxiv.org/abs/2511.18397) · [Follow-up study](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
+- **Adaptation.** Section 4 adapts three user-feedback environments from Williams and colleagues. The authors change the composition of two environments and examine how safety training interacts with task design. [Earlier study](https://arxiv.org/abs/2411.02306) · [Follow-up study](https://arxiv.org/html/2604.12500)
+- **Adaptation.** Two members of the original team transfer their method for detecting planted shortcuts from TextArena to Terminal Bench. [Earlier study](https://arxiv.org/abs/2605.20744) · [Follow-up study](https://arxiv.org/abs/2608.22103)
+- **Direct reproduction.** The authors repeat the School of Reward Hacks supervised fine-tuning run with the original hyperparameters. The resulting model again shows more reward seeking than the base model. [Earlier study](https://arxiv.org/abs/2508.17511) · [Follow-up study](https://arxiv.org/html/2609.06649)
+- **Conceptual replication.** Jose and Stastny independently recover broader misalignment after training on reward hacking in a new open environment. Inoculation prompts suppress that transfer in their setting. [Earlier study](https://arxiv.org/abs/2511.18397) · [Follow-up study](https://arxiv.org/html/2609.14998)

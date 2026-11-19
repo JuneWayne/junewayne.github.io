@@ -27,7 +27,7 @@ body.map-mode { display:flex; flex-direction:column; min-height:100svh; }
 .cluster-halo { fill:var(--series); fill-opacity:.075; stroke:var(--series); stroke-opacity:.18; stroke-width:1; }
 .paper-bubble,.cluster-name { cursor:pointer; }
 .paper-bubble:focus,.paper-bubble:hover { stroke:#1b2e29; stroke-width:2; outline:none; }
-.cluster-name { font-weight:560; fill:var(--ink); letter-spacing:-.02em; }
+.cluster-name { font-weight:560; fill:color-mix(in srgb,var(--series) 60%,#151b23); letter-spacing:-.02em; }
 #bubble-map g { transition:opacity .15s; }
 #bubble-map .faded { opacity:.17; }
 #bubble-tip { position:absolute; max-width:min(340px,90%); padding:8px 11px; background:#22352e; color:white; border-radius:5px; box-shadow:0 2px 12px #0002; font-size:.82rem; line-height:1.4; pointer-events:none; }
@@ -78,9 +78,8 @@ body.map-mode { height:100svh; min-height:510px; }
 .map-meta,#year-key { display:flex; align-items:center; gap:10px; }
 #year-key { gap:5px; font-variant-numeric:tabular-nums; }
 #year-key i { width:48px; height:6px; border-radius:3px; }
-.by-year .bar-track i { background:#757980; }
 #citation-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-#bubble-map { position:relative; }
+#bubble-map { position:relative; touch-action:none; }
 .paper-bubble { fill:var(--bubble-color,var(--series)); touch-action:none; cursor:grab; }
 .paper-bubble:active { cursor:grabbing; }
 .paper-bubble.unknown { fill:var(--paper); stroke:var(--bubble-color,var(--series)); stroke-width:1.2; }
@@ -101,3 +100,17 @@ body.map-mode { height:100svh; min-height:510px; }
 .paper-counts dd { margin:0; font-weight:650; font-variant-numeric:tabular-nums; }
 .dialog-content h3 { font-size:1.02rem; margin:18px 0 6px; }
 #paper-abstract { white-space:pre-line; overflow-wrap:anywhere; line-height:1.6; }
+#review-findings { padding:16px 22px; background:#f2f5f8; border-left:3px solid #6c9cc6; border-radius:4px; }
+#review-findings h2 { margin-top:0; }
+#review-content ul { padding-left:1.2em; margin:8px 0 0; }
+#review-content li { padding-left:3px; margin-bottom:.75em; }
+#review-content li:last-child { margin-bottom:0; }
+#review-content li a { font-size:.91em; }
+.review-heading { display:flex; align-items:baseline; flex-wrap:wrap; gap:0 14px; }
+.cluster-count { font-size:.86rem; white-space:nowrap; }
+#replication-section { margin:30px 0; border-top:1px solid var(--line); padding:16px 0; }
+#replication-section summary { cursor:pointer; font-weight:600; }
+@media(max-width:700px) {
+  #review .contents { order:2; }
+  #review-findings { padding:12px 15px; }
+}

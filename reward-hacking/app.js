@@ -11,17 +11,16 @@ const countCites=id=>incoming.get(id)||0;
 const AREAS={
  Mitigation:['Mitigation','#6c9cc6','Changes the reward, policy, verifier, or training procedure.'],
  Behavior:['Behavioral studies','#bf668b','Elicits, explains, or tests the transfer of a shortcut.'],
- Benchmarking:['Benchmarking','#487495','Builds or audits tasks, datasets, and evaluation protocols.'],
- Detection:['Detection','#974866','Tests whether a monitor or diagnostic identifies hacking.'],
- Theory:['Theory','#95b5cf','Formalizes incentives, assumptions, or bounds.'],
- Synthesis:['Reviews & synthesis','#d994af','Organizes findings across studies or domains.']
+ Benchmarking:['Benchmarking','#309689','Builds or audits tasks, datasets, and evaluation protocols.'],
+ Detection:['Detection','#d49239','Tests whether a monitor or diagnostic identifies hacking.'],
+ Theory:['Theory','#8b70b2','Formalizes incentives, assumptions, or bounds.'],
+ Synthesis:['Reviews & synthesis','#839649','Organizes findings across studies or domains.']
 };
 const areaKeys=Object.keys(AREAS).sort((a,b)=>core.filter(w=>w.area===b).length-core.filter(w=>w.area===a).length);
 const areaCount=a=>core.filter(w=>w.area===a).length;
 const eligible=core.filter(w=>w.entries>0);
 const workBtn=(id,cl='paper-btn')=>`<button class="${cl}" data-work="${esc(id)}">${esc(works.get(id)?.title||id)}</button>`;
 const libLink=(query={})=>'#library?'+new URLSearchParams(query);
-const citeLink=(id,label)=>`<a href="#paper/${encodeURIComponent(id)}">${esc(label)}</a>`;
 $('area-filter').innerHTML='<option value="">All categories</option>'+areaKeys.map(a=>`<option value="${a}">${AREAS[a][0]}</option>`).join('');
 let page=1,matches=[],lastRoute='#atlas',workReturn='#atlas';
 function loadFilters(params){
@@ -63,16 +62,13 @@ $('prev').onclick=()=>{page--;showPage();$('results').scrollIntoView({block:'cen
 function save(name,data,type){const url=URL.createObjectURL(new Blob([data],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 $('export-data').onclick=()=>save('reward-hacking-atlas.json',JSON.stringify(D),'application/json');
 $('export-library').onclick=()=>{const rows=[['Title','Authors','Year','Primary area','Collection','ID','Source URL','Citations received (OpenAlex)','Bibliography entries','Citing core works'],...matches.map(w=>[w.title,w.authors,w.year,w.area,w.area?'Core':'Reference',w.id,w.url,w.citations,w.references,countCites(w.id)])];save('reward-hacking-library.csv',rows.map(r=>r.map(x=>'"'+String(x??'').replaceAll('"','""')+'"').join(',')).join('\r\n'),'text/csv')};
-function repHTML(r){
- return `<div class="rep-record"><p class="eyebrow">${esc(r.type.toUpperCase())}</p>${workBtn(r.id)}<p class="muted">Original work · ${citeLink(r.target,works.get(r.target)?.title||r.target)}</p><p>${esc(r.note)}</p>${link(r.source,'Evidence in source')}</div>`;
-}
-$('review-content').innerHTML=window.REVIEW_HTML+'<section id="replication-section"><h2>Replication evidence</h2><p>These relationships have an identifiable original study and a source describing what the later authors repeated or changed. An adaptation changes the task, model, or evaluation protocol. Coverage is selective.</p>'+D.replications.map(repHTML).join('')+'</section>';
+$('review-content').innerHTML=window.REVIEW_HTML;
 const unc=core.filter(w=>!w.entries),raw=D.works.filter(w=>w.rawOnly).length;
 const countMethod=m=>core.filter(w=>w.bibMethod===m).length;
 $('method-content').innerHTML=`<h2>Search and selection</h2><p>The cutoff is 18 November 2026. We include papers published from January 2020 through the cutoff. We exclude cited records whose publication year is unknown or outside this window. Four arXiv queries initially returned ${format(D.candidates)} distinct records. We screened titles and relevant abstract passages, added studies from primary-source searches and bibliographies, and checked selected Crossref and OpenReview records. A record enters the core collection when it contributes a definition, measurement, explanation, intervention, or synthesis relevant to proxy exploitation. Application studies qualify when the abstract identifies a specific behavior or intervention.</p><p>The search includes preprints, proceedings papers, journal articles, and selected technical reports. English search terms, relevance-ranked publisher results, renamed papers, unpublished work, and indexing delays limit recall. A cluster count describes this collection. It cannot establish the total size of the field.</p><details><summary>Search queries and screening decisions</summary>${D.searches.map(s=>`<p><b>arXiv · ${s.retrieved} results</b><br><code>${esc(s.query)}</code></p>`).join('')}${(D.publisherSearch.queries||[]).map(s=>`<p><b>${esc(s.source)}</b> · ${esc(s.query)} · ${esc(s.returned??s.status??'targeted search')} ${link(s.url,'Search')}</p>`).join('')}<p><a href="screening.csv" download>Download the arXiv screening register</a> · <a href="publisher-search.json" download>Publisher search log</a></p></details>
  <h2>How we classified the work</h2><p>Each core work has one primary contribution. A benchmark paper may also demonstrate the behavior or propose a mitigation. The primary label makes the area totals additive. The review and replication records describe overlaps. “Behavioral studies” includes original demonstrations and transfer experiments. The verified reproduction and replication count requires an explicit link to an earlier study.</p><table class="review-table"><thead><tr><th>Primary area</th><th>Inclusion rule</th></tr></thead><tbody>${areaKeys.map(a=>`<tr><td>${AREAS[a][0]}</td><td>${AREAS[a][2]}</td></tr>`).join('')}</tbody></table>
  <h2>How we collected citations</h2><p>We followed each core work’s outgoing references one step. A citation can lead to another core study, a methods paper, a book, software, or a report. We used versioned arXiv bibliographies available by the cutoff, PDF reference sections, publisher bibliographies, and index records. For the UK AI Security Institute report we recorded inline links to research publications. The downloadable dataset names each bibliography source.</p><p>${format(eligible.length)} of ${format(core.length)} core works have at least one recovered reference. The dataset contains ${format(D.edges.length)} distinct directed links. An indexed list may omit items, and a recovered list does not certify complete extraction. We match arXiv IDs, DOIs, and normalized titles. ${format(raw)} records retain citation text where a title could not be isolated. Spelling and version differences can leave duplicate records.</p><details><summary>Works without in-period references (${unc.length})</summary>${unc.map(w=>'<p>'+workBtn(w.id)+'</p>').join('')||'<p>All core records have a recovered bibliography.</p>'}</details>
- <h2>Reading the map</h2><p>Each bubble represents one screened paper. The default colors show each paper’s primary contribution. Turn on Color by year to see publication years from blue (newest) to pink (oldest). Drag a bubble to reposition it. Cited by shows the number of citations to the matched OpenAlex record as of ${esc(D.citationDate)}. References counts recovered bibliography entries of all years. For cited-only works, available OpenAlex counts use indexed references. Indexed bibliographies can be incomplete. Hollow bubbles mark missing counts. Radius uses a logarithmic scale. Citation links connect screened papers when one cites the other. The bars count papers in each category. Select a bubble for the paper or select a bar for its category. The dataset lists recovered citations within the publication window.</p><p>Years refer to first arXiv submission or the cited publication’s recorded year. The 2026 count is partial. Bibliographic years and titles for cited-only records follow the citing source or identifier metadata. Anonymous submissions and technical reports carry different levels of review. Area counts do not weight study quality. Download the dataset to inspect every work, directed link, and replication record.</p>`;
+ <h2>Reading the map</h2><p>Each bubble represents one screened paper. The default colors show each paper’s primary contribution. Turn on Color by year to see publication years from pink (newest) to blue (oldest). Drag a bubble beyond its cluster and it drifts back toward the edge. Cited by shows the number of citations to the matched OpenAlex record as of ${esc(D.citationDate)}. References counts recovered bibliography entries of all years. For cited-only works, available OpenAlex counts use indexed references. Indexed bibliographies can be incomplete. Hollow bubbles mark missing counts. Radius uses a logarithmic scale. Citation links connect screened papers when one cites the other. The bars count papers in each category. Select a bubble for the paper or select a bar for its category. The dataset lists recovered citations within the publication window.</p><p>Years refer to first arXiv submission or the cited publication’s recorded year. The 2026 count is partial. Bibliographic years and titles for cited-only records follow the citing source or identifier metadata. Anonymous submissions and technical reports carry different levels of review. Area counts do not weight study quality. Download the dataset to inspect every work, directed link, and replication record.</p>`;
 function openWork(id){if(!works.has(id))return;if(!$('paper').open)workReturn=location.hash||'#atlas';location.hash='#paper/'+encodeURIComponent(id)}
 window.REFERENCE_ABSTRACTS={};
 const abstractLoads=new Map();
@@ -144,12 +140,16 @@ $('close').onclick=dismiss;$('paper').oncancel=e=>{e.preventDefault();dismiss()}
 function route(){
  const hash=location.hash.slice(1)||'atlas';if(hash.startsWith('paper/')){const id=decodeURIComponent(hash.slice(6));if(works.has(id)){details(id);return}location.hash='#library';return}
  if($('paper').open)$('paper').close();lastRoute='#'+hash;workReturn=lastRoute;
- const [name,query='']=hash.split('?'),reviewSections=['foundations','empirical','mitigation','replications'];
- const active=reviewSections.includes(name)?'review':['atlas','library','review','methods'].includes(name)?name:'atlas';
+ const [name,query='']=hash.split('?'),reviewSections={foundations:'chapter-theory',empirical:'chapter-behavior',mitigation:'chapter-mitigation',behavior:'chapter-behavior',benchmarking:'chapter-benchmarking',detection:'chapter-detection',theory:'chapter-theory',synthesis:'chapter-synthesis',replications:'replication-section'};
+ const active=Object.hasOwn(reviewSections,name)?'review':['atlas','library','review','methods'].includes(name)?name:'atlas';
  for(const id of ['atlas','library','review','methods'])$(id).hidden=id!==active;
  for(const a of document.querySelectorAll('nav a')){if(a.hash==='#'+active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')}
  if(active==='library')loadFilters(new URLSearchParams(query));
  document.body.classList.toggle('map-mode',active==='atlas');
- if(reviewSections.includes(name))requestAnimationFrame(()=>$(name==='replications'?'replication-section':'chapter-'+name)?.scrollIntoView());else window.scrollTo(0,0)
+ if(Object.hasOwn(reviewSections,name)){
+   const section=$(reviewSections[name]);
+   if(name==='replications') section.open=true;
+   requestAnimationFrame(()=>section.scrollIntoView());
+ } else window.scrollTo(0,0)
 }
 window.addEventListener('hashchange',route);route();
