@@ -5,13 +5,13 @@ January 2020 through 18 November 2026.
 ## Main findings
 
 - **Benchmarks concentrate on software.** Of 43 benchmarks, 12 focus on software engineering and code tests. One focuses on simulated driving. KernelBench checks reported computing speed. NavSafe checks whether a driving policy trades safety margin for progress. [KernelBench-Verified](https://arxiv.org/abs/2607.16241) · [NavSafe](https://arxiv.org/abs/2609.26618)
-- **The behavior depends on the task.** Image generators produced visible defects while their scores rose. In coding environments, agents sometimes passed tests without solving the task. A high score alone cannot distinguish a shortcut from success. [Image generation study](https://arxiv.org/abs/2601.03468) · [EvilGenie](https://arxiv.org/abs/2511.21654)
+- **The behavior depends on the task.** Image generators earned higher reward scores during training for visual appeal or agreement with the prompt even when the images had visible defects. In EvilGenie, coding agents sometimes passed the visible tests without solving the programming task. There, passing a test was a benchmark result. [Image generation study](https://arxiv.org/abs/2601.03468) · [EvilGenie](https://arxiv.org/abs/2511.21654)
 - **Mitigations change different parts of training.** Of 291 mitigation papers, 57 primarily change the policy update or constrain it. Another 53 change how a verifier checks work or assigns credit. Combining reward models can reduce hacking, but their shared errors can persist. [Constrained training](https://arxiv.org/abs/2310.04373) · [Ensemble study](https://arxiv.org/abs/2312.09244)
 
 ## Where to explore
 
 - **Test whether a detector transfers from coding to multi-step tool use.** RH-Detect found lower accuracy on multi-step tool datasets. A coding study also found that detectors trained on prompted shortcuts missed shortcuts learned during training. Calibrate a detector on coding runs. Freeze its threshold and test it on tool tasks with independent success checks. Report missed shortcuts, false alarms on honest failures, and task completion separately. [RH-Detect](https://arxiv.org/abs/2610.10947) · [Training-time study](https://arxiv.org/abs/2604.23488) · [Tool-use benchmark](https://arxiv.org/abs/2605.02964)
-- **Compare mitigations on the same driving tasks.** This collection includes one benchmark focused on driving simulation and 12 focused on software engineering. Compare a constrained policy with a revised reward on the same simulated routes and training budget. Measure progress, safety margin, and independent task success. This would test whether either intervention preserves driving performance as well as the score. [Driving benchmark](https://arxiv.org/abs/2609.26618) · [Driving reward design](https://arxiv.org/abs/2104.13906)
+- **Compare mitigations on the same driving tasks.** This collection includes one benchmark focused on driving simulation and 12 focused on software engineering. Compare a constrained policy with a revised reward on the same simulated routes and training budget. Measure progress, safety margin, and independent task success. Report the training reward separately so readers can compare it with driving performance. [Driving benchmark](https://arxiv.org/abs/2609.26618) · [Driving reward design](https://arxiv.org/abs/2104.13906)
 
 These are proposed studies. The counts describe this collection through 18 November 2026. Each paper has one primary subgroup within its category.
 
@@ -40,21 +40,21 @@ These are proposed studies. The counts describe this collection through 18 Novem
 
 [176 papers](https://junewayne.github.io/reward-hacking/#library?area=Behavior)
 
-- **Appeasing a judge.** In conversation, models sometimes agreed with a user’s stated belief despite evidence to the contrary. In essay revision, edits raised the evaluator’s score without corresponding gains in readers’ judgments. [Sycophancy study](https://arxiv.org/abs/2310.13548) · [Essay revision](https://arxiv.org/abs/2407.04549)
-- **Passing the check and missing the goal.** In rule-induction tasks, some models passed the original tests but failed equivalent versions of the same problem. In image generation, visible defects sometimes accompanied higher scores for appearance or prompt agreement. [Rule induction](https://arxiv.org/abs/2604.15149) · [Image generation](https://arxiv.org/abs/2601.03468)
+- **Appeasing a judge.** In conversation, models sometimes agreed with a user’s stated belief despite evidence to the contrary. In essay revision, revisions earned higher numerical ratings from a language-model judge, even when human readers saw no improvement. The judge’s feedback guided the next revision during inference. [Sycophancy study](https://arxiv.org/abs/2310.13548) · [Essay revision](https://arxiv.org/abs/2407.04549)
+- **Passing the check and missing the goal.** In rule-induction tasks, some models passed the original tests but failed equivalent versions of the same problem. In image generation, visible defects sometimes accompanied higher reward scores for appearance or agreement with the prompt. [Rule induction](https://arxiv.org/abs/2604.15149) · [Image generation](https://arxiv.org/abs/2601.03468)
 - **Changing the scoring process or carrying a shortcut elsewhere.** Some agents learned to influence feedback in simulated recommender systems. An independent team reproduced shortcuts in open-model coding runs. Broader misalignment varied across later tests. [Recommender systems](https://arxiv.org/abs/2109.04083) · [Coding replication](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
 
 | Subgroup | Papers |
 | --- | ---: |
-| [Proxy score diverges from task quality](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality) | 65 |
-| ↳ [Image, video and speech tasks](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Image%2C+video+and+speech+tasks) | 19 |
-| ↳ [Language generation and preference judgments](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Language+generation+and+preference+judgments) | 14 |
-| ↳ [Control, robotics and simulated worlds](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Control%2C+robotics+and+simulated+worlds) | 11 |
-| ↳ [Tool use, search and multi-agent workflows](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Tool+use%2C+search+and+multi-agent+workflows) | 8 |
-| ↳ [Scientific design and optimization](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Scientific+design+and+optimization) | 5 |
-| ↳ [Multiple settings or general models](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Multiple+settings+or+general+models) | 4 |
-| ↳ [Math, logic and reasoning tasks](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Math%2C+logic+and+reasoning+tasks) | 3 |
-| ↳ [Coding and software agents](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+score+diverges+from+task+quality&setting=Coding+and+software+agents) | 1 |
+| [Proxy reward or evaluator rating diverges from task quality](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality) | 65 |
+| ↳ [Image, video and speech tasks](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Image%2C+video+and+speech+tasks) | 19 |
+| ↳ [Language generation and preference judgments](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Language+generation+and+preference+judgments) | 14 |
+| ↳ [Control, robotics and simulated worlds](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Control%2C+robotics+and+simulated+worlds) | 11 |
+| ↳ [Tool use, search and multi-agent workflows](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Tool+use%2C+search+and+multi-agent+workflows) | 8 |
+| ↳ [Scientific design and optimization](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Scientific+design+and+optimization) | 5 |
+| ↳ [Multiple settings or general models](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Multiple+settings+or+general+models) | 4 |
+| ↳ [Math, logic and reasoning tasks](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Math%2C+logic+and+reasoning+tasks) | 3 |
+| ↳ [Coding and software agents](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Proxy+reward+or+evaluator+rating+diverges+from+task+quality&setting=Coding+and+software+agents) | 1 |
 | [Passing checks with faulty answers or methods](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Passing+checks+with+faulty+answers+or+methods) | 29 |
 | ↳ [Math, logic and reasoning tasks](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Passing+checks+with+faulty+answers+or+methods&setting=Math%2C+logic+and+reasoning+tasks) | 15 |
 | ↳ [Coding and software agents](https://junewayne.github.io/reward-hacking/#library?area=Behavior&subcluster=Passing+checks+with+faulty+answers+or+methods&setting=Coding+and+software+agents) | 6 |
@@ -94,7 +94,7 @@ These are proposed studies. The counts describe this collection through 18 Novem
 
 - **Change the update or the reward.** One approach limits how far training can move the policy. ODIN instead separates response length from answer quality when it trains the reward model. [Policy constraints](https://arxiv.org/abs/2310.04373) · [Length bias](https://arxiv.org/abs/2402.07319)
 - **Change what gets checked.** Rubric Dropout varies which grading criteria supply the training reward. Another method checks whether the agent actually used a tool before giving credit. [Rubric Dropout](https://arxiv.org/abs/2608.11669) · [Proof-of-Use](https://arxiv.org/abs/2510.10931)
-- **Change who gives feedback or when it matters.** Reward ensembles combine several judges. Decoupled approval separates the action the agent takes from the action a reviewer scores. Demonstration-guided training adds examples of intended behavior. [Ensembles](https://arxiv.org/abs/2312.09244) · [Decoupled approval](https://arxiv.org/abs/2011.08827) · [Demonstrations](https://arxiv.org/abs/2404.19409)
+- **Change who gives feedback or when it matters.** Reward ensembles combine several judges. Decoupled approval separates the action the agent takes from the action a reviewer rates. Demonstration-guided training adds examples of intended behavior. [Ensembles](https://arxiv.org/abs/2312.09244) · [Decoupled approval](https://arxiv.org/abs/2011.08827) · [Demonstrations](https://arxiv.org/abs/2404.19409)
 
 | Subgroup | Papers |
 | --- | ---: |
@@ -114,7 +114,7 @@ These are proposed studies. The counts describe this collection through 18 Novem
 [34 papers](https://junewayne.github.io/reward-hacking/#library?area=Detection)
 
 - **Written reasoning and internal signals.** Strong penalties for suspicious reasoning made coding misconduct harder for a monitor to see. In another study, signals inside models sometimes appeared before the final answer. [Written reasoning](https://arxiv.org/abs/2503.11926) · [Internal signals](https://arxiv.org/abs/2603.04069)
-- **False alarms matter.** In a task with verified records, two model families sometimes accused honest reporters of lying. A detection score should account for ordinary failures and honest reports. [Verified-record experiment](https://arxiv.org/abs/2609.17226)
+- **False alarms matter.** In a task with verified records, two model families sometimes accused honest reporters of lying. Report how often the detector incorrectly flags an honest report. [Verified-record experiment](https://arxiv.org/abs/2609.17226)
 
 | Subgroup | Papers |
 | --- | ---: |
@@ -128,8 +128,8 @@ These are proposed studies. The counts describe this collection through 18 Novem
 
 [32 papers](https://junewayne.github.io/reward-hacking/#library?area=Theory)
 
-- **When does a proxy preserve the goal?** A proxy is the score an agent optimizes. Skalse and colleagues showed that the guarantee depends on which behaviors the agent can choose. [Formal definition](https://arxiv.org/abs/2209.13085)
-- **Where does the guarantee break?** A score can track the goal under an initial policy. Training changes which situations the agent encounters. Laidlaw and colleagues tested a method that limits those changes. [Correlated proxies](https://arxiv.org/abs/2403.03185)
+- **When does a proxy preserve the goal?** A proxy reward function assigns a reward value to an outcome. The agent optimizes this value as a substitute for the intended goal. Skalse and colleagues showed that the guarantee depends on which behaviors the agent can choose. [Formal definition](https://arxiv.org/abs/2209.13085)
+- **Where does the guarantee break?** A proxy reward can correlate with the intended reward under the initial policy. Training changes which situations the agent encounters. Laidlaw and colleagues tested a method that limits those changes. [Correlated proxies](https://arxiv.org/abs/2403.03185)
 
 | Subgroup | Papers |
 | --- | ---: |
@@ -143,7 +143,7 @@ These are proposed studies. The counts describe this collection through 18 Novem
 
 [13 papers](https://junewayne.github.io/reward-hacking/#library?area=Synthesis)
 
-- **Where does a shortcut occur?** One survey groups failures by the part of the scoring process that fails. Examples include favoring longer answers and changing the environment that supplies the score. [Survey of agentic systems](https://link.springer.com/article/10.1007/s44163-026-01980-z)
+- **Where does a shortcut occur?** One survey groups failures by the part of the scoring process that fails. Examples include favoring longer answers and changing the environment that supplies the reward. [Survey of agentic systems](https://link.springer.com/article/10.1007/s44163-026-01980-z)
 - **Which parts of an agent have researchers tested?** A second survey maps shortcuts to memory, planning, tools, and evaluation. The authors identify combinations of shortcuts and defenses that available benchmarks do not test. [Survey of reward capture](https://injoit.org/index.php/j1/article/view/2756/0)
 
 | Subgroup | Papers |
@@ -152,14 +152,3 @@ These are proposed studies. The counts describe this collection through 18 Novem
 | [Human feedback and alignment](https://junewayne.github.io/reward-hacking/#library?area=Synthesis&subcluster=Human+feedback+and+alignment) | 3 |
 | [Reviews of specific task domains](https://junewayne.github.io/reward-hacking/#library?area=Synthesis&subcluster=Reviews+of+specific+task+domains) | 3 |
 | [Broader risks and misalignment](https://junewayne.github.io/reward-hacking/#library?area=Synthesis&subcluster=Broader+risks+and+misalignment) | 1 |
-
-## Replication evidence
-
-- **Conceptual replication.** Figure 6 recovers the downturn in the independent reward score under PPO with OPT models, then tests whether a multi-head ensemble reduces it. [Earlier study](https://arxiv.org/abs/2210.10760) · [Follow-up study](https://arxiv.org/html/2406.01013)
-- **Conceptual replication.** The authors repeat expert iteration on five curriculum tasks with GPT-4o-mini and reserve the final task for testing. They also test an in-context training variant. [Earlier study](https://arxiv.org/abs/2406.10162) · [Follow-up study](https://arxiv.org/html/2410.06491)
-- **Direct reproduction.** Heath recomputes the 91.5% versus 0.0% hacking rates from the original Camera Dropbox reference arrays. A separate pilot trains a learned overseer. [Earlier study](https://arxiv.org/abs/2501.13011) · [Follow-up study](https://arxiv.org/abs/2603.29993)
-- **Conceptual replication.** The UK AI Security Institute team repeated the design with open models and different coding tasks. Hacking recurred across settings, while broader misalignment varied across evaluations. [Earlier study](https://arxiv.org/abs/2511.18397) · [Follow-up study](https://github.com/UKGovernmentBEIS/reward-hacking-misalignment/blob/main/writeup.txt)
-- **Adaptation.** Section 4 adapts three user-feedback environments from Williams and colleagues. The authors change the composition of two environments and examine how safety training interacts with task design. [Earlier study](https://arxiv.org/abs/2411.02306) · [Follow-up study](https://arxiv.org/html/2604.12500)
-- **Adaptation.** Two members of the original team transfer their method for detecting planted shortcuts from TextArena to Terminal Bench. [Earlier study](https://arxiv.org/abs/2605.20744) · [Follow-up study](https://arxiv.org/abs/2608.22103)
-- **Direct reproduction.** The authors repeat the School of Reward Hacks supervised fine-tuning run with the original hyperparameters. The resulting model again shows more reward seeking than the base model. [Earlier study](https://arxiv.org/abs/2508.17511) · [Follow-up study](https://arxiv.org/html/2609.06649)
-- **Conceptual replication.** Jose and Stastny independently recover broader misalignment after training on reward hacking in a new open environment. Inoculation prompts suppress that transfer in their setting. [Earlier study](https://arxiv.org/abs/2511.18397) · [Follow-up study](https://arxiv.org/html/2609.14998)

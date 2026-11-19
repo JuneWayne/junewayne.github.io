@@ -82,7 +82,7 @@ body.map-mode { height:100svh; min-height:510px; }
 #bubble-map { position:relative; touch-action:none; }
 .paper-bubble { fill:var(--bubble-color,var(--series)); touch-action:none; cursor:grab; }
 .paper-bubble:active { cursor:grabbing; }
-.paper-bubble.unknown { fill:var(--paper); stroke:var(--bubble-color,var(--series)); stroke-width:1.2; }
+.paper-bubble:not([data-publication="conference"]) { fill:var(--paper); stroke:var(--bubble-color,var(--series)); stroke-width:1.2; }
 .cluster-name { paint-order:stroke; stroke:var(--paper); stroke-width:4px; stroke-linejoin:round; }
 .library-controls { grid-template-columns:minmax(140px,1fr) minmax(130px,220px); }
 .library-controls input,.library-controls select { margin:0; }
@@ -108,8 +108,6 @@ body.map-mode { height:100svh; min-height:510px; }
 #review-content li a { font-size:.91em; }
 .review-heading { display:flex; align-items:baseline; flex-wrap:wrap; gap:0 14px; }
 .cluster-count { font-size:.86rem; white-space:nowrap; }
-#replication-section { margin:30px 0; border-top:1px solid var(--line); padding:16px 0; }
-#replication-section summary { cursor:pointer; font-weight:600; }
 @media(max-width:700px) {
   #review .contents { order:2; }
   #review-findings { padding:12px 15px; }
@@ -157,3 +155,10 @@ body.map-mode { height:100svh; min-height:510px; }
   .subgroup-view .bubble-stage { min-height:450px; }
   .map-mode:has(.subgroup-view) { min-height:650px; }
 }
+
+.paper-bubble:not([data-publication="conference"]):not([data-publication="preprint"]) { stroke-dasharray:2 1.5; }
+.map-title .publication-key,.publication-key span { display:flex; align-items:center; gap:5px; }
+.map-title .publication-key { flex-wrap:wrap; gap:4px 13px; margin-top:5px; font-size:.75rem; }
+.publication-key i { width:10px; height:10px; border:1.5px solid currentColor; border-radius:50%; }
+.publication-key .pub-solid { background:currentColor; }
+.publication-key .pub-other { border-style:dashed; }

@@ -76,6 +76,7 @@
     group.label.textContent = name;
     group.nodes = group.papers.map((paper, i) => {
       const el = element('circle', {'data-id':paper.id, class:'paper-bubble', role:'button', tabindex:i===0?0:-1});
+      el.dataset.publication=paper.publication.status;
       group.el.append(el);
       const n = {paper, group, el, phase:nodes.length*2.399963};
       nodes.push(n);
@@ -124,8 +125,7 @@
         const packed=t.nodes.map(n=>{
           const value=n.paper[metric];
           n.raw=value==null?1.55:1.55+.92*Math.log1p(value);
-          n.el.classList.toggle('unknown',value==null);
-          n.el.setAttribute('aria-label',n.paper.title+', '+n.paper.year+', '+quantity(n.paper)+', '+t.name);
+          n.el.setAttribute('aria-label',n.paper.title+', '+n.paper.year+', '+quantity(n.paper)+', '+t.name+', '+publicationText(n.paper));
           return {n,r:n.raw+.8};
         }).sort((a,b)=>b.r-a.r);
         d3.packSiblings(packed);
@@ -213,7 +213,7 @@
   function describe() {
     const n=active();
     tip.hidden=!n;
-    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+n.paper.subcluster+' · '+quantity(n.paper);positionTip(n);}
+    if (n) {tip.textContent=n.paper.year+' · '+n.paper.title+' · '+n.paper.subcluster+' · '+quantity(n.paper)+' · '+publicationText(n.paper);positionTip(n);}
     drawEdges();
   }
   function drawEdges() {
