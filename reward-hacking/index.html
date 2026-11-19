@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#142322">
+<title>Reward Hacking Atlas · Literature map</title>
+<link rel="icon" href="mark.svg"><link rel="stylesheet" href="style.css">
+<script defer src="snapshot.js"></script><script defer src="app.js"></script><script defer src="map.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="top wrap"><a class="brand" href="#atlas"><img src="mark.svg" alt="">Reward hacking</a><nav aria-label="Main navigation"><a href="#atlas">Map</a><a href="#library">Library</a><a href="#review">Literature review</a><a href="#methods">Methods</a></nav><span class="topnote">2020 — 2026</span></div></header>
+<main id="main" class="wrap">
+<section id="atlas" class="view">
+ <div class="map-surface">
+  <div class="map-title"><h1>Paper clusters</h1><p id="scope-count"></p></div>
+  <div class="bubble-stage"><svg id="bubble-map" aria-label="Papers grouped by primary research contribution"></svg><div id="bubble-tip" role="tooltip" hidden></div></div>
+  <div class="map-key"><i></i> One bubble per paper</div>
+ </div>
+ <aside class="category-chart" aria-labelledby="chart-title">
+  <h2 id="chart-title">Papers by category</h2>
+  <div id="area-list"></div>
+  <p>Select a category to browse its papers.</p>
+ </aside>
+</section>
+<section id="library" class="view" hidden><div class="intro"><div><p class="eyebrow">BIBLIOGRAPHY</p><h1>Paper library<span>.</span></h1><p class="lead">Search the core literature and the works each study cites.</p></div><button class="button" id="export-library">Export results <span aria-hidden="true">↓</span></button></div><div class="library-controls"><label>Search<input type="search" id="query" placeholder="Title, author, or identifier"></label><label>Collection<select id="collection"><option value="core">Core works</option><option value="reference">Cited works only</option><option value="all">All works</option><option value="replication">Reproductions &amp; replications</option></select></label><label>Primary area<select id="area-filter"></select></label><label>Year<select id="year-filter"></select></label><label>Sort<select id="sort"><option value="recent">Newest first</option><option value="influence">Most cited in atlas</option><option value="title">Title A–Z</option></select></label></div><details class="advanced" id="advanced"><summary>More filters</summary><div><label>Screen<select id="stratum"><option value="">All screens</option><option>Focused screen</option><option>Application supplement</option></select></label></div></details><div class="list-heading"><p id="results" aria-live="polite"></p><button id="clear" class="linkbtn">Clear filters</button></div><div id="library-rows"></div><div class="pagebar"><button id="prev" class="button">Previous</button><span id="page-index"></span><button id="next" class="button">Next</button></div></section>
+<section id="review" class="view" hidden><div class="intro"><div><p class="eyebrow">EVIDENCE SYNTHESIS</p><h1>Literature review<span>.</span></h1><p class="lead">Where the evidence converges, where it differs, and what has been replicated.</p></div><a href="review.md" download class="button">Download review <span aria-hidden="true">↓</span></a></div><div class="reading"><aside class="contents panel"><p class="eyebrow">IN THIS REVIEW</p><a href="#review">Field overview</a><a href="#foundations">Definitions &amp; theory</a><a href="#empirical">Benchmarks &amp; behavior</a><a href="#mitigation">Detection &amp; mitigation</a><a href="#replications">Replication evidence</a></aside><article id="review-content"></article></div></section>
+<section id="methods" class="view" hidden><div class="intro"><div><p class="eyebrow">CORPUS DOCUMENTATION</p><h1>Methods &amp; coverage<span>.</span></h1><p class="lead">Inspect the search terms, inclusion decisions, and available bibliographies.</p></div><button class="button" id="export-data">Download dataset <span aria-hidden="true">↓</span></button></div><article class="methods" id="method-content"></article></section>
+</main>
+<footer class="wrap"><span>Reward hacking atlas</span><span>Literature cutoff · 18 Nov 2026</span></footer>
+<dialog id="paper"><div class="dialog-bar"><span class="eyebrow">WORK RECORD</span><button class="iconbtn" id="close" aria-label="Close paper details">×</button></div><div id="detail"></div></dialog>
+<noscript>Enable JavaScript to explore the atlas. The <a href="review.md">literature review</a> is also available as a text file.</noscript>
+</body></html>

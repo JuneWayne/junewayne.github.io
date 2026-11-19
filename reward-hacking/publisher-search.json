@@ -1,0 +1,221 @@
+{
+  "date": "2026-11-18",
+  "scope": "Targeted supplementary publisher discovery for AI reward hacking. Query results are relevance-ranked. Screened titles for explicit references to reward hacking, tampering, misspecification, wireheading, specification gaming or reward-model overoptimization. Checked date, title overlap with arXiv and author or identifier where available. No language limit. Bibliographic metadata from Crossref, supplemented by publisher bibliographies and Semantic Scholar for cited-work details. An absent title match does not rule out a renamed preprint.",
+  "queries": [
+    {
+      "source": "Crossref",
+      "query": "reward hacking",
+      "url": "https://api.crossref.org/works?query.title=reward+hacking&rows=100&filter=until-pub-date%3A2026-11-18",
+      "returned": 100,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "reward gaming reinforcement learning",
+      "url": "https://api.crossref.org/works?query.title=reward+gaming+reinforcement+learning&rows=50",
+      "returned": 50,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "specification gaming artificial intelligence",
+      "url": "https://api.crossref.org/works?query.title=specification+gaming+artificial+intelligence&rows=100&filter=until-pub-date%3A2026-11-18",
+      "returned": 100,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "reward tampering reinforcement learning",
+      "url": "https://api.crossref.org/works?query.title=reward+tampering+reinforcement+learning&rows=50",
+      "returned": 50,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "reward model overoptimization",
+      "url": "https://api.crossref.org/works?query.title=reward+model+overoptimization&rows=50",
+      "returned": 50,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "hacking the reward function reinforcement learning",
+      "url": "https://api.crossref.org/works?query.title=hacking+the+reward+function+reinforcement+learning&rows=100&filter=until-pub-date%3A2026-11-18",
+      "returned": 100,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "wireheading reinforcement learning",
+      "url": "https://api.crossref.org/works?query.title=wireheading+reinforcement+learning&rows=20",
+      "returned": 0,
+      "status": "unavailable after retries"
+    },
+    {
+      "source": "Crossref",
+      "query": "Goodhart reinforcement learning",
+      "url": "https://api.crossref.org/works?rows=100&query.title=Goodhart+reinforcement+learning",
+      "returned": 100,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "reward misspecification reinforcement learning",
+      "url": "https://api.crossref.org/works?rows=25&query.title=reward+misspecification+reinforcement+learning",
+      "returned": 25,
+      "status": "retrieved"
+    },
+    {
+      "source": "Crossref",
+      "query": "objective robustness reward hacking agent",
+      "url": "https://api.crossref.org/works?rows=25&query.title=objective+robustness+reward+hacking+agent",
+      "returned": 25,
+      "status": "retrieved"
+    },
+    {
+      "source": "OpenReview via web search",
+      "query": "\"A Survey of Reward Hacking in Large Language Models\" OpenReview",
+      "result": "https://openreview.net/pdf?id=ENQrLsePEa",
+      "status": "Anonymous PDF retrieved from indexed copy. Extracted complete numbered references section."
+    },
+    {
+      "source": "Web search and publisher bibliography",
+      "query": "\"A Survey of Reward Hacking in Large Language Models\" names ACL ARR January 2026 arxiv",
+      "result": "https://injoit.org/index.php/j1/article/view/2756/0",
+      "status": "Related title validated against the journal abstract. All publisher bibliography entries extracted."
+    },
+    {
+      "source": "Crossref",
+      "query": "wireheading",
+      "url": "https://api.crossref.org/works?query.title=wireheading",
+      "returned": 3,
+      "status": "retrieved"
+    },
+    {
+      "source": "Citation chasing and primary-source title verification",
+      "query": "How Useful Is Quantilization for Mitigating Specification-Gaming?",
+      "result": "https://static1.squarespace.com/static/660e95991cf0293c2463bcc8/t/661bf1a778ec441f04abeafa/1713107367868/Quantilization.pdf",
+      "status": "Author-hosted PDF bibliography extracted."
+    },
+    {
+      "source": "AAMAS proceedings and arXiv",
+      "query": "Preventing Process Reward Model Hacking When Training Large Language Models on Verifiable Rewards",
+      "result": "https://ifaamas.org/Proceedings/aamas2026/pdfs/BWFN6920.pdf",
+      "status": "Conference PDF verified. No matching arXiv version found."
+    },
+    {
+      "source": "Author-copy and repository follow-up",
+      "query": "Neuro2Text Phase-Aware Deep Encoding; KI-Sicherheit, Reward Hacking und die Paradoxa der Normenlogik",
+      "status": "Searched author pages and repository listings. Unpaywall exposed no open locations for either DOI. IEEE references and the Sasdelli publisher bibliography were inaccessible. The public IRIS program supplies only the abstract."
+    }
+  ],
+  "supplementary_records": 16,
+  "direct_references": 510,
+  "records": [
+    {
+      "title": "RESOLVE: Reward Scaling via Online Logic Variation Environments for Mitigating Reward Hacking in LLMs",
+      "url": "https://doi.org/10.1007/978-3-032-38410-2_27",
+      "retrieved_references": 22,
+      "source_reference_count": 22
+    },
+    {
+      "title": "Learning Tactical Tank Behaviour: From Reward Hacking to Robust Alignment",
+      "url": "https://doi.org/10.1007/978-3-032-33182-3_8",
+      "retrieved_references": 25,
+      "source_reference_count": 25
+    },
+    {
+      "title": "Neuro2Text \u2014 Phase-Aware Deep Encoding with Anti-Reward-Hacking Stabilization",
+      "url": "https://doi.org/10.1109/icbet70050.2026.11781558",
+      "retrieved_references": 0,
+      "source_reference_count": null
+    },
+    {
+      "title": "Exploring the Detection and Mitigation of Reward Hacking from DeepSeek-R1",
+      "url": "https://doi.org/10.54254/2755-2721/2026.38459",
+      "retrieved_references": 13,
+      "source_reference_count": 13
+    },
+    {
+      "title": "A survey of reward hacking in agentic large language model systems",
+      "url": "https://doi.org/10.1007/s44163-026-01980-z",
+      "retrieved_references": 81,
+      "source_reference_count": 81
+    },
+    {
+      "title": "BenchGuard: A Calibrated, Adversary-Aware Triage Layer for Reward-Hacking Agentic Trajectories",
+      "url": "https://doi.org/10.1145/3799682.3840600",
+      "retrieved_references": 36,
+      "source_reference_count": 36
+    },
+    {
+      "title": "UNDERSTANDING REWARD HACKING: SPECIFICATION GAMING, FAILURE MODES, AND MITIGATIONS IN AI SAFETY",
+      "url": "https://doi.org/10.36074/grail-of-science.18.09.2026.032",
+      "retrieved_references": 24,
+      "source_reference_count": 24
+    },
+    {
+      "title": "Addressing Reward Hacking in Autonomous Navigation using a Soft Actor Critic approach",
+      "url": "https://doi.org/10.1109/eeite65381.2025.11166040",
+      "retrieved_references": 17,
+      "source_reference_count": 17
+    },
+    {
+      "title": "Reward Hacking in Reinforcement Learning-Based Myoelectric Prosthesis Control: Challenges Beyond Tracking-Based Rewards",
+      "url": "https://doi.org/10.3390/engproc2026153005",
+      "retrieved_references": 14,
+      "source_reference_count": 14
+    },
+    {
+      "title": "A data-driven generative strategy to avoid reward hacking in multi-objective molecular design",
+      "url": "https://doi.org/10.1038/s41467-025-57582-3",
+      "retrieved_references": 80,
+      "source_reference_count": 80
+    },
+    {
+      "title": "Reward Hacking in Reinforcement Learning and RLHF: A Multidisciplinary Examination of Vulnerabilities, Mitigation Strategies, and Alignment Challenges",
+      "url": "https://doi.org/10.1109/icsc65596.2025.11140447",
+      "retrieved_references": 24,
+      "source_reference_count": 24
+    },
+    {
+      "title": "KI-Sicherheit, Reward Hacking und die Paradoxa der Normenlogik",
+      "url": "https://jusletter-it.weblaw.ch/issues/2022/30-Juni-2022/ki-sicherheit_-rewar_99c7c3fb1e.html",
+      "retrieved_references": 0,
+      "source_reference_count": null
+    },
+    {
+      "title": "A Survey of Reward Hacking in Large Language Models",
+      "url": "https://openreview.net/forum?id=ENQrLsePEa",
+      "retrieved_references": 43,
+      "source_reference_count": 43
+    },
+    {
+      "title": "A Survey of Reward Capture Scenarios in LLM Agents",
+      "url": "https://injoit.org/index.php/j1/article/view/2756/0",
+      "retrieved_references": 50,
+      "source_reference_count": 50
+    },
+    {
+      "title": "Reward Hacking in Materials Discovery: An Interpretable Inverse Design Framework and its Physical Limits",
+      "url": "https://doi.org/10.26434/chemrxiv.15001186/v1",
+      "retrieved_references": 65,
+      "source_reference_count": 65
+    },
+    {
+      "title": "Preventing Process Reward Model Hacking When Training Large Language Models on Verifiable Rewards",
+      "url": "https://doi.org/10.65109/BWFN6920",
+      "retrieved_references": 16,
+      "source_reference_count": 16
+    }
+  ],
+  "additional_decisions": {
+    "10.18653/v1/2026.findings-acl.1682": "Recovered associated arXiv version 2603.13045 and sent it to the arXiv screening workflow.",
+    "10.26434/chemrxiv.15001186/v1": "Included as a ChemRxiv preprint following screening of the computational validation study. OpenAlex supplies the indexed reference list.",
+    "Preventing Reward Hacking with Occupancy Measure Regularization": "Earlier title of arXiv:2403.03185 (v1).",
+    "Regularized Best-of-N Sampling to Mitigate Reward Hacking for Language Model Alignment": "Earlier title of arXiv:2404.01054 (v1).",
+    "Master-RM: A reward model robust to superficial reward hacking": "Model artifact sarosavo/Master-RM from paper arXiv:2507.08794. The artifact and paper are distinct.",
+    "Mitigating Reward Over-optimization in Direct Alignment Algorithms with Importance Sampling": "arXiv:2506.08681.",
+    "10.65109/BWFN6920": "Included the AAMAS extended abstract. Matched its DOI against Crossref and checked arXiv by title and first author. The conference PDF lists 16 entries, including conference and extended-abstract versions of one prior work."
+  }
+}

@@ -1,0 +1,962 @@
+arxiv,title,discovery,decision,primary,selection
+2002.09089,Safe Imitation Learning via Fast Bayesian Reward Inference from Preferences,Direct terminology,included,Mitigation,Focused screen
+2004.05705,Are Game Engines Software Frameworks? A Three-perspective Study,Direct terminology,outside core screen,,
+2005.09241,On the Value of Out-of-Distribution Testing: An Example of Goodhart's Law,Adjacent titles,included,Behavior,Focused screen
+2005.13921,A Complete Characterization of Infinitely Repeated Two-Player Games having Computable Strategies with no Computable Best Response under Limit-of-Means Payoff,Direct terminology,outside core screen,,
+2008.01664,Inducing game rules from varying quality game play,Direct terminology,outside core screen,,
+2008.07971,Super-Human Performance in Gran Turismo Sport Using Deep Reinforcement Learning,Proxy optimization,outside core screen,,
+2009.01325,Learning to summarize from human feedback,Expert seed,included,Behavior,Focused screen
+2011.01010,Causal Campbell-Goodhart's law and Reinforcement Learning,Adjacent titles,included,Theory,Focused screen
+2011.08827,Avoiding Tampering Incentives in Deep RL via Decoupled Approval,Expert seed,included,Mitigation,Focused screen
+2011.09426,A framework for the fine-grained evaluation of the instantaneous expected value of soccer possessions,Direct terminology,outside core screen,,
+2012.06480,Machine Learning Prediction of Gamer's Private Networks,Direct terminology,outside core screen,,
+2102.01952,You Cannot Do That Ben Stokes: Dynamically Predicting Shot Type in Cricket Using a Personalized Deep Neural Network,Direct terminology,outside core screen,,
+2102.06587,Disturbing Reinforcement Learning Agents with Corrupted Rewards,Explicit titles,outside core screen,,
+2104.13906,Reward (Mis)design for Autonomous Driving,Expert seed,included,Behavior,Focused screen
+2105.14111,Goal Misgeneralization in Deep Reinforcement Learning,Adjacent titles,outside core screen,,
+2105.15013,SHAQ: Incorporating Shapley Value Theory into Multi-Agent Q-Learning,Direct terminology,outside core screen,,
+2108.12099,Learning to Give Checkable Answers with Prover-Verifier Games,"Explicit titles, Adjacent titles",outside core screen,,
+2109.03216,Learning Fast Sample Re-weighting Without Reward Data,Proxy optimization,outside core screen,,
+2109.04083,User Tampering in Reinforcement Learning Recommender Systems,Direct terminology,included,Behavior,Focused screen
+2109.06625,Towards optimized actions in critical situations of soccer games with deep reinforcement learning,Direct terminology,outside core screen,,
+2111.10323,"On a game of chance in Marc Elsberg's thriller ""GREED""",Direct terminology,outside core screen,,
+2111.13485,Learning Long-Term Reward Redistribution via Randomized Return Decomposition,Proxy optimization,outside core screen,,
+2112.04243,"Hybrid Data-driven Framework for Shale Gas Production Performance Analysis via Game Theory, Machine Learning and Optimization Approaches",Direct terminology,outside core screen,,
+2112.07437,Bayesian Learning of Play Styles in Multiplayer Video Games,Direct terminology,outside core screen,,
+2112.09332,WebGPT: Browser-assisted question-answering with human feedback,Expert seed,included,Behavior,Focused screen
+2112.12228,Direct Behavior Specification via Constrained Reinforcement Learning,Direct terminology,included,Mitigation,Focused screen
+2201.03544,The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models,"Direct terminology, Proxy optimization, Adjacent titles",included,Behavior,Focused screen
+2202.05148,Identifying Weaknesses in Machine Translation Metrics Through Minimum Bayes Risk Decoding: A Case Study for COMET,Expert seed,included,Behavior,Focused screen
+2202.08536,Are There Exceptions to Goodhart's Law? On the Moral Justification of Fairness-Aware Machine Learning,Adjacent titles,outside core screen,,
+2204.03752,Automated Isovist Computation for Minecraft,Direct terminology,outside core screen,,
+2204.05862,Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback,Expert seed,included,Behavior,Focused screen
+2204.06601,Causal Confusion and Reward Misidentification in Preference-Based Reward Learning,Direct terminology,included,Behavior,Focused screen
+2205.09905,On the Impact of Player Capability on Congestion Games,Direct terminology,outside core screen,,
+2206.06426,Provably Efficient Offline Reinforcement Learning with Trajectory-Wise Reward,Proxy optimization,outside core screen,,
+2206.11812,Formalizing the Problem of Side Effect Regularization,Proxy optimization,outside core screen,,
+2208.04315,Patient-Specific Game-Based Transfer Method for Parkinson's Disease Severity Prediction,"Direct terminology, Explicit titles",outside core screen,,
+2208.07699,tile2tile: Learning Game Filters for Platformer Style Transfer,Direct terminology,outside core screen,,
+2209.13085,Defining and Characterizing Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Theory,Focused screen
+2210.01790,Goal Misgeneralization: Why Correct Specifications Aren't Enough For Correct Goals,"Direct terminology, Adjacent titles",outside core screen,,
+2210.10760,Scaling Laws for Reward Model Overoptimization,"Proxy optimization, Explicit titles",included,Behavior,Focused screen
+2211.08714,Reward Gaming in Conditional Text Generation,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2302.08734,A State Augmentation based approach to Reinforcement Learning from Human Preferences,Direct terminology,outside core screen,,
+2303.00001,Reward Design with Language Models,Proxy optimization,outside core screen,,
+2304.04282,Higher-Order Uncoupled Dynamics Do Not Lead to Nash Equilibrium -- Except When They Do,Direct terminology,outside core screen,,
+2304.06767,RAFT: Reward rAnked FineTuning for Generative Foundation Model Alignment,Expert seed,included,Mitigation,Focused screen
+2304.10196,A categorical account of composition methods in logic,Direct terminology,outside core screen,,
+2304.13653,Learning Agile Soccer Skills for a Bipedal Robot with Deep Reinforcement Learning,Direct terminology,outside core screen,,
+2305.13301,Training Diffusion Models with Reinforcement Learning,Expert seed,included,Behavior,Focused screen
+2305.14387,AlpacaFarm: A Simulation Framework for Methods that Learn from Human Feedback,Expert seed,included,Benchmarking,Focused screen
+2305.16381,DPOK: Reinforcement Learning for Fine-tuning Text-to-Image Diffusion Models,Expert seed,included,Mitigation,Focused screen
+2306.04488,Rewarded soups: towards Pareto-optimal alignment by interpolating weights fine-tuned on diverse rewards,Proxy optimization,included,Mitigation,Focused screen
+2307.09943,Impatient Bandits: Optimizing Recommendations for the Long-Term Without Delay,Proxy optimization,outside core screen,,
+2307.15217,Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback,Expert seed,included,Synthesis,Focused screen
+2308.14272,Goodhart's Law Applies to NLP's Explanation Benchmarks,Adjacent titles,included,Behavior,Focused screen
+2308.15969,Iterative Reward Shaping using Human Feedback for Correcting Reward Misspecification,Adjacent titles,included,Mitigation,Focused screen
+2309.10202,Stabilizing RLHF through Advantage Model and Selective Rehearsal,Direct terminology,included,Mitigation,Application supplement
+2309.14525,Aligning Large Multimodal Models with Factually Augmented RLHF,Direct terminology,included,Mitigation,Application supplement
+2309.17400,Directly Fine-Tuning Diffusion Models on Differentiable Rewards,Expert seed,included,Behavior,Focused screen
+2310.02743,Reward Model Ensembles Help Mitigate Overoptimization,Proxy optimization,included,Mitigation,Focused screen
+2310.03716,A Long Way to Go: Investigating Length Correlations in RLHF,Expert seed,included,Behavior,Focused screen
+2310.04373,Confronting Reward Model Overoptimization with Constrained RLHF,Explicit titles,included,Mitigation,Focused screen
+2310.05199,Loose lips sink ships: Mitigating Length Bias in Reinforcement Learning from Human Feedback,Expert seed,included,Mitigation,Focused screen
+2310.07433,Imitation Learning from Observation with Automatic Discount Scheduling,Proxy optimization,outside core screen,,
+2310.09144,Goodhart's Law in Reinforcement Learning,"Proxy optimization, Adjacent titles",included,Theory,Focused screen
+2310.12305,"Building Random, Fair, and Verifiable Games on Blockchain. Raffle smart contract designs on Sui Network","Explicit titles, Adjacent titles",outside core screen,,
+2310.13548,Towards Understanding Sycophancy in Language Models,Expert seed,included,Behavior,Focused screen
+2310.16431,An experimental protocol to access immersiveness in video games,Direct terminology,outside core screen,,
+2310.16763,SuperHF: Supervised Iterative Learning from Human Feedback,Direct terminology,included,Mitigation,Application supplement
+2310.18244,A Review of the Evidence for Existential Risk from AI via Misaligned Power-Seeking,Direct terminology,included,Synthesis,Application supplement
+2311.02907,Reinforcement Learning for Safety Testing: Lessons from A Mobile Robot Case Study,Direct terminology,included,Behavior,Application supplement
+2312.03762,Colour versus Shape Goal Misgeneralization in Reinforcement Learning: A Case Study,Adjacent titles,outside core screen,,
+2312.07551,Language Model Alignment with Elastic Reset,Direct terminology,included,Mitigation,Focused screen
+2312.09244,Helping or Herding? Reward Model Ensembles Mitigate but do not Eliminate Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2312.10642,Episodic Return Decomposition by Difference of Implicitly Assigned Sub-Trajectory Reward,Proxy optimization,outside core screen,,
+2312.14436,REBEL: Reward Regularization-Based Approach for Robotic Reinforcement Learning from Human Feedback,Direct terminology,included,Mitigation,Focused screen
+2401.00243,Uncertainty-Penalized Reinforcement Learning from Human Feedback with Diverse Reward LoRA Ensembles,Expert seed,included,Mitigation,Focused screen
+2401.00330,Two-Step Offline Preference-Based Reinforcement Learning with Constrained Actions,Direct terminology,outside core screen,,
+2401.07181,Reinforcement Learning from LLM Feedback to Counteract Goal Misgeneralization,Adjacent titles,outside core screen,,
+2401.08682,Visualizing the genealogy of video game specifications of video game genres -- through a case study of the raising up game genre,Direct terminology,outside core screen,,
+2401.09804,Clickbait vs. Quality: How Engagement-Based Optimization Shapes the Content Landscape in Online Platforms,Direct terminology,outside core screen,,
+2401.12187,WARM: On the Benefits of Weight Averaged Reward Models,Direct terminology,included,Mitigation,Focused screen
+2401.16335,Iterative Data Smoothing: Mitigating Reward Overfitting and Overoptimization in RLHF,Expert seed,included,Mitigation,Focused screen
+2401.16635,Improving Reinforcement Learning from Human Feedback with Efficient Reward Model Ensemble,Expert seed,included,Mitigation,Focused screen
+2402.00742,Transforming and Combining Rewards for Aligning Large Language Models,Direct terminology,included,Mitigation,Application supplement
+2402.02992,Decoding-time Realignment of Language Models,Direct terminology,included,Mitigation,Application supplement
+2402.03469,Rethinking the Role of Proxy Rewards in Language Model Alignment,Proxy optimization,included,Behavior,Focused screen
+2402.06627,Feedback Loops With Language Models Drive In-Context Reward Hacking,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2402.07319,ODIN: Disentangled Reward Mitigates Hacking in RLHF,Direct terminology,included,Mitigation,Focused screen
+2402.07812,Retrieval Augmented Thought Process for Private Data Handling in Healthcare,Proxy optimization,outside core screen,,
+2402.08552,Confronting Reward Overoptimization for Diffusion Models: A Perspective of Inductive and Primacy Biases,"Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2402.09345,InfoRM: Mitigating Reward Hacking in RLHF via Information-Theoretic Reward Modeling,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2402.11367,Multi Task Inverse Reinforcement Learning for Common Sense Reward,Direct terminology,outside core screen,,
+2402.11452,AutoPRM: Automating Procedural Supervision for Multi-Step Reasoning via Controllable Question Decomposition,Direct terminology,included,Mitigation,Application supplement
+2402.13210,Bayesian Reward Models for LLM Alignment,Proxy optimization,included,Mitigation,Focused screen
+2402.13936,Distinctive Image Captioning: Leveraging Ground Truth Captions in CLIP Guided Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2402.14449,On decentralized computation of the leader's strategy in bi-level games,Direct terminology,outside core screen,,
+2402.15324,"Shapley Value Based Multi-Agent Reinforcement Learning: Theory, Method and Its Application to Energy Network",Direct terminology,outside core screen,,
+2403.03185,Correlated Proxies: A New Definition and Improved Mitigation for Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Theory,Focused screen
+2403.05171,Overcoming Reward Overoptimization via Adversarial Policy Optimization with Lightweight Uncertainty Estimation,"Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2403.08425,Specification Overfitting in Artificial Intelligence,Adjacent titles,included,Theory,Focused screen
+2403.17297,InternLM2 Technical Report,Direct terminology,outside core screen,,
+2403.19159,Disentangling Length from Quality in Direct Preference Optimization,Expert seed,included,Mitigation,Focused screen
+2404.01054,Regularized Best-of-N Sampling with Minimum Bayes Risk Objective for Language Model Alignment,Direct terminology,included,Mitigation,Focused screen
+2404.01863,Confidence-aware Reward Optimization for Fine-tuning Text-to-Image Models,Proxy optimization,included,Mitigation,Focused screen
+2404.04475,Length-Controlled AlpacaEval: A Simple Way to Debias Automatic Evaluators,Expert seed,included,Mitigation,Focused screen
+2404.08706,Game Generation via Large Language Models,Direct terminology,outside core screen,,
+2404.08791,Expectation Alignment: Handling Reward Misspecification in the Presence of Expectation Mismatch,Adjacent titles,included,Mitigation,Focused screen
+2404.12535,"Is There No Such Thing as a Bad Question? H4R: HalluciBot For Ratiocination, Rewriting, Ranking, and Routing",Proxy optimization,outside core screen,,
+2404.18574,GEEvo: Game Economy Generation and Balancing with Evolutionary Algorithms,Direct terminology,outside core screen,,
+2404.19409,Countering Reward Over-optimization in LLM with Demonstration-Guided Reinforcement Learning,Proxy optimization,included,Mitigation,Focused screen
+2405.06664,A categorical account of composition methods in logic (extended version),Direct terminology,outside core screen,,
+2405.08448,Understanding the performance gap between online and offline alignment algorithms,Proxy optimization,included,Behavior,Application supplement
+2405.13516,LIRE: listwise reward enhancement for preference alignment,Proxy optimization,outside core screen,,
+2405.16436,Provably Mitigating Overoptimization in RLHF: Your SFT Loss is Implicitly an Adversarial Regularizer,Proxy optimization,included,Mitigation,Focused screen
+2405.18881,Inference-Time Alignment of Diffusion Models with Direct Noise Optimization,Direct terminology,included,Behavior,Application supplement
+2405.19026,DiveR-CT: Diversity-enhanced Red Teaming Large Language Model Assistants with Relaxing Constraints,Proxy optimization,outside core screen,,
+2406.01013,Scalable Ensembling For Mitigating Reward Overoptimisation,"Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2406.02900,Scaling Laws for Reward Model Overoptimization in Direct Alignment Algorithms,"Direct terminology, Proxy optimization, Explicit titles",included,Behavior,Focused screen
+2406.03460,The PESQetarian: On the Relevance of Goodhart's Law for Speech Enhancement,Adjacent titles,included,Behavior,Focused screen
+2406.04312,ReNO: Enhancing One-step Text-to-Image Models through Reward-based Noise Optimization,Direct terminology,outside core screen,,
+2406.05883,Information Theoretic Guarantees For Policy Alignment In Large Language Models,Proxy optimization,included,Theory,Focused screen
+2406.10162,Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2406.10216,Regularizing Hidden States Enables Learning Generalizable Reward Model for LLMs,Proxy optimization,included,Mitigation,Focused screen
+2406.11875,ChatPCG: Large Language Model-Driven Reward Design for Procedural Content Generation,Direct terminology,outside core screen,,
+2406.12203,InterIntent: Investigating Social Intelligence of LLMs via Intention Understanding in an Interactive Game Context,Direct terminology,outside core screen,,
+2406.12845,Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts,Direct terminology,outside core screen,,
+2406.14393,Jailbreaking as a Reward Misspecification Problem,Adjacent titles,outside core screen,,
+2406.15753,The Perils of Optimizing Learned Reward Functions: Low Training Error Does Not Guarantee Low Regret,Expert seed,included,Theory,Focused screen
+2406.19188,Averaging log-likelihoods in direct alignment,Proxy optimization,outside core screen,,
+2407.02119,Cost-Effective Proxy Reward Model Construction with On-Policy and Active Learning,Proxy optimization,outside core screen,,
+2407.03038,Towards Federated RLHF with Aggregated Client Preference for LLMs,Direct terminology,included,Mitigation,Application supplement
+2407.04549,Spontaneous Reward Hacking in Iterative Self-Refinement,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2407.04610,Gamification of Motor Imagery Brain-Computer Interface Training Protocols: a systematic review,Direct terminology,outside core screen,,
+2407.13399,Correcting the Mythos of KL-Regularization: Direct Alignment without Overoptimization via Chi-Squared Preference Optimization,Expert seed,included,Mitigation,Focused screen
+2407.13692,Prover-Verifier Games improve legibility of LLM outputs,"Explicit titles, Adjacent titles",outside core screen,,
+2407.14503,Catastrophic Goodhart: regularizing RLHF with KL divergence does not mitigate heavy-tailed reward misspecification,"Direct terminology, Adjacent titles",included,Theory,Focused screen
+2407.14681,Value Internalization: Learning and Generalizing from Social Reward,Direct terminology,included,Behavior,Application supplement
+2408.04385,Non-maximizing policies that fulfill multi-criterion aspirations in expectation,Direct terminology,outside core screen,,
+2408.12622,"The AI risk repository: A meta-review, database, and taxonomy of risks from artificial intelligence",Direct terminology,outside core screen,,
+2408.17180,Identifying and Clustering Counter Relationships of Team Compositions in PvP Games for Efficient Balance Analysis,Direct terminology,outside core screen,,
+2409.03237,Robust Q-Learning under Corrupted Rewards,Explicit titles,outside core screen,,
+2409.05358,BAMDP Shaping: a Unified Framework for Intrinsic Motivation and Reward Shaping,Direct terminology,included,Theory,Application supplement
+2409.06493,Elucidating Optimal Reward-Diversity Tradeoffs in Text-to-Image Diffusion Models,Direct terminology,included,Behavior,Focused screen
+2409.09702,GFlowNet Pretraining with Inexpensive Rewards,Proxy optimization,outside core screen,,
+2409.12822,Language Models Learn to Mislead Humans via RLHF,Expert seed,included,Behavior,Focused screen
+2409.12914,Evaluating Defences against Unsafe Feedback in RLHF,Direct terminology,included,Behavior,Application supplement
+2409.13156,RRM: Robust Reward Model Training Mitigates Reward Hacking,Explicit titles,included,Mitigation,Focused screen
+2409.15360,Reward-Robust RLHF in LLMs,Direct terminology,included,Mitigation,Focused screen
+2409.17407,Post-hoc Reward Calibration: A Case Study on Length Bias,Expert seed,included,Mitigation,Focused screen
+2409.20370,The Perfect Blend: Redefining RLHF with Mixture of Judges,Direct terminology,included,Mitigation,Application supplement
+2410.01729,Evaluating Robustness of Reward Models for Mathematical Reasoning,"Direct terminology, Proxy optimization",included,Benchmarking,Focused screen
+2410.05782,Reinforcement Learning From Imperfect Corrective Actions And Proxy Rewards,Proxy optimization,included,Mitigation,Application supplement
+2410.06491,Honesty to Subterfuge: In-Context Reinforcement Learning Can Make Honest Models Reward Hack,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2410.07025,CheXalign: Preference fine-tuning in chest X-ray interpretation models without human feedback,Proxy optimization,included,Mitigation,Application supplement
+2410.09638,"On Goodhart's law, with an application to value alignment",Adjacent titles,included,Theory,Focused screen
+2410.10166,Automated Filtering of Human Feedback Data for Aligning Text-to-Image Diffusion Models,Proxy optimization,outside core screen,,
+2410.15115,On Designing Effective RL Reward at Training Time for LLM Reasoning,Direct terminology,included,Behavior,Application supplement
+2410.16184,RM-Bench: Benchmarking Reward Models of Language Models with Subtlety and Style,Expert seed,included,Benchmarking,Focused screen
+2410.19749,Using AI Alignment Theory to understand the potential pitfalls of regulatory frameworks,Direct terminology,outside core screen,,
+2410.20187,Uncertainty-Penalized Direct Preference Optimization,"Direct terminology, Proxy optimization",included,Mitigation,Focused screen
+2410.21052,Getting By Goal Misgeneralization With a Little Help From a Mentor,Adjacent titles,outside core screen,,
+2410.21545,CARMO: Dynamic Criteria Generation for Context-Aware Reward Modelling,Direct terminology,included,Mitigation,Application supplement
+2410.21795,Robot Policy Learning with Temporal Optimal Transport Reward,Proxy optimization,outside core screen,,
+2411.00287,MBExplainer: Multilevel bandit-based explanations for downstream models with augmented graph embeddings,Direct terminology,outside core screen,,
+2411.01103,Mega Influencers versus Niche Creators: An Empirical Study of Streamer Influence on Endorsed Product Usage,Direct terminology,outside core screen,,
+2411.02306,On Targeted Manipulation and Deception when Optimizing LLMs for User Feedback,Expert seed,included,Behavior,Focused screen
+2411.03524,Mitigating Metric Bias in Minimum Bayes Risk Decoding,Direct terminology,included,Mitigation,Focused screen
+2411.04712,SEE-DPO: Self Entropy Enhanced Direct Preference Optimization,Direct terminology,included,Mitigation,Application supplement
+2411.09341,Approximated Variational Bayesian Inverse Reinforcement Learning for Large Language Model Alignment,Direct terminology,outside core screen,,
+2411.17760,Efficient Self-Improvement in Multimodal Large Language Models: A Model-Level Judge-Free Approach,Direct terminology,outside core screen,,
+2412.03268,RFSR: Improving ISR Diffusion Models via Reward Feedback Learning,Direct terminology,included,Mitigation,Application supplement
+2412.06176,AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement,Direct terminology,included,Mitigation,Application supplement
+2412.09544,Sail into the Headwind: Alignment via Robust Rewards and Dynamic Labels against Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2412.16378,REFA: Reference Free Alignment for multi-preference optimization,Direct terminology,outside core screen,,
+2412.16475,When Can Proxies Improve the Sample Complexity of Preference Learning?,"Direct terminology, Proxy optimization",included,Theory,Application supplement
+2501.04686,Unlocking Multimodal Mathematical Reasoning via Process Reward Model,Direct terminology,outside core screen,,
+2501.05803,Test-time Alignment of Diffusion Models without Reward Over-optimization,Proxy optimization,included,Mitigation,Focused screen
+2501.06481,Focus-N-Fix: Region-Aware Fine-Tuning for Text-to-Image Generation,Direct terminology,outside core screen,,
+2501.07761,Impatient Bandits: Optimizing for the Long-Term Without Delay,Proxy optimization,outside core screen,,
+2501.08325,GameFactory: Creating New Games with Generative Interactive Videos,Direct terminology,outside core screen,,
+2501.09620,Beyond Reward Hacking: Causal Rewards for Large Language Model Alignment,Explicit titles,included,Mitigation,Focused screen
+2501.11183,Can Safety Fine-Tuning Be More Principled? Lessons Learned from Cybersecurity,Direct terminology,outside core screen,,
+2501.13011,MONA: Myopic Optimization with Non-myopic Approval Can Mitigate Multi-step Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2501.17030,Challenges in Ensuring AI Safety in DeepSeek-R1 Models: The Shortcomings of Reinforcement Learning Strategies,Direct terminology,outside core screen,,
+2501.18873,Best Policy Learning from Trajectory Preference Feedback,Direct terminology,outside core screen,,
+2501.19358,The Energy Loss Phenomenon in RLHF: A New Perspective on Mitigating Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2502.01456,Process Reinforcement through Implicit Rewards,Direct terminology,outside core screen,,
+2502.01618,Rollout Roulette: A Probabilistic Inference Approach to Inference-Time Scaling of LLMs using Particle-Based Monte Carlo Methods,Direct terminology,outside core screen,,
+2502.02671,On Teacher Hacking in Language Model Distillation,Direct terminology,included,Behavior,Focused screen
+2502.04371,PerPO: Perceptual Preference Optimization via Discriminative Rewarding,Direct terminology,included,Mitigation,Application supplement
+2502.05934,Intrinsic Barriers and Practical Pathways for Human-AI Alignment: An Agreement-Based Complexity Analysis,Direct terminology,included,Theory,Application supplement
+2502.06773,On the Emergence of Thinking in LLMs I: Searching for the Right Intuition,Direct terminology,outside core screen,,
+2502.08977,Text-driven 3D Human Generation via Contrastive Preference Optimization,Direct terminology,included,Mitigation,Application supplement
+2502.10174,Technical Risks of (Lethal) Autonomous Weapons Systems,Direct terminology,outside core screen,,
+2502.10325,Process Reward Models for LLM Agents: Practical Framework and Directions,Direct terminology,included,Behavior,Application supplement
+2502.10894,Bridging the Sim-to-Real Gap for Athletic Loco-Manipulation,Direct terminology,included,Behavior,Focused screen
+2502.11250,Uncertainty-Aware Step-wise Verification with Generative Reward Models,Direct terminology,outside core screen,,
+2502.11656,Uncovering the Impact of Chain-of-Thought Reasoning for Direct Preference Optimization: Lessons from Text-to-SQL,Direct terminology,included,Mitigation,Application supplement
+2502.12081,Unhackable Temporal Rewarding for Scalable Video MLLMs,Proxy optimization,included,Mitigation,Focused screen
+2502.12530,Translate Policy to Language: Flow Matching Generated Rewards for LLM Explanations,Proxy optimization,outside core screen,,
+2502.12668,Evaluation of Best-of-N Sampling Strategies for Language Model Alignment,"Direct terminology, Proxy optimization",included,Mitigation,Application supplement
+2502.13295,Demonstrating specification gaming in reasoning models,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2502.13918,Playing Hex and Counter Wargames using Reinforcement Learning and Recurrent Neural Networks,Direct terminology,outside core screen,,
+2502.13957,Supervising the search process produces reliable and generalizable information-seeking agents,Direct terminology,outside core screen,,
+2502.14842,Generating $π$-Functional Molecules Using STGG+ with Active Learning,Direct terminology,outside core screen,,
+2502.18770,Reward Shaping to Mitigate Reward Hacking in RLHF,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2502.21321,LLM Post-Training: A Deep Dive into Reasoning Large Language Models,Direct terminology,outside core screen,,
+2503.04740,PRISM: Perspective Reasoning for Integrated Synthesis and Mediation as a Multi-Perspective Framework for AI Alignment,Direct terminology,outside core screen,,
+2503.05788,Emergent Abilities in Large Language Models: A Survey,Direct terminology,outside core screen,,
+2503.06171,ROCM: RLHF on consistency models,Direct terminology,included,Mitigation,Application supplement
+2503.06337,Pretraining Generative Flow Networks with Inexpensive Rewards for Molecular Graph Generation,Proxy optimization,outside core screen,,
+2503.06810,Mitigating Preference Hacking in Policy Optimization with Pessimism,Expert seed,included,Mitigation,Focused screen
+2503.08963,Gradient-guided Attention Map Editing: Towards Efficient Contextual Hallucination Mitigation,Direct terminology,outside core screen,,
+2503.11720,RPO: Fine-Tuning Visual Generative Models via Rich Vision-Language Preferences,Direct terminology,outside core screen,,
+2503.11926,Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation,Direct terminology,included,Detection,Focused screen
+2503.13551,Towards Hierarchical Multi-Step Reward Models for Enhanced Reasoning in Large Language Models,Direct terminology,outside core screen,,
+2503.13817,VARP: Reinforcement Learning from Vision-Language Model Feedback with Agent Regularized Preferences,Direct terminology,outside core screen,,
+2503.14555,A Generalist Hanabi Agent,Direct terminology,outside core screen,,
+2503.17286,Offline Model-Based Optimization: Comprehensive Review,Direct terminology,outside core screen,,
+2503.18013,Vision-R1: Evolving Human-Free Alignment in Large Vision-Language Models via Vision-Guided Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2503.18130,Mitigating Reward Over-Optimization in RLHF via Behavior-Supported Regularization,Proxy optimization,included,Mitigation,Focused screen
+2503.21263,Cultivating Game Sense for Yourself: Making VLMs Gaming Experts,Direct terminology,outside core screen,,
+2503.21849,Selection of the fittest or selection of the luckiest: the emergence of Goodhart's law in evolution,Adjacent titles,outside core screen,,
+2503.21878,"Is Best-of-N the Best of Them? Coverage, Scaling, and Optimality in Inference-Time Alignment",Direct terminology,included,Theory,Application supplement
+2503.22230,Exploring Data Scaling Trends and Effects in Reinforcement Learning from Human Feedback,Direct terminology,included,Behavior,Application supplement
+2503.22480,Probabilistic Uncertain Reward Model,"Direct terminology, Proxy optimization",outside core screen,,
+2504.02193,More is Less: The Pitfalls of Multi-Model Synthetic Preference Data in DPO Safety Alignment,Direct terminology,included,Behavior,Application supplement
+2504.04524,Trust Region Preference Approximation: A simple and stable reinforcement learning algorithm for LLM reasoning,Direct terminology,outside core screen,,
+2504.05294,Truthful or Fabricated? Using Causal Attribution to Mitigate Reward Hacking in Explanations,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2504.06141,Adversarial Training of Reward Models,Direct terminology,included,Mitigation,Focused screen
+2504.07615,VLM-R1: A Stable and Generalizable R1-style Large Vision-Language Model,Direct terminology,included,Behavior,Application supplement
+2504.10045,CHARM: Calibrating Reward Models With Chatbot Arena Scores,Direct terminology,outside core screen,,
+2504.13134,Energy-Based Reward Models for Robust Language Model Alignment,Direct terminology,included,Mitigation,Focused screen
+2504.15275,Stop Summation: Min-Form Credit Assignment Is All Process Reward Model Needs for Reasoning,Direct terminology,included,Mitigation,Application supplement
+2504.20157,Toward Evaluative Thinking: Meta Policy Optimization with Evolving Reward Models,Direct terminology,outside core screen,,
+2505.05410,Reasoning Models Don't Always Say What They Think,Direct terminology,included,Behavior,Focused screen
+2505.05470,Flow-GRPO: Training Flow Matching Models via Online RL,Direct terminology,included,Behavior,Application supplement
+2505.07846,Winning at All Cost: A Small Environment for Eliciting Specification Gaming Behaviors in Large Language Models,Explicit titles,included,Benchmarking,Focused screen
+2505.11824,Latent Veracity Inference for Identifying Errors in Stepwise Reasoning,Proxy optimization,outside core screen,,
+2505.12611,Action-Dependent Optimality-Preserving Reward Shaping,Direct terminology,included,Theory,Application supplement
+2505.12763,Rethinking Reward Model Evaluation Through the Lens of Reward Overoptimization,"Proxy optimization, Explicit titles",included,Benchmarking,Focused screen
+2505.12843,Bias Fitting to Mitigate Length Bias of Reward Model in RLHF,Direct terminology,included,Mitigation,Focused screen
+2505.13886,Game-RL: Synthesizing Multimodal Verifiable Game Data to Boost VLMs' General Reasoning,"Explicit titles, Adjacent titles",outside core screen,,
+2505.14946,Reinforcement Learning from User Feedback,Direct terminology,outside core screen,,
+2505.15034,RL Tango: Reinforcing Generator and Verifier Together for Language Reasoning,Direct terminology,outside core screen,,
+2505.15810,GUI-G1: Understanding R1-Zero-Like Training for Visual Grounding in GUI Agents,Direct terminology,included,Mitigation,Application supplement
+2505.16265,Think-RM: Enabling Long-Horizon Reasoning in Generative Reward Models,Direct terminology,outside core screen,,
+2505.17018,SophiaVL-R1: Reinforcing MLLMs Reasoning with Thinking Reward,Direct terminology,included,Mitigation,Application supplement
+2505.17352,Alignment and Safety of Diffusion Models via Reinforcement Learning and Reward Modeling: A Survey,"Direct terminology, Proxy optimization",included,Synthesis,Application supplement
+2505.17618,Scaling Image and Video Generation via Test-Time Evolutionary Search,Proxy optimization,outside core screen,,
+2505.17910,DiffusionReward: Enhancing Blind Face Restoration through Reward Feedback Learning,Direct terminology,included,Mitigation,Application supplement
+2505.18126,Reward Model Overoptimisation in Iterated RLHF,Explicit titles,included,Behavior,Focused screen
+2505.20556,Learning a Pessimistic Reward Model in RLHF,Direct terminology,included,Mitigation,Focused screen
+2505.21444,Can Large Reasoning Models Self-Train?,Direct terminology,included,Behavior,Application supplement
+2505.21493,Reinforcing General Reasoning without Verifiers,Direct terminology,outside core screen,,
+2505.22203,From Accuracy to Robustness: A Study of Rule- and Model-based Verifiers in Mathematical Reasoning,Direct terminology,included,Behavior,Application supplement
+2505.23445,"The Strong, Weak and Benign Goodhart's law. An independence-free and paradigm-agnostic formalisation",Adjacent titles,included,Theory,Focused screen
+2505.24369,Adversarial Preference Learning for Robust LLM Alignment,Direct terminology,included,Mitigation,Focused screen
+2506.00103,Writing-Zero: Bridge the Gap Between Non-verifiable Tasks and Verifiable Rewards,Direct terminology,included,Mitigation,Application supplement
+2506.01511,Enhancing Diffusion-based Unrestricted Adversarial Attacks via Adversary Preferences Alignment,Direct terminology,outside core screen,,
+2506.01926,Large language models can learn and generalize steganographic chain-of-thought under process supervision,Direct terminology,included,Behavior,Focused screen
+2506.05294,A Smooth Sea Never Made a Skilled SAILOR: Robust Imitation via Learning to Search,Direct terminology,outside core screen,,
+2506.05339,"Flattery, Fluff, and Fog: Diagnosing and Mitigating Idiosyncratic Biases in Preference Models",Direct terminology,included,Mitigation,Focused screen
+2506.06877,Right Is Not Enough: The Pitfalls of Outcome Supervision in Training LLMs for Math Reasoning,Direct terminology,included,Behavior,Focused screen
+2506.08681,Mitigating Reward Over-optimization in Direct Alignment Algorithms with Importance Sampling,Expert seed,included,Mitigation,Focused screen
+2506.08712,ConfPO: Exploiting Policy Model Confidence for Critical Token Selection in Preference Optimization,Direct terminology,included,Mitigation,Application supplement
+2506.09366,SkillBlender: Towards Versatile Humanoid Whole-Body Loco-Manipulation via Skill Blending,Direct terminology,included,Mitigation,Application supplement
+2506.11902,TreeRL: LLM Reinforcement Learning with On-Policy Tree Search,Direct terminology,outside core screen,,
+2506.15651,AutoRule: Reasoning Chain-of-thought Extracted Rule-based Rewards Improve Preference Learning,Direct terminology,included,Mitigation,Application supplement
+2506.15684,Nabla-R2D3: Effective and Efficient 3D Diffusion Alignment with 2D Rewards,Direct terminology,included,Mitigation,Application supplement
+2506.16507,Robust Reward Modeling via Causal Rubrics,Direct terminology,included,Mitigation,Focused screen
+2506.17007,Discrete Compositional Generation via General Soft Operators and Robust Reinforcement Learning,Proxy optimization,outside core screen,,
+2506.18631,ReDit: Reward Dithering for Improved LLM Policy Optimization,Direct terminology,included,Mitigation,Focused screen
+2506.19248,Inference-Time Reward Hacking in Large Language Models,"Direct terminology, Proxy optimization, Explicit titles",included,Behavior,Focused screen
+2506.20930,Quantum Reinforcement Learning Trading Agent for Sector Rotation in the Taiwan Stock Market,Proxy optimization,outside core screen,,
+2506.21594,Gazal-R1: Achieving State-of-the-Art Medical Reasoning with Parameter-Efficient Two-Stage Training,Direct terminology,outside core screen,,
+2506.22777,Teaching Models to Verbalize Reward Hacking in Chain-of-Thought Reasoning,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2506.22957,Agent-to-Agent Theory of Mind: Testing Interlocutor Awareness among Large Language Models,Direct terminology,included,Behavior,Application supplement
+2506.23844,A Survey on Autonomy-Induced Security Risks in Large Model-Based Agents,Direct terminology,outside core screen,,
+2507.01368,Activation Reward Models for Few-Shot Model Alignment,Direct terminology,included,Mitigation,Application supplement
+2507.01551,Self-Guided Process Reward Optimization with Redefined Step-wise Advantage for Process Reinforcement Learning,Direct terminology,outside core screen,,
+2507.03068,Mitigating Goal Misgeneralization via Minimax Regret,Adjacent titles,outside core screen,,
+2507.04136,A Technical Survey of Reinforcement Learning Techniques for Large Language Models,Direct terminology,outside core screen,,
+2507.05328,Going Beyond Heuristics by Imposing Policy Improvement as a Constraint,Direct terminology,included,Mitigation,Application supplement
+2507.05619,Detecting Proxy Gaming in RL and LLM Alignment via Evaluator Stress Tests,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2507.05913,Best-of-N through the Smoothing Lens: KL Divergence and Regret Analysis,Proxy optimization,included,Mitigation,Application supplement
+2507.07375,Bradley-Terry and Multi-Objective Reward Modeling Are Complementary,Direct terminology,outside core screen,,
+2507.07532,Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings,"Explicit titles, Adjacent titles",outside core screen,,
+2507.08794,One Token to Fool LLM-as-a-Judge,Direct terminology,included,Behavior,Focused screen
+2507.15698,CoLD: Counterfactually-Guided Length Debiasing for Process Reward Models in Mathematical Reasoning,Expert seed,included,Mitigation,Focused screen
+2507.17581,A convergent sum-of-squares hierarchy for compiled nonlocal games,Direct terminology,outside core screen,,
+2507.17842,Shop-R1: Rewarding LLMs to Simulate Human Behavior in Online Shopping via Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2507.18742,Specification Self-Correction: Mitigating In-Context Reward Hacking Through Test-Time Refinement,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2507.19725,Minding Motivation: The Effect of Intrinsic Motivation on Agent Behaviors,Direct terminology,included,Behavior,Application supplement
+2507.23317,Good Learners Think Their Thinking: Generative PRM Makes Large Reasoning Model More Efficient Math Learner,Direct terminology,included,Mitigation,Application supplement
+2508.00410,Co-rewarding: Stable Self-supervised RL for Eliciting Reasoning in Large Language Models,Direct terminology,outside core screen,,
+2508.01318,AffectGPT-R1: Leveraging Reinforcement Learning for Open-Vocabulary Multimodal Emotion Recognition,Direct terminology,included,Mitigation,Application supplement
+2508.03905,Sotopia-RL: Reward Design for Social Intelligence,Direct terminology,included,Mitigation,Application supplement
+2508.04002,CAD-Judge: Toward Efficient Morphological Grading and Verification for Text-to-CAD Generation,Direct terminology,outside core screen,,
+2508.04216,Causal Reward Adjustment: Mitigating Reward Hacking in External Reasoning via Backdoor Correction,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2508.04389,GuirlVG: Incentivize GUI Visual Grounding via Empirical Exploration on Reinforcement Learning,Proxy optimization,included,Mitigation,Application supplement
+2508.04632,IFDECORATOR: Wrapping Instruction Following Reinforcement Learning with Verifiable Rewards,Direct terminology,included,Detection,Application supplement
+2508.05170,ReCode: Reinforcing Code Generation with Reasoning-Process Rewards,Direct terminology,included,Mitigation,Application supplement
+2508.05613,Cooper: Co-Optimizing Policy and Reward Models in Reinforcement Learning for Large Language Models,Direct terminology,outside core screen,,
+2508.05618,Learning to Reason for Factuality,Direct terminology,included,Behavior,Application supplement
+2508.06394,"When AIOps Become ""AI Oops"": Subverting LLM-driven IT Operations via Telemetry Manipulation",Direct terminology,outside core screen,,
+2508.07137,A Principled Loss Function for Direct Language Model Alignment,Direct terminology,outside core screen,,
+2508.09155,A Rolling Stone Gathers No Moss: Adaptive Policy Optimization for Stable Self-Evaluation in Large Multimodal Models,Direct terminology,outside core screen,,
+2508.10355,Making Qwen3 Think in Korean with Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2508.10548,Stabilizing Long-term Multi-turn Reinforcement Learning with Gated Rewards,Direct terminology,outside core screen,,
+2508.12338,Wisdom of the Crowd: Reinforcement Learning from Coevolutionary Collective Feedback,Direct terminology,outside core screen,,
+2508.13700,The AI Risk Spectrum: From Dangerous Capabilities to Existential Threats,Direct terminology,outside core screen,,
+2508.14313,AIRL-S: Unifying Reinforcement Learning and Search-Based Test-Time Scaling via Adversarial Inverse Reinforcement Learning,Direct terminology,outside core screen,,
+2508.14391,Hallucination-Resistant Relation Extraction via Dependency-Aware Sentence Simplification and Two-tiered Hierarchical Refinement,Direct terminology,included,Mitigation,Application supplement
+2508.15811,From Clicks to Preference: A Multi-stage Alignment Framework for Generative Query Suggestion in Conversational System,Direct terminology,included,Mitigation,Application supplement
+2508.16277,The next question after Turing's question: Introducing the Grow-AI test,Direct terminology,outside core screen,,
+2508.17229,Multi-Metric Preference Alignment for Generative Speech Restoration,Direct terminology,included,Mitigation,Application supplement
+2508.17511,School of Reward Hacks: Hacking harmless tasks generalizes to misaligned behavior in LLMs,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2508.17637,Weights-Rotated Preference Optimization for Large Language Models,Direct terminology,outside core screen,,
+2508.19184,Separating Intent from Execution: A Probabilistic Approach to Pitch Location Accuracy,Direct terminology,outside core screen,,
+2508.20465,On the possibility of deep alignment,Direct terminology,outside core screen,,
+2508.20751,Pref-GRPO: Pairwise Preference Reward-based GRPO for Stable Text-to-Image Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2509.02655,BioBlue: Systematic runaway-optimiser-like LLM failure modes on biologically and economically aligned AI safety benchmarks for LLMs with simplified observation format,Direct terminology,outside core screen,,
+2509.03403,Beyond Correctness: Harmonizing Process and Outcome Rewards through RL Training,Direct terminology,included,Behavior,Application supplement
+2509.07027,Moment- and Power-Spectrum-Based Gaussianity Regularization for Text-to-Image Models,Direct terminology,included,Mitigation,Application supplement
+2509.08826,RewardDance: Reward Scaling in Visual Generation,Direct terminology,outside core screen,,
+2509.10260,MagicMirror: A Large-Scale Dataset and Benchmark for Fine-Grained Artifacts Assessment in Text-to-Image Generation,Direct terminology,included,Mitigation,Application supplement
+2509.13339,Position: AI Safety Must Embrace an Antifragile Perspective,Direct terminology,outside core screen,,
+2509.15557,Reward Hacking Mitigation using Verifiable Composite Rewards,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2509.15932,The Alignment Bottleneck,Direct terminology,outside core screen,,
+2509.15968,CoReVLA: A Dual-Stage End-to-End Autonomous Driving Framework for Long-Tail Scenarios via Collect-and-Refine,Direct terminology,outside core screen,,
+2509.19199,Agentic Reinforcement Learning with Implicit Step Rewards,Direct terminology,outside core screen,,
+2509.20265,Failure Modes of Maximum Entropy RLHF,Direct terminology,included,Behavior,Focused screen
+2509.20935,GALAX: Graph-Augmented Language Model for Explainable Reinforcement-Guided Subgraph Reasoning in Precision Medicine,Direct terminology,outside core screen,,
+2509.21319,RLBFF: Binary Flexible Feedback to bridge between Human Feedback & Verifiable Rewards,Direct terminology,outside core screen,,
+2509.21500,Chasing the Tail: Effective Rubric-based Reward Modeling for Large Language Model Post-Training,Proxy optimization,outside core screen,,
+2509.22047,MO-GRPO: Mitigating Reward Hacking of Group Relative Policy Optimization on Multi-Objective Problems,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2509.22323,RAPID^3: Tri-Level Reinforced Acceleration Policies for Diffusion Transformer,Direct terminology,included,Mitigation,Application supplement
+2509.23082,Follow-Your-Preference: Towards Preference-Aligned Image Inpainting,Direct terminology,outside core screen,,
+2509.23095,Causally-Enhanced Reinforcement Policy Optimization,Direct terminology,included,Mitigation,Application supplement
+2509.24372,Evolution Strategies at Scale: LLM Fine-Tuning Beyond Reinforcement Learning,Direct terminology,outside core screen,,
+2509.24713,Circuit-Aware Reward Training: A Mechanistic Framework for Longtail Robustness in RLHF,Direct terminology,outside core screen,,
+2509.25027,STAGE: Stable and Generalizable GRPO for Autoregressive Image Generation,Direct terminology,included,Mitigation,Application supplement
+2509.25845,Training-Free Reward-Guided Image Editing via Trajectory Optimal Control,Direct terminology,outside core screen,,
+2509.26209,Diversity-Incentivized Exploration for Versatile Reasoning,Direct terminology,included,Mitigation,Application supplement
+2509.26578,Linking Process to Outcome: Conditional Reward Modeling for LLM Reasoning,Direct terminology,included,Mitigation,Application supplement
+2509.26627,TimeRewarder: Learning Dense Reward from Passive Videos via Frame-wise Temporal Distance,Proxy optimization,outside core screen,,
+2510.00072,Unlocking Zero-Shot Geospatial Reasoning via Indirect Rewards,Proxy optimization,outside core screen,,
+2510.00430,PromptLoop: Plug-and-Play Prompt Refinement via Latent Feedback for Diffusion Model Alignment,Direct terminology,outside core screen,,
+2510.00502,Diffusion Alignment as Variational Expectation-Maximization,Proxy optimization,outside core screen,,
+2510.01266,OpenAI's GPT-OSS-20B Model and Safety Alignment Issues in a Low-Resource Language,Direct terminology,outside core screen,,
+2510.01367,Is It Thinking or Cheating? Detecting Implicit Reward Hacking by Measuring Reasoning Effort,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2510.01549,MIRA: Towards Mitigating Reward Hacking in Inference-Time Alignment of T2I Diffusion Models,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2510.03231,Reward Models are Metrics in a Trench Coat,Direct terminology,included,Behavior,Focused screen
+2510.04852,FreshBrew: A Benchmark for Evaluating AI Agents on Java Code Migration,Direct terminology,included,Benchmarking,Focused screen
+2510.04885,RL Is a Hammer and LLMs Are Nails: A Simple Reinforcement Learning Recipe for Strong Prompt Injection,Direct terminology,included,Behavior,Application supplement
+2510.05024,Inoculation Prompting: Instructing LLMs to misbehave at train-time improves test-time alignment,Direct terminology,included,Mitigation,Focused screen
+2510.07038,Tool-Augmented Policy Optimization: Synergizing Reasoning and Adaptive Tool Use with Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2510.07284,Online Rubrics Elicitation from Pairwise Comparisons,Direct terminology,outside core screen,,
+2510.07721,RePainter: Empowering E-commerce Object Removal via Spatial-matting Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2510.07774,Curing Miracle Steps in LLM Mathematical Reasoning with Rubric Rewards,Direct terminology,included,Mitigation,Focused screen
+2510.10931,Proof-of-Use: Mitigating Tool-Call Hacking in Deep Research Agents,Expert seed,included,Mitigation,Focused screen
+2510.11498,ReLook: Vision-Grounded RL with a Multimodal LLM Critic for Agentic Web Coding,Direct terminology,included,Mitigation,Application supplement
+2510.12710,Reflection-Based Task Adaptation for Self-Improving VLA,"Direct terminology, Proxy optimization",outside core screen,,
+2510.13036,Repairing Reward Functions with Feedback to Mitigate Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2510.13694,Information-Theoretic Reward Modeling for Stable RLHF: Detecting and Mitigating Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2510.14253,Towards Agentic Self-Learning LLMs in Search Environment,Direct terminology,included,Behavior,Application supplement
+2510.15211,ReasonIF: Large Reasoning Models Fail to Follow Instructions During Reasoning,Direct terminology,outside core screen,,
+2510.15859,InfiMed-ORBIT: Aligning LLMs on Open-Ended Complex Tasks via Rubric-Based Incremental Training,Direct terminology,outside core screen,,
+2510.17057,The Ends Justify the Thoughts: RL-Induced Motivated Reasoning Fools CoT Monitors,Direct terminology,included,Behavior,Focused screen
+2510.17891,TritonRL: Training LLMs to Think and Code Triton Without Cheating,Direct terminology,included,Mitigation,Focused screen
+2510.18053,Adaptive Divergence Regularized Policy Optimization for Fine-tuning Generative Models,Direct terminology,outside core screen,,
+2510.18232,ACTG-ARL: Differentially Private Conditional Text Generation with RL-Boosted Control,Direct terminology,included,Mitigation,Application supplement
+2510.18849,Towards Faithful and Controllable Personalization via Critique-Post-Edit Reinforcement Learning,Direct terminology,outside core screen,,
+2510.19050,Rectifying Shortcut Behaviors in Preference-based Reward Learning,Direct terminology,included,Mitigation,Focused screen
+2510.20008,Simultaneous learning of state-to-state minimum-time planning and control,Proxy optimization,outside core screen,,
+2510.20270,ImpossibleBench: Measuring LLMs' Propensity of Exploiting Test Cases,Expert seed,included,Benchmarking,Focused screen
+2510.20369,Ask a Strong LLM Judge when Your Reward Model is Uncertain,Direct terminology,included,Mitigation,Focused screen
+2510.21053,A Reinforcement Learning Framework for Robust and Secure LLM Watermarking,Direct terminology,included,Mitigation,Application supplement
+2510.21853,Policy Optimization Prefers The Path of Least Resistance,Direct terminology,included,Behavior,Focused screen
+2510.22319,GRPO-Guard: Mitigating Implicit Over-Optimization in Flow Matching via Regulated Clipping,Proxy optimization,included,Mitigation,Focused screen
+2510.23925,Latent Chain-of-Thought for Visual Reasoning,Direct terminology,outside core screen,,
+2510.25528,Zero Reinforcement Learning Towards General Domains,Direct terminology,included,Mitigation,Application supplement
+2511.00059,Automatically Finding Rule-Based Neurons in OthelloGPT,Direct terminology,outside core screen,,
+2511.09109,Thinking Forward and Backward: Multi-Objective Reinforcement Learning for Retrieval-Augmented Reasoning,Direct terminology,outside core screen,,
+2511.09693,ConstrainedSQL: Training LLMs for Text2SQL via Constrained Reinforcement Learning,Direct terminology,outside core screen,,
+2511.10704,The Second Law of Intelligence: Controlling Ethical Entropy in Autonomous Systems,Direct terminology,included,Theory,Application supplement
+2511.11881,Better LLM Reasoning via Dual-Play,Direct terminology,included,Mitigation,Application supplement
+2511.11896,VULPO: Context-Aware Vulnerability Detection via On-Policy LLM Optimization,Direct terminology,included,Mitigation,Application supplement
+2511.12294,ProofWright: Towards Agentic Formal Verification of CUDA,Direct terminology,outside core screen,,
+2511.13649,Distribution Matching Distillation Meets Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2511.16073,Mathematical Framework for Custom Reward Functions in Job Application Evaluation using Reinforcement Learning,Direct terminology,included,Behavior,Application supplement
+2511.16110,Multi-Faceted Attack: Exposing Cross-Model Vulnerabilities in Defense-Equipped Vision-Language Models,Direct terminology,outside core screen,,
+2511.17869,The Horcrux: Mechanistically Interpretable Task Decomposition for Detecting and Mitigating Reward Hacking in Embodied AI Systems,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2511.17879,Generative Adversarial Post-Training Mitigates Reward Hacking in Live Human-AI Music Interaction,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2511.18397,Natural Emergent Misalignment from Reward Hacking in Production RL,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2511.18437,Perceptual-Evidence Anchored Reinforced Learning for Multimodal Reasoning,Direct terminology,outside core screen,,
+2511.18658,Understanding Optimal Portfolios of Strategies for Solving Two-player Zero-sum Games,Direct terminology,outside core screen,,
+2511.19356,Rethinking Reward Signals in Video GRPO: When Scores Become Targets,Direct terminology,included,Behavior,Focused screen
+2511.19661,CodeV: Code with Images for Faithful Visual Reasoning via Tool-Aware Policy Optimization,Direct terminology,outside core screen,,
+2511.20256,The Image as Its Own Reward: Reinforcement Learning with Adversarial Reward for Image Generation,Direct terminology,included,Mitigation,Application supplement
+2511.20549,Flash-DMD: Towards High-Fidelity Few-Step Image Generation with Efficient Distillation and Joint Reinforcement Learning,Direct terminology,outside core screen,,
+2511.20668,PIRA: Preference-Oriented Instruction-Tuned Reward Models with Dual Aggregation,Proxy optimization,outside core screen,,
+2511.20889,Test-Time Alignment of Text-to-Image Diffusion Models via Null-Text Embedding Optimisation,Direct terminology,included,Mitigation,Application supplement
+2511.21654,EvilGenie: A Reward Hacking Benchmark,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2511.23002,JarvisEvo: Towards a Self-Evolving Photo Editing Agent with Synergistic Editor-Evaluator Optimization,Direct terminology,included,Behavior,Application supplement
+2511.23092,Does Self-Evaluation Enable Wireheading in Language Models?,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2512.00724,UMM-RM: An Upcycle-and-Merge MoE Reward Model for Mitigating Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2512.02807,SR-GRPO: Stable Rank as an Intrinsic Geometric Reward for Large Language Model Alignment,Direct terminology,outside core screen,,
+2512.03438,Multimodal Reinforcement Learning with Adaptive Verifier for AI Agents,Direct terminology,included,Mitigation,Application supplement
+2512.04302,Towards better dense rewards in Reinforcement Learning Applications,Direct terminology,outside core screen,,
+2512.04332,Data-regularized Reinforcement Learning for Diffusion Models at Scale,Direct terminology,included,Mitigation,Application supplement
+2512.04552,RRPO: Robust Reward Policy Optimization for LLM-based Emotional TTS,Direct terminology,included,Mitigation,Application supplement
+2512.04559,Diffusion Fine-Tuning via Reparameterized Policy Gradient of the Soft Q-Function,Proxy optimization,outside core screen,,
+2512.06835,Decouple to Generalize: Context-First Self-Evolving Learning for Data-Scarce Vision-Language Reasoning,Direct terminology,outside core screen,,
+2512.07407,Training Language Models to Use Prolog as a Tool,Direct terminology,included,Behavior,Application supplement
+2512.07478,Enhancing Agentic RL with Progressive Reward Shaping and Value-based Sampling Policy Optimization,Direct terminology,outside core screen,,
+2512.07783,"On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models",Direct terminology,included,Behavior,Application supplement
+2512.08093,Training LLMs for Honesty via Confessions,Direct terminology,included,Mitigation,Focused screen
+2512.09212,Targeting Misalignment: A Conflict-Aware Framework for Reward-Model-based LLM Alignment,Proxy optimization,outside core screen,,
+2512.12387,Anchoring Values in Temporal and Group Dimensions for Flow Matching Model Alignment,Direct terminology,included,Mitigation,Application supplement
+2512.13727,RAST-MoE-RL: A Regime-Aware Spatio-Temporal MoE Framework for Deep Reinforcement Learning in Ride-Hailing,Direct terminology,outside core screen,,
+2512.17267,AutoMetrics: Approximate Human Judgements with Automatically Generated Evaluators,Proxy optimization,outside core screen,,
+2512.19027,Recontextualization Mitigates Specification Gaming without Modifying the Specification,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2512.20176,Optimistic TEE-Rollups: A Hybrid Architecture for Scalable and Verifiable Generative AI Inference on Blockchain,Direct terminology,outside core screen,,
+2512.20806,Safety Alignment of LMs via Non-cooperative Games,Direct terminology,outside core screen,,
+2512.22170,SoliReward: Mitigating Susceptibility to Reward Hacking and Annotation Noise in Video Generation Reward Models,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2512.22647,FinPercep-RM: A Fine-grained Reward Model and Co-evolutionary Curriculum for RL-based Real-world Super-Resolution,Direct terminology,included,Mitigation,Application supplement
+2512.22796,Parallel Diffusion Solver via Residual Dirichlet Policy Optimization,Direct terminology,included,Mitigation,Application supplement
+2512.23461,Eliminating Inductive Bias in Reward Models with Information-Theoretic Guidance,Direct terminology,outside core screen,,
+2512.23760,"Audited Skill-Graph Self-Improvement for Agentic LLMs via Verifiable Rewards, Experience Synthesis, and Continual Memory",Direct terminology,outside core screen,,
+2512.24138,GARDO: Reinforcing Diffusion Models without Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2512.24146,Taming Preference Mode Collapse via Directional Decoupling Alignment in Diffusion Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2601.02036,GDRO: Group-level Reward Post-training Suitable for Diffusion Models,Direct terminology,included,Behavior,Application supplement
+2601.02983,Interpretable All-Type Audio Deepfake Detection with Audio LLMs via Frequency-Time Reinforcement Learning,Direct terminology,outside core screen,,
+2601.03468,Understanding Reward Hacking in Text-to-Image Reinforcement Learning,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2601.03948,Trade-R1: Bridging Verifiable Rewards to Stochastic Environments via Process-Level Reasoning Verification,Direct terminology,included,Behavior,Application supplement
+2601.04805,Thinking-Based Non-Thinking: Solving the Reward Hacking Problem in Training Hybrid Reasoning Models via Reinforcement Learning,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2601.04954,Precision over Diversity: High-Precision Reward Generalizes to Robust Instruction Following,Direct terminology,outside core screen,,
+2601.05870,IIB-LPO: Latent Policy Optimization via Iterative Information Bottleneck,Direct terminology,outside core screen,,
+2601.06108,From RLHF to Direct Alignment: A Theoretical Unification of Preference Learning for Large Language Models,Proxy optimization,included,Theory,Application supplement
+2601.07718,Hiking in the Wild: A Scalable Perceptive Parkour Framework for Humanoids,Direct terminology,included,Mitigation,Application supplement
+2601.11583,Bit-politeia: An AI Agent Community in Blockchain,Direct terminology,outside core screen,,
+2601.12310,Survival is the Only Reward: Sustainable Self-Training Through Environment-Mediated Selection,Direct terminology,outside core screen,,
+2601.12995,Graph Reasoning Paradigm: Structured and Symbolic Reasoning with Topology-Aware Reinforcement Learning for Large Language Models,Direct terminology,outside core screen,,
+2601.15141,CLEANER: Self-Purified Trajectories Boost Agentic Reinforcement Learning,Direct terminology,outside core screen,,
+2601.15690,From Passive Metric to Active Signal: The Evolving Role of Uncertainty Quantification in Large Language Models,Direct terminology,outside core screen,,
+2601.15968,HyperAlign: Hypernetwork for Efficient Test-Time Alignment of Diffusion Models,"Direct terminology, Proxy optimization",outside core screen,,
+2601.16483,FlowSE-GRPO: Training Flow Matching Speech Enhancement via Online Reinforcement Learning,Direct terminology,included,Behavior,Application supplement
+2601.17223,Beyond Outcome Verification: Verifiable Process Reward Models for Structured Reasoning,Direct terminology,outside core screen,,
+2601.18533,From Verifiable Dot to Reward Chain: Harnessing Verifiable Reference-based Rewards for Reinforcement Learning of Open-ended Generation,Direct terminology,outside core screen,,
+2601.18778,Teaching Models to Teach Themselves: Reasoning at the Edge of Learnability,Proxy optimization,outside core screen,,
+2601.20103,Benchmarking Reward Hack Detection in Code Environments via Contrastive Analysis,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2601.20198,DeRaDiff: Denoising Time Realignment of Diffusion Models,Direct terminology,included,Behavior,Application supplement
+2601.21112,How does information access affect LLM monitors' ability to detect sabotage?,Direct terminology,included,Detection,Focused screen
+2601.21350,Factored Causal Representation Learning for Robust Reward Modeling in RLHF,Direct terminology,included,Mitigation,Focused screen
+2601.21847,READY: Reward Discovery for Meta-Black-Box Optimization,Direct terminology,outside core screen,,
+2601.22642,Pushing the Boundaries of Natural Reasoning: Interleaved Bonus from Formal-Logic Verification,Direct terminology,outside core screen,,
+2601.22648,UCPO: Uncertainty-Aware Policy Optimization,Direct terminology,included,Mitigation,Focused screen
+2601.22664,Real-Time Aligned Reward Model beyond Semantics,Proxy optimization,outside core screen,,
+2601.22801,Clipping-Free Policy Optimization for Large Language Models,Direct terminology,outside core screen,,
+2601.22865,Degradation-Aware Frequency Regulation of a Heterogeneous Battery Fleet via Reinforcement Learning,Proxy optimization,outside core screen,,
+2601.23045,The Hot Mess of AI: How Does Misalignment Scale With Model Intelligence and Task Complexity?,Direct terminology,outside core screen,,
+2601.23086,Chain-of-thought obfuscation learned from output supervision can generalise to unseen tasks,Direct terminology,included,Behavior,Focused screen
+2601.23206,High-quality generation of dynamic game content via small language models: A proof of concept,Direct terminology,outside core screen,,
+2602.00157,ProDCARL: Reinforcement Learning-Aligned Diffusion Models for De Novo Antimicrobial Peptide Design,Direct terminology,included,Mitigation,Application supplement
+2602.00857,Unifying Adversarial Robustness and Training Across Text Scoring Models,Direct terminology,included,Mitigation,Application supplement
+2602.01002,How RLHF Amplifies Sycophancy,Expert seed,included,Theory,Focused screen
+2602.01103,Probing RLVR training instability through the lens of objective-level hacking,Direct terminology,included,Behavior,Focused screen
+2602.01750,Adversarial Reward Auditing for Active Detection and Mitigation of Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2602.02572,Reward Shaping for (Inference-Time) Alignment: A Stackelberg Game Perspective,Direct terminology,outside core screen,,
+2602.03109,"One Model, All Roles: Multi-Turn, Multi-Agent Self-Play Reinforcement Learning for Conversational Social Intelligence",Direct terminology,included,Behavior,Application supplement
+2602.03806,COBALT: Contextual Bandit Learning with Offline Trajectories for Multi-Turn Code Generation,Direct terminology,included,Mitigation,Application supplement
+2602.04196,The Missing Half: Unveiling Training-time Implicit Safety Risks Beyond Deployment,Direct terminology,outside core screen,,
+2602.04663,Rethinking the Design Space of Reinforcement Learning for Diffusion Models: On the Importance of Likelihood Estimation Beyond Loss Design,Direct terminology,outside core screen,,
+2602.05183,Data-Centric Interpretability for LLM-based Multi-Agent Reinforcement Learning,Direct terminology,included,Behavior,Application supplement
+2602.05532,Split Personality Training: Revealing Latent Knowledge Through Alternate Personalities,Direct terminology,included,Mitigation,Application supplement
+2602.05723,Mitigating Hallucination in Financial Retrieval-Augmented Generation via Fine-Grained Knowledge Verification,Direct terminology,outside core screen,,
+2602.05842,Reinforcement World Model Learning for LLM-based Agents,Direct terminology,included,Mitigation,Application supplement
+2602.05885,Dr. Kernel: Reinforcement Learning Done Right for Triton Kernel Generations,Direct terminology,outside core screen,,
+2602.05897,Stop Rewarding Hallucinated Steps: Faithfulness-Aware Step-Level Reinforcement Learning for Small Reasoning Models,Direct terminology,included,Mitigation,Focused screen
+2602.05946,f-GRPO and Beyond: Divergence-Based Reinforcement Learning Algorithms for General LLM Alignment,Direct terminology,included,Mitigation,Application supplement
+2602.07069,Bird-SR: Bidirectional Reward-Guided Diffusion for Real-World Image Super-Resolution,Direct terminology,included,Mitigation,Application supplement
+2602.07774,GR2: Generative Reasoning Re-ranker,Direct terminology,included,Behavior,Application supplement
+2602.07801,VideoTemp-o3: Harmonizing Temporal Grounding and Video Understanding in Agentic Thinking-with-Videos,Direct terminology,included,Mitigation,Application supplement
+2602.07832,rePIRL: Learn PRM with Inverse RL for LLM Reasoning,Direct terminology,outside core screen,,
+2602.08646,Gradient Preconditioning for Efficient and Reliable Reward-Guided Generation,Direct terminology,outside core screen,,
+2602.08819,Bayesian Preference Learning for Test-Time Steerable Reward Models,Proxy optimization,included,Mitigation,Application supplement
+2602.09022,WorldCompass: Reinforcement Learning for Long-Horizon World Models,Direct terminology,included,Mitigation,Application supplement
+2602.09305,"Reward Modeling for Reinforcement Learning-Based LLM Reasoning: Design, Challenges, and Evaluation",Direct terminology,included,Synthesis,Application supplement
+2602.09767,Diverse Skill Discovery for Quadruped Robots via Unsupervised Learning,Direct terminology,included,Behavior,Application supplement
+2602.10006,"Answer First, Reason Later: Aligning Search Relevance via Mode-Balanced Reinforcement Learning",Direct terminology,outside core screen,,
+2602.10623,Mitigating Reward Hacking in RLHF via Bayesian Non-negative Reward Modeling,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2602.10885,Reinforcing Chain-of-Thought Reasoning with Self-Evolving Rubrics,Direct terminology,outside core screen,,
+2602.11089,DataChef: Cooking Up Optimal Data Recipes for LLM Adaptation via Reinforcement Learning,Proxy optimization,outside core screen,,
+2602.11523,Unifying Stable Optimization and Reference Regularization in RLHF,Direct terminology,outside core screen,,
+2602.11524,Adaptive Milestone Reward for GUI Agents,Direct terminology,outside core screen,,
+2602.12124,Alignment Risks from Capability-Seeking RL Training,Direct terminology,outside core screen,,
+2602.12155,FAIL: Flow Matching Adversarial Imitation Learning for Image Generation,Direct terminology,included,Mitigation,Application supplement
+2602.12394,Synthetic Interaction Data for Scalable Personalization in Large Language Models,Direct terminology,included,Mitigation,Application supplement
+2602.13551,Small Reward Models via Backward Inference,Direct terminology,included,Mitigation,Application supplement
+2602.14012,From SFT to RL: Demystifying the Post-Training Pipeline for LLM-based Vulnerability Detection,Direct terminology,included,Behavior,Application supplement
+2602.14069,Open Rubric System: Scaling Reinforcement Learning with Pairwise Adaptive Rubric,Direct terminology,outside core screen,,
+2602.15338,Discovering Implicit Large Language Model Alignment Objectives,Direct terminology,outside core screen,,
+2602.15515,The Obfuscation Atlas: Mapping Where Honesty Emerges in RLVR with Deception Probes,Direct terminology,included,Detection,Focused screen
+2602.15823,CrispEdit: Low-Curvature Projections for Scalable Non-Destructive LLM Editing,"Direct terminology, Proxy optimization",outside core screen,,
+2602.17633,When to Trust the Cheap Check: Weak and Strong Verification for Reasoning,Proxy optimization,outside core screen,,
+2602.18037,Gradient Regularization Mitigates Reward Hacking in Reinforcement Learning from Human Feedback and Verifiable Rewards,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2602.18082,AndroWasm: an Empirical Study on Android Malware Obfuscation through WebAssembly,Direct terminology,outside core screen,,
+2602.18297,Analyzing and Improving Chain-of-Thought Monitorability Through Information Theory,Direct terminology,included,Detection,Focused screen
+2602.19160,Reasoning Capabilities of Large Language Models. Lessons Learned from General Game Playing,Direct terminology,outside core screen,,
+2602.19416,IR$^3$: Contrastive Inverse Reinforcement Learning for Interpretable Detection and Mitigation of Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2602.20710,Counterfactual Simulation Training for Chain-of-Thought Faithfulness,Direct terminology,included,Detection,Application supplement
+2602.20751,SibylSense: Adaptive Rubric Learning via Memory Tuning and Adversarial Probing,Direct terminology,outside core screen,,
+2602.21628,RuCL: Stratified Rubric-Based Curriculum Learning for Multimodal Large Language Model Reasoning,Direct terminology,outside core screen,,
+2602.22623,ContextRL: Enhancing MLLM's Knowledge Discovery Efficiency with Context-Augmented RL,Direct terminology,included,Mitigation,Application supplement
+2602.23248,Mitigating Legibility Tax with Decoupled Prover-Verifier Games,"Explicit titles, Adjacent titles",outside core screen,,
+2602.24040,RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models,Proxy optimization,included,Mitigation,Application supplement
+2603.00918,Improving Text-to-Image Generation with Intrinsic Self-Confidence Rewards,Direct terminology,included,Mitigation,Application supplement
+2603.01481,Harmonizing Dense and Sparse Signals in Multi-turn RL: Dual-Horizon Credit Assignment for Industrial Sales Agents,Direct terminology,outside core screen,,
+2603.02637,StitchCUDA: An Automated Multi-Agents End-to-End GPU Programing Framework with Rubric-based Agentic Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2603.03291,One Bias After Another: Mechanistic Reward Shaping and Persistent Biases in Language Reward Models,Direct terminology,included,Behavior,Focused screen
+2603.04069,Monitoring Emergent Reward Hacking During Generation via Internal Activations,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2603.04974,VRM: Teaching Reward Models to Understand Authentic Human Preferences,Direct terminology,outside core screen,,
+2603.05739,Revisiting the (Sub)Optimality of Best-of-N for Inference-Time Alignment,Direct terminology,outside core screen,,
+2603.05881,Confidence Before Answering: A Paradigm Shift for Efficient LLM Uncertainty Estimation,Direct terminology,outside core screen,,
+2603.06621,Reward Under Attack: Analyzing the Robustness and Hackability of Process Reward Models,Direct terminology,included,Benchmarking,Focused screen
+2603.06623,Advances in GRPO for Generation Models: A Survey,Direct terminology,outside core screen,,
+2603.06797,Best-of-Tails: Bridging Optimism and Pessimism in Inference-Time Alignment,Direct terminology,outside core screen,,
+2603.07084,Countdown-Code: A Testbed for Studying The Emergence and Generalization of Reward Hacking in RLVR,"Direct terminology, Proxy optimization, Explicit titles",included,Benchmarking,Focused screen
+2603.08030,QualiTeacher: Quality-Conditioned Pseudo-Labeling for Real-World Image Restoration,Direct terminology,included,Mitigation,Application supplement
+2603.08640,PostTrainBench: Can LLM Agents Automate LLM Post-Training?,Direct terminology,included,Benchmarking,Application supplement
+2603.08806,Test-Driven AI Agent Definition (TDAD): Compiling Tool-Using Agents from Behavioral Specifications,Direct terminology,included,Mitigation,Application supplement
+2603.10279,Robust Post-Training for Generative Recommenders: Why Exponential Reward-Weighted SFT Outperforms RLHF,Direct terminology,outside core screen,,
+2603.11337,RewardHackingAgents: Benchmarking Evaluation Integrity for LLM ML-Engineering Agents,Expert seed,included,Benchmarking,Focused screen
+2603.12246,Examining Reasoning LLMs-as-Judges in Non-Verifiable LLM Post-Training,Direct terminology,included,Behavior,Application supplement
+2603.12826,Rethinking Multiple-Choice Questions for RLVR: Unlocking Potential via Distractor Design,Direct terminology,outside core screen,,
+2603.13045,Mending the Holes: Mitigating Reward Hacking in Reinforcement Learning for Multilingual Translation,Explicit titles,included,Mitigation,Focused screen
+2603.13224,Visual-ERM: Reward Modeling for Visual Equivalence,Direct terminology,outside core screen,,
+2603.14128,Diffusion Reinforcement Learning via Centered Reward Distillation,Direct terminology,included,Mitigation,Application supplement
+2603.15017,Consequentialist Objectives and Catastrophe,Direct terminology,included,Theory,Application supplement
+2603.16500,From the Inside Out: Progressive Distribution Refinement for Confidence Calibration,Direct terminology,outside core screen,,
+2603.16578,When and Why Does Unsupervised RL Succeed in Mathematical Reasoning? A Manifold Envelopment Perspective,Direct terminology,outside core screen,,
+2603.17051,Astrolabe: Steering Forward-Process Reinforcement Learning for Distilled Autoregressive Video Models,Direct terminology,included,Mitigation,Application supplement
+2603.17310,InfoDensity: Rewarding Information-Dense Traces for Efficient Reasoning,Direct terminology,outside core screen,,
+2603.17426,SHIFT: Motion Alignment in Video Diffusion Models with Adversarial Hybrid Fine-Tuning,Direct terminology,included,Mitigation,Application supplement
+2603.17461,AR-CoPO: Align Autoregressive Video Generation with Contrastive Policy Optimization,Direct terminology,outside core screen,,
+2603.19173,SOL-ExecBench: Speed-of-Light Benchmarking for Real-World GPU Kernels Against Hardware Limits,Direct terminology,included,Benchmarking,Application supplement
+2603.21065,LongCat-Flash-Prover: Advancing Native Formal Reasoning via Agentic Tool-Integrated Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2603.21175,Reward Sharpness-Aware Fine-Tuning for Diffusion Models,Direct terminology,included,Mitigation,Focused screen
+2603.23500,UniGRPO: Unified Policy Optimization for Reasoning-Driven Visual Generation,Direct terminology,included,Mitigation,Application supplement
+2603.23509,Internal Safety Collapse in LLMs and Coding Agents,Direct terminology,outside core screen,,
+2603.24422,OneSearch-V2: The Latent Reasoning Enhanced Self-distillation Generative Search Framework,Direct terminology,included,Mitigation,Application supplement
+2603.26535,PAPO: Stabilizing Rubric Integration Training via Decoupled Advantage Normalization,Direct terminology,included,Mitigation,Application supplement
+2603.27742,TIR-Agent: Training an Explorative and Efficient Agent for Image Restoration,Direct terminology,included,Mitigation,Application supplement
+2603.28063,Reward Hacking as Equilibrium under Finite Evaluation,"Direct terminology, Explicit titles",included,Theory,Focused screen
+2603.28730,SOLE-R1: Video-Language Reasoning as the Sole Reward for On-Robot Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2603.29993,"Extending MONA in Camera Dropbox: Reproduction, Learned Approval, and Design Implications for Reward-Hacking Mitigation","Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2604.01346,"Safety, Security, and Cognitive Risks in World Models",Direct terminology,outside core screen,,
+2604.01476,From Rebound to Remedy: Understanding and Mitigating Reward Hacking via Representation Engineering,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2604.02341,Process Rewards for Outcome-Guided Reasoning Steps in LLM Reinforcement Learning,Direct terminology,outside core screen,,
+2604.02986,Mitigating Reward Hacking in Reinforcement Learning from Human Feedback via Advantage Sign Robustness,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2604.03675,OASES: Outcome-Aligned Search-Evaluation Co-Training for Agentic Search,Proxy optimization,outside core screen,,
+2604.04237,Pedagogical Safety in Educational Reinforcement Learning: Formalizing and Detecting Reward Hacking in AI Tutoring Systems,"Direct terminology, Proxy optimization, Explicit titles",included,Detection,Focused screen
+2604.04251,MC-CPO: Mastery-Conditioned Constrained Policy Optimization for Pedagogically Safe Intelligent Tutoring Systems,Direct terminology,included,Mitigation,Focused screen
+2604.04648,From Curiosity to Caution: Mitigating Reward Hacking for Best-of-N with Pessimism,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2604.04872,Synthetic Sandbox for Training Machine Learning Engineering Agents,Proxy optimization,outside core screen,,
+2604.07484,ConsistRM: Improving Generative Reward Models via Consistency-Aware Self-Training,Direct terminology,outside core screen,,
+2604.07729,Emotion Concepts and their Function in a Large Language Model,Direct terminology,included,Behavior,Application supplement
+2604.08388,Awakening the Sleeping Agent: Lean-Specific Agentic Data Reactivates General Tool Use in Goedel Prover,Direct terminology,outside core screen,,
+2604.09793,GIANTS: Generative Insight Anticipation from Scientific Literature,Proxy optimization,outside core screen,,
+2604.10585,Calibration Collapse Under Sycophancy Fine-Tuning: How Reward Hacking Breaks Uncertainty Quantification in LLMs,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2604.10727,Tail-Aware Information-Theoretic Bounds for LLM Alignment under Heavy-Tailed Rewards,Direct terminology,included,Theory,Focused screen
+2604.11611,Utilizing and Calibrating Hindsight Process Rewards via Reinforcement with Mutual Information Self-Evaluation,Proxy optimization,outside core screen,,
+2604.11806,Detecting Safety Violations Across Many Agent Traces,Direct terminology,included,Detection,Focused screen
+2604.11950,AnyPoC: Universal Proof-of-Concept Test Generation for Scalable LLM-Based Bug Detection,Direct terminology,outside core screen,,
+2604.12086,Robust Optimization for Mitigating Reward Hacking with Correlated Proxies,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2604.12500,"Safety Training Modulates Harmful Misalignment Under On-Policy RL, But Direction Depends on Environment Design",Direct terminology,included,Behavior,Focused screen
+2604.12617,SOAR: Self-Correction for Optimal Alignment and Refinement in Diffusion Models,Direct terminology,outside core screen,,
+2604.13305,Bias at the End of the Score,Direct terminology,outside core screen,,
+2604.13386,Linear Probe Accuracy Scales with Model Size and Benefits from Multi-Layer Ensembling,Direct terminology,outside core screen,,
+2604.13602,"Reward Hacking in the Era of Large Models: Mechanisms, Emergent Misalignment, Challenges","Direct terminology, Explicit titles",included,Synthesis,Focused screen
+2604.14820,SWE-TRACE: Optimizing Long-Horizon SWE Agents Through Rubric Process Reward Models and Heuristic Test-Time Scaling,Direct terminology,outside core screen,,
+2604.14878,GenRec: A Preference-Oriented Generative Framework for Large-Scale Recommendation,Direct terminology,included,Mitigation,Application supplement
+2604.15149,LLMs Gaming Verifiers: RLVR can Lead to Reward Hacking,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2604.16242,Detecting and Suppressing Reward Hacking with Gradient Fingerprints,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2604.16723,Debate as Reward: A Multi-Agent Reward System for Scientific Ideation via RL Post-Training,Direct terminology,outside core screen,,
+2604.17573,Beyond Static Snapshots: A Grounded Evaluation Framework for Language Models at the Agentic Frontier,Direct terminology,outside core screen,,
+2604.17596,"Terminal Wrench: A Dataset of 331 Reward-Hackable Environments and 3,632 Exploit Trajectories",Explicit titles,included,Benchmarking,Focused screen
+2604.17769,Reverse Constitutional AI: A Framework for Controllable Toxic Data Generation via Probability-Clamped RLAIF,Direct terminology,outside core screen,,
+2604.18091,Culture-Aware Humorous Captioning: Multimodal Humor Generation across Cultural Contexts,Direct terminology,included,Mitigation,Application supplement
+2604.18574,When Can LLMs Learn to Reason with Weak Supervision?,Proxy optimization,outside core screen,,
+2604.18639,Easy Samples Are All You Need: Self-Evolving LLMs via Data-Efficient Reinforcement Learning,Direct terminology,outside core screen,,
+2604.19926,CreativeGame:Toward Mechanic-Aware Creative Game Generation,Proxy optimization,outside core screen,,
+2604.20051,Bootstrapping Post-training Signals for Open-ended Tasks via Rubric-based Self-play on Pre-training Text,Direct terminology,included,Mitigation,Application supplement
+2604.22032,Kernel Contracts: A Specification Language for ML Kernel Correctness Across Heterogeneous Silicon,Direct terminology,included,Mitigation,Application supplement
+2604.22082,Removing Sandbagging in LLMs by Training with Weak Supervision,Direct terminology,included,Behavior,Application supplement
+2604.22119,Emergent Strategic Reasoning Risks in AI: A Taxonomy-Driven Evaluation Framework,Direct terminology,outside core screen,,
+2604.23210,Discovering Agentic Safety Specifications from 1-Bit Danger Signals,Direct terminology,included,Behavior,Application supplement
+2604.23488,Do Prompt-Elicited Trajectories Reflect Training-Time Reward Hacking? A Systematic Study on Monitoring Training-Time Reward Hacking in Code Generation,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2604.23540,Oracle Noise: Faster Semantic Spherical Alignment for Interpretable Latent Optimization,Direct terminology,outside core screen,,
+2604.25872,When Errors Can Be Beneficial: A Categorization of Imperfect Rewards for Policy Gradient,Proxy optimization,included,Theory,Application supplement
+2604.26095,Distill-Belief: Closed-Loop Inverse Source Localization and Characterization in Physical Fields,Direct terminology,included,Behavior,Application supplement
+2604.26130,reward-lens: A Mechanistic Interpretability Library for Reward Models,Direct terminology,included,Detection,Application supplement
+2604.26360,Uncertainty-Aware Reward Discounting for Mitigating Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2604.28087,"Towards Neuro-symbolic Causal Rule Synthesis, Verification, and Evaluation Grounded in Legal and Safety Principles",Direct terminology,outside core screen,,
+2604.28126,AdvDMD: Adversarial Reward Meets DMD For High-Quality Few-Step Generation,Direct terminology,included,Mitigation,Application supplement
+2605.00012,Exploring LLM biases to manipulate AI search overview,Direct terminology,outside core screen,,
+2605.00155,Wasserstein Distributionally Robust Regret Optimization for Reinforcement Learning from Human Feedback,Proxy optimization,included,Mitigation,Focused screen
+2605.02269,Towards Understanding Specification Gaming in Reasoning Models,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2605.02964,Reward Hacking Benchmark: Measuring Exploits in LLM Agents with Tool Use,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2605.04356,Efficiently Aligning Language Models with Online Natural Language Feedback,Proxy optimization,outside core screen,,
+2605.05921,Intentmaking and Sensemaking: Human Interaction with AI-Guided Mathematical Discovery,Direct terminology,outside core screen,,
+2605.06660,Verifier-Backed Hard Problem Generation for Mathematical Reasoning,Direct terminology,outside core screen,,
+2605.07105,Theoretical Limits of Language Model Alignment,"Direct terminology, Proxy optimization",included,Theory,Application supplement
+2605.08063,Flow-OPD: On-Policy Distillation for Flow Matching Models,Direct terminology,outside core screen,,
+2605.08354,Auto-Rubric as Reward: From Implicit Preferences to Explicit Multimodal Generative Criteria,Direct terminology,outside core screen,,
+2605.09959,G-Zero: Self-Play for Open-Ended Generation from Zero Data,Direct terminology,outside core screen,,
+2605.10133,Usability as a Weapon: Attacking the Safety of LLM-Based Code Generation via Usability Requirements,Direct terminology,outside core screen,,
+2605.10141,FormalRewardBench: A Benchmark for Formal Theorem Proving Reward Models,Direct terminology,outside core screen,,
+2605.10937,Power Reinforcement Post-Training of Text-to-Image Models with Super-Linear Advantage Shaping,Direct terminology,outside core screen,,
+2605.10983,TMPO: Trajectory Matching Policy Optimization for Diverse and Efficient Diffusion Alignment,Direct terminology,outside core screen,,
+2605.10991,Test-Time Personalization: A Diagnostic Framework and Probabilistic Fix for Scaling Failures,Direct terminology,included,Behavior,Application supplement
+2605.11922,StepCodeReasoner: Aligning Code Reasoning with Stepwise Execution Traces via Reinforcement Learning,Direct terminology,outside core screen,,
+2605.12474,Reward Hacking in Rubric-Based Reinforcement Learning,"Direct terminology, Proxy optimization, Explicit titles",included,Behavior,Focused screen
+2605.12673,Do Androids Dream of Breaking the Game? Systematically Auditing AI Agent Benchmarks with BenchJack,Direct terminology,included,Benchmarking,Focused screen
+2605.13155,Pareto-Guided Optimal Transport for Multi-Reward Alignment,Direct terminology,outside core screen,,
+2605.13536,HLS-Seek: QoR-Aware Code Generation for High-Level Synthesis via Proxy Comparative Reward Reinforcement Learning,"Direct terminology, Proxy optimization",included,Mitigation,Application supplement
+2605.13537,Temper and Tilt Lead to SLOP: Reward Hacking Mitigation with Inference-Time Alignment,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2605.15257,Training on Documents About Monitoring Leads to CoT Obfuscation,Direct terminology,included,Behavior,Application supplement
+2605.15543,Domain-Independent Game Abstraction using Word Embedding Techniques,Direct terminology,outside core screen,,
+2605.15803,Embedding-perturbed Exploration Preference Optimization for Flow Models,Direct terminology,outside core screen,,
+2605.15815,BootstrapAgent: Distilling Repository Setup into Reusable Agent Knowledge,Direct terminology,outside core screen,,
+2605.15855,"Do Less, Achieve More: Do We Need Every-Step Optimization for RL Fine-tuning of Diffusion Models?",Direct terminology,included,Behavior,Application supplement
+2605.15960,Imperfect World Models are Exploitable,Direct terminology,included,Behavior,Focused screen
+2605.16191,Optimized Three-Dimensional Photovoltaic Structures with LLM guided Tree Search,Direct terminology,included,Behavior,Application supplement
+2605.16379,An Information-Theoretic Criterion for Efficient Data Synthesis,Direct terminology,included,Theory,Application supplement
+2605.17958,Enhancing the Code Reasoning Capabilities of LLMs via Consistency-based Reinforcement Learning,Direct terminology,outside core screen,,
+2605.18721,General Preference Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2605.18803,PROWL: Prioritized Regret-Driven Optimization for World Model Learning,Direct terminology,included,Behavior,Application supplement
+2605.18864,SAGE: Shaping Anchors for Guided Exploration in RLVR of LLMs,Direct terminology,outside core screen,,
+2605.20744,Hack-Verifiable Environments: Towards Evaluating Reward Hacking at Scale,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2605.21384,SpecBench: Measuring Reward Hacking in Long-Horizon Coding Agents,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2605.22620,Two is better than one: A Collapse-free Multi-Reward RLIF Training Framework,Direct terminology,outside core screen,,
+2605.24076,Causality as the Statistical Conscience of Artificial Intelligence: From Pearl's Ladder to Trustworthy Machines,Direct terminology,outside core screen,,
+2605.24096,The Time is Here for Just-in-Time Systems: Challenges and Opportunities,Direct terminology,included,Behavior,Application supplement
+2605.24286,Faithfulness as Information Flow: Evaluating and Training Faithful Chain-of-Thought Reasoning,Direct terminology,included,Detection,Application supplement
+2605.24687,HoloFair: Unified T2I Fairness Evaluation and Fair-GRPO Debiasing,Direct terminology,included,Mitigation,Application supplement
+2605.25062,Cultivating Machine Intelligence: The OMEGA Shift from Top-Down Optimization to Autopoietic Cognitive Ecologies,Direct terminology,outside core screen,,
+2605.25189,Directional Alignment Mitigates Reward Hacking in Reinforcement Learning for Language Models,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2605.25198,Hide to Guide: Learning via Semantic Masking,Direct terminology,included,Behavior,Application supplement
+2605.25988,What Makes a Medical Checker Trainable? Diagnosing Signal Collapse and Reward Hacking in Checker-Guided RAG for Biomedical QA,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2605.26037,Peak-Then-Collapse and the Four Interface Channels of Knowledge-Graph Tool Use,Proxy optimization,included,Behavior,Application supplement
+2605.26952,Efficient Agentic Reinforcement Learning with On-Policy Intrinsic Knowledge Boundary Enhancement,Direct terminology,included,Behavior,Application supplement
+2605.27375,LCO: LLM-based Constraint Optimization for Safer Agentic LLMs in Real-world Tasks,Direct terminology,included,Mitigation,Application supplement
+2605.27736,Explicit Critic Guidance for Aligning Diffusion Models,Direct terminology,included,Mitigation,Application supplement
+2605.27996,Reward Bias Substitution: Single-Axis Bias Mitigations Redirect Optimization Pressure,Direct terminology,included,Behavior,Focused screen
+2605.28218,IFMTBench: A Comprehensive Benchmark for Multilingual Translation Instruction Following,Direct terminology,outside core screen,,
+2605.28223,Why Meditation Wearables Fail: Reward Misspecification in Closed-Loop EEG and Biofeedback Systems,"Proxy optimization, Adjacent titles",outside core screen,,
+2605.28751,Correctness vs Efficiency: Behavior Control with Weight-Space Extrapolation in Code RL,Direct terminology,included,Behavior,Application supplement
+2605.29009,Label-Free Reinforcement Learning via Cross-Model Entropy,Direct terminology,outside core screen,,
+2605.29502,Source-Grounded Semantic Reinforcement Learning for Low-Resource Target-Language Generation,Direct terminology,included,Mitigation,Application supplement
+2605.29796,SAAS: Self-Aware Reinforcement Learning for Over-Search Mitigation in Agentic Search,Direct terminology,outside core screen,,
+2605.30451,VeriGate: Verifier-Gated Step-Level Supervision for GRPO,Direct terminology,included,Mitigation,Application supplement
+2605.30931,MineExplorer: Evaluating Open-World Exploration of MLLM Agents in Minecraft,Direct terminology,outside core screen,,
+2605.31584,LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards,Direct terminology,outside core screen,,
+2606.00547,Learning to Retrieve: Dual-Level Long-Term Memory for Text-to-SQL Agents,Proxy optimization,outside core screen,,
+2606.01934,HMPO: Hybrid Median-length Policy Optimization for Chain-of-Thought Compression,Direct terminology,included,Mitigation,Application supplement
+2606.01985,MT-EditFlow: Reinforcement Learning for Multi-Turn Image Editing with Flow Matching,Direct terminology,included,Mitigation,Application supplement
+2606.02884,Are we really tilting? The mechanics of reward guidance in flow and diffusion models,Direct terminology,outside core screen,,
+2606.03131,HARVE: Hacking-Aware Reward-Head Vector Editing for Robust Reward Models,Direct terminology,included,Mitigation,Focused screen
+2606.03216,Follow-Your-Preference++: Rethinking Preference Alignment for Image Inpainting,Direct terminology,outside core screen,,
+2606.03238,"When RLHF Fails: A Mechanistic Taxonomy of Reward Hacking, Collapse, and Evaluator Gaming","Direct terminology, Explicit titles",included,Synthesis,Focused screen
+2606.03810,Consistency Training Can Entrench Misalignment,Direct terminology,included,Behavior,Focused screen
+2606.04075,"Large Language Models Hack Rewards, and Society",Direct terminology,included,Behavior,Focused screen
+2606.04145,EvalStop: Using World Feedback to Detect and Correct Reward Overoptimization in Multi-Tenant RLHF Platforms,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2606.04455,The Meta-Agent Challenge: Are Current Agents Capable of Autonomous Agent Development?,Direct terminology,outside core screen,,
+2606.04847,MusaCoder: Native GPU Kernel Generation with Full-Stack Training on Moore Threads GPU,Direct terminology,outside core screen,,
+2606.04923,"Reproducing, Analyzing, and Detecting Reward Hacking in Rubric-Based Reinforcement Learning","Direct terminology, Explicit titles",included,Behavior,Focused screen
+2606.05468,FlowPRO: Reward-Free Reinforced Fine-Tuning of Flow-Matching VLAs via Proximalized Preference Optimization,Direct terminology,included,Mitigation,Application supplement
+2606.05625,Self-Commitment Latency: A Reward-Free Probe for Prompted Implicit Hacking,Direct terminology,included,Detection,Focused screen
+2606.06223,From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents,"Direct terminology, Proxy optimization, Explicit titles",included,Detection,Focused screen
+2606.06227,Reward hacking in physical reinforcement learning revealed by turbulent drag reduction,Explicit titles,included,Behavior,Focused screen
+2606.07074,SlimSearcher: Training Efficiency-Aware Web Agents via Adaptive Reward Gating,Direct terminology,included,Mitigation,Application supplement
+2606.07520,TinyJudge: Unverifiable Constraint Alignment via Lightweight Specialist Ensembles,Direct terminology,included,Behavior,Application supplement
+2606.07682,SWE-Marathon: Can Agents Autonomously Complete Ultra-Long-Horizon Software Work?,Direct terminology,included,Benchmarking,Application supplement
+2606.07805,Beyond Goodhart's Law: A Dynamic Benchmark for Evaluating Compliance in Multi-Agent Systems,Adjacent titles,included,Benchmarking,Focused screen
+2606.07889,Strained Coherence: A Pre-Failure Signal in Coding Agent Execution Trajectories,Direct terminology,outside core screen,,
+2606.08728,"Artificial Intelligence for Mathematical Reasoning: An Integrated Survey of Language Models, Neuro-symbolic Systems, and Verified Discovery",Direct terminology,outside core screen,,
+2606.08893,Cheap Reward Hacking Detection,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2606.08960,Hardening Agent Benchmarks with Adversarial Hacker-Fixer Loops,Direct terminology,included,Mitigation,Focused screen
+2606.09073,A Unifying Lens on Reward Uncertainty in RLHF,"Direct terminology, Proxy optimization",outside core screen,,
+2606.09447,AliyunConsoleAgent: Training Web Agents in Real-World Cloud Environments via Distillation and Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2606.09635,Gradient-Guided Reward Optimization for Inference-time Alignment,Direct terminology,outside core screen,,
+2606.09711,Proxy Reward Internalization and Mechanistic Exploitation: A Learned Precursor to Reward Hacking and Its Generalization,"Direct terminology, Proxy optimization, Explicit titles",included,Behavior,Focused screen
+2606.09869,QSplitFL: Capability Aware Deep Q-Learning for Optimal Split Point Selection in Split Federated Learning,Direct terminology,outside core screen,,
+2606.12086,IntElicit: Eliciting and Assessing Contextualized Creativity via Dialogue Policy Optimization,Direct terminology,outside core screen,,
+2606.12360,Anatomy of Post-Training: Using Interpretability to Characterize Data and Shape the Learning Signal,Proxy optimization,outside core screen,,
+2606.12590,Analyzing and Improving Fine-grained Preference Optimization in Medical LVLMs,Direct terminology,included,Behavior,Application supplement
+2606.13662,EurekAgent: Agent Environment Engineering is All You Need For Autonomous Scientific Discovery,Direct terminology,outside core screen,,
+2606.14127,CoRe: A Continuously Reward-Finetuned LLM Query Rewriter for Multi-Stage Context-Aware Relevance in Web-Scale Video Search,Direct terminology,included,Detection,Application supplement
+2606.14199,OdysSim: Building Foundation Models for Human Behavior Simulation,Direct terminology,included,Mitigation,Application supplement
+2606.14376,Games Mapper: Topological Data Analysis of Steam Genres,Direct terminology,outside core screen,,
+2606.15385,Reward Hacking in Language Model Agents: Revisiting AI Safety Gridworlds,"Direct terminology, Proxy optimization, Explicit titles",included,Benchmarking,Focused screen
+2606.16062,Auditing Reward Hackability in Code RL Training Environments,Explicit titles,included,Benchmarking,Focused screen
+2606.16316,RL-Index: Reinforcement Learning for Retrieval Index Reasoning,Proxy optimization,outside core screen,,
+2606.16914,Greed Is Learned: Visible Incentives as Reward-Hacking Triggers,Explicit titles,included,Behavior,Focused screen
+2606.18961,Be Your Own Teacher: Steering Protein Language Models via Unsupervised Reward Optimization,Proxy optimization,outside core screen,,
+2606.19818,Uncertainty-Aware Reward Modeling for Stable RLHF,Direct terminology,included,Mitigation,Focused screen
+2606.19990,Reward as An Agent for Embodied World Models,Direct terminology,outside core screen,,
+2606.21053,Imitation Learning for Elder-Facing Speech Synthesis,Direct terminology,included,Mitigation,Application supplement
+2606.21458,Post-Training Speech Enhancement Language Models with Perceptual Rewards,Direct terminology,included,Mitigation,Application supplement
+2606.21795,Discretizing Reward Models,Direct terminology,included,Mitigation,Application supplement
+2606.24014,Reinforcement Learning Towards Broadly and Persistently Beneficial Models,Direct terminology,outside core screen,,
+2606.25057,"LLM-Based Scientific Peer Review: Methods, Benchmarks, and Reliability Challenges",Direct terminology,outside core screen,,
+2606.25198,"Heuresis: Search Strategies for Autonomous AI Research Agents Across Quality, Diversity and Novelty",Direct terminology,included,Behavior,Application supplement
+2606.26300,The Verification Horizon: No Silver Bullet for Coding Agent Rewards,Direct terminology,included,Behavior,Focused screen
+2606.26728,Scientific discovery as meta-optimization: a combinatorial optimization case study,Direct terminology,included,Mitigation,Application supplement
+2606.27180,Automating Potential-based Reward Shaping with Vision Language Model Guidance,Direct terminology,included,Mitigation,Application supplement
+2606.27291,Designing Reward Signals for Portable Query Generation: A Case Study in Industrial Semantic Job Search,Direct terminology,included,Behavior,Application supplement
+2606.27845,LLM Agents as Static Level-k Players in Behavioural Games,Direct terminology,outside core screen,,
+2606.28249,HPRO: Hierarchical Progressive Reward Optimization via Preference Extraction for Emotional Text-to-Speech,Direct terminology,outside core screen,,
+2606.28863,Defeat Devices in AI Systems,Direct terminology,included,Theory,Focused screen
+2606.28955,Modification-Considering Value Learning for Reward Hacking Mitigation in RL,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2606.29604,Mechanistically Eliciting Latent Behaviors in Language Models,Direct terminology,outside core screen,,
+2606.30627,Pessimism's Paradox: Conservative Offline Training Amplifies Reward Hacking During Online Adaptation in Reasoning Models,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2606.30789,Predictable GRPO: A Closed-Form Model of Training Dynamics,Direct terminology,included,Detection,Application supplement
+2606.31377,Stage-Transition Dense Reward Modeling for Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2607.00038,Stop Hand-Holding Your Coding Agent: Engineering the Loops that Replace Step-by-Step Prompting,Direct terminology,outside core screen,,
+2607.01144,Sampling Meets Interaction: Sequentially-Controlled Multi-Particle Flow-Maps for Efficient Inference-time Search,Proxy optimization,outside core screen,,
+2607.01181,Right in the Right Way: LM Training with Verifiable Rewards and Human Demonstrations,Direct terminology,included,Mitigation,Application supplement
+2607.02291,Optimizing Visual Generative Models via Distribution-wise Rewards,Direct terminology,outside core screen,,
+2607.02496,Controllable Sim Agents with Behavior Latents,Direct terminology,included,Behavior,Application supplement
+2607.04332,On the effectiveness of reward functions in reinforcement learning for confidence calibration of large language models,Direct terminology,included,Behavior,Application supplement
+2607.05150,Claim-Level Rubric Rewards for Video Caption Reinforcement Learning,Direct terminology,outside core screen,,
+2607.05773,Beyond Static Evaluation: Building Simulation Environments for Scalable Agentic Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2607.05904,"More Convincing, Not More Correct: Self-Play Reward Hacking of Reference-Free LLM Judges","Direct terminology, Explicit titles",included,Behavior,Focused screen
+2607.08984,AlphaZero in Sparsely Rewarded Games: Limits and Auxiliary Supervision,Explicit titles,outside core screen,,
+2607.09492,Multimodal Reward Hacking in Reinforcement Learning,"Direct terminology, Proxy optimization, Explicit titles",included,Behavior,Focused screen
+2607.10191,Breaking the Quality--Intelligibility Trade-off in Streaming Target Speaker Extraction via Deep-Feature-Anchored Preference Optimization,Direct terminology,included,Behavior,Application supplement
+2607.13083,Phantom Guardrails: When Self-Improving Agent Harnesses Fix Failures That Never Happened,Direct terminology,outside core screen,,
+2607.13705,AgentCompass: A Unified Evaluation Infrastructure for Agent Capabilities,Direct terminology,outside core screen,,
+2607.14345,Value Leakage: An LLM's Answers Are Silently Shaped by Its Own Values,Direct terminology,outside core screen,,
+2607.15696,PCTD: Preference-Guided Counterfactual Task Decomposition for Agent Tool Retrieval,Direct terminology,included,Mitigation,Application supplement
+2607.16241,KernelBench-Verified: Do LLM-Generated Kernels Actually Beat PyTorch?,Direct terminology,included,Benchmarking,Focused screen
+2607.16291,Beyond Target Scores: Measuring Off-Target Drift in Diffusion-Based Medical Image Editing,Direct terminology,included,Benchmarking,Application supplement
+2607.18064,Autoresearch with Coding Agents: Generalizers and Metric-Maximizers on Quran Recitation Data,Direct terminology,included,Behavior,Focused screen
+2607.18110,LLM-as-a-Coach: Experiential Learning for Non-Verifiable Tasks,Direct terminology,included,Mitigation,Application supplement
+2607.18239,SysAdmin: Measuring Instrumental Power-Seeking in Frontier AI,Direct terminology,included,Benchmarking,Application supplement
+2607.18575,"RECEIPT: Deterministic, Reward-Hacking-Resistant Verification for White-Box Agentic XSS Discovery","Direct terminology, Explicit titles",outside core screen,,
+2607.18966,Measuring Reward-Seeking via Contrastive Belief Updates,Direct terminology,included,Benchmarking,Focused screen
+2607.19292,The safety failures we are not instrumenting: a perspective on hidden safety-critical challenges in modern AI systems,Direct terminology,outside core screen,,
+2607.19824,Rewarding Better Thinking for LLM Preference Alignment,Proxy optimization,outside core screen,,
+2607.19923,WearWow: Native 2K Multi-Garment Virtual Try-On via Adaptive Token Packing and Preference Alignment,Direct terminology,included,Mitigation,Application supplement
+2607.20518,CANN Bench: Benchmarking Agent Generated Kernels against Real NPU and Algorithmic Limits,Direct terminology,outside core screen,,
+2607.21090,Training Large Language Models for Self-Explanation Faithfulness,Direct terminology,included,Behavior,Application supplement
+2607.22368,Do Agent Benchmarks Measure Capability? Protocol Validity in the Age of Agentic AI,Direct terminology,included,Benchmarking,Application supplement
+2607.25333,Specula: Scaling formal specifications for autonomous model checking of system code,Direct terminology,outside core screen,,
+2607.28225,FaithEyes: Towards Faithful Tool Use via Multi-Agent Process-Image Self-Verification,Direct terminology,included,Mitigation,Application supplement
+2607.28928,Automated Testing and Repair for Verified Compilers Generated by a Coding Agent,Direct terminology,included,Behavior,Application supplement
+2608.00017,Memory Reward Inflation in Self-Improving LLM Agents,Proxy optimization,included,Behavior,Focused screen
+2608.00583,A False Average: Pooled CoT-Monitor Accuracy Conceals a Reasoning-Dependent Fragility,Direct terminology,included,Detection,Focused screen
+2608.00816,Exponential Reward Weighting for Fine-Tuning Generative Recommenders under Sparse and Noisy Feedback,Proxy optimization,outside core screen,,
+2608.02442,"Right Answer, Wrong Method: Shortcut Hacking Misleads the Evaluation of LLM Reasoning on Frontier Science Benchmarks",Expert seed,included,Behavior,Focused screen
+2608.06125,Sample-Adaptive Latent Rewards for Uncertainty-Guided Diffusion Post-Training,Direct terminology,outside core screen,,
+2608.06179,SAGA: Score-Weighted Adaptive Generation Alignment for Low-Resource Nordic Language Models,Direct terminology,outside core screen,,
+2608.06526,GRASP: Reinforcing Language Model Anonymizers with Group Relative Policy Optimization,Direct terminology,outside core screen,,
+2608.06768,Explore or Converge? Stage-Guided Per-Step Optimization for Diffusion Models,Direct terminology,outside core screen,,
+2608.08002,Evaluator Ensembles Under Reward Hacking: Covariance Geometry and Finite-Search Guarantees,Explicit titles,included,Theory,Focused screen
+2608.08975,How Can Rhetoric Reward-Hack AI Reviewers? Dissecting Rhetorical Sensitivity in AI-Based Peer Review,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2608.09605,TSPORec: Token Selection via Preference Optimization for LLM-Based Sequential Recommendation,Proxy optimization,outside core screen,,
+2608.11243,"The Off-Support Barrier: Why Semantic Safety Constraints Are Not Learning-Problem Invariants, and What Follows for Prior Design, Containment, and Verification",Direct terminology,included,Theory,Application supplement
+2608.11560,When Offline Evaluation Misleads: A Diagnostic Protocol for Reward and Policy Selection in Delayed-Feedback Contextual Bandits,Proxy optimization,included,Detection,Application supplement
+2608.11669,Rubric Dropout: A Simple Way to Mitigate Reward Hacking in Rubric-Based RL,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2608.11698,REOPD: Reliability-Adaptive Reward Extrapolation for On-Policy Distillation,Direct terminology,outside core screen,,
+2608.14555,Discovering KV Cache Eviction Policies via LLM-Guided Program Evolution,Direct terminology,outside core screen,,
+2608.15445,Measuring Reward Hacking and Reasoning-Answer Decoupling Under Position-Confounded Optimization,Explicit titles,included,Behavior,Focused screen
+2608.17393,LEGO-RL: Harness-Native Reinforcement Learning for Coding Agents,Direct terminology,outside core screen,,
+2608.17423,Prism-GRPO: Faster VLA Policy Optimization via Splitting Same-outcome Groups,Direct terminology,included,Mitigation,Application supplement
+2608.17776,Debate Training Reduces Reward Hacking in RLAIF,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2608.17804,An Empirical Study of Reward Specification and Benchmark Reliability in GRPO-based LLM Unlearning,Direct terminology,included,Behavior,Focused screen
+2608.18607,VA-Judger: Reward Modeling from Human Preference Feedback for Joint Video-Audio Generation,Direct terminology,included,Behavior,Application supplement
+2608.18787,Dream2Reward: Transition-Alignment Reward Models from Positive Demonstrations for Robotic Manipulation,Direct terminology,included,Mitigation,Application supplement
+2608.19121,PGFS++: Molecular Property Improvement under Synthesis and Diversity Constraints,Direct terminology,included,Behavior,Application supplement
+2608.19653,DeltaML-Bench: Evaluating Machine Learning Agents on Real-World Research Repositories,Direct terminology,included,Benchmarking,Application supplement
+2608.20011,Manifold Drift in Flow Preference Optimization: A Root Cause of Reward Hacking,Explicit titles,included,Behavior,Focused screen
+2608.22103,Hack-Verifiable Terminal Bench: Evaluating Reward Hacking in Terminal Tasks,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2608.24135,Robust Code RL via Faulty-Code-Driven Test case Synthesis and Dense Reward Shaping,Direct terminology,included,Mitigation,Focused screen
+2608.26324,Privacy Without Regret: Differentially Private Inference-Time Alignment,"Direct terminology, Proxy optimization",outside core screen,,
+2608.27505,A Survey on Rubric-Guided Reinforcement Learning for Language Models,Direct terminology,outside core screen,,
+2608.28639,Reward-Oracle MCTS for Formal Theorem Proving: Sample-Efficient Search and the Need for Kernel-Level Proof Auditing,Direct terminology,included,Behavior,Focused screen
+2608.29460,Can escalation channels redirect reward hacking toward defect disclosure?,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2608.29564,TACS: Trajectory-Aware Candidate Selection for LLM Jailbreak Suffix Optimization,Direct terminology,outside core screen,,
+2608.29605,Hindsight Memory-PRM: Supervising Memory Management with Auditable Hindsight Credit,Proxy optimization,outside core screen,,
+2608.29647,Reward-guided Fine-Tuning of One-Step Generative Models via Wasserstein Gradient Flow,Direct terminology,included,Mitigation,Application supplement
+2608.30194,NoisEasier: Test-Time Noise Optimization for Text-to-Video Generation,Direct terminology,outside core screen,,
+2608.30724,BAITBENCH: Measuring Agent Reward Hacking with Optional Shortcuts Planted in ML Tasks,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2608.30819,What Emerges and What Breaks in Self-Play Driving,Direct terminology,included,Behavior,Application supplement
+2608.30968,CogEvol: Towards Efficient and Reliable Learning Environment Generation,Direct terminology,included,Behavior,Application supplement
+2608.31075,Scaling Large Reasoning Models beyond Human Supervision: A Path toward Superintelligence,Direct terminology,outside core screen,,
+2609.00058,CUDA-Harness: Harnessing Agentic CUDA Kernel Generation and Optimization from Natural Language,Direct terminology,included,Mitigation,Application supplement
+2609.00213,Uncovering and Mitigating Aggregation-Induced Reward Hacking in Multi-Reward Reinforcement Learning,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2609.00892,CARE: Contrastive Anchor-based Rubric Evolution for Large Language Model Post-Training,Proxy optimization,included,Mitigation,Application supplement
+2609.01622,RecEvolve: A Knowledge-Driven Autonomous Agent System for Recommender Systems,Direct terminology,included,Behavior,Application supplement
+2609.02246,LLM-as-a-Judge Is Not an Oracle: Why Self-Improving Agents Need Deterministic Guardrails,Direct terminology,outside core screen,,
+2609.04173,Last Translation Benchmark,Direct terminology,outside core screen,,
+2609.04282,Step Back to Move Forward: Reflection-Aware Preference Optimization for Visual Generation,Direct terminology,included,Mitigation,Application supplement
+2609.04665,Harness-agnostic detection and immunization of reward hacking in self-evolving language models,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2609.06649,Inducing Emergent Misalignment from Reward Hacks with Iterative DPO,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2609.08149,SWE-Bench Pro Verified: A Reliable Benchmark for Software Engineering Agents,Direct terminology,included,Benchmarking,Focused screen
+2609.09135,Entropy-Regularized Rank-Masked Policy Optimization for Test-Time Reinforcement Learning in Code Generation,Direct terminology,included,Behavior,Application supplement
+2609.09250,No Free Checker: A Survey of Verifiers for Robot Policies,Direct terminology,included,Synthesis,Application supplement
+2609.09776,Proof-Carrying Cognition: Closing the Verification Gap with Reality-Settled Reward,Expert seed,included,Mitigation,Focused screen
+2609.11028,BenchShield: Formal Model-Backed Instrumentation for Reward Integrity in LLM-Agent Evaluation Infrastructure,Direct terminology,included,Mitigation,Focused screen
+2609.11989,The Computational Primitives of Adaptation,Direct terminology,outside core screen,,
+2609.12039,Reality Is the Final Verifier: On Two Key Gaps in Agentic Software Engineering,Direct terminology,outside core screen,,
+2609.12459,EvoRS: On-Policy Self-Evolution of Reward Systems for Open-Ended Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2609.12607,Direct Preference Density Alignment for Conversational Audio Equalization,"Direct terminology, Proxy optimization",outside core screen,,
+2609.12623,SteerDuplex: Steerable Duplex Speech Dialogue Models,Direct terminology,included,Behavior,Application supplement
+2609.13150,The Limits of Reference-Free Speech Quality Metrics as Evaluators and Rewards on Modern Text-to-Speech,Direct terminology,included,Behavior,Focused screen
+2609.13259,TryOnReward: Learning Foveated Consistency for Reinforcement Fine-Tuning of Virtual Try-On,Direct terminology,outside core screen,,
+2609.14648,Optimizing Sparse Outcomes Through Dense Behavioral Signals via Value-Guided Preference Distillation,Direct terminology,outside core screen,,
+2609.14896,Forty Shades of Blue: Quality-Diversity Alignment via Mode-Conditioned Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2609.14998,Shallow Beliefs: Synthetic document finetuning does not inoculate against emergent misalignment from reward hacking,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2609.15399,Dynamics-Informed Reinforcement Learning for Agile and Energy-Efficient Locomotion of a Monopedal Hopping Quadcopter,Direct terminology,outside core screen,,
+2609.16660,"Rewarding Reasoning, Not Answers: Fixing and Bounding Test-Time Reinforcement Learning on Medical QA",Proxy optimization,included,Mitigation,Focused screen
+2609.17221,Grounding SWE-Agent Decisions in Architecture-0 Design: Navigating Unknown Unknowns through Physical Mapping,Direct terminology,included,Behavior,Application supplement
+2609.17226,"Easy to Catch a Liar, Hard to Clear an Honest One: Language Models Diagnosing a Corrupted Reward Channel from a Verified Record",Explicit titles,included,Detection,Focused screen
+2609.18642,STRETCH the Boundaries: A Unified Self-Taught Framework for Progressive LLM Evolution,Direct terminology,included,Mitigation,Application supplement
+2609.19101,Monitoring and Discovering Reward Hacking with Internal Representations during LLM Evaluations,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2609.22978,DeepSeek Elastic Compute (DSec): A Sandbox Infrastructure for Effective Agentic Training at Scale,Direct terminology,outside core screen,,
+2609.24760,Construting Reverse Thinking: Developing Large Language Models' Reverse Thingking Ability,Direct terminology,outside core screen,,
+2609.25270,RULER: Instance-aware Rubric Rewards for SVG Generation,Direct terminology,included,Behavior,Application supplement
+2609.25848,"Optimizing the Score, Losing Sight of the Task: Reward Hacking Across Weights, Selection, and Prompts","Direct terminology, Explicit titles",included,Behavior,Focused screen
+2609.26457,Recursive self-improvement of AI research agents,Direct terminology,included,Behavior,Application supplement
+2609.26618,NavSafe-$\infty$: Benchmarking Closed-Loop Driving Safety in Photorealistic Environments,Direct terminology,included,Benchmarking,Application supplement
+2609.26853,COPE: Continual Personalization of LLMs under Sparse User Feedback via User Embeddings and Self-Evaluation,Proxy optimization,outside core screen,,
+2609.27068,HiRE: Hindsight Reward Editing for Policy Finetuning,Direct terminology,outside core screen,,
+2609.27572,DCRL: Decoupling and Coupling Reinforcement Learning via Policy-Reward Manifold Alignment,Direct terminology,outside core screen,,
+2609.28614,Reward Hacking Challenges Oversight of Autonomous Research Agents,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2609.29429,Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures,Direct terminology,included,Detection,Focused screen
+2609.31855,PHIRL: Aligning Learned Rewards with Task Progress for Inverse Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2609.31911,Enhancing Visual Reasoning in Chest X-Ray Report Generation Using Reinforcement Learning,Direct terminology,included,Behavior,Application supplement
+2609.32390,Reward Hacking and Agent Containment Failure: A Monte Carlo Study Based on the 2026 Hugging Face Incident,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2609.33221,RMB: Reward Model Boosting Mitigates Reward Hacking,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2609.33989,RewardExplainer: Learning Reward Model Explanations from Counterfactual Preference Feedback,Direct terminology,included,Mitigation,Application supplement
+2609.34262,Maintaining Benchmarks Against Increasingly Capable Agents: Detection and Remediation of Unearned Passes,Direct terminology,included,Benchmarking,Focused screen
+2609.34688,Unified Trajectory Matching Policy Optimization: Diverse T2I Generation and VLA Generalization,Direct terminology,outside core screen,,
+2609.35677,"Verifier Errors in RLVR: Reward Hacking, Limits of Feedback, and Selective Control","Direct terminology, Explicit titles",included,Theory,Focused screen
+2609.36245,CoRe: Co-Evolving Reward Models for Mitigating Latent Reward Hacking in Video Diffusion Models,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2609.36308,CheatBench: Measuring Reward Gaming in AI Agents,Explicit titles,included,Benchmarking,Focused screen
+2609.36900,STAR-GRPO: Canonical Anchoring and Reliability-First Advantages against Representation-Dependent Reward Hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2609.38081,Traversing the solution space of neural networks with Hessian Null Space Continuation,Direct terminology,included,Behavior,Application supplement
+2609.38526,Revisiting scaling laws for reward optimization,"Direct terminology, Proxy optimization",included,Behavior,Focused screen
+2609.38847,"Scoring Higher, Answering Worse: Mitigating Reward Hacking in Rubric-Based RL via Protocol-Level Rubrics",Explicit titles,included,Mitigation,Focused screen
+2609.39533,CATCH: A Controllable Analysis Testbed for Reward Hacking in Coding RL,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2610.00332,The Weakest Link: Distilling LLM Reasoning with Worst-Case Constrained Reinforcement Learning,Direct terminology,included,Behavior,Application supplement
+2610.00531,Science or Slop?: Benchmarking and Mitigating Scientific Slop in AI-Generated Papers,Direct terminology,included,Mitigation,Application supplement
+2610.00850,AuraForge: Scaling Security Supervision for Training Coding Agents,Direct terminology,outside core screen,,
+2610.01800,LineupRL: Verifiable Reinforcement Learning for Time Series Captioning via Caption-to-Series Identification,Direct terminology,included,Mitigation,Application supplement
+2610.02588,Open-Endedness Bench: Measuring Epistemic Process from Agent Records,Direct terminology,included,Benchmarking,Application supplement
+2610.02781,OPD Before RL: Warm-Starting Rubric-Based RL with On-Policy Distillation,Direct terminology,included,Mitigation,Application supplement
+2610.02967,Post-Training Frontier Text-to-Image Models by Composing Preference and Rubric Rewards,Direct terminology,outside core screen,,
+2610.02975,Reliable Self-Evolution with Imperfect Proxy Rewards,Proxy optimization,included,Mitigation,Focused screen
+2610.03055,hacktrace: behavior-supervised detection of reward hacking during code generation,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2610.03185,Gains and Collapse in On-Policy Distillation:A Reinforcement Learning Perspective,Direct terminology,included,Behavior,Application supplement
+2610.03196,Beyond Reward Hacking: Proxy Divergence Across Four Layers of a Staged Humanoid Learning Pipeline,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2610.03458,A Near-Zero Monitor Readout Is Not Evidence of Behavioral Control,Direct terminology,included,Behavior,Focused screen
+2610.03641,IDRF: Inverse-Distilled Reward Fine-tuning of Masked Discrete Diffusion Models,Direct terminology,included,Mitigation,Application supplement
+2610.03880,Reinforcement Learning on the Discrete Composition Channel of a Crystal Generator: Validated Gains and Reward Hacking,Explicit titles,included,Behavior,Focused screen
+2610.04083,"Self-Propagating Misalignment in LLM Agents, and Why Auditing or Disabling Memory Is Not Enough",Direct terminology,outside core screen,,
+2610.04793,"Pressure, Context, and Machine Self-Control: A Criminological Test of Reward Hacking in Generative AI Models","Direct terminology, Explicit titles",included,Behavior,Focused screen
+2610.04914,Monitorability Disposition in Large Reasoning Models,Direct terminology,included,Detection,Application supplement
+2610.05308,RubricArmor: Adversarial Evolution Improves LLM-Based Rubric Generation,Direct terminology,included,Mitigation,Focused screen
+2610.06439,Better Call Reward: Reward Hacking as Strategic Abstention in Legal Reasoning Models,Explicit titles,included,Behavior,Focused screen
+2610.06670,Reward Stealing Attack on Large Language Models,Proxy optimization,outside core screen,,
+2610.09159,SpecGuard: Proving a Task Is Broken Before the Agent Cheats,Direct terminology,included,Mitigation,Focused screen
+2610.09250,Efficient Best-of-N policy evaluation for inference-time alignment,Proxy optimization,included,Theory,Application supplement
+2610.09384,The Persona Hierarchy Model: Understanding Contextual Generalization in Fine-Tuning LLMs,Direct terminology,included,Mitigation,Application supplement
+2610.10619,TestJack: Should you trust the results in coding benchmarks? Agentic Coding Benchmarks Auditing via Evaluator Evolution,Direct terminology,included,Benchmarking,Focused screen
+2610.10942,StoreBench: A Live-Commerce Environment for Evaluating and Training Autonomous Operator Agents,Direct terminology,included,Benchmarking,Application supplement
+2610.10947,RH-Detect: A Unified Benchmark for Reward Hacking Detection,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2610.11123,When Interfaces Speak: Data-Aware Generative UI Harness for Active Interaction,Direct terminology,outside core screen,,
+2610.11281,How to post-train on a surrogate: Envelope sampling mitigates reward hacking,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2610.11464,Who Verifies the Verifier? Co-Evolving Inspectable Graders with Self-Improving Agents,Direct terminology,outside core screen,,
+2610.11754,What Output-Only Review Cannot Verify: Study Contracts for Research Agents,Direct terminology,outside core screen,,
+2610.11959,MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement,Direct terminology,outside core screen,,
+2610.12822,Reward Hacking as a Transmissible Strategy in Multi-Agent Coding Systems,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2610.13470,GraftOOD: Grafting Out-of-Distribution Exemplars into Advantage-Weighted Rectification for Video Reward Optimization,Proxy optimization,outside core screen,,
+2610.14976,Metric-Driven Reinforcement Learning for Object Hallucination Reduction in LVLM-Based Image Captioning,Direct terminology,outside core screen,,
+2610.15924,Scalable Weak-to-Strong Verifier Hardening for Agent Environments,Direct terminology,included,Mitigation,Focused screen
+2610.16911,Audit tools of the trade: Automated Auditor Elicitation Can Be Sensitive to the Context the Auditor Is Given,Direct terminology,included,Detection,Application supplement
+2610.17062,Gradient Routing Localizes and Removes Unintended Behaviors in RL,Direct terminology,included,Mitigation,Focused screen
+2610.17246,LLM-to-Flow Distillation: Teaching Natural Language Goals to Scientific Generators,Proxy optimization,outside core screen,,
+2610.17306,Calibrating LLM Explanations to Human Decisions with Reinforcement Learning,Proxy optimization,outside core screen,,
+2610.17724,Evidence-First Agentic Verification,Direct terminology,included,Detection,Application supplement
+2610.19213,PREFER: From Player Experience to Personalized Game Refinement,Direct terminology,outside core screen,,
+2610.19362,Tail Competition Explains Scaling in Best-of-N Sampling for Verifiable Problems,Direct terminology,included,Theory,Application supplement
+2610.19525,Diagnosing and Correcting Reward Hacking in Verifiable Instruction Following,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2610.19731,What Happens to the Goal? Distinct Failures of Policy Alignment in Goal Misgeneralization,Adjacent titles,outside core screen,,
+2610.19832,"Rent-Seeking Language Models: Reward Models Set the Prices, Frequent Audits Curb the Rent","Direct terminology, Proxy optimization",included,Mitigation,Focused screen
+2610.20174,RM-OPD: On-Policy Distillation for Generative Reward Models,Direct terminology,outside core screen,,
+2610.21040,Recursive Reward Improvement via Adversarial Meta-Prompt Evolution,Direct terminology,included,Mitigation,Application supplement
+2610.21125,Noise-Space Reward Alignment for Few-Step Generative Models,Proxy optimization,outside core screen,,
+2610.21404,Multi-Reward Hacking: From Aggregation-Induced Drift to Trust-Anchored Defense,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2610.22152,Specification Gaming and a Constrained Reinforcement Learning Mitigation in a Cleaning Gridworld,"Direct terminology, Proxy optimization, Explicit titles",included,Mitigation,Focused screen
+2610.22217,Skill-Decoupled On-Policy Expert Distillation for Unified Vision-Language Models,Direct terminology,outside core screen,,
+2610.22760,Between Spoilers and Guesswork: Avoiding Over-Specification in Coding Benchmarks,Direct terminology,outside core screen,,
+2610.25604,Adversarial Post-Training of Foundation Models for High-Frequency Trading,Direct terminology,included,Behavior,Application supplement
+2610.25916,Secure Agentic Coding through Counterexample-Grounded Feedback,Proxy optimization,included,Mitigation,Application supplement
+2610.26088,LeakBench: Auditing Reward Hacking through Prediction-Time Leakage in Clinical Modeling Agents,"Direct terminology, Explicit titles",included,Benchmarking,Focused screen
+2610.26342,VibeTraining-Bench: Data-Trainer-Harness Co-Design for Iterative System Improvement,Direct terminology,outside core screen,,
+2610.26350,Affective Valence as the Interoceptive Rate of Change of Jacobian Scale,Direct terminology,outside core screen,,
+2610.26496,Mitigating Reward Hacking in Preference Reward Models with Evolving Penalties,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2610.28303,Reward Misspecification Degrades Chain-of-Thought Monitorability,"Direct terminology, Adjacent titles",included,Behavior,Focused screen
+2610.28707,SimHack: Predicting the onset of detectable reward hacking before RL training,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2610.28819,LIFT: Scoped Constraints for Evaluating and Training Instruction Following,Direct terminology,included,Benchmarking,Application supplement
+2610.29129,Mitigating Reward Hacking in Realistic Scenarios Through Representation Engineering,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2610.31972,Reproducible Evaluation as the Substrate for Safe Prompt Compression in Production Agents,Direct terminology,outside core screen,,
+2610.33512,Eat Your Precision: Precision Objective Mitigates Reward Hacking in Rubric-based RL,Explicit titles,included,Mitigation,Focused screen
+2610.34375,Whether or Where? Tail Calibration Signals Finite-Budget Reward Hacking in Best-of-N Selection,"Proxy optimization, Explicit titles",included,Detection,Focused screen
+2610.35497,When Fine-Grained Credit Assignment Helps and Hurts: Multimodal Agentic Reinforcement Learning through Video Editing,Direct terminology,included,Mitigation,Application supplement
+2610.35716,Audit Where Hacks Pay: Budgeted Strong-Verifier Audits Against Reward Hacking in GRPO,Explicit titles,included,Mitigation,Focused screen
+2610.37058,Exploring the Limits of the Delta Learning Hypothesis: Single-Pair Generator Biases in Direct Preference Optimization,Direct terminology,included,Behavior,Application supplement
+2610.37451,Interpretable Meta-Policies for Neural Decision Making,Direct terminology,included,Mitigation,Application supplement
+2610.38185,Complementing Text Based Moderation with Multimodal Grounding: Detecting Fraudulent Inducement Behaviors on Short Video Platforms,Direct terminology,included,Behavior,Application supplement
+2610.38833,Discovering Jailbreaks via Curriculum of Models,Proxy optimization,outside core screen,,
+2610.38882,Aligning Autoresearch: Co-Improvement between Agents and Humans,Direct terminology,outside core screen,,
+2610.39835,Aligning Medical Vision Language Models at the Capability Boundary with Entropy Adaptive Rubric Grounding,Direct terminology,outside core screen,,
+2610.41014,Towards Understanding Score-Seeking in LLMs,Direct terminology,included,Behavior,Focused screen
+2610.41736,Locality-Controlled Out-of-Distribution Guidance for Robust Regulatory DNA Sequence Design,Direct terminology,included,Detection,Application supplement
+2611.00407,Hacking or Just Failing? A More Capable LLM Monitor Better Separates Reward Hacking from Honest Failure,"Direct terminology, Explicit titles",included,Detection,Focused screen
+2611.01183,"Satisfied, Not Solving: Wireheading of Bounded Homeostatic Rewards in Reinforcement Learning",Explicit titles,included,Behavior,Focused screen
+2611.01313,Are Fake Citations a Form of Reward Hacking? A Pre-Registered Study of Post-Training and Citation Cues,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2611.01334,The Verifier Is Part of the Simulator: Evidence-View Gaming in Agentic Equation Discovery,Direct terminology,included,Behavior,Focused screen
+2611.02501,SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding,Direct terminology,included,Mitigation,Application supplement
+2611.02849,TLAPS-Bench: Formally Proving Correctness of Real-World System Specifications with TLA+ Proof System,Direct terminology,outside core screen,,
+2611.03244,Forecasting How RLHF Responds to Reward-Model Edits Before Training,Proxy optimization,included,Detection,Application supplement
+2611.03627,Not All Reasoning Generalizes: A Case Study on Learning Generalizable Reasoning Strategies in RLVR,Direct terminology,outside core screen,,
+2611.04260,Neologism Inoculation Prompting,Direct terminology,included,Mitigation,Focused screen
+2611.05151,Catalyzing Interactive HTML Generation Capabilities via High-Fidelity Reinforcement Learning,Direct terminology,included,Mitigation,Application supplement
+2611.06244,Rubric Curriculum RL: Exploiting the Generation-Verification Gap in Non-Verifiable Domains,Direct terminology,outside core screen,,
+2611.06518,EmoReward: Self-Evolving Reward Calibration for Emotional Video Generation RL,Direct terminology,outside core screen,,
+2611.06563,EPISTEME: Trustworthy Coding Agents Through Tool Call Intent,Direct terminology,included,Detection,Application supplement
+2611.07939,WAM-Sim0.1: World Anchored Memory Meets Online RL for Consistent and Realistic Driving Simulation,Direct terminology,outside core screen,,
+2611.09828,Designing Effective Monitor-Based Interventions for Mitigating Reward Hacking During RL,"Direct terminology, Explicit titles",included,Mitigation,Focused screen
+2611.10110,Homeopathic Learning: Diluting poisoned fine-tuning data can strengthen its effect,Direct terminology,outside core screen,,
+2611.10404,Coding or Cheating? An Investigation of Frontier Coding LLMs,Direct terminology,included,Behavior,Focused screen
+2611.10723,CyberBinGym: Can AI Agents Turn Binary Patches into Real Exploits?,Direct terminology,outside core screen,,
+2611.11558,InfraRSI: Harnessing Recursive Self-Improvement for Training Infrastructure,Direct terminology,outside core screen,,
+2611.12063,From Token Bills to Benchmark Weeks: Making Auto-Research for Data Systems Verifiable and Affordable,Direct terminology,included,Behavior,Application supplement
+2611.13218,Wrong the Same Way: Cross-Prompt Sharing Both Suppresses and Amplifies Reward Hacking in RLVR,"Direct terminology, Explicit titles",included,Behavior,Focused screen
+2611.14996,"Breaking Bad: ""Going Badly"" Activations Drive Reward Hacking","Direct terminology, Explicit titles",included,Behavior,Focused screen
+2611.15346,Towards Better Legal Reasoning LLMs: Signal Balancing and Reward Scheduling,Direct terminology,outside core screen,,
+2611.16069,"""It's Just a Small Weapon"": What Rewarding Misbehavior During RL Does to Character-Trained Models",Direct terminology,included,Behavior,Focused screen
+2611.16591,Singularity-Bench: Can Agents Build Agents?,Direct terminology,outside core screen,,
+2611.17239,When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems,Direct terminology,outside core screen,,
+2611.18908,MemeEconomy: Do LLM Agents Trade Ethics for Survival?,Direct terminology,outside core screen,,
+2611.21538,Optimistic Verifiers Get Hacked: Reward Hacking Under an Exact Process Oracle,Explicit titles,included,Behavior,Focused screen
+2611.23305,Dependency Fabrication in Repository Deployment Agents,Direct terminology,included,Mitigation,Application supplement
+2611.23365,Training Language Models for Introspective Oversight,Direct terminology,outside core screen,,
