@@ -73,12 +73,12 @@ body.map-mode { height:100svh; min-height:510px; }
 .links-switch { gap:6px; cursor:pointer; white-space:nowrap; font-size:.81rem; }
 .links-switch input { margin:0; appearance:none; cursor:pointer; width:27px; height:16px; border-radius:20px; background:#c2c9c4; padding:3px; }
 .links-switch input::before { content:''; display:block; border-radius:50%; width:10px; height:10px; background:white; }
-.links-switch input:checked { background:#306b59; }
+.links-switch input:checked { background:#487495; }
 .links-switch input:checked::before { transform:translateX(11px); }
 .map-meta,#year-key { display:flex; align-items:center; gap:10px; }
 #year-key { gap:5px; font-variant-numeric:tabular-nums; }
 #year-key i { width:48px; height:6px; border-radius:3px; }
-.by-year .bar-track i { background:#687773; }
+.by-year .bar-track i { background:#757980; }
 #citation-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 #bubble-map { position:relative; }
 .paper-bubble { fill:var(--bubble-color,var(--series)); touch-action:none; cursor:grab; }

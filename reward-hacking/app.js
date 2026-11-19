@@ -9,12 +9,12 @@ const incoming=new Map();
 for(const [,id] of D.edges) incoming.set(id,(incoming.get(id)||0)+1);
 const countCites=id=>incoming.get(id)||0;
 const AREAS={
- Mitigation:['Mitigation','#528c82','Changes the reward, policy, verifier, or training procedure.'],
- Behavior:['Behavioral studies','#d68a56','Elicits, explains, or tests the transfer of a shortcut.'],
- Benchmarking:['Benchmarking','#688bb6','Builds or audits tasks, datasets, and evaluation protocols.'],
- Detection:['Detection','#ba7798','Tests whether a monitor or diagnostic identifies hacking.'],
- Theory:['Theory','#9386b7','Formalizes incentives, assumptions, or bounds.'],
- Synthesis:['Reviews & synthesis','#99a35c','Organizes findings across studies or domains.']
+ Mitigation:['Mitigation','#6c9cc6','Changes the reward, policy, verifier, or training procedure.'],
+ Behavior:['Behavioral studies','#bf668b','Elicits, explains, or tests the transfer of a shortcut.'],
+ Benchmarking:['Benchmarking','#487495','Builds or audits tasks, datasets, and evaluation protocols.'],
+ Detection:['Detection','#974866','Tests whether a monitor or diagnostic identifies hacking.'],
+ Theory:['Theory','#95b5cf','Formalizes incentives, assumptions, or bounds.'],
+ Synthesis:['Reviews & synthesis','#d994af','Organizes findings across studies or domains.']
 };
 const areaKeys=Object.keys(AREAS).sort((a,b)=>core.filter(w=>w.area===b).length-core.filter(w=>w.area===a).length);
 const areaCount=a=>core.filter(w=>w.area===a).length;

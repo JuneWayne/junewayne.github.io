@@ -10,11 +10,16 @@
   const nodes = [], edges = [];
   let metric = 'citations', width = 0, height = 0;
   let held = null, hovered = null, focused = null;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let frame=0, lastTick=0, phaseTime=0, cellSize=1;
   const years = [...new Set(core.map(p => p.year))].sort((a,b) => b-a);
   const newest = years[0], oldest = years[years.length-1];
   const yearColors = new Map(years.map(year => {
     const age = (newest-year)/Math.max(1,newest-oldest);
-    return [year, `hsl(${216+120*age} 64% ${44+19*age}%)`];
+    // Endpoints sampled from the article’s classifier accuracy chart.
+    const blue=[108,156,198], pink=[191,102,139];
+    const rgb=blue.map((channel,i)=>Math.round(channel+(pink[i]-channel)*age));
+    return [year, 'rgb('+rgb.join(',')+')'];
   }));
   $('newest-year').textContent = newest;
   $('oldest-year').textContent = oldest;
@@ -47,7 +52,7 @@
     group.nodes = group.papers.map((paper, i) => {
       const el = element('circle', {'data-id':paper.id, class:'paper-bubble', role:'button', tabindex:i===0?0:-1});
       group.el.append(el);
-      const n = {paper, group, el};
+      const n = {paper, group, el, phase:nodes.length*2.399963};
       nodes.push(n);
       byId.set(paper.id,n);
       return n;
@@ -76,7 +81,7 @@
         n.raw = value == null ? 1.55 : 1.55 + .92*Math.log1p(value);
         n.el.classList.toggle('unknown',value == null);
         n.el.setAttribute('aria-label', n.paper.title + ', ' + n.paper.year + ', ' + quantity(n.paper));
-        return {n, r:n.raw+1.1};
+        return {n, r:n.raw+.8};
       }).sort((a,b) => b.r-a.r);
       d3.packSiblings(packed);
       const enclosure = d3.packEnclose(packed);
@@ -113,11 +118,14 @@
         n.r=n.raw*scale;
         n.x=n.drop ? Math.max(n.r,Math.min(width-n.r,n.drop.x*width)) : g.x+n.lx*scale;
         n.y=n.drop ? Math.max(n.r,Math.min(height-n.r,n.drop.y*height)) : g.y+n.ly*scale;
+        n.restX=n.x; n.restY=n.y; n.vx=0; n.vy=0;
         n.el.setAttribute('r',n.r);
         position(n);
       }
     }
+    cellSize=2*Math.max(...nodes.map(n=>n.r))+1;
     describe();
+    schedule();
   }
 
   function positionTip(n) {
@@ -155,6 +163,74 @@
   function position(n) {
     n.el.setAttribute('cx',n.x.toFixed(2));
     n.el.setAttribute('cy',n.y.toFixed(2));
+  }
+  function separate(pinned) {
+    const grid=new Map();
+    const columns=Math.ceil(width/cellSize)+2;
+    for (const a of nodes) {
+      const cellX=Math.floor(a.x/cellSize), cellY=Math.floor(a.y/cellSize);
+      for (let row=cellY-1;row<=cellY+1;row++) {
+        for (let col=cellX-1;col<=cellX+1;col++) {
+          const nearby=grid.get(row*columns+col);
+          if (!nearby) continue;
+          for (const b of nearby) {
+            const dx=a.x-b.x, dy=a.y-b.y, min=a.r+b.r+.25;
+            const distance=Math.hypot(dx,dy);
+            if (distance>=min) continue;
+            const ux=distance?dx/distance:Math.cos(a.phase), uy=distance?dy/distance:Math.sin(a.phase);
+            // Give a dropped bubble more weight so its neighbors yield around the drop point.
+            const massA=a.r*(a.drop?12:1), massB=b.r*(b.drop?12:1);
+            const share=a===pinned?0:b===pinned?1:massB/(massA+massB);
+            const push=min-distance;
+            a.x+=ux*push*share; a.y+=uy*push*share;
+            b.x-=ux*push*(1-share); b.y-=uy*push*(1-share);
+            const impact=Math.max(0,-((a.vx-b.vx)*ux+(a.vy-b.vy)*uy));
+            a.vx+=ux*impact*share; a.vy+=uy*impact*share;
+            b.vx-=ux*impact*(1-share); b.vy-=uy*impact*(1-share);
+          }
+        }
+      }
+      const key=cellY*columns+cellX;
+      if (!grid.has(key)) grid.set(key,[]);
+      grid.get(key).push(a);
+    }
+  }
+  function paintPositions() {
+    for (const n of nodes) {
+      n.x=Math.max(n.r,Math.min(width-n.r,n.x));
+      n.y=Math.max(n.r,Math.min(height-n.r,n.y));
+      position(n);
+    }
+    if (active() && !tip.hidden) positionTip(active());
+    drawEdges();
+  }
+  function tick(time) {
+    frame=0;
+    if (!canAnimate()) {lastTick=0;return;}
+    if (!lastTick || time-lastTick>=32) {
+      const dt=lastTick?Math.min(.05,(time-lastTick)/1000):1/30;
+      lastTick=time;phaseTime+=dt;
+      const pinned=active(), damping=Math.exp(-7*dt);
+      for (const n of nodes) {
+        if (n===pinned) continue;
+        // Damped springs follow a tiny, slow orbit around the packed or dropped position.
+        const amplitude=Math.min(1.9,n.r*.38);
+        const tx=n.restX+amplitude*Math.cos(phaseTime*.65+n.phase);
+        const ty=n.restY+amplitude*Math.sin(phaseTime*.53+n.phase*1.31);
+        n.vx=(n.vx+20*(tx-n.x)*dt)*damping;
+        n.vy=(n.vy+20*(ty-n.y)*dt)*damping;
+        n.x+=n.vx*dt; n.y+=n.vy*dt;
+      }
+      separate(pinned);
+      paintPositions();
+    }
+    schedule();
+  }
+  function canAnimate() {
+    return width>0 && !reducedMotion.matches && !$('atlas').hidden && !$('paper').open && !document.hidden;
+  }
+  function schedule() {
+    if (!frame && canAnimate()) frame=requestAnimationFrame(tick);
   }
   function updateColors() {
     const byYear=$('year-color').checked;
@@ -203,16 +279,23 @@
       held.dragged=true;
     }
     const rect=svg.getBoundingClientRect(), n=held.node;
-    n.x=Math.max(n.r,Math.min(width-n.r,e.clientX-rect.left+held.offsetX));
-    n.y=Math.max(n.r,Math.min(height-n.r,e.clientY-rect.top+held.offsetY));
-    n.drop={x:n.x/width,y:n.y/height};
-    position(n);describe();
+    const dx=Math.max(n.r,Math.min(width-n.r,e.clientX-rect.left+held.offsetX))-n.x;
+    const dy=Math.max(n.r,Math.min(height-n.r,e.clientY-rect.top+held.offsetY))-n.y;
+    const steps=Math.min(16,Math.max(1,Math.ceil(Math.hypot(dx,dy)/Math.max(4,n.r))));
+    n.vx=Math.max(-20,Math.min(20,dx*6)); n.vy=Math.max(-20,Math.min(20,dy*6));
+    for (let step=0;step<steps;step++) {
+      n.x+=dx/steps; n.y+=dy/steps;
+      separate(n);
+    }
+    n.restX=n.x; n.restY=n.y; n.drop={x:n.x/width,y:n.y/height};
+    paintPositions();
   });
   svg.addEventListener('pointerup',e=>{
     if (!held || e.pointerId!==held.id) return;
     const {node,dragged}=held;
     held=null; hovered=null; node.el.releasePointerCapture(e.pointerId);
     if (dragged) {
+      node.vx=0; node.vy=0;
       node.el.blur();
       svg.append(node.group.el);
       node.group.el.insertBefore(node.el,node.group.label);
@@ -240,6 +323,10 @@
     row.onpointerenter=row.onfocus=()=>highlight(true);
     row.onpointerleave=row.onblur=()=>highlight(false);
   }
+  reducedMotion.addEventListener('change',schedule);
+  document.addEventListener('visibilitychange',schedule);
+  window.addEventListener('hashchange',schedule);
+  $('paper').addEventListener('close',schedule);
   new ResizeObserver(layout).observe(svg);
   layout();
 }
