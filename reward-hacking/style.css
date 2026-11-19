@@ -156,9 +156,7 @@ body.map-mode { height:100svh; min-height:510px; }
   .map-mode:has(.subgroup-view) { min-height:650px; }
 }
 
-.paper-bubble:not([data-publication="conference"]):not([data-publication="preprint"]) { stroke-dasharray:2 1.5; }
 .map-title .publication-key,.publication-key span { display:flex; align-items:center; gap:5px; }
 .map-title .publication-key { flex-wrap:wrap; gap:4px 13px; margin-top:5px; font-size:.75rem; }
 .publication-key i { width:10px; height:10px; border:1.5px solid currentColor; border-radius:50%; }
 .publication-key .pub-solid { background:currentColor; }
-.publication-key .pub-other { border-style:dashed; }
