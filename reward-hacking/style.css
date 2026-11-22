@@ -126,9 +126,7 @@ body.map-mode { height:100svh; min-height:510px; }
 .topic-chart .bar-label b { margin-left:auto; }
 .topic-chart .settings { margin:4px 0 14px 18px; padding:0 0 0 12px; border-left:2px solid var(--line); font-size:.85rem; }
 .topic-chart .settings .bar-label { font-size:.85rem; }
-.topic-ring,.topic-caption { display:none; }
-.topic-ring { pointer-events:none; }
-.subgroup-view .topic-ring { display:block; stroke:var(--series); stroke-opacity:.4; fill:none; }
+.topic-caption { display:none; }
 .subgroup-view .topic-caption { display:block; pointer-events:none; }
 .topic-caption a { display:block; width:fit-content; max-width:100%; margin:auto; text-align:center; text-wrap:balance; color:var(--ink); font-size:clamp(12px,1vw,15px); line-height:1.18; font-weight:600; text-decoration:none; pointer-events:auto; }
 .topic-caption a:hover,.topic-caption a:focus-visible { text-decoration:underline; }

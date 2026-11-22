@@ -95,14 +95,13 @@
       const shades=[0,-42,40,-23,24,-56,52,-12,12,-33];
       const shade=shades[i%shades.length];
       const tone=`color-mix(in srgb,${color},${shade<0?'#112925':'#fafaf7'} ${Math.abs(shade)}%)`;
-      const ring=element('circle',{class:'topic-ring','aria-hidden':true,style:'--series:'+tone});
       const label=element('foreignObject',{class:'topic-caption'});
       const link=document.createElement('a');
       link.textContent=name;link.href=libLink({area:group.area,subcluster:name});
       label.append(link);
       for(const n of list) n.topicColor=tone;
-      group.el.prepend(ring);group.el.append(label);
-      return {name,nodes:list,ring,label,color:tone};
+      group.el.append(label);
+      return {name,nodes:list,label,color:tone};
     });
     group.el.append(group.label);
     svg.append(group.el);
@@ -186,7 +185,6 @@
         t.x=zoom?(col+.5+(columns-rowSize)/2)*cellW:g.x+t.lx*scale;
         t.y=zoom?row*cellH+(cellH-captionH)/2:g.y+t.ly*scale;
         t.r=t.raw*scale;
-        t.ring.setAttribute('cx',t.x);t.ring.setAttribute('cy',t.y);t.ring.setAttribute('r',t.r+scale);
         if(zoom){
           t.label.setAttribute('x',t.x-cellW/2+5);t.label.setAttribute('y',t.y+t.r+scale+4);
           t.label.setAttribute('width',cellW-10);t.label.setAttribute('height',captionH);
